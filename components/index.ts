@@ -1,1 +1,3 @@
-export { default as Pheed } from "@components/domain/main/pheed/Pheed.component";
+export * from "@components/layout/index";
+export * from "@components/domain/index";
+export * from "@components/common/index";
