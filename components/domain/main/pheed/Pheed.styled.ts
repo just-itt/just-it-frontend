@@ -1,14 +1,9 @@
-import Image from "next/image";
 import styled from "@emotion/styled";
 
 import { theme } from "styles/theme";
 
-export const Pheed = styled.div`
-  width: 264px;
-`;
-
-export const Thumbnail = styled(Image)`
-  margin-bottom: 12px;
+export const Img = styled.img`
+  width: 100%;
   border-radius: 20px;
 `;
 
@@ -25,15 +20,15 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Content = styled.p`
-  ${theme.font.light_15};
-  width: 217px;
+  ${theme.font.regular_15};
+  width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
 export const MoreBtn = styled.button`
-  ${theme.font.light_15};
+  ${theme.font.regular_15};
   width: 43px;
 `;
 
@@ -51,5 +46,5 @@ export const Badge = styled.div`
 `;
 
 export const BadgeCount = styled.span`
-  ${theme.font.light_14};
+  ${theme.font.regular_14};
 `;
