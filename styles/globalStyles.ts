@@ -28,5 +28,9 @@ export const globalStyle = css`
 
   input {
     border: 0;
+
+    :focus {
+      outline: none;
+    }
   }
 `;
