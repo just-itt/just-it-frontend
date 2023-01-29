@@ -5,13 +5,14 @@ import * as S from "./Pheed.styled";
 
 interface PheedProps {
   src: string;
+  title: string;
 }
 
-const Pheed = ({ src }: PheedProps) => {
+const Pheed = ({ src, title }: PheedProps) => {
   return (
     <>
-      <S.Img src={src} alt="아이유찡" />
-      <S.Title>이치에, 사시미모리아와세</S.Title>
+      <S.Img src={src} alt="음식사진" />
+      <S.Title>{title}</S.Title>
       {/* <S.ContentWrapper>
         <S.Content>
           우리나라 이자카야의 모범답안 같은 우리나라 이자카야의 모범답안 같은
