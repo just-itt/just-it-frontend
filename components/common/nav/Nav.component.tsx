@@ -6,17 +6,23 @@ import * as S from "./Nav.styled";
 const Nav = () => {
   return (
     <S.Nav>
-      <S.NavMenu>
-        <SearchIcon width="20px" height="20px" />
-        발견
-      </S.NavMenu>
-      <S.NavMenu>
-        <ClipIcon />내 게시글
-      </S.NavMenu>
-      <S.NavMenu>
-        <SaveIcon />
-        저장한 게시글
-      </S.NavMenu>
+      <li>
+        <S.NavMenu type="button">
+          <SearchIcon width="20px" height="20px" />
+          발견
+        </S.NavMenu>
+      </li>
+      <li>
+        <S.NavMenu type="button">
+          <ClipIcon />내 게시글
+        </S.NavMenu>
+      </li>
+      <li>
+        <S.NavMenu type="button">
+          <SaveIcon />
+          저장한 게시글
+        </S.NavMenu>
+      </li>
     </S.Nav>
   );
 };

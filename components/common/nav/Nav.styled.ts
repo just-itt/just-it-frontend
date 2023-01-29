@@ -9,7 +9,7 @@ export const Nav = styled.ul`
   `}
 `;
 
-export const NavMenu = styled.li`
+export const NavMenu = styled.button`
   ${({ theme }) => css`
     ${theme.font.medium_15};
     display: flex;
