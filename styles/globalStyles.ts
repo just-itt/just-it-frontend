@@ -16,6 +16,10 @@ export const globalStyle = css`
   button {
     border: 0;
     background-color: inherit;
+
+    :hover {
+      cursor: pointer;
+    }
   }
 
   a {
