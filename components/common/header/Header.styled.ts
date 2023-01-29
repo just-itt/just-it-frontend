@@ -43,6 +43,7 @@ export const FlexWrapper = styled.div`
 
 export const CreatePheed = styled(Link)`
   ${({ theme }) => css`
+    ${theme.font.semiBold_16};
     display: flex;
     justify-content: center;
     align-items: center;

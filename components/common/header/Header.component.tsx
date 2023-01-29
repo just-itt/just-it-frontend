@@ -12,7 +12,7 @@ const Header = () => {
         <S.Search placeholder="짬뽕을 검색해 보세요" />
       </S.SearchWrapper>
       <S.FlexWrapper>
-        <S.CreatePheed href="https://www.naver.com">+ 새 게시글</S.CreatePheed>
+        <S.CreatePheed href="https://www.naver.com">게시글 등록</S.CreatePheed>
         <HeartIcon />
       </S.FlexWrapper>
     </S.Header>
