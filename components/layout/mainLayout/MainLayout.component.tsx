@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Header, Nav } from "@components/common";
 import * as S from "./MainLayout.styled";
 
 interface MainLayoutProps {
@@ -7,7 +8,15 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  return <S.MainLayout>{children}</S.MainLayout>;
+  return (
+    <S.MainLayout>
+      <Header />
+      <S.BodyLayout>
+        <Nav />
+        {children}
+      </S.BodyLayout>
+    </S.MainLayout>
+  );
 };
 
 export default MainLayout;
