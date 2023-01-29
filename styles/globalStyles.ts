@@ -17,4 +17,12 @@ export const globalStyle = css`
     border: 0;
     background-color: inherit;
   }
+
+  a {
+    text-decoration: none;
+  }
+
+  input {
+    border: 0;
+  }
 `;
