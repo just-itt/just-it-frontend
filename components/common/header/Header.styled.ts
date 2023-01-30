@@ -4,12 +4,16 @@ import { css } from "@emotion/react";
 
 export const Header = styled.div`
   ${({ theme }) => css`
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 72px;
     border-bottom: 1px solid ${theme.color.grey_200};
     padding: 0 28px;
+    background-color: ${theme.color.white};
+    z-index: ${theme.zIndex.header};
   `}
 `;
 
