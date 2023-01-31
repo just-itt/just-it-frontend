@@ -3,8 +3,13 @@ import styled from "@emotion/styled";
 
 export const Nav = styled.ul`
   ${({ theme }) => css`
+    position: sticky;
+    top: 72px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     width: 248px;
-    height: 100vh;
+    height: calc(100vh - 70px);
     border-right: 1px solid ${theme.color.grey_200};
   `}
 `;
