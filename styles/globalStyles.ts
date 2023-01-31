@@ -17,8 +17,10 @@ export const globalStyle = css`
     border: 0;
     background-color: inherit;
 
-    :hover {
-      cursor: pointer;
+    @media (hover: Hover) {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 
