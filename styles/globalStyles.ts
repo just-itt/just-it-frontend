@@ -5,7 +5,7 @@ export const globalStyle = css`
   ${reset}
 
   * {
-    box-size: border-box;
+    box-sizing: border-box;
   }
 
   html {
