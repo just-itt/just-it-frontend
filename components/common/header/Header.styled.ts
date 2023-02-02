@@ -17,45 +17,80 @@ export const Header = styled.div`
   `}
 `;
 
-export const Title = styled.div`
-  font-size: 2rem;
+export const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 104px;
+  height: 52px;
+`;
+
+export const MenuBtn = styled.button`
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
 `;
 
 export const SearchWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    column-gap: 12px;
-    padding-left: 20px;
-    width: 700px;
-    height: 52px;
+    height: 40px;
+    border: 1px solid ${theme.color.grey_300};
     border-radius: 100px;
-    background-color: ${theme.color.grey_200};
+    padding-left: 12px;
+    background-color: ${theme.color.grey_100};
+
+    @media (min-width: 391px and max-width:1279px) {
+      column-gap: 12px;
+    }
+
+    @media (min-width: 1280px) {
+      column-gap: 8px;
+      width: 380px;
+    }
   `}
 `;
 
 export const Search = styled.input`
-  width: 624px;
-  height: 24px;
-  background-color: inherit;
+  ${({ theme }) => css`
+    height: 24px;
+    background-color: inherit;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      width: 184px;
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      width: 324px;
+    }
+  `}
 `;
 
 export const FlexWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+
+    @media (min-width: ${theme.breakPoint.minMobile}) {
+      column-gap: 24px;
+    }
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      column-gap: 24px;
+    }
+  `}
 `;
 
 export const CreatePheed = styled(Link)`
   ${({ theme }) => css`
-    ${theme.font.semiBold_16};
+    ${theme.font.medium_15};
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 121px;
-    height: 44px;
+    width: 99px;
+    height: 40px;
     border-radius: 100px;
-    margin-right: 24px;
     background-color: ${theme.color.blue_200};
-    color: white;
+    color: ${theme.color.white};
   `}
 `;
