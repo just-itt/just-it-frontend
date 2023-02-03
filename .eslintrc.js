@@ -29,5 +29,15 @@ module.exports = {
     ],
     "react/no-unknown-property": ["error", { ignore: ["css"] }], // emotion css prop error 제거
     "import/prefer-default-export": "off", // export가 1개 있을 때 발생하는 에러 제거  https://stackoverflow.com/questions/52627477/eslint-prefer-default-export-import-prefer-default-export
+    // don't use {} 제거
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        extendDefaults: true,
+        types: {
+          "{}": false,
+        },
+      },
+    ],
   },
 };
