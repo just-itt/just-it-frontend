@@ -1,7 +1,14 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
-const index = () => {
+import { MainLayout } from "@components/layout";
+import type { NextPageWithLayout } from "pages/_app";
+
+const MyPheed: NextPageWithLayout = () => {
   return <div>index</div>;
 };
 
-export default index;
+MyPheed.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
+};
+
+export default MyPheed;

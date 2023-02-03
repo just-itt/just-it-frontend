@@ -1,10 +1,12 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { MasonryGrid } from "@egjs/react-grid";
 
-import { Pheed } from "@components/index";
+import { Filter, MainLayout, Pheed } from "@components/index";
+import type { NextPageWithLayout } from "pages/_app";
+
 import * as S from "./index.styled";
 
-const index = () => {
+const index: NextPageWithLayout = () => {
   const Pheeds = () => (
     <>
       <S.Item>
@@ -39,8 +41,8 @@ const index = () => {
 
   return (
     <S.Main>
-      <MasonryGrid gap={15} defaultDirection="end" align="center">
-        {Pheeds()}
+      <Filter />
+      <MasonryGrid gap={16} align="start">
         {Pheeds()}
         {Pheeds()}
         {Pheeds()}
@@ -52,6 +54,10 @@ const index = () => {
       </MasonryGrid>
     </S.Main>
   );
+};
+
+index.getLayout = function getLayout(page: ReactElement) {
+  return <MainLayout>{page}</MainLayout>;
 };
 
 export default index;
