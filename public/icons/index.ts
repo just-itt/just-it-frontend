@@ -13,3 +13,7 @@ export { default as TagIcon } from "./tag.svg";
 export { default as ProfileIcon } from "./profile.svg";
 export { default as HamburgerIcon } from "./hamburger.svg";
 export { default as AddPheedIcon } from "./addPheed.svg";
+export { default as GoogleLoginIcon } from "./googleLogin.svg";
+export { default as KakaoLoginIcon } from "./kakaoLogin.svg";
+export { default as NaverLoginIcon } from "./naverLogin.svg";
+export { default as AppleLoginIcon } from "./appleLogin.svg";
