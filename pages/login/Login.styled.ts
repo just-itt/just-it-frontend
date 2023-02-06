@@ -58,6 +58,7 @@ export const ResetPassword = styled(Link)`
 
 export const LoginBtn = styled.button`
   ${({ theme }) => css`
+    ${theme.font.semiBold_16};
     width: 100%;
     height: 52px;
     margin-bottom: 40px;
@@ -111,7 +112,7 @@ export const SocialLoginBtn = styled.button`
   `}
 `;
 
-export const SignUpWrapper = styled.button`
+export const SignUpWrapper = styled.div`
   ${({ theme }) => css`
     ${theme.flexMixin.flex};
     column-gap: 8px;

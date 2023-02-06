@@ -1,9 +1,6 @@
 import { css } from "@emotion/react";
 
 export const flexMixin = {
-  flex: css`
-    display: flex;
-  `,
   flex_justifyC: css`
     display: flex;
     justify-content: center;

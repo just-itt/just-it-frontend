@@ -1,4 +1,11 @@
 import React from "react";
+import { useRouter } from "next/router";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  // onAuthStateChanged,
+} from "firebase/auth";
 
 import { AuthInput, CheckBox } from "@components/index";
 import {
@@ -11,6 +18,19 @@ import {
 import * as S from "./Login.styled";
 
 const Login = () => {
+  const { push } = useRouter();
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+
+  const handleGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      push("/");
+    } catch (err) {
+      alert("로그인 에러");
+    }
+  };
+
   return (
     <S.Layout>
       <S.LogoWrapper>
@@ -30,7 +50,7 @@ const Login = () => {
       <S.LoginBtn>로그인</S.LoginBtn>
       <S.Or>또는</S.Or>
       <S.SocialLoginBtnWrapper>
-        <S.SocialLoginBtn type="button">
+        <S.SocialLoginBtn type="button" onClick={handleGoogleLogin}>
           <GoogleLoginIcon />
           구글
         </S.SocialLoginBtn>
