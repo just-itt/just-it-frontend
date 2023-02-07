@@ -18,6 +18,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
+      "@recoil/*": ["atom/*"],
       "@styles/*": ["styles/*"],
       "@icons/*": ["public/icons/*"]
     },

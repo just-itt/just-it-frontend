@@ -1,5 +1,6 @@
 import { Global, ThemeProvider } from "@emotion/react";
 import { initializeApp } from "firebase/app";
+import { RecoilRoot } from "recoil";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
@@ -33,7 +34,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyle} />
-      {getLayout(<Component {...pageProps} />)}
+      <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
     </ThemeProvider>
   );
 };
