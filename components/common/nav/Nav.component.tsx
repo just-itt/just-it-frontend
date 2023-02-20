@@ -1,28 +1,35 @@
 import React from "react";
+import { useRouter } from "next/router";
 
-import { SearchIcon, ClipIcon, SaveIcon } from "@icons/index";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
+  const { pathname } = useRouter();
+
   return (
     <S.Nav>
-      <li>
-        <S.NavMenu type="button">
-          <SearchIcon width="20px" height="20px" />
-          발견
+      <S.NavItem>
+        <S.NavMenu href="/" isSelect={pathname === "/"}>
+          <S.CustomTagIcon isSelect={pathname === "/"} /> 탐색하기
         </S.NavMenu>
-      </li>
-      <li>
-        <S.NavMenu type="button">
-          <ClipIcon />내 게시글
+      </S.NavItem>
+      <S.NavItem>
+        <S.NavMenu href="myPheed" isSelect={pathname === "/myPheed"}>
+          <S.CustomPencilIcon isSelect={pathname === "/myPheed"} />내 게시글
         </S.NavMenu>
-      </li>
-      <li>
-        <S.NavMenu type="button">
-          <SaveIcon />
+      </S.NavItem>
+      <S.NavItem>
+        <S.NavMenu href="bookMark" isSelect={pathname === "/bookMark"}>
+          <S.CustomBookmarkIcon isSelect={pathname === "/bookMark"} />
           저장한 게시글
         </S.NavMenu>
-      </li>
+      </S.NavItem>
+      <S.NavItem>
+        <S.NavMenu href="setting" isSelect={pathname === "/setting"}>
+          <S.CustomSettingIcon isSelect={pathname === "/setting"} />
+          설정
+        </S.NavMenu>
+      </S.NavItem>
     </S.Nav>
   );
 };
