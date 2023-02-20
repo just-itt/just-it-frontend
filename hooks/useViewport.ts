@@ -1,15 +1,46 @@
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
+import { theme } from "@styles/theme";
+
 const useViewport = () => {
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 1024px)",
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  const mobile = useMediaQuery({
+    query: `(max-width: ${theme.breakPoint.maxMobile})`,
   });
-  const isTablet = useMediaQuery({
-    query: "(min-width: 768px) and (max-width: 1023.9px)",
+  const tablet = useMediaQuery({
+    query: `(min-width: ${theme.breakPoint.minTablet}) and (max-width: ${theme.breakPoint.maxTablet})`,
   });
-  const isMobile = useMediaQuery({
-    query: "(max-width: 767.9px)",
+  const desktop = useMediaQuery({
+    query: `(min-width: ${theme.breakPoint.minDesktop})`,
   });
+
+  useEffect(() => {
+    if (mobile) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [mobile]);
+
+  useEffect(() => {
+    if (tablet) {
+      setIsTablet(true);
+    } else {
+      setIsTablet(false);
+    }
+  }, [tablet]);
+
+  useEffect(() => {
+    if (desktop) {
+      setIsDesktop(true);
+    } else {
+      setIsDesktop(false);
+    }
+  }, [desktop]);
 
   return {
     isDesktop,
