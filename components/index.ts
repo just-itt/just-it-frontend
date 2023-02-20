@@ -1,3 +1,3 @@
-export * from "@components/layout/index";
-export * from "@components/domain/index";
-export * from "@components/common/index";
+export * from "./common/index";
+export * from "./domain/index";
+export * from "./layout/index";

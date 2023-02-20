@@ -1,3 +1,4 @@
-export { default as Header } from "@components/common/header/Header.component";
-export { default as Nav } from "@components/common/nav/Nav.component";
-export { default as Dropdown } from "@components/common/dropdown/Dropdown.component";
+export { default as Dropdown } from "./dropdown/Dropdown.component";
+export { default as Header } from "./header/Header.component";
+export { default as CheckBox } from "./input/checkBox/CheckBox.component";
+export { default as Nav } from "./nav/Nav.component";
