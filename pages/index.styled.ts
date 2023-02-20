@@ -1,18 +1,26 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Main = styled.div`
-  width: 100%;
-  padding: 40px;
+  ${({ theme }) => css`
+    padding: 40px;
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      width: calc(100vw - 248px);
+    }
+  `}
 `;
 
-export const Item = styled.div`
-  @media (max-width: 767.9px) {
-    width: 200px;
-  }
-  @media (max-width: 1023.9px) {
-    width: 300px;
-  }
-  @media (min-width: 1024px) {
-    width: 200px;
-  }
+export const PheedWrapper = styled.div`
+  ${({ theme }) => css`
+    width: 120px;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      width: 229px;
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      width: 252px;
+    }
+  `}
 `;

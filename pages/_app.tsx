@@ -1,6 +1,8 @@
-import { Global, ThemeProvider } from "@emotion/react";
-import { initializeApp } from "firebase/app";
+import Head from "next/head";
 import { RecoilRoot } from "recoil";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { Global, ThemeProvider } from "@emotion/react";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
@@ -27,15 +29,25 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
+export const auth = getAuth();
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout || (page => page);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Global styles={globalStyle} />
-      <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
-    </ThemeProvider>
+    <>
+      <Head>
+        <script
+          src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+          integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+          crossorigin="anonymous"
+        ></script>
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyle} />
+        <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
+      </ThemeProvider>
+    </>
   );
 };
 
