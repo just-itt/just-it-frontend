@@ -15,23 +15,43 @@ const Dropdown = ({ initValue, placeholder }: DropdownProps) => {
     setIsOpenDropdown(!isOpenDropdown);
   };
 
+  const handleSelectValue = (v: string) => () => {
+    if (selectValue && v === selectValue) {
+      setSelectValue(null);
+    } else {
+      setSelectValue(v);
+    }
+
+    setIsOpenDropdown(false);
+  };
+
   return (
-    <S.DropdownBtn type="button" onClick={handleClickDropdown}>
-      <S.SelectValue>
+    <S.DropdownBtn>
+      <S.SelectValue
+        type="button"
+        isSelected={!!selectValue}
+        onClick={handleClickDropdown}
+      >
         {selectValue ?? placeholder}
         <S.Arrow isopen={isOpenDropdown}>hihi</S.Arrow>
       </S.SelectValue>
       {isOpenDropdown && (
-        <S.ListWrapper onClick={() => setSelectValue("hi")}>
-          <S.List>
-            <button type="button">아침</button>
-          </S.List>
-          <S.List>
-            <button type="button">점심</button>
-          </S.List>
-          <S.List>
-            <button type="button">저녁</button>
-          </S.List>
+        <S.ListWrapper>
+          <li>
+            <S.List type="button" onClick={handleSelectValue("아침")}>
+              아침 {selectValue === "아침" && "V"}
+            </S.List>
+          </li>
+          <li>
+            <S.List type="button" onClick={handleSelectValue("점심")}>
+              점심 {selectValue === "점심" && "V"}
+            </S.List>
+          </li>
+          <li>
+            <S.List type="button" onClick={handleSelectValue("저녁")}>
+              저녁 {selectValue === "저녁" && "V"}
+            </S.List>
+          </li>
         </S.ListWrapper>
       )}
     </S.DropdownBtn>

@@ -1,6 +1,6 @@
 import React from "react";
 
-// import { HeartIcon, TalkIcon } from "@icons/index";
+import Image from "next/image";
 import * as S from "./Pheed.styled";
 
 interface PheedProps {
@@ -11,7 +11,16 @@ interface PheedProps {
 const Pheed = ({ src, title }: PheedProps) => {
   return (
     <>
-      <S.Img src={src} alt="음식사진" />
+      <S.ImgWrapper>
+        <Image
+          src={src}
+          alt="음식사진"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: "100%", height: "auto", borderRadius: "20px" }}
+        />
+      </S.ImgWrapper>
       <S.Title>{title}</S.Title>
       {/* <S.ContentWrapper>
         <S.Content>

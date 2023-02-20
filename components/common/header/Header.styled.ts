@@ -40,11 +40,12 @@ export const SearchWrapper = styled.div`
     padding-left: 12px;
     background-color: ${theme.color.grey_100};
 
-    @media (min-width: 391px and max-width:1279px) {
+    @media (min-width: ${theme.breakPoint.minTablet}) {
       column-gap: 12px;
+      width: 240px;
     }
 
-    @media (min-width: 1280px) {
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
       column-gap: 8px;
       width: 380px;
     }

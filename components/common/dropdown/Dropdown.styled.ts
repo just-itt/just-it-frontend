@@ -3,42 +3,65 @@ import styled from "@emotion/styled";
 
 import { ArrowIcon } from "@icons/index";
 
-export const DropdownBtn = styled.button`
+export const DropdownBtn = styled.div`
   ${({ theme }) => css`
     ${theme.font.regular_15};
     position: relative;
-    width: 151px;
-    height: 40px;
-    border: 1px solid ${theme.color.grey_300};
-    border-radius: 100px;
   `}
 `;
 
-export const SelectValue = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 8px;
+export const SelectValue = styled.button<{ isSelected: boolean }>`
+  ${({ theme, isSelected }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    width: 220px;
+    height: 40px;
+    border: 1px solid ${theme.color.grey_300};
+    border-radius: 100px;
+    color: ${isSelected && `${theme.color.blue_200}`};
+
+    @media (hover: hover) {
+      :hover {
+        background-color: ${theme.color.grey_100};
+        transition: 0.5s;
+      }
+    }
+  `}
 `;
 
 export const ListWrapper = styled.ul`
   ${({ theme }) => css`
     position: absolute;
-    top: 40px;
-    left: 0px;
-    width: 151px;
+    top: 44px;
+    left: 6px;
+    width: 220px;
+    border: 1px solid ${theme.color.grey_300};
+    border-radius: 5px;
+    padding: 4px 1px;
     background-color: ${theme.color.white};
     z-index: ${theme.zIndex.dropdown};
   `}
 `;
 
-export const List = styled.li`
-  display: flex;
-  width: 151px;
-  height: 40px;
-  padding-left: 20px;
+export const List = styled.button`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    padding-left: 20px;
+
+    @media (hover: hover) {
+      :hover {
+        background-color: ${theme.color.grey_100};
+      }
+    }
+  `}
 `;
 
 export const Arrow = styled(ArrowIcon)<{ isopen: boolean }>`
-  transform: ${({ isopen }) => (isopen ? "rotate(180deg)" : "rotate(0deg)")};
+  transform: ${({ isopen }) => (isopen ? "rotate(-180deg)" : "rotate(0deg)")};
+  transition: 0.5s;
 `;

@@ -2,14 +2,15 @@ import styled from "@emotion/styled";
 
 import { theme } from "styles/theme";
 
-export const Img = styled.img`
-  width: 100%;
-  border-radius: 20px;
+export const ImgWrapper = styled.div`
+  position: relative;
+  margin-bottom: 8px;
 `;
 
 export const Title = styled.h3`
   ${theme.font.semiBold_16};
   margin-bottom: 4px;
+  padding-left: 4px;
 `;
 
 export const ContentWrapper = styled.div`

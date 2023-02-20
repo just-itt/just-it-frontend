@@ -43,7 +43,9 @@ const Header = () => {
         ) : (
           <S.CreatePheed href="https://www.naver.com">새 글 등록</S.CreatePheed>
         )}
-        <ProfileIcon />
+        <button type="button">
+          <ProfileIcon />
+        </button>
       </S.FlexWrapper>
     </S.Header>
   );
