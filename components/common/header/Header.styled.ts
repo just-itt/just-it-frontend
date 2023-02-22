@@ -77,7 +77,7 @@ export const FlexWrapper = styled.div`
     }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
-      column-gap: 24px;
+      column-gap: 16px;
     }
   `}
 `;
@@ -85,13 +85,30 @@ export const FlexWrapper = styled.div`
 export const CreatePheed = styled(Link)`
   ${({ theme }) => css`
     ${theme.font.medium_15};
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${theme.flexMixin.flex_justifyC_alignC};
     width: 99px;
     height: 40px;
     border-radius: 100px;
     background-color: ${theme.color.blue_200};
     color: ${theme.color.white};
+  `}
+`;
+
+export const MobileLoginWrapper = styled.div`
+  ${({ theme }) =>
+    css`
+      ${theme.flexMixin.flex_alignC};
+      column-gap: 20px;
+    `}
+`;
+
+export const LoginBtn = styled(Link)`
+  ${({ theme }) => css`
+    ${theme.font.medium_15};
+
+    padding: 6px 18px;
+    border-radius: 100px;
+    color: ${theme.color.white};
+    background-color: ${theme.color.blue_200};
   `}
 `;
