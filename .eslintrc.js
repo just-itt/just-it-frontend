@@ -39,5 +39,8 @@ module.exports = {
         },
       },
     ],
+    "react/require-default-props": "off", // https://stackoverflow.com/questions/63696724/eslint-problem-with-default-props-in-functional-component-typescript-react
+    "no-restricted-syntax": "off",
+    "no-plusplus": "off", // https://stackoverflow.com/questions/65628948/eslint-error-unary-operator-used-no-plusplus
   },
 };
