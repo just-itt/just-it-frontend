@@ -159,4 +159,8 @@ export const globalStyle = css`
       outline: none;
     }
   }
+
+  textarea:focus {
+    outline: none;
+  }
 `;
