@@ -1,4 +1,6 @@
+export { default as CheckBox } from "./input/checkBox/CheckBox.component";
+export { default as FormInput } from "./input/formInput/FormInput.component";
 export { default as Dropdown } from "./dropdown/Dropdown.component";
 export { default as Header } from "./header/Header.component";
-export { default as CheckBox } from "./input/checkBox/CheckBox.component";
+export { default as LabelContent } from "./labelContent/LabelContent.component";
 export { default as Nav } from "./nav/Nav.component";
