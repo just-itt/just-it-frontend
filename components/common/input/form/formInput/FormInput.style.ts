@@ -3,20 +3,19 @@ import styled from "@emotion/styled";
 
 import type * as type from "types/components/common/input/formInput";
 
-export const InputWrapper = styled.div<type.InputWrapperProps>`
+export const FormWrapper = styled.div<type.InputWrapperProps>`
   ${({ theme, hasValue, hasError }) => css`
-    position: relative;
-
     input {
-      padding: ${hasValue ? "30px 12px 12px 12px" : "12px"};
+      margin-bottom: ${hasError && "4px"};
       border-color: ${hasError && "red"};
+      padding: ${hasValue ? "30px 12px 12px 12px" : "12px"};
     }
 
     label {
       ${hasValue ? theme.font.regular_12 : theme.font.medium_15};
       top: ${hasValue ? "5px" : "12px"};
 
-      color: ${theme.color.grey_700};
+      color: ${theme.color.grey_500};
       transition-duration: 0.2s;
     }
 
@@ -34,6 +33,10 @@ export const InputWrapper = styled.div<type.InputWrapperProps>`
       }
     }
   `}
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
 `;
 
 export const Input = styled.input`
@@ -61,4 +64,11 @@ export const PasswordBtn = styled.button`
   top: 50%;
   right: 12px;
   transform: translateY(-50%);
+`;
+
+export const ErrorMsg = styled.span`
+  ${({ theme }) => css`
+    ${theme.font.regular_14};
+    color: ${theme.color.red_100};
+  `}
 `;
