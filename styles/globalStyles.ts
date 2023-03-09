@@ -146,6 +146,11 @@ export const globalStyle = css`
         cursor: pointer;
       }
     }
+
+    :disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
   }
 
   a {
