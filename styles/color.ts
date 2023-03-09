@@ -18,4 +18,5 @@ export const color = {
   red_100: "#F67777",
   red_200: "#DD2E2E",
   red_300: "#Af1212",
+  kakao: "#fee500",
 };
