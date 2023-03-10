@@ -19,39 +19,67 @@ export const LogoWrapper = styled.div`
   `}
 `;
 
-export const InputWrapper = styled.div`
+export const KakaoLoginBtn = styled.button`
   ${({ theme }) => css`
-    ${theme.flexMixin.flex_column};
-    row-gap: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px;
+    width: 100%;
+    height: 52px;
     margin-bottom: 40px;
+    border-radius: 5px;
+    background-color: ${theme.color.kakao};
   `}
 `;
 
-export const FlexWrapper = styled.div`
-  ${({ theme }) => css`
-    ${theme.flexMixin.flex_justifySb_alignC};
-    margin-bottom: 20px;
-  `}
-`;
-
-export const CheckboxWrapper = styled.div`
-  ${({ theme }) => css`
-    ${theme.flexMixin.flex_alignC};
-  `}
-`;
-
-export const KeepLogin = styled.label`
+export const Or = styled.span`
   ${({ theme }) => css`
     ${theme.font.regular_14};
-    margin-left: 8px;
-    color: ${theme.color.grey_600};
+    ${theme.flexMixin.flex_justifyC_alignC};
+    height: 20px;
+    margin-bottom: 40px;
+    color: ${theme.color.grey_700};
+
+    ::before {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 1px;
+      margin-right: 12px;
+      border-top: 1px solid ${theme.color.grey_300};
+    }
+
+    ::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 1px;
+      margin-left: 12px;
+      border-top: 1px solid ${theme.color.grey_300};
+    }
+  `}
+`;
+
+export const marginBottom = css`
+  margin-bottom: 12px;
+`;
+
+export const PasswordHint = styled.span`
+  ${({ theme }) => css`
+    ${theme.font.regular_14};
+    display: block;
+    margin-bottom: 40px;
+    color: ${theme.color.grey_500};
   `}
 `;
 
 export const ResetPassword = styled(Link)`
   ${({ theme }) => css`
     ${theme.font.regular_14};
-    color: ${theme.color.grey_600};
+    display: block;
+    margin-bottom: 20px;
+    color: ${theme.color.grey_500};
     text-decoration: underline;
   `}
 `;
@@ -68,56 +96,10 @@ export const LoginBtn = styled.button`
   `}
 `;
 
-export const Or = styled.span`
-  ${({ theme }) => css`
-    ${theme.font.regular_14};
-    ${theme.flexMixin.flex_justifyC_alignC};
-    height: 20px;
-    margin-bottom: 40px;
-    color: ${theme.color.grey_700};
-
-    ::before {
-      content: "";
-      display: block;
-      width: 150px;
-      height: 1px;
-      margin-right: 12px;
-      border-top: 1px solid ${theme.color.grey_300};
-    }
-
-    ::after {
-      content: "";
-      display: block;
-      width: 150px;
-      height: 1px;
-      margin-left: 12px;
-      border-top: 1px solid ${theme.color.grey_300};
-    }
-  `}
-`;
-
-export const SocialLoginBtnWrapper = styled.div`
-  ${({ theme }) => css`
-    ${theme.flexMixin.flex_justifySb};
-    margin-bottom: 40px;
-    padding: 0 13px;
-  `}
-`;
-
-export const SocialLoginBtn = styled.button`
-  ${({ theme }) => css`
-    ${theme.flexMixin.flex_column_alignC};
-    row-gap: 8px;
-    color: ${theme.color.grey_500};
-  `}
-`;
-
 export const SignUpWrapper = styled.div`
-  ${({ theme }) => css`
-    ${theme.flexMixin.flex};
-    column-gap: 8px;
-    margin: 0 auto;
-  `}
+  display: flex;
+  column-gap: 8px;
+  margin: 0 auto;
 `;
 
 export const SignUpQuestion = styled.span`
@@ -127,10 +109,10 @@ export const SignUpQuestion = styled.span`
   `}
 `;
 
-export const SignUp = styled(Link)`
+export const SignUp = styled.button`
   ${({ theme }) => css`
     ${theme.font.regular_14};
-    color: ${theme.color.grey_600};
+    color: ${theme.color.blue_300};
     text-decoration: underline;
   `}
 `;

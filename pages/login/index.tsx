@@ -1,138 +1,211 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
-import { AuthInput, CheckBox } from "@components/index";
-import { isLoginState } from "@recoil/common";
-import {
-  AppleLoginIcon,
-  GoogleLoginIcon,
-  KakaoLoginIcon,
-  LogoIcon,
-  NaverLoginIcon,
-} from "@icons/index";
-import * as S from "./Login.styled";
-
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
+import { AuthCodeInput, FormInput } from "@components/index";
+import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "utils/validate";
+import { KakaoLogoIcon, LogoIcon } from "@icons/index";
+import * as S from "./index.styled";
 
 const Login = () => {
-  const { push } = useRouter();
+  const {
+    register,
+    watch,
+    formState: { errors },
+    clearErrors,
+    handleSubmit,
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      authCode: "",
+    },
+  });
 
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isClickAuthBtn, setIsClickAuthBtn] = useState(false);
+  const [isCheckAuthCode, setIsCheckAuthCode] = useState(false);
 
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleGoogleLogin = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const auth = getAuth();
-
-      await signInWithPopup(auth, provider);
-      setIsLogin(true);
-      push("/");
-    } catch (e) {
-      alert("로그인 에러");
-    }
+  const handleClickSignUp = () => {
+    setIsSignUp(!isSignUp);
+    clearErrors();
   };
 
-  const handleEmailLogin = async () => {
-    try {
-      const auth = getAuth();
-
-      const {
-        user: { emailVerified },
-      } = await signInWithEmailAndPassword(auth, id, password);
-
-      if (emailVerified) {
-        push("/");
-      } else {
-        throw new Error("이메일 중복 확인 에러");
-      }
-    } catch (e) {
-      console.log(e);
-      // EMAIL_EXISTS -> 이메일 중복
-      if (e.message === "이메일 중복 확인 에러") {
-        alert("이메일 중복 확인을 해주세요.");
-      } else {
-        alert("로그인 에러");
-      }
-    }
+  const handleAuthCode = () => {
+    setIsClickAuthBtn(true);
   };
 
-  const handleKakaoLogin = () => {
-    const redirectUri = "http://localhost:3000/oauth/kakao";
-    const scope = ["profile_nickname", "account_email"].join(",");
-
-    window.Kakao.Auth.authorize({
-      redirectUri,
-      scope,
-    });
+  const handleCheckAuthCode = () => {
+    setIsCheckAuthCode(true);
   };
-
-  useEffect(() => {
-    if (!window.Kakao.isInitialized()) {
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
-    }
-  }, []);
 
   return (
     <S.Layout>
       <S.LogoWrapper>
         <LogoIcon />
       </S.LogoWrapper>
-      <S.InputWrapper>
-        <AuthInput
-          placeholder="이메일"
-          handleChange={e => setId(e.target.value)}
-        />
-        <AuthInput
+      <S.KakaoLoginBtn>
+        <KakaoLogoIcon />
+        카카오 로그인
+      </S.KakaoLoginBtn>
+      <S.Or>또는 이메일 로그인</S.Or>
+      <form
+        onSubmit={handleSubmit(
+          () => console.log("submit"),
+          () => console.log("error"),
+        )}
+      >
+        {isSignUp ? (
+          <>
+            <AuthCodeInput
+              css={S.marginBottom}
+              placeholder="이메일"
+              inputDisabled={isClickAuthBtn}
+              hasValue={!!watch("email")}
+              hasError={!!errors.email}
+              errorMsg={
+                errors.email?.type === "required"
+                  ? "이메일을 입력해 주세요."
+                  : errors.email?.type === "pattern"
+                  ? "올바른 이메일을 입력해 주세요."
+                  : ""
+              }
+              btnMsg="인증코드 받기"
+              register={register("email", {
+                required: true,
+                pattern: EMAIL_VALIDATE,
+              })}
+              handleAuthCode={handleAuthCode}
+            />
+            {isClickAuthBtn && (
+              <AuthCodeInput
+                css={S.marginBottom}
+                type="text"
+                placeholder="인증코드 입력"
+                inputDisabled={isCheckAuthCode}
+                isCheckAuthCode={isCheckAuthCode}
+                btnDisabled={watch("authCode").length === 0}
+                hasValue={!!watch("authCode")}
+                hasError={!!errors.authCode}
+                errorMsg={
+                  errors.authCode?.type === "required"
+                    ? "인증코드를 입력해 주세요."
+                    : errors.authCode?.type === "authCode"
+                    ? "인증코드가 올바르지 않습니다."
+                    : ""
+                }
+                btnMsg="인증하기"
+                register={register("authCode", {
+                  required: true,
+                })}
+                handleAuthCode={handleCheckAuthCode}
+              />
+            )}
+          </>
+        ) : (
+          <FormInput
+            css={S.marginBottom}
+            autoComplete="off"
+            placeholder="이메일"
+            hasValue={!!watch("email")}
+            hasError={!!errors.email}
+            errorMsg={
+              errors.email?.type === "required"
+                ? "이메일을 입력해 주세요."
+                : errors.email?.type === "pattern"
+                ? "올바른 이메일을 입력해 주세요."
+                : ""
+            }
+            register={register("email", {
+              required: true,
+              pattern: EMAIL_VALIDATE,
+            })}
+          />
+        )}
+        <FormInput
+          css={S.marginBottom}
+          autoComplete="new-password"
           placeholder="비밀번호"
-          handleChange={e => setPassword(e.target.value)}
+          type="password"
+          hasValue={!!watch("password")}
+          hasError={!!errors.password}
+          errorMsg={
+            errors.password?.type === "required"
+              ? "비밀번호를 입력해 주세요."
+              : errors.password?.type === "pattern"
+              ? "비밀번호 조건에 맞지 않습니다."
+              : ""
+          }
+          register={register("password", {
+            required: true,
+            pattern: PASSWORD_VALIDATE,
+          })}
         />
-      </S.InputWrapper>
-      <S.FlexWrapper>
-        <S.CheckboxWrapper>
-          <CheckBox />
-          <S.KeepLogin>로그인 상태 유지</S.KeepLogin>
-        </S.CheckboxWrapper>
-        <S.ResetPassword href="">비밀번호 찾기</S.ResetPassword>
-      </S.FlexWrapper>
-      <S.LoginBtn type="button" onClick={handleEmailLogin}>
-        로그인
-      </S.LoginBtn>
-      <S.Or>또는</S.Or>
-      <S.SocialLoginBtnWrapper>
-        <S.SocialLoginBtn type="button" onClick={handleGoogleLogin}>
-          <GoogleLoginIcon />
-          구글
-        </S.SocialLoginBtn>
-        <S.SocialLoginBtn type="button" onClick={handleKakaoLogin}>
-          <KakaoLoginIcon />
-          카카오
-        </S.SocialLoginBtn>
-        <S.SocialLoginBtn type="button">
-          <NaverLoginIcon />
-          네이버
-        </S.SocialLoginBtn>
-        <S.SocialLoginBtn type="button">
-          <AppleLoginIcon />
-          애플
-        </S.SocialLoginBtn>
-      </S.SocialLoginBtnWrapper>
+        {isSignUp && (
+          <FormInput
+            css={S.marginBottom}
+            autoComplete="new-password"
+            placeholder="비밀번호 확인"
+            type="password"
+            hasValue={!!watch("passwordConfirm")}
+            hasError={!!errors.passwordConfirm}
+            errorMsg={
+              errors.passwordConfirm?.type === "required"
+                ? "비밀번호를 한번 더 입력해 주세요."
+                : errors.passwordConfirm?.type === "pattern"
+                ? "비밀번호가 일치하지 않습니다."
+                : ""
+            }
+            register={register("passwordConfirm", {
+              required: true,
+              pattern: PASSWORD_VALIDATE,
+              validate: (value, formValues) => value === formValues.password,
+            })}
+          />
+        )}
+        {isSignUp ? (
+          <>
+            <S.PasswordHint>
+              영문, 숫자, 특수문자를 포함한 8-20자 조합입니다.
+            </S.PasswordHint>
+            <S.LoginBtn
+              type="submit"
+              disabled={Object.keys(errors).length !== 0 || !isCheckAuthCode}
+            >
+              회원가입
+            </S.LoginBtn>
+          </>
+        ) : (
+          <>
+            <S.ResetPassword href="">비밀번호를 잊으셨나요?</S.ResetPassword>
+            <S.LoginBtn
+              type="submit"
+              disabled={Object.keys(errors).length !== 0}
+            >
+              로그인
+            </S.LoginBtn>
+          </>
+        )}
+      </form>
       <S.SignUpWrapper>
-        <S.SignUpQuestion>아직 회원이 아니신가요?</S.SignUpQuestion>
-        <S.SignUp href="/signUp">회원가입</S.SignUp>
+        {isSignUp ? (
+          <>
+            <S.SignUpQuestion>이미 계정이 있으신가요?</S.SignUpQuestion>
+            <S.SignUp type="submit" onClick={handleClickSignUp}>
+              로그인
+            </S.SignUp>
+          </>
+        ) : (
+          <>
+            <S.SignUpQuestion>
+              아직 저스트잇 회원이 아니신가요?
+            </S.SignUpQuestion>
+            <S.SignUp type="button" onClick={handleClickSignUp}>
+              회원가입
+            </S.SignUp>
+          </>
+        )}
       </S.SignUpWrapper>
     </S.Layout>
   );
