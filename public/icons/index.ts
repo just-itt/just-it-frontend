@@ -24,3 +24,4 @@ export { default as ImgUploadIcon } from "./imgUpload.svg";
 export { default as TrashIcon } from "./trash.svg";
 export { default as HiddenPasswordIcon } from "./hiddenPassword.svg";
 export { default as ShowPasswordIcon } from "./showPassword.svg";
+export { default as CheckBlueIcon } from "./checkBlue.svg";
