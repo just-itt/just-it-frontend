@@ -1,12 +1,14 @@
 import React from "react";
 
-import FormInput from "../formInput/FormInput.component";
+import { CheckBlueIcon } from "@icons/index";
 import type { AuthCodeInputProps } from "types/components/common/input/authCodeInput";
+import FormInput from "../formInput/FormInput.component";
 import * as S from "./AuthCodeInput.styled";
 
 const AuthCodeInput = ({
   className,
   placeholder,
+  isCheckAuthCode,
   inputDisabled,
   btnDisabled,
   hasValue,
@@ -37,7 +39,13 @@ const AuthCodeInput = ({
           {btnMsg}
         </S.AuthCodeBtn>
       )}
-      {type === "text" && (
+      {type === "text" && isCheckAuthCode && (
+        <S.AuthCodeSeccess>
+          <CheckBlueIcon />
+          인증이 완료되었습니다.
+        </S.AuthCodeSeccess>
+      )}
+      {type === "text" && !isCheckAuthCode && (
         <S.RetryBtn type="button">인증코드 재전송</S.RetryBtn>
       )}
     </S.AuthCodeInputWrapper>

@@ -23,3 +23,14 @@ export const RetryBtn = styled.button`
     text-decoration: underline;
   `}
 `;
+
+export const AuthCodeSeccess = styled.span`
+  ${({ theme }) => css`
+    ${theme.font.regular_14};
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
+    margin-top: 4px;
+    color: ${theme.color.blue_300};
+  `}
+`;
