@@ -35,7 +35,6 @@ const Filter = () => {
   const { push, query } = useRouter();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  // const [a, setA] = useState(FILTERS.slice(0, 6));
 
   const isSelect = (key: string) => !!query.filter?.includes(key);
 
@@ -45,19 +44,14 @@ const Filter = () => {
       : push({ query: { ...query, filter: key } });
 
   const handleOpenFilter = useCallback(() => {
-    // if (isFilterOpen) {
-    //   setA(FILTERS.slice(0, 6));
-    // } else {
-    //   setA(FILTERS);
-    // }
     setIsFilterOpen(!isFilterOpen);
   }, [isFilterOpen]);
 
   return (
     <S.Filter>
       <S.FilterWrapper isFilterOpen={isFilterOpen}>
-        {FILTERS.map((item, i) => (
-          <li key={i}>
+        {FILTERS.map(item => (
+          <li key={item.key}>
             <S.FilterItem
               isSelect={isSelect(item.key)}
               onClick={handleClickFilter(item.key)}

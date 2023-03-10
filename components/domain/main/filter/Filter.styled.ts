@@ -14,16 +14,15 @@ export const FilterWrapper = styled.ul<{ isFilterOpen: boolean }>`
     overflow: hidden;
     column-gap: 10px;
     row-gap: 10px;
-    height: ${isFilterOpen ? "140px" : "40px"};
+    /* height: ${isFilterOpen ? "140px" : "40px"}; */
     margin-bottom: 20px;
-    overflow: hidden;
-    transition: height 0.5s ease;
+    /* overflow: hidden; */
+    /* transition: height 0.5s ease; */
   `}
 `;
 
 export const FilterItem = styled.button<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
-    flex-shrink: 0;
     height: 40px;
     border: 1px solid
       ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_300}`};
