@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAuth } from "firebase/auth";
 import { useRecoilState } from "recoil";
 
-import { userAtom } from "@recoil/common";
+import { userAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
 import {
   ProfileIcon,
@@ -19,6 +19,11 @@ const Header = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
 
   const [userState, setUserState] = useRecoilState(userAtom);
+  const [navState, setNavState] = useRecoilState(navAtom);
+
+  const handleClickMenu = () => {
+    setNavState(!navState);
+  };
 
   useEffect(() => {
     const { currentUser } = getAuth();
@@ -34,7 +39,7 @@ const Header = () => {
     <S.Header>
       <S.LogoWrapper>
         {!isDesktop && (
-          <S.MenuBtn type="button">
+          <S.MenuBtn type="button" onClick={handleClickMenu}>
             <HamburgerIcon />
           </S.MenuBtn>
         )}
@@ -65,9 +70,7 @@ const Header = () => {
             <S.Search placeholder="검색..." maxLength={30} />
           </S.SearchWrapper>
           <S.FlexWrapper>
-            <S.CreatePheed href="https://www.naver.com">
-              새 글 등록
-            </S.CreatePheed>
+            <S.CreatePheed href="/createPheed">새 글 등록</S.CreatePheed>
             <button type="button">
               <ProfileIcon />
             </button>

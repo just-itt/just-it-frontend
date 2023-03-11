@@ -1,6 +1,8 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import { Header, Nav } from "@components/common";
+import { navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
 import * as S from "./MainLayout.styled";
 
@@ -9,6 +11,7 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
+  const isClickNav = useRecoilValue(navAtom);
   const { isDesktop } = useViewport();
 
   return (
@@ -16,6 +19,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Header />
       <S.BodyLayout>
         {isDesktop && <Nav />}
+        {!isDesktop && isClickNav && <Nav />}
         {children}
       </S.BodyLayout>
     </S.MainLayout>
