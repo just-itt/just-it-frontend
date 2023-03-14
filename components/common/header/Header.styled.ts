@@ -25,9 +25,15 @@ export const LogoWrapper = styled.div`
 `;
 
 export const MenuBtn = styled.button`
-  width: 20px;
-  height: 20px;
-  margin-right: 20px;
+  ${({ theme }) => css`
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      display: none;
+    }
+  `}
 `;
 
 export const SearchWrapper = styled.div`

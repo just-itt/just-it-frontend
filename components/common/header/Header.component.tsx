@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { getAuth } from "firebase/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { userAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
@@ -19,10 +19,10 @@ const Header = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
 
   const [userState, setUserState] = useRecoilState(userAtom);
-  const [navState, setNavState] = useRecoilState(navAtom);
+  const setNavState = useSetRecoilState(navAtom);
 
   const handleClickMenu = () => {
-    setNavState(!navState);
+    setNavState(true);
   };
 
   useEffect(() => {
@@ -38,11 +38,9 @@ const Header = () => {
   return (
     <S.Header>
       <S.LogoWrapper>
-        {!isDesktop && (
-          <S.MenuBtn type="button" onClick={handleClickMenu}>
-            <HamburgerIcon />
-          </S.MenuBtn>
-        )}
+        <S.MenuBtn type="button" onClick={handleClickMenu}>
+          <HamburgerIcon />
+        </S.MenuBtn>
         <LogoIcon />
       </S.LogoWrapper>
       {isMobile && userState.user && (

@@ -2,19 +2,17 @@ import Link from "next/link";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { BookmarkIcon, PencilIcon, SettingIcon, TagIcon } from "@icons/index";
-
-export const Nav = styled.ul`
-  ${({ theme }) => css`
+export const Nav = styled.ul<{ isOpen: boolean }>`
+  ${({ theme, isOpen }) => css`
     position: absolute;
     top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
     background-color: ${theme.color.white};
+    transform: translateX(${isOpen ? "100%" : "0%"});
     z-index: ${theme.zIndex.nav};
+    transition: transform 0.3s ease-out;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: sticky;
@@ -22,24 +20,32 @@ export const Nav = styled.ul`
       right: 0;
       bottom: 0;
       left: 0;
+      display: unset;
       width: 248px;
       height: calc(100vh - 88px);
       border-right: 1px solid ${theme.color.grey_200};
       padding: 12px 0;
-      background-color: ${theme.color.white};
+      transform: translateX(0%);
+      transition: unset;
     }
   `}
 `;
 
 export const Wrapper = styled.div`
   ${({ theme }) => css`
-    ${theme.flexMixin.flex_justifySb};
+    ${theme.flexMixin.flex_justifySb_alignC};
+    height: 60px;
     margin-bottom: 12px;
-    padding: 0 20px;
     border-bottom: 1px solid ${theme.color.grey_200};
+    padding: 0 20px;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
+      height: 72px;
       margin-bottom: 28px;
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      display: none;
     }
   `}
 `;
@@ -47,68 +53,53 @@ export const Wrapper = styled.div`
 export const NavItem = styled.li`
   ${({ theme }) => css`
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      padding: 12px 0;
-      padding: 4px 12px;
+      padding: 0 12px;
     }
   `}
 `;
 
-export const NavMenu = styled(Link)<{ isSelect: boolean }>`
-  ${({ theme, isSelect }) => css`
-    ${theme.flexMixin.flex_alignC};
+export const NavMenu = styled(Link)<{ isclick: string }>`
+  ${({ theme, isclick }) => css`
     ${theme.font.semiBold_16};
+    ${theme.flexMixin.flex_alignC};
     width: 100%;
     height: 48px;
-    padding-left: 20px;
-    color: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_900}`};
-    background-color: ${isSelect ? `${theme.color.blue_navBg}` : "inherit"};
+    padding: 0 20px;
+    color: ${isclick === "true"
+      ? `${theme.color.blue_200}`
+      : `${theme.color.grey_500}`};
+    background-color: ${isclick === "true"
+      ? `${theme.color.blue_navBg}`
+      : "inherit"};
+
+    svg {
+      display: none;
+    }
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      height: 50px;
+    }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       ${theme.font.medium_15};
-      display: flex;
-      align-items: center;
       column-gap: 12px;
       width: 224px;
       height: 52px;
       border-radius: 5px;
       padding-left: 12px;
-      color: ${isSelect
-        ? `${theme.color.blue_200}`
-        : `${theme.color.grey_500}`};
-    }
 
-    @media (hover: hover) {
-      :hover {
-        background-color: ${theme.color.grey_100};
+      svg {
+        display: block;
+        fill: ${isclick === "true"
+          ? `${theme.color.blue_200}`
+          : `${theme.color.grey_500}`};
+      }
+
+      @media (hover: hover) {
+        :hover {
+          background-color: ${theme.color.grey_100};
+        }
       }
     }
   `}
-`;
-
-export const CustomTagIcon = styled(TagIcon)<{ isSelect: boolean }>`
-  ${({ theme, isSelect }) =>
-    css`
-      fill: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_500}`};
-    `}
-`;
-
-export const CustomPencilIcon = styled(PencilIcon)<{ isSelect: boolean }>`
-  ${({ theme, isSelect }) =>
-    css`
-      fill: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_500}`};
-    `}
-`;
-
-export const CustomBookmarkIcon = styled(BookmarkIcon)<{ isSelect: boolean }>`
-  ${({ theme, isSelect }) =>
-    css`
-      fill: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_500}`};
-    `}
-`;
-
-export const CustomSettingIcon = styled(SettingIcon)<{ isSelect: boolean }>`
-  ${({ theme, isSelect }) =>
-    css`
-      fill: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_500}`};
-    `}
 `;
