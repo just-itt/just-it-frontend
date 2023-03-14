@@ -25,3 +25,4 @@ export { default as TrashIcon } from "./trash.svg";
 export { default as HiddenPasswordIcon } from "./hiddenPassword.svg";
 export { default as ShowPasswordIcon } from "./showPassword.svg";
 export { default as CheckBlueIcon } from "./checkBlue.svg";
+export { default as Close20Icon } from "./close20.svg";
