@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 export const Header = styled.header`
   ${({ theme }) => css`
     min-width: 390px;
-    height: 72px;
+    height: ${theme.constantCss.navHeight};
     border-bottom: 1px solid ${theme.color.grey_200};
   `}
 `;

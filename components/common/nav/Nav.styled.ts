@@ -8,7 +8,7 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
     top: 0;
     left: -100%;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: ${theme.color.white};
     transform: translateX(${isOpen ? "100%" : "0%"});
     z-index: ${theme.zIndex.nav};
@@ -16,13 +16,13 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: sticky;
-      top: 72px;
+      top: ${theme.constantCss.navHeight};
       right: 0;
       bottom: 0;
       left: 0;
       display: unset;
       width: 248px;
-      height: calc(100vh - 88px);
+      height: calc(100vh - ${theme.constantCss.navHeight});
       border-right: 1px solid ${theme.color.grey_200};
       padding: 12px 0;
       transform: translateX(0%);
@@ -40,7 +40,7 @@ export const Wrapper = styled.div`
     padding: 0 20px;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
-      height: 72px;
+      height: ${theme.constantCss.navHeight};
       margin-bottom: 28px;
     }
 
