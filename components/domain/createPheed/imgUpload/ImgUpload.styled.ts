@@ -23,9 +23,9 @@ export const ImgUpload = styled.label`
     }
 
     & > span:last-of-type {
+      ${theme.font.regular_14};
       width: 294px;
       text-align: center;
-      ${theme.font.regular_14};
       color: ${theme.color.grey_500};
     }
   `}
@@ -37,27 +37,12 @@ export const UploadInput = styled.input`
 
 export const PreviewImgWrapper = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 268px;
   border-radius: 10px;
-`;
-
-export const LeftArrowBtn = styled.button`
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  transform: rotate(90deg);
-`;
-
-export const RightArrowBtn = styled.button`
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  transform: rotate(-90deg);
+  overflow: hidden;
 `;
 
 export const PreviewBtnWrapper = styled.div`
@@ -86,9 +71,20 @@ export const EditBtnWrapper = styled.div`
   }
 `;
 
-export const AddBtn = styled.button`
+export const AddBtn = styled.label`
   ${({ theme }) => css`
+    ${theme.font.medium_15};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
     color: ${theme.color.white};
+
+    :hover {
+      cursor: pointer;
+    }
   `}
 `;
 

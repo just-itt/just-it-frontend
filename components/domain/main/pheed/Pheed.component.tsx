@@ -1,6 +1,9 @@
 import React from "react";
-
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+
+import { pheedDetailAtom } from "@recoil/common";
 import * as S from "./Pheed.styled";
 
 interface PheedProps {
@@ -9,8 +12,16 @@ interface PheedProps {
 }
 
 const Pheed = ({ src, title }: PheedProps) => {
+  const { replace } = useRouter();
+  // const setIsClickPheed = useSetRecoilState(pheedDetailAtom);
+
+  const handleClickPheed = () => {
+    // setIsClickPheed(true);
+    replace("?id=123", "?id=123", { scroll: false });
+  };
+
   return (
-    <>
+    <S.DetailBtn type="button" onClick={handleClickPheed}>
       <S.ImgWrapper>
         <Image
           src={src}
@@ -39,7 +50,7 @@ const Pheed = ({ src, title }: PheedProps) => {
           <S.BadgeCount>3</S.BadgeCount>
         </S.Badge>
       </S.BadgeWrapper> */}
-    </>
+    </S.DetailBtn>
   );
 };
 

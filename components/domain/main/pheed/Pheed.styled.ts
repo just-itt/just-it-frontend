@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 
 import { theme } from "styles/theme";
 
+export const DetailBtn = styled.button`
+  text-align: left;
+`;
+
 export const ImgWrapper = styled.div`
   position: relative;
   margin-bottom: 8px;
