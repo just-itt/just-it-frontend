@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import {
   CreatePheedHeader,
@@ -9,71 +9,71 @@ import {
 import * as S from "./index.styled";
 
 const index = () => {
-  const [imgs, setImgs] = useState<File[]>([]);
-  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const [urlIndex, setUrlIndex] = useState(0);
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [ratio, setRatio] = useState({ x: 1, y: 1 });
+  const [canvasPreviewUrls, setCanvasPreviewUrls] = useState<string[]>([]);
+
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleChangeRatio = (x: number, y: number) => () => {
+    setRatio({ x, y });
+  };
 
   const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files: File[] = [...(e.target.files as FileList)];
+    if (!e.target.files) return;
 
-    const temp: string[] = [];
-    for (let i = 0; i < files.length; i++) {
-      const reader = new FileReader();
-      reader.readAsDataURL(files[i]);
+    const file: File = e.target.files[0];
 
-      reader.onloadend = () => {
-        temp.push(reader.result as string);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-        if (temp.length === files.length) {
-          setPreviewUrls(temp);
-        }
-      };
-    }
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result as string);
 
-    setImgs([...files]);
-  };
+      // const image = new Image();
+      // image.src = reader.result as string;
+      // image.onload = () => {
+      //   const canvas = canvasRef.current;
+      //   const context = canvas?.getContext("2d");
+      //   const { width, height } = image;
 
-  const handleAddImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files: File[] = [...(e.target.files as FileList)];
+      //   const desiredRatio = 1 / 1;
+      //   let cropWidth;
+      //   let cropHeight;
+      //   let xOffset;
+      //   let yOffset;
+      //   if (width / height > desiredRatio) {
+      //     cropHeight = height;
+      //     cropWidth = cropHeight * desiredRatio;
+      //     xOffset = (width - cropWidth) / 2;
+      //     yOffset = 0;
+      //   } else {
+      //     cropWidth = width;
+      //     cropHeight = cropWidth / desiredRatio;
+      //     xOffset = 0;
+      //     yOffset = (height - cropHeight) / 2;
+      //   }
 
-    const addFiles = [...imgs, ...files];
+      //   if (canvas) {
+      //     canvas.width = cropWidth;
+      //     canvas.height = cropHeight;
+      //   }
+      //   context?.drawImage(
+      //     image,
+      //     xOffset,
+      //     yOffset,
+      //     cropWidth,
+      //     cropHeight,
+      //     0,
+      //     0,
+      //     cropWidth,
+      //     cropHeight,
+      //   );
+      // };
+    };
 
-    const temp: string[] = [];
-    for (let i = 0; i < addFiles.length; i++) {
-      const reader = new FileReader();
-      reader.readAsDataURL(addFiles[i]);
-
-      reader.onloadend = () => {
-        temp[i] = reader.result as string;
-
-        if (temp.filter(Boolean).length === addFiles.length) {
-          setPreviewUrls(temp);
-        }
-      };
-    }
-
-    setImgs([...imgs, ...files]);
-  };
-
-  const handleDeleteImg = (imgIndex: number) => () => {
-    setImgs(imgs.filter((_, i) => i !== imgIndex));
-    setPreviewUrls(previewUrls.filter((_, i) => i !== imgIndex));
-
-    if (urlIndex !== 0) {
-      setUrlIndex(urlIndex - 1);
-    }
-  };
-
-  const handleClickLeftBtn = () => {
-    if (urlIndex === 0) return;
-
-    setUrlIndex(urlIndex - 1);
-  };
-
-  const handleClickRightBtn = () => {
-    if (urlIndex === 2 || urlIndex + 1 === previewUrls.length) return;
-
-    setUrlIndex(urlIndex + 1);
+    setImgFile(file);
   };
 
   return (
@@ -82,13 +82,10 @@ const index = () => {
       <CreatePheedLayout css={S.layout}>
         <ImgUpload
           css={S.imgUpload}
-          previewUrls={previewUrls}
-          urlIndex={urlIndex}
+          ratio={ratio}
+          previewUrl={previewUrl}
           handleChangeImg={handleChangeImg}
-          handleAddImg={handleAddImg}
-          handleDeleteImg={handleDeleteImg}
-          handleClickLeftBtn={handleClickLeftBtn}
-          handleClickRightBtn={handleClickRightBtn}
+          handleChangeRatio={handleChangeRatio}
         />
         <S.ContentWrapper>
           <LabelContent css={S.margin} label="글 제목 (필수)">

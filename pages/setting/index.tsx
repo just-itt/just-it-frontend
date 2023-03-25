@@ -1,20 +1,62 @@
 import React, { ReactElement } from "react";
 
-import { Heading } from "@components/common";
+import { Button, Division, Heading, LabelContent } from "@components/common";
 import { MainLayout } from "@components/layout";
-import { ProfileIcon } from "@icons/index";
+import { Google24Icon, ProfileIcon } from "@icons/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
 const Setting: NextPageWithLayout = () => {
   return (
     <S.Setting>
-      <Heading css={S.heading} heading="기본 정보" />
-      <S.ProfileWrapper>
-        <ProfileIcon />
-        <button type="button">연필</button>
-        <button type="button">휴지통</button>
-      </S.ProfileWrapper>
+      <div>
+        <Heading css={S.heading} heading="기본 정보" />
+        <S.ProfileWrapper>
+          <ProfileIcon />
+          <button type="button">연필</button>
+          <button type="button">휴지통</button>
+        </S.ProfileWrapper>
+        <S.Form>
+          <LabelContent css={S.labelContent} label="이메일">
+            <S.EmailIconWrapper>
+              {"hoon4528@gmail.com".includes("gmail") && <Google24Icon />}
+              <LabelContent.Input
+                css={S.emailInput}
+                placeholder=""
+                disabled
+                value="hoon4528@gmail.com"
+              />
+            </S.EmailIconWrapper>
+          </LabelContent>
+          <LabelContent css={S.nicknameLabelContent} label="닉네임">
+            <S.EmailIconWrapper>
+              <LabelContent.Input
+                css={S.nicknameInput}
+                placeholder=""
+                value="캔디바"
+              />
+            </S.EmailIconWrapper>
+          </LabelContent>
+          <Button mode="primary" label="변경사항 저장" />
+        </S.Form>
+        <Division css={S.division} />
+        <Heading css={S.heading} heading="비밀번호 변경" />
+        <S.Form>
+          <LabelContent css={S.labelContent} label="현재 비밀번호">
+            <LabelContent.PasswordInput placeholder="현재 비밀번호" />
+          </LabelContent>
+          <LabelContent css={S.labelContent} label="새 비밀번호">
+            <LabelContent.PasswordInput placeholder="새 비밀번호" />
+          </LabelContent>
+          <LabelContent css={S.labelContent} label="새 비밀번호 확인">
+            <LabelContent.PasswordInput placeholder="새 비밀번호 확인" />
+          </LabelContent>
+          <S.PasswordHint>
+            비밀번호는 영문, 숫자, 특수문자를 포함한 8-20자로 조합해 주세요
+          </S.PasswordHint>
+        </S.Form>
+        <Button css={S.saveBtn} mode="primary" label="변경사항 저장" />
+      </div>
     </S.Setting>
   );
 };

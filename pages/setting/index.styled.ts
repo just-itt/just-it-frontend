@@ -2,7 +2,25 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Setting = styled.div`
-  padding: 28px 20px 0 20px;
+  ${({ theme }) => css`
+    width: 100%;
+    padding: 28px 20px 0 20px;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      & > div {
+        width: 386px;
+        padding: 0;
+      }
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      & > div {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  `}
 `;
 
 export const heading = css`
@@ -19,6 +37,7 @@ export const ProfileWrapper = styled.div`
       width: 80px;
       height: 80px;
       margin-right: 20px;
+      background-color: red;
     }
 
     button {
@@ -35,4 +54,58 @@ export const ProfileWrapper = styled.div`
       margin-left: 12px;
     }
   `}
+`;
+
+export const Form = styled.form`
+  ${({ theme }) => css`
+    width: 100%;
+    margin-bottom: 40px;
+
+    & > div > label {
+      ${theme.font.medium_14};
+    }
+  `}
+`;
+
+export const labelContent = css`
+  margin-bottom: 20px;
+`;
+
+export const nicknameLabelContent = css`
+  margin-bottom: 40px;
+`;
+
+export const EmailIconWrapper = styled.div`
+  position: relative;
+
+  svg {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+  }
+`;
+
+export const emailInput = css`
+  width: 100%;
+  padding-left: 44px;
+`;
+
+export const nicknameInput = css`
+  width: 100%;
+`;
+
+export const division = css`
+  margin-bottom: 40px;
+`;
+
+export const PasswordHint = styled.span`
+  ${({ theme }) => css`
+    ${theme.font.regular_14};
+    margin-bottom: 40px;
+    color: ${theme.color.grey_500};
+  `}
+`;
+
+export const saveBtn = css`
+  margin-bottom: 80px;
 `;
