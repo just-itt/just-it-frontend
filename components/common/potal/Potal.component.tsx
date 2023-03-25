@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-import type * as type from "types";
+interface PortalProps {
+  children: React.ReactNode;
+}
 
-const Potal = ({ children }: type.PortalProps) => {
+const Potal = ({ children }: PortalProps) => {
   const [isCSR, setIsCSR] = useState<boolean>(false);
 
   useEffect(() => {

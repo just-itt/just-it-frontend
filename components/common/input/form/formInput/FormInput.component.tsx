@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { HiddenPasswordIcon, ShowPasswordIcon } from "@icons/index";
-import type * as type from "types/components/common/input/formInput";
 import * as S from "./FormInput.style";
+
+interface FormInputProps {
+  className?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  hasValue: boolean;
+  hasError: boolean;
+  autoComplete?: "off" | "new-password";
+  type?: "text" | "password";
+  errorMsg?: string;
+  register: any;
+}
 
 const FormInput = ({
   className,
@@ -15,7 +26,7 @@ const FormInput = ({
   type,
   errorMsg,
   register,
-}: type.FormInputProps) => {
+}: FormInputProps) => {
   const uuid = uuidv4();
 
   const [isShowPassword, setIsShowPassword] = useState(false);

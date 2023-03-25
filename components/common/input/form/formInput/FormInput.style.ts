@@ -1,9 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import type * as type from "types/components/common/input/formInput";
+interface InputWrapperProps {
+  hasValue: boolean;
+  hasError: boolean;
+}
 
-export const FormWrapper = styled.div<type.InputWrapperProps>`
+export const FormWrapper = styled.div<InputWrapperProps>`
   ${({ theme, hasValue, hasError }) => css`
     input {
       margin-bottom: ${hasError && "4px"};

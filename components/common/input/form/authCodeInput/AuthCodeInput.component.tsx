@@ -1,9 +1,23 @@
 import React from "react";
 
 import { CheckBlueIcon } from "@icons/index";
-import type { AuthCodeInputProps } from "types/components/common/input/authCodeInput";
 import FormInput from "../formInput/FormInput.component";
 import * as S from "./AuthCodeInput.styled";
+
+interface AuthCodeInputProps {
+  className?: string;
+  placeholder: string;
+  inputDisabled?: boolean;
+  isCheckAuthCode?: boolean;
+  btnDisabled?: boolean;
+  hasValue: boolean;
+  hasError: boolean;
+  type?: "text";
+  errorMsg?: string;
+  btnMsg?: string;
+  register: any;
+  handleAuthCode?: () => void;
+}
 
 const AuthCodeInput = ({
   className,
