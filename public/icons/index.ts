@@ -15,6 +15,7 @@ export { default as ProfileIcon } from "./profile.svg";
 export { default as HamburgerIcon } from "./hamburger.svg";
 export { default as AddPheedIcon } from "./addPheed.svg";
 export { default as GoogleLoginIcon } from "./googleLogin.svg";
+export { default as Google24Icon } from "./google24.svg";
 export { default as KakaoLoginIcon } from "./kakaoLogin.svg";
 export { default as KakaoLogoIcon } from "./kakaoLogo.svg";
 export { default as NaverLoginIcon } from "./naverLogin.svg";
