@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { getAuth } from "firebase/auth";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { userAtom, navAtom } from "@recoil/common";
@@ -25,15 +24,7 @@ const Header = () => {
     setNavState(true);
   };
 
-  useEffect(() => {
-    const { currentUser } = getAuth();
-
-    if (currentUser) {
-      setUserState({ user: "hi" });
-    } else {
-      setUserState({ user: "" });
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <S.Header>
@@ -41,7 +32,9 @@ const Header = () => {
         <S.MenuBtn type="button" onClick={handleClickMenu}>
           <HamburgerIcon />
         </S.MenuBtn>
-        <LogoIcon />
+        <Link href="/">
+          <LogoIcon />
+        </Link>
       </S.LogoWrapper>
       {isMobile && userState.user && (
         <S.MobileLoginWrapper>

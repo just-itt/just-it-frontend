@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
+// import { useSetRecoilState } from "recoil";
 
 import { Comments, HashTag } from "@components/index";
-import { pheedDetailAtom } from "@recoil/common";
+// import { pheedDetailAtom } from "@recoil/common";
 import { BookmarkIcon, Close20Icon, MoreIcon, ProfileIcon } from "@icons/index";
 // import BaseModal from "../modal/baseModal/BaseModal.component";
 import * as S from "./PheedDetail.styled";
@@ -26,13 +26,16 @@ const dummyHashtag = [
   { icon: "hi", title: "더위가 심한 날" },
 ];
 
-interface PheedDetailModalProps {
+interface PheedDetailProps {
   src: string;
   title: string;
 }
 
-const PheedDetailModal = ({ src, title }: PheedDetailModalProps) => {
+const PheedDetail = ({ src, title }: PheedDetailProps) => {
   // const isCloseModal = useSetRecoilState(pheedDetailAtom);
+
+  console.log(src, title);
+
   const { replace } = useRouter();
 
   const handleCloseModal = () => {
@@ -103,4 +106,4 @@ const PheedDetailModal = ({ src, title }: PheedDetailModalProps) => {
   );
 };
 
-export default PheedDetailModal;
+export default PheedDetail;

@@ -1,1 +1,2 @@
-export { default as MainLayout } from "@components/layout/mainLayout/MainLayout.component";
+export { default as CreatePheedLayout } from "./createPheedLayout/CreatePheedLayout.component";
+export { default as MainLayout } from "./mainLayout/MainLayout.component";

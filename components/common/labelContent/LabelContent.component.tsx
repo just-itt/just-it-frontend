@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 
+import { HiddenPasswordIcon, ShowPasswordIcon } from "@icons/index";
 import * as S from "./LabelContent.styled";
 
 interface LabelContentProps {
@@ -9,6 +10,13 @@ interface LabelContentProps {
 }
 
 interface InputProps {
+  className?: string;
+  disabled?: boolean;
+  placeholder: string;
+  value?: string;
+}
+
+interface PasswordInputProps {
   placeholder: string;
 }
 
@@ -26,8 +34,40 @@ const LabelContent = ({ className, label, children }: LabelContentProps) => {
   );
 };
 
-LabelContent.Input = ({ placeholder }: InputProps) => {
-  return <S.Input placeholder={placeholder} />;
+LabelContent.Input = ({
+  className,
+  disabled,
+  placeholder,
+  value,
+}: InputProps) => {
+  return (
+    <S.Input
+      className={className}
+      disabled={disabled}
+      placeholder={placeholder}
+      value={value}
+    />
+  );
+};
+
+LabelContent.PasswordInput = ({ placeholder }: PasswordInputProps) => {
+  const [isPasswordBtnClick, setIsPasswordBtnClick] = useState(false);
+
+  const handleClickPasswordBtn = () => {
+    setIsPasswordBtnClick(!isPasswordBtnClick);
+  };
+
+  return (
+    <S.InputWrapper>
+      <S.Input
+        type={isPasswordBtnClick ? "text" : "password"}
+        placeholder={placeholder}
+      />
+      <button type="button" onClick={handleClickPasswordBtn}>
+        {isPasswordBtnClick ? <ShowPasswordIcon /> : <HiddenPasswordIcon />}
+      </button>
+    </S.InputWrapper>
+  );
 };
 
 LabelContent.Textarea = ({ className, placeholder }: TextareaProps) => {
