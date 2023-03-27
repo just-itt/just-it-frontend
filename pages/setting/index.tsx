@@ -2,13 +2,7 @@ import React, { useState, ReactElement } from "react";
 
 import { Button, Division, Heading, LabelContent } from "@components/common";
 import { MainLayout } from "@components/layout";
-import {
-  Google24Icon,
-  Pencil24Icon,
-  Trash24Icon,
-  Person20Icon,
-  Picture24Icon,
-} from "@icons/index";
+import { PencilIcon, TrashIcon, PictureIcon, PersonIcon } from "@icons/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
@@ -21,21 +15,21 @@ const Setting: NextPageWithLayout = () => {
         <Heading css={S.heading} heading="기본 정보" />
         <S.ProfileWrapper>
           <S.Profile>
-            <Person20Icon />
+            <PersonIcon />
           </S.Profile>
           <button type="button">
-            {profile ? <Pencil24Icon /> : <Picture24Icon />}
+            {profile ? <PencilIcon /> : <PictureIcon />}
           </button>
           {profile && (
             <button type="button">
-              <Trash24Icon />
+              <TrashIcon />
             </button>
           )}
         </S.ProfileWrapper>
         <S.Form>
           <LabelContent css={S.labelContent} label="이메일">
             <S.EmailIconWrapper>
-              {"hoon4528@gmail.com".includes("gmail") && <Google24Icon />}
+              {"hoon4528@gmail.com".includes("gmail") && <PersonIcon />}
               <LabelContent.Input
                 css={S.emailInput}
                 placeholder=""

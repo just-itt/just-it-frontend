@@ -4,14 +4,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { userAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
-import {
-  ProfileIcon,
-  LogoIcon,
-  SearchIcon,
-  SearchMobileIcon,
-  HamburgerIcon,
-  AddPheedIcon,
-} from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./Header.styled";
 
 const Header = () => {
@@ -30,26 +23,26 @@ const Header = () => {
     <S.Header>
       <S.LogoWrapper>
         <S.MenuBtn type="button" onClick={handleClickMenu}>
-          <HamburgerIcon />
+          <PersonIcon />
         </S.MenuBtn>
         <Link href="/">
-          <LogoIcon />
+          <PersonIcon />
         </Link>
       </S.LogoWrapper>
       {isMobile && userState.user && (
         <S.MobileLoginWrapper>
           <button type="button">
-            <SearchMobileIcon />
+            <PersonIcon />
           </button>
           <Link href="/">
-            <AddPheedIcon />
+            <PersonIcon />
           </Link>
         </S.MobileLoginWrapper>
       )}
       {isMobile && !userState.user && (
         <S.MobileLoginWrapper>
           <button type="button">
-            <SearchMobileIcon />
+            <PersonIcon />
           </button>
           <S.LoginBtn href="/login">로그인</S.LoginBtn>
         </S.MobileLoginWrapper>
@@ -57,13 +50,13 @@ const Header = () => {
       {(isTablet || isDesktop) && userState.user && (
         <>
           <S.SearchWrapper>
-            <SearchIcon />
+            <PersonIcon />
             <S.Search placeholder="검색..." maxLength={30} />
           </S.SearchWrapper>
           <S.FlexWrapper>
             <S.CreatePheed href="/createPheed">새 글 등록</S.CreatePheed>
             <button type="button">
-              <ProfileIcon />
+              <PersonIcon />
             </button>
           </S.FlexWrapper>
         </>
@@ -71,7 +64,7 @@ const Header = () => {
       {(isTablet || isDesktop) && !userState.user && (
         <>
           <S.SearchWrapper>
-            <SearchIcon />
+            <PersonIcon />
             <S.Search placeholder="검색..." maxLength={30} />
           </S.SearchWrapper>
           <S.FlexWrapper>

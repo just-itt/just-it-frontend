@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { HiddenPasswordIcon, ShowPasswordIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./FormInput.style";
 
 interface FormInputProps {
@@ -52,7 +52,7 @@ const FormInput = ({
         <S.Placeholder htmlFor={uuid}>{placeholder}</S.Placeholder>
         {type === "password" && (
           <S.PasswordBtn type="button" onClick={handleClickPasswordIcon}>
-            {isShowPassword ? <ShowPasswordIcon /> : <HiddenPasswordIcon />}
+            {isShowPassword ? <PersonIcon /> : <PersonIcon />}
           </S.PasswordBtn>
         )}
       </S.InputWrapper>

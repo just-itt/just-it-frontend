@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { ImgUploadIcon, PencilMonoIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./ImgUpload.styled";
 
 interface ImgUploadProps {
@@ -27,7 +27,7 @@ const ImgUpload = ({
           <S.PreviewBtnWrapper>
             <S.EditBtnWrapper>
               <button type="button">
-                <PencilMonoIcon />
+                <PersonIcon />
               </button>
             </S.EditBtnWrapper>
             <S.RatioBtnWrapper>
@@ -52,7 +52,7 @@ const ImgUpload = ({
             multiple
             onChange={handleChangeImg}
           />
-          <ImgUploadIcon />
+          <PersonIcon />
           <span>사진 업로드</span>
           <span>
             음식 사진 외 다른 사진 업로드 시 관리자에 의해 삭제 될 수 있습니다.

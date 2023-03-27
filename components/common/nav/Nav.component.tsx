@@ -3,14 +3,7 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
 import { navAtom } from "@recoil/common";
-import {
-  Close20Icon,
-  LogoIcon,
-  BookmarkIcon,
-  PencilIcon,
-  SettingIcon,
-  TagIcon,
-} from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
@@ -25,14 +18,14 @@ const Nav = () => {
   return (
     <S.Nav isOpen={navState}>
       <S.Wrapper>
-        <LogoIcon />
+        <PersonIcon />
         <button type="button" onClick={handleCloseNav}>
-          <Close20Icon />
+          <PersonIcon />
         </button>
       </S.Wrapper>
       <S.NavItem>
         <S.NavMenu href="/" isclick={(pathname === "/").toString()}>
-          <TagIcon />
+          <PersonIcon />
           탐색하기
         </S.NavMenu>
       </S.NavItem>
@@ -41,7 +34,7 @@ const Nav = () => {
           href="myPheed"
           isclick={(pathname === "/myPheed").toString()}
         >
-          <PencilIcon />내 게시글
+          <PersonIcon />내 게시글
         </S.NavMenu>
       </S.NavItem>
       <S.NavItem>
@@ -49,7 +42,7 @@ const Nav = () => {
           href="bookMark"
           isclick={(pathname === "/bookMark").toString()}
         >
-          <BookmarkIcon />
+          <PersonIcon />
           저장한 게시글
         </S.NavMenu>
       </S.NavItem>
@@ -58,7 +51,7 @@ const Nav = () => {
           href="setting"
           isclick={(pathname === "/setting").toString()}
         >
-          <SettingIcon />
+          <PersonIcon />
           설정
         </S.NavMenu>
       </S.NavItem>

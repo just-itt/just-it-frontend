@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { HiddenPasswordIcon, ShowPasswordIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./AuthInput.styled";
 
 interface AuthInputProps {
@@ -33,7 +33,7 @@ const AuthInput = ({
       />
       {type === "password" && (
         <S.PasswordBtn type="button" onClick={handleClickPasswordIcon}>
-          {isShowPassword ? <ShowPasswordIcon /> : <HiddenPasswordIcon />}
+          {isShowPassword ? <PersonIcon /> : <PersonIcon />}
         </S.PasswordBtn>
       )}
     </S.InputWrapper>

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { AuthCodeInput, FormInput } from "@components/index";
 import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "utils/validate";
-import { KakaoLogoIcon, LogoIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./index.styled";
 
 const Login = () => {
@@ -43,10 +43,10 @@ const Login = () => {
   return (
     <S.Layout>
       <S.LogoWrapper>
-        <LogoIcon />
+        <PersonIcon />
       </S.LogoWrapper>
       <S.KakaoLoginBtn>
-        <KakaoLogoIcon />
+        <PersonIcon />
         카카오 로그인
       </S.KakaoLoginBtn>
       <S.Or>또는 이메일 로그인</S.Or>

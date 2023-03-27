@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { BackArrowIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./Header.styled";
 
 const Header = () => {
@@ -10,7 +10,7 @@ const Header = () => {
       <S.ContentWrapper>
         <div>
           <Link css={S.link} href="/">
-            <BackArrowIcon />
+            <PersonIcon />
           </Link>
           새 글 올리기
         </div>

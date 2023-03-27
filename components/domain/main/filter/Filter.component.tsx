@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { useRouter } from "next/router";
 
-import { ArrowIcon } from "@icons/index";
+import { PersonIcon } from "@icons/index";
 import * as S from "./Filter.styled";
 
 const FILTERS = [
@@ -66,7 +66,7 @@ const Filter = () => {
         isFilterOpen={isFilterOpen}
         onClick={handleOpenFilter}
       >
-        <ArrowIcon />
+        <PersonIcon />
       </S.OpenBtn>
     </S.Filter>
   );

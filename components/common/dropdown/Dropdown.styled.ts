@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { ArrowIcon } from "@icons/index";
+import { ArrowShortIcon } from "@icons/index";
 
 export const DropdownBtn = styled.div`
   ${({ theme }) => css`
@@ -61,7 +61,7 @@ export const List = styled.button`
   `}
 `;
 
-export const Arrow = styled(ArrowIcon)<{ isopen: boolean }>`
+export const Arrow = styled(ArrowShortIcon)<{ isopen: boolean }>`
   transform: ${({ isopen }) => (isopen ? "rotate(-180deg)" : "rotate(0deg)")};
   transition: 0.5s;
 `;
