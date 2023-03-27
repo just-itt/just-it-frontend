@@ -1,20 +1,36 @@
-import React, { ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 
 import { Button, Division, Heading, LabelContent } from "@components/common";
 import { MainLayout } from "@components/layout";
-import { Google24Icon, ProfileIcon } from "@icons/index";
+import {
+  Google24Icon,
+  Pencil24Icon,
+  Trash24Icon,
+  Person20Icon,
+  Picture24Icon,
+} from "@icons/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
 const Setting: NextPageWithLayout = () => {
+  const [profile, setProfile] = useState(null);
+
   return (
     <S.Setting>
       <div>
         <Heading css={S.heading} heading="기본 정보" />
         <S.ProfileWrapper>
-          <ProfileIcon />
-          <button type="button">연필</button>
-          <button type="button">휴지통</button>
+          <S.Profile>
+            <Person20Icon />
+          </S.Profile>
+          <button type="button">
+            {profile ? <Pencil24Icon /> : <Picture24Icon />}
+          </button>
+          {profile && (
+            <button type="button">
+              <Trash24Icon />
+            </button>
+          )}
         </S.ProfileWrapper>
         <S.Form>
           <LabelContent css={S.labelContent} label="이메일">

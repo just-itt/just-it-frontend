@@ -8,16 +8,11 @@ export const Setting = styled.div`
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       & > div {
-        width: 386px;
-        padding: 0;
-      }
-    }
-
-    @media (min-width: ${theme.breakPoint.minDesktop}) {
-      & > div {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        width: 386px;
+        padding: 0;
       }
     }
   `}
@@ -33,13 +28,6 @@ export const ProfileWrapper = styled.div`
     align-items: center;
     margin-bottom: 20px;
 
-    svg {
-      width: 80px;
-      height: 80px;
-      margin-right: 20px;
-      background-color: red;
-    }
-
     button {
       display: flex;
       justify-content: center;
@@ -48,12 +36,32 @@ export const ProfileWrapper = styled.div`
       height: 36px;
       border: 1px solid ${theme.color.grey_300};
       border-radius: 5px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        fill: ${theme.color.grey_600};
+      }
     }
 
     button + button {
       margin-left: 12px;
     }
   `}
+`;
+
+export const Profile = styled.div`
+  ${({ theme }) =>
+    css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+      border: 1px solid ${theme.color.grey_300};
+      border-radius: 100px;
+    `}
 `;
 
 export const Form = styled.form`
