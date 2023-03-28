@@ -63,10 +63,16 @@ export const Placeholder = styled.label`
 `;
 
 export const PasswordBtn = styled.button`
-  position: absolute;
+  ${({ theme }) => css`position: absolute;
   top: 50%;
   right: 12px;
   transform: translateY(-50%);
+
+  svg{
+    width: 24px;
+    height; 24px;
+    fill: ${theme.color.grey_400};
+  }`}
 `;
 
 export const ErrorMsg = styled.span`

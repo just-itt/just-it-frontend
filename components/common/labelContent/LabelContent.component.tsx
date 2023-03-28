@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { PersonIcon } from "@icons/index";
+import { UnvisibleIcon, VisibleIcon } from "@icons/index";
 import * as S from "./LabelContent.styled";
 
 interface LabelContentProps {
@@ -64,7 +64,7 @@ LabelContent.PasswordInput = ({ placeholder }: PasswordInputProps) => {
         placeholder={placeholder}
       />
       <button type="button" onClick={handleClickPasswordBtn}>
-        {isPasswordBtnClick ? <PersonIcon /> : <PersonIcon />}
+        {isPasswordBtnClick ? <VisibleIcon /> : <UnvisibleIcon />}
       </button>
     </S.InputWrapper>
   );

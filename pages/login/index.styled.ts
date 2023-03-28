@@ -30,6 +30,11 @@ export const KakaoLoginBtn = styled.button`
     margin-bottom: 40px;
     border-radius: 5px;
     background-color: ${theme.color.kakao};
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
   `}
 `;
 

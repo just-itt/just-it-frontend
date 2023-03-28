@@ -14,6 +14,11 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
     z-index: ${theme.zIndex.nav};
     transition: transform 0.3s ease-out;
 
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: sticky;
       top: ${theme.constantCss.navHeight};
@@ -38,6 +43,17 @@ export const Wrapper = styled.div`
     margin-bottom: 12px;
     border-bottom: 1px solid ${theme.color.grey_200};
     padding: 0 20px;
+
+    & > svg {
+      width: 64px;
+      height: 52px;
+    }
+
+    & > button > svg {
+      width: 20px;
+      height: 20px;
+      fill: ${theme.color.grey_900};
+    }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       height: ${theme.constantCss.navHeight};

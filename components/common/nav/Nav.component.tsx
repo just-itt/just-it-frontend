@@ -3,7 +3,14 @@ import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
 import { navAtom } from "@recoil/common";
-import { PersonIcon } from "@icons/index";
+import {
+  BookMarkMonoIcon,
+  CloseIcon,
+  EditMonoIcon,
+  LogoShortIcon,
+  SettingMonoIcon,
+  TagIcon,
+} from "@icons/index";
 import * as S from "./Nav.styled";
 
 const Nav = () => {
@@ -18,14 +25,14 @@ const Nav = () => {
   return (
     <S.Nav isOpen={navState}>
       <S.Wrapper>
-        <PersonIcon />
+        <LogoShortIcon />
         <button type="button" onClick={handleCloseNav}>
-          <PersonIcon />
+          <CloseIcon />
         </button>
       </S.Wrapper>
       <S.NavItem>
         <S.NavMenu href="/" isclick={(pathname === "/").toString()}>
-          <PersonIcon />
+          <TagIcon />
           탐색하기
         </S.NavMenu>
       </S.NavItem>
@@ -34,7 +41,7 @@ const Nav = () => {
           href="myPheed"
           isclick={(pathname === "/myPheed").toString()}
         >
-          <PersonIcon />내 게시글
+          <EditMonoIcon />내 게시글
         </S.NavMenu>
       </S.NavItem>
       <S.NavItem>
@@ -42,7 +49,7 @@ const Nav = () => {
           href="bookMark"
           isclick={(pathname === "/bookMark").toString()}
         >
-          <PersonIcon />
+          <BookMarkMonoIcon />
           저장한 게시글
         </S.NavMenu>
       </S.NavItem>
@@ -51,7 +58,7 @@ const Nav = () => {
           href="setting"
           isclick={(pathname === "/setting").toString()}
         >
-          <PersonIcon />
+          <SettingMonoIcon />
           설정
         </S.NavMenu>
       </S.NavItem>

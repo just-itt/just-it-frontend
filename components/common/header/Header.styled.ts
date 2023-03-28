@@ -30,6 +30,12 @@ export const MenuBtn = styled.button`
     height: 20px;
     margin-right: 20px;
 
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: ${theme.color.grey_500};
+    }
+
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: none;
     }
@@ -45,6 +51,12 @@ export const SearchWrapper = styled.div`
     border-radius: 100px;
     padding-left: 12px;
     background-color: ${theme.color.grey_100};
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: ${theme.color.grey_500};
+    }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       column-gap: 12px;
@@ -105,6 +117,12 @@ export const MobileLoginWrapper = styled.div`
     css`
       ${theme.flexMixin.flex_alignC};
       column-gap: 20px;
+
+      svg {
+        width: 28px;
+        height: 28px;
+        fill: ${theme.color.grey_500};
+      }
     `}
 `;
 

@@ -16,15 +16,23 @@ export const Label = styled.label`
 `;
 
 export const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
+  ${({ theme }) => css`
+    position: relative;
+    width: 100%;
 
-  & > button {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-  }
+    & > button {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: ${theme.color.grey_400};
+    }
+  `}
 `;
 
 export const Input = styled.input`

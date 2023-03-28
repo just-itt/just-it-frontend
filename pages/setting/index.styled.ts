@@ -40,7 +40,7 @@ export const ProfileWrapper = styled.div`
       svg {
         width: 20px;
         height: 20px;
-        fill: ${theme.color.grey_600};
+        fill: ${theme.color.grey_500};
       }
     }
 
@@ -61,6 +61,12 @@ export const Profile = styled.div`
       margin-right: 20px;
       border: 1px solid ${theme.color.grey_300};
       border-radius: 100px;
+
+      svg {
+        width: 32px;
+        height: 32px;
+        fill: ${theme.color.grey_500};
+      }
     `}
 `;
 
