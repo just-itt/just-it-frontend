@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 // import { useSetRecoilState } from "recoil";
 
-import { Comments, HashTag } from "@components/index";
+import { Comments, HashTag, DropdownBtn } from "@components/index";
 // import { pheedDetailAtom } from "@recoil/common";
-import { BookMarkIcon, CloseIcon, MoreIcon, PersonIcon } from "@icons/index";
+import { BookMarkIcon, CloseIcon, MoreIcon } from "@icons/index";
 // import BaseModal from "../modal/baseModal/BaseModal.component";
 import * as S from "./PheedDetail.styled";
 
@@ -53,9 +53,13 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
           <button type="button">
             <BookMarkIcon fill="#1683E7" />
           </button>
-          <button type="button">
-            <MoreIcon />
-          </button>
+          <DropdownBtn
+            btnRender={<MoreIcon />}
+            dropdownItems={[
+              { label: "수정하기", value: "edit" },
+              { label: "삭제하기", value: "delete" },
+            ]}
+          />
         </S.BtnWrapper>
       </S.HeaderWrapper>
       <S.ProfileWrapper>

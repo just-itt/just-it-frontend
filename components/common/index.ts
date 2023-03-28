@@ -1,4 +1,4 @@
-export * from "./button";
+export * from "./buttons";
 export { default as Comments } from "./comments/Comments.component";
 export { default as Division } from "./division/Division.component";
 export { default as Dropdown } from "./dropdown/Dropdown.component";
