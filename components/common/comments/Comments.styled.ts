@@ -24,6 +24,15 @@ export const ContentWrapper = styled.div`
   row-gap: 4px;
 `;
 
+export const Profile = styled.div`
+  ${({ theme }) => css`
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: ${theme.color.grey_900};
+  `}
+`;
+
 export const Nickname = styled.span`
   ${({ theme }) => css`
     ${theme.font.semiBold_14};

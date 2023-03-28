@@ -36,6 +36,12 @@ export const HeaderWrapper = styled.div`
     border-bottom: 1px solid ${theme.color.grey_200};
     padding: 18px 20px;
 
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: ${theme.color.grey_900};
+    }
+
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       margin-bottom: 40px;
       padding: 0;
@@ -48,6 +54,11 @@ export const HeaderWrapper = styled.div`
 export const BtnWrapper = styled.div`
   display: flex;
   column-gap: 24px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const ProfileWrapper = styled.div`
@@ -61,6 +72,15 @@ export const ProfileWrapper = styled.div`
       margin-bottom: 20px;
       padding: 0;
     }
+  `}
+`;
+
+export const Profile = styled.div`
+  ${({ theme }) => css`
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    background-color: ${theme.color.grey_900};
   `}
 `;
 

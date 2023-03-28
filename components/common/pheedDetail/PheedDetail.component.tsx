@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { Comments, HashTag } from "@components/index";
 // import { pheedDetailAtom } from "@recoil/common";
-import { PersonIcon } from "@icons/index";
+import { BookMarkIcon, CloseIcon, MoreIcon, PersonIcon } from "@icons/index";
 // import BaseModal from "../modal/baseModal/BaseModal.component";
 import * as S from "./PheedDetail.styled";
 
@@ -44,23 +44,22 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
   };
 
   return (
-    // <BaseModal>
     <S.Wrapper>
       <S.HeaderWrapper>
         <button type="button" onClick={handleCloseModal}>
-          <PersonIcon />
+          <CloseIcon />
         </button>
         <S.BtnWrapper>
           <button type="button">
-            <PersonIcon fill="#1683E7" />
+            <BookMarkIcon fill="#1683E7" />
           </button>
           <button type="button">
-            <PersonIcon />
+            <MoreIcon />
           </button>
         </S.BtnWrapper>
       </S.HeaderWrapper>
       <S.ProfileWrapper>
-        <PersonIcon />
+        <S.Profile />
         <S.Nickname>캔디바</S.Nickname>
       </S.ProfileWrapper>
       <S.ImgWrapper>
@@ -95,14 +94,13 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
       </S.ContentWrapper>
       <Comments css={S.CommentsWrapper} comments={dummyComments} />
       <S.FormWrapper>
-        <PersonIcon />
+        <S.Profile />
         <S.InputWrapper>
           <S.Input placeholder="댓글 남기기..." />
           <S.ApplyBtn>등록</S.ApplyBtn>
         </S.InputWrapper>
       </S.FormWrapper>
     </S.Wrapper>
-    // </BaseModal>
   );
 };
 
