@@ -8,7 +8,7 @@ export const DropdownBtnWrapper = styled.button`
 export const DropdownWrapper = styled.ul`
   ${({ theme }) => css`
     position: absolute;
-    top: 50px;
+    top: 36px;
     right: 0;
     border: 1px solid ${theme.color.grey_300};
     border-radius: 5px;
