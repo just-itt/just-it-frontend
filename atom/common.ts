@@ -10,7 +10,7 @@ export const navAtom = atom({
   default: false,
 });
 
-export const pheedDetailAtom = atom({
-  key: "pheedDetailState",
+export const modalAtom = atom({
+  key: "modalState",
   default: false,
 });
