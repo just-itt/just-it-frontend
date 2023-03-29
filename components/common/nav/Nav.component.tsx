@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
@@ -20,15 +20,20 @@ const Nav = () => {
 
   const handleCloseNav = () => {
     setNavState(false);
+    document.body.style.removeProperty("overflow");
   };
+
+  useEffect(() => {
+    handleCloseNav();
+  }, [pathname]);
 
   return (
     <S.Nav isOpen={navState}>
       <S.Wrapper>
         <LogoShortIcon />
-        <button type="button" onClick={handleCloseNav}>
+        <S.CloseBtn type="button" onClick={handleCloseNav}>
           <CloseIcon />
-        </button>
+        </S.CloseBtn>
       </S.Wrapper>
       <S.NavItem>
         <S.NavMenu href="/" isclick={(pathname === "/").toString()}>

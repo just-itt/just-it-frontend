@@ -5,7 +5,6 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import { userAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
 import {
-  LogoLongIcon,
   LogoShortIcon,
   MenuIcon,
   SearchLongIcon,
@@ -21,6 +20,7 @@ const Header = () => {
 
   const handleClickMenu = () => {
     setNavState(true);
+    document.body.style.overflow = "hidden";
   };
 
   useEffect(() => {}, []);

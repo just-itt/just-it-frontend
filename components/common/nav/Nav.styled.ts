@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 
 export const Nav = styled.ul<{ isOpen: boolean }>`
   ${({ theme, isOpen }) => css`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: -100%;
     width: 100%;
@@ -49,12 +49,6 @@ export const Wrapper = styled.div`
       height: 52px;
     }
 
-    & > button > svg {
-      width: 20px;
-      height: 20px;
-      fill: ${theme.color.grey_900};
-    }
-
     @media (min-width: ${theme.breakPoint.minTablet}) {
       height: ${theme.constantCss.navHeight};
       margin-bottom: 28px;
@@ -62,6 +56,16 @@ export const Wrapper = styled.div`
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: none;
+    }
+  `}
+`;
+
+export const CloseBtn = styled.button`
+  ${({ theme }) => css`
+    svg {
+      width: 20px;
+      height: 20px;
+      fill: ${theme.color.grey_900};
     }
   `}
 `;
