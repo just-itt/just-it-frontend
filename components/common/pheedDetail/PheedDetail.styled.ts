@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
+    min-width: 360px;
     width: 100%;
     background-color: ${theme.color.white};
     z-index: ${theme.zIndex.modal};
