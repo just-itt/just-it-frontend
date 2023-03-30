@@ -1,7 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-import { PersonIcon } from "@icons/index";
+import { ArrowLongIcon } from "@icons/index";
 import * as S from "./Filter.styled";
 
 const FILTERS = [
@@ -43,9 +43,9 @@ const Filter = () => {
       ? push({ query: {} })
       : push({ query: { ...query, filter: key } });
 
-  const handleOpenFilter = useCallback(() => {
+  const handleOpenFilter = () => {
     setIsFilterOpen(!isFilterOpen);
-  }, [isFilterOpen]);
+  };
 
   return (
     <S.Filter>
@@ -66,7 +66,7 @@ const Filter = () => {
         isFilterOpen={isFilterOpen}
         onClick={handleOpenFilter}
       >
-        <PersonIcon />
+        <ArrowLongIcon />
       </S.OpenBtn>
     </S.Filter>
   );
