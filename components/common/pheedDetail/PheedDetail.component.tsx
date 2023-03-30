@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-// import { useSetRecoilState } from "recoil";
 
-import { Comments, HashTag, DropdownBtn } from "@components/index";
-// import { pheedDetailAtom } from "@recoil/common";
-import { BookMarkIcon, CloseIcon, MoreIcon } from "@icons/index";
-// import BaseModal from "../modal/baseModal/BaseModal.component";
+import {
+  Comments,
+  HashTag,
+  DropdownBtn,
+  ConfirmModal,
+} from "@components/index";
+import { useModal } from "@hooks/index";
+import {
+  BookMarkIcon,
+  BookMarkMonoIcon,
+  CloseIcon,
+  MoreIcon,
+} from "@icons/index";
 import * as S from "./PheedDetail.styled";
 
 const dummyComments = [
@@ -32,32 +40,43 @@ interface PheedDetailProps {
 }
 
 const PheedDetail = ({ src, title }: PheedDetailProps) => {
-  // const isCloseModal = useSetRecoilState(pheedDetailAtom);
-
-  console.log(src, title);
-
   const { replace } = useRouter();
 
+  const [isBookMark, setIsBookMark] = useState(false);
+
+  const { handleOpenModal } = useModal();
+
+  const handleClickBookMark = () => {
+    setIsBookMark(!isBookMark);
+  };
+
   const handleCloseModal = () => {
-    // isCloseModal(false);
     replace("/", "/", { scroll: false });
   };
 
   return (
     <S.Wrapper>
+      <ConfirmModal
+        content="내 글을 삭제하시겠어요?"
+        confirmLabel="삭제하기"
+        cancelLabel="취소"
+      />
       <S.HeaderWrapper>
         <button type="button" onClick={handleCloseModal}>
           <CloseIcon />
         </button>
         <S.BtnWrapper>
-          <button type="button">
-            <BookMarkIcon fill="#1683E7" />
+          <button type="button" onClick={handleClickBookMark}>
+            {isBookMark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
           <DropdownBtn
             btnRender={<MoreIcon />}
             dropdownItems={[
-              { label: "수정하기", value: "edit" },
-              { label: "삭제하기", value: "delete" },
+              {
+                label: "수정하기",
+                value: "edit",
+              },
+              { label: "삭제하기", value: "delete", handler: handleOpenModal },
             ]}
           />
         </S.BtnWrapper>
