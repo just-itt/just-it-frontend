@@ -5,7 +5,7 @@ import * as S from "./DropdownBtn.styled";
 interface DropdownBtnProps {
   className?: string;
   btnRender: React.ReactNode;
-  dropdownItems: { label: string; value: string }[];
+  dropdownItems: { label: string; value: string; handler?: () => void }[];
 }
 
 const DropdownBtn = ({
@@ -14,7 +14,7 @@ const DropdownBtn = ({
   dropdownItems,
 }: DropdownBtnProps) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
-  const dropdownRef = useRef<any>(null);
+  const dropdownRef = useRef<HTMLButtonElement>(null);
 
   const handleClickDropdown = () => {
     setIsOpenDropdown(!isOpenDropdown);
@@ -47,8 +47,12 @@ const DropdownBtn = ({
       {btnRender}
       {isOpenDropdown && (
         <S.DropdownWrapper>
-          {dropdownItems.map(({ label, value }, i) => (
-            <S.DropdownItem key={i}>{label}</S.DropdownItem>
+          {dropdownItems.map(({ label, handler }, i) => (
+            <S.DropdownItem key={i}>
+              <button type="button" onClick={handler}>
+                {label}
+              </button>
+            </S.DropdownItem>
           ))}
         </S.DropdownWrapper>
       )}

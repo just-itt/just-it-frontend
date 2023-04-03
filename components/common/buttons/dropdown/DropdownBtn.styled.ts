@@ -22,8 +22,13 @@ export const DropdownItem = styled.li`
   ${({ theme }) => css`
     ${theme.font.regular_15};
     min-width: 118px;
-    padding: 8px 20px;
-    text-align: left;
+
+    & > button {
+      width: 100%;
+      height: 100%;
+      padding: 8px 20px;
+      text-align: left;
+    }
 
     @media (hover: hover) {
       :hover {
