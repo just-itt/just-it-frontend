@@ -1,9 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
 
-import { pheedDetailAtom } from "@recoil/common";
 import * as S from "./Pheed.styled";
 
 interface PheedProps {
@@ -13,10 +11,8 @@ interface PheedProps {
 
 const Pheed = ({ src, title }: PheedProps) => {
   const { replace } = useRouter();
-  // const setIsClickPheed = useSetRecoilState(pheedDetailAtom);
 
   const handleClickPheed = () => {
-    // setIsClickPheed(true);
     replace("?id=123", "?id=123", { scroll: false });
   };
 
