@@ -9,6 +9,7 @@ interface ButtonProps {
   disabled?: boolean;
   label: string;
   isError?: boolean;
+  handler?: () => void;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   disabled,
   label,
   isError,
+  handler,
 }: ButtonProps) => {
   return (
     <S.Button
@@ -25,6 +27,7 @@ const Button = ({
       mode={mode}
       type={type}
       disabled={isError || disabled}
+      onClick={handler}
     >
       {label}
     </S.Button>
