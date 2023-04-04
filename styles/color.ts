@@ -20,4 +20,5 @@ export const color = {
   red_200: "#DD2E2E",
   red_300: "#AF1212",
   kakao: "#FEE500",
+  modal_Bg: "#1a1a1a99",
 };
