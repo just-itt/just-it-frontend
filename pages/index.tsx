@@ -1,11 +1,15 @@
 import React, { ReactElement } from "react";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-// import { useRecoilValue } from "recoil";
 
-import { MainLayout, Pheed } from "@components/index";
+import {
+  MainLayout,
+  Filter,
+  Pheed,
+  Heading,
+  SuggestedMenu,
+} from "@components/index";
 import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
-// import { pheedDetailAtom } from "@recoil/common";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
@@ -14,13 +18,13 @@ const index: NextPageWithLayout = () => {
     query: { id },
   } = useRouter();
 
-  // const isClickPheed = useRecoilValue(pheedDetailAtom);
-
   return (
-    <S.Main>
-      {/* <Filter /> */}
-      <S.FlexWrapper>
-        <S.ContentWrapper isClickPheed={!!id}>
+    <S.Main isClickPheed={!!id}>
+      <S.PheedWrapper isClickPheed={!!id}>
+        <div>
+          <SuggestedMenu />
+          <Heading css={S.heading} heading="실시간 인기 피드" />
+          <Filter />
           <ResponsiveMasonry
             columnsCountBreakPoints={{
               555: 2,
@@ -58,9 +62,9 @@ const index: NextPageWithLayout = () => {
               <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
             </Masonry>
           </ResponsiveMasonry>
-        </S.ContentWrapper>
-        {id && <PheedDetail />}
-      </S.FlexWrapper>
+        </div>
+      </S.PheedWrapper>
+      {id && <PheedDetail />}
     </S.Main>
   );
 };

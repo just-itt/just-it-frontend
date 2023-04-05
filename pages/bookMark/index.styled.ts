@@ -1,24 +1,33 @@
 import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Main = styled.div`
-  ${({ theme }) => css`
+export const Main = styled.div<{ isClickPheed: boolean }>`
+  ${({ theme, isClickPheed }) => css`
     position: relative;
     width: 100%;
-    padding: 28px 20px;
+    height: calc(100vh - 72px);
+    overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      width: calc(100vw - 248px);
-      padding: 40px;
+      display: flex;
+      margin-left: 248px;
+      overflow-y: ${isClickPheed && "visible"};
     }
   `}
 `;
 
-export const FlexWrapper = styled.div`
-  ${({ theme }) => css`
+export const PheedWrapper = styled.div<{ isClickPheed: boolean }>`
+  ${({ theme, isClickPheed }) => css`
+    padding: 20px;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      padding: 40px;
+    }
+
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      display: flex;
-      height: calc(100vh - ${theme.constantCss.navHeight});
+      width: ${isClickPheed ? "calc(100% - 784px)" : "100%"};
+      border-right: ${isClickPheed && `1px solid ${theme.color.grey_200}`};
+      overflow-y: ${isClickPheed ? "auto" : "visible"};
     }
   `}
 `;
@@ -29,14 +38,4 @@ export const heading = (theme: Theme) => css`
   @media (min-width: ${theme.breakPoint.minTablet}) {
     margin-bottom: 16px;
   }
-`;
-
-export const ContentWrapper = styled.div`
-  ${({ theme }) => css`
-    @media (min-width: ${theme.breakPoint.minDesktop}) {
-      width: 100%;
-      height: calc(100vh - ${theme.constantCss.navHeight});
-      overflow-y: scroll;
-    }
-  `}
 `;

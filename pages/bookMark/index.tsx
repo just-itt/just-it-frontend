@@ -13,10 +13,10 @@ const BookMark: NextPageWithLayout = () => {
   } = useRouter();
 
   return (
-    <S.Main>
-      <Heading css={S.heading} heading="저장한 게시글" />
-      <S.FlexWrapper>
-        <S.ContentWrapper>
+    <S.Main isClickPheed={!!id}>
+      <S.PheedWrapper isClickPheed={!!id}>
+        <div>
+          <Heading css={S.heading} heading="저장한 게시글" />
           <Filter />
           <ResponsiveMasonry
             columnsCountBreakPoints={{
@@ -55,9 +55,9 @@ const BookMark: NextPageWithLayout = () => {
               <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
             </Masonry>
           </ResponsiveMasonry>
-        </S.ContentWrapper>
-        {id && <PheedDetail />}
-      </S.FlexWrapper>
+        </div>
+      </S.PheedWrapper>
+      {id && <PheedDetail />}
     </S.Main>
   );
 };

@@ -4,16 +4,20 @@ import styled from "@emotion/styled";
 export const Setting = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    padding: 28px 20px 0 20px;
+    height: calc(100vh - 72px);
+    margin: 0 auto;
+    padding: 20px;
+    overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       & > div {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
         width: 386px;
-        padding: 0;
       }
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      display: flex;
+      justify-content: center;
     }
   `}
 `;

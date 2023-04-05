@@ -20,7 +20,7 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
     }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      position: sticky;
+      position: fixed;
       top: ${theme.constantCss.navHeight};
       right: 0;
       bottom: 0;
