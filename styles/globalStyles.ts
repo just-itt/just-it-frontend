@@ -172,4 +172,9 @@ export const globalStyle = css`
   textarea:focus {
     outline: none;
   }
+
+  dialog {
+    border: 0;
+    padding: 0;
+  }
 `;
