@@ -1,3 +1,4 @@
+import React from "react";
 import { atom } from "recoil";
 
 export const userAtom = atom({
@@ -10,7 +11,10 @@ export const navAtom = atom({
   default: false,
 });
 
-export const modalAtom = atom({
+export const modalAtom = atom<{
+  isOpen: boolean;
+  modalComponent: null | React.ReactNode;
+}>({
   key: "modalState",
-  default: false,
+  default: { isOpen: false, modalComponent: null },
 });

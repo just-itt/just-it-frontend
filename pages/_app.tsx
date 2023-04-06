@@ -5,6 +5,7 @@ import { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 
+import { BaseModal } from "@components/index";
 import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
 
@@ -22,7 +23,10 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyle} />
-      <RecoilRoot>{getLayout(<Component {...pageProps} />)}</RecoilRoot>
+      <RecoilRoot>
+        {getLayout(<Component {...pageProps} />)}
+        <BaseModal />
+      </RecoilRoot>
       <div id="modal" />
     </ThemeProvider>
   );
