@@ -1,11 +1,12 @@
-import { RecoilRoot } from "recoil";
-
-import { Global, ThemeProvider } from "@emotion/react";
 import { ReactElement, ReactNode } from "react";
+import { RecoilRoot } from "recoil";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Global, ThemeProvider } from "@emotion/react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 
 import { BaseModal } from "@components/index";
+import { queryClient } from "services";
 import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
 
@@ -24,10 +25,12 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
     <ThemeProvider theme={theme}>
       <Global styles={globalStyle} />
       <RecoilRoot>
-        {getLayout(<Component {...pageProps} />)}
-        <BaseModal />
+        <QueryClientProvider client={queryClient}>
+          {getLayout(<Component {...pageProps} />)}
+          <BaseModal />
+          <div id="modal" />
+        </QueryClientProvider>
       </RecoilRoot>
-      <div id="modal" />
     </ThemeProvider>
   );
 };
