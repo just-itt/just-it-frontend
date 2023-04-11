@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { AuthCodeInput, FormInput } from "@components/index";
+import {
+  useCreateMember,
+  useEmailAuth,
+  useEmailAuthCode,
+  useLogin,
+} from "services";
 import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "utils/validate";
 import { KakaoIcon, LogoLongIcon } from "@icons/index";
 import * as S from "./index.styled";
 
 const Login = () => {
+  const { push } = useRouter();
   const {
     register,
     watch,
@@ -27,22 +35,79 @@ const Login = () => {
   const [isClickAuthBtn, setIsClickAuthBtn] = useState(false);
   const [isCheckAuthCode, setIsCheckAuthCode] = useState(false);
 
+  const { mutate: useEmailAuthMutate } = useEmailAuth();
+  const { mutate: useEmailAuthCodeMutate } = useEmailAuthCode();
+  const { mutate: useCreateMemberMutate } = useCreateMember();
+  const { mutate: useLoginMutate } = useLogin();
+
   const handleClickSignUp = () => {
     setIsSignUp(!isSignUp);
     clearErrors();
   };
 
   const handleAuthCode = () => {
-    setIsClickAuthBtn(true);
+    useEmailAuthMutate(
+      { query: { email: watch("email") } },
+      {
+        onSuccess: () => {
+          setIsClickAuthBtn(true);
+        },
+        onError: (err: any) => {
+          if (err.response.data.message === "Email already authorized") {
+            alert("이미 가입한 이메일이다!");
+          }
+        },
+      },
+    );
   };
 
   const handleCheckAuthCode = () => {
-    setIsCheckAuthCode(true);
+    useEmailAuthCodeMutate(
+      { query: { email: watch("email"), auth_code: watch("authCode") } },
+      {
+        onSuccess: () => {
+          setIsCheckAuthCode(true);
+        },
+      },
+    );
+  };
+
+  const handleClickSumbmit = (data: { email: string; password: string }) => {
+    if (isSignUp) {
+      useCreateMemberMutate(
+        {
+          query: {
+            email: watch("email"),
+            password: watch("password"),
+            nickname: "수혁",
+          },
+        },
+        {
+          onSuccess: () => {
+            push("/");
+          },
+        },
+      );
+    } else {
+      useLoginMutate(
+        {
+          query: {
+            email: data.email,
+            password: data.password,
+          },
+        },
+        {
+          onSuccess: () => {
+            push("/");
+          },
+        },
+      );
+    }
   };
 
   return (
     <S.Layout>
-      <S.LogoWrapper>
+      <S.LogoWrapper href="/">
         <LogoLongIcon />
       </S.LogoWrapper>
       <S.KakaoLoginBtn>
@@ -51,10 +116,7 @@ const Login = () => {
       </S.KakaoLoginBtn>
       <S.Or>또는 이메일 로그인</S.Or>
       <form
-        onSubmit={handleSubmit(
-          () => console.log("submit"),
-          () => console.log("error"),
-        )}
+        onSubmit={handleSubmit(handleClickSumbmit, () => console.log("error"))}
       >
         {isSignUp ? (
           <>

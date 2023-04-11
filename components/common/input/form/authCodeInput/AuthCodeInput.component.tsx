@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CheckBlueIcon } from "@icons/index";
+// import { CheckBlueIcon } from "@icons/index";
 import FormInput from "../formInput/FormInput.component";
 import * as S from "./AuthCodeInput.styled";
 
@@ -55,7 +55,7 @@ const AuthCodeInput = ({
       )}
       {type === "text" && isCheckAuthCode && (
         <S.AuthCodeSeccess>
-          <CheckBlueIcon />
+          {/* <CheckBlueIcon /> */}
           인증이 완료되었습니다.
         </S.AuthCodeSeccess>
       )}
