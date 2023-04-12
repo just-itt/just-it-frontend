@@ -18,18 +18,29 @@ const useModal = () => {
     setModal({ isOpen: false, modalComponent: null });
   };
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      handleCloseModal();
-    }
-  };
-
   useEffect(() => {
     setIsReady(true);
+
+    const handleClickESC = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && modal.isOpen) {
+        handleCloseModal();
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        handleCloseModal();
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keyup", handleClickESC);
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keyup", handleClickESC);
+      document.body.style.overflow = "unset";
     };
   }, []);
 
