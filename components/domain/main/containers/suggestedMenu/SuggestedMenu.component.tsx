@@ -1,15 +1,21 @@
 import React from "react";
 
-import { Heading, Pheed } from "@components/index";
+import { FilterModal, Heading, Pheed } from "@components/index";
+import { useModal } from "@hooks/index";
 import { FilterIcon } from "@icons/index";
 import * as S from "./SuggestedMenu.styled";
 
 const SuggestedMenu = () => {
+  const { handleOpenModal } = useModal();
+
   return (
     <S.SuggestedMenu>
       <S.HeadingWrapper>
         <Heading heading="오늘의 추천 메뉴" />
-        <S.FilterSettingBtn type="button">
+        <S.FilterSettingBtn
+          type="button"
+          onClick={handleOpenModal(<FilterModal />)}
+        >
           <FilterIcon />
           <span>필터 설정</span>
         </S.FilterSettingBtn>
