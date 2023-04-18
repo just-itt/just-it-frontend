@@ -13,8 +13,8 @@ interface HashTagProps {
 const HashTag = ({ className, hashTags }: HashTagProps) => {
   return (
     <S.Wrapper className={className}>
-      {hashTags.map(({ icon, title }) => (
-        <S.HashTag>
+      {hashTags.map(({ icon, title }, i) => (
+        <S.HashTag key={i}>
           {icon} {title}
         </S.HashTag>
       ))}
