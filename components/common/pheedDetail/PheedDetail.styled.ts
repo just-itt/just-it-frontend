@@ -24,7 +24,6 @@ export const Wrapper = styled.div`
       height: calc(100vh - ${theme.constantCss.navHeight});
       overflow-y: scroll;
       padding: 40px 40px 0 40px;
-      border-left: 1px solid ${theme.color.grey_200};
       z-index: 0;
     }
   `}
@@ -47,7 +46,6 @@ export const HeaderWrapper = styled.div`
       margin-bottom: 40px;
       padding: 0;
       border-bottom: 0;
-      border-left: 1px solid ${theme.color.grey_200};
     }
   `}
 `;
