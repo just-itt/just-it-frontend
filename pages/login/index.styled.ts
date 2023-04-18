@@ -12,7 +12,7 @@ export const Layout = styled.section`
   `}
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoWrapper = styled(Link)`
   ${({ theme }) => css`
     ${theme.flexMixin.flex_justifyC};
     margin-bottom: 52px;
