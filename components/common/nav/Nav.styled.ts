@@ -14,11 +14,6 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
     z-index: ${theme.zIndex.nav};
     transition: transform 0.3s ease-out;
 
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: fixed;
       top: ${theme.constantCss.navHeight};
@@ -74,6 +69,11 @@ export const NavItem = styled.li`
   ${({ theme }) => css`
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       padding: 0 12px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
   `}
 `;
