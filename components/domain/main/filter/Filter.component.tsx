@@ -1,40 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 
 import { ArrowLongIcon } from "@icons/index";
+import {
+  DAY_OF_THE_WEEKS,
+  FOOD_CATEGORIES,
+  TIME_ZONES,
+  WHO_WITHS,
+} from "assets/filter";
 import * as S from "./Filter.styled";
-
-const FILTERS = [
-  { key: "해장", label: "얼큰한 해장이 필요 🍏" },
-  { key: "한식", label: "한식 🍚" },
-  { key: "비오는날", label: "비오는 날 ☔️" },
-  { key: "패스트푸드", label: "패스트푸드 🍔" },
-  { key: "연인과함께하기좋은", label: "연인과함께하기좋은 👩‍❤️‍👨" },
-  { key: "일식", label: "일식 🍣" },
-  { key: "해장", label: "얼큰한 해장이 필요 🍏" },
-  { key: "한식", label: "한식 🍚" },
-  { key: "비오는날", label: "비오는 날 ☔️" },
-  { key: "패스트푸드", label: "패스트푸드 🍔" },
-  { key: "연인과함께하기좋은", label: "연인과함께하기좋은 👩‍❤️‍👨" },
-  { key: "일식", label: "일식 🍣" },
-  { key: "해장", label: "얼큰한 해장이 필요 🍏" },
-  { key: "한식", label: "한식 🍚" },
-  { key: "비오는날", label: "비오는 날 ☔️" },
-  { key: "패스트푸드", label: "패스트푸드 🍔" },
-  { key: "연인과함께하기좋은", label: "연인과함께하기좋은 👩‍❤️‍👨" },
-  { key: "일식", label: "일식 🍣" },
-  { key: "해장", label: "얼큰한 해장이 필요 🍏" },
-  { key: "한식", label: "한식 🍚" },
-  { key: "비오는날", label: "비오는 날 ☔️" },
-  { key: "패스트푸드", label: "패스트푸드 🍔" },
-  { key: "연인과함께하기좋은", label: "연인과함께하기좋은 👩‍❤️‍👨" },
-  { key: "일식", label: "일식 🍣" },
-];
 
 const Filter = () => {
   const { push, query } = useRouter();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<{ key: string; label: string }[]>([]);
 
   const isSelect = (key: string) => !!query.filter?.includes(key);
 
@@ -47,11 +28,22 @@ const Filter = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
+  useEffect(() => {
+    setFilters(
+      [
+        ...FOOD_CATEGORIES,
+        ...DAY_OF_THE_WEEKS,
+        ...TIME_ZONES,
+        ...WHO_WITHS,
+      ].sort(() => Math.random() - 0.5),
+    );
+  }, []);
+
   return (
     <S.Filter>
       <S.FilterWrapper isFilterOpen={isFilterOpen}>
-        {FILTERS.map(item => (
-          <li key={item.key}>
+        {filters.map(item => (
+          <li key={uuidv4()}>
             <S.FilterItem
               isSelect={isSelect(item.key)}
               onClick={handleClickFilter(item.key)}
