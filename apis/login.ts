@@ -1,9 +1,12 @@
 import { ax } from "apis";
+import type { AxiosResponse } from "axios";
 import type {
   EmailAuthQueryModel,
   EmailAuthCodeQueryModel,
   CreateMemberQueryModel,
   LoginQueryModel,
+  LoginServerModel,
+  MemberProfileServerModel,
 } from "types";
 
 export const emailAuth = async (req: EmailAuthQueryModel) => {
@@ -24,8 +27,18 @@ export const createMember = async (req: CreateMemberQueryModel) => {
   return res;
 };
 
-export const login = async (req: LoginQueryModel) => {
+export const login = async (
+  req: LoginQueryModel,
+): Promise<AxiosResponse<LoginServerModel>> => {
   const res = await ax.post("/accounts/login", req.query);
+
+  return res;
+};
+
+export const getMemberProfile = async (): Promise<
+  AxiosResponse<MemberProfileServerModel>
+> => {
+  const res = await ax.get("/members/me");
 
   return res;
 };
