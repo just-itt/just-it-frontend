@@ -1,9 +1,27 @@
 import React from "react";
 import { atom } from "recoil";
 
-export const userAtom = atom({
+export const userAtom = atom<{
+  createdAt: string;
+  email: string;
+  id: number;
+  lastLoginAt: string;
+  nickname: string;
+  profileImage: string | null;
+  status: string;
+  updatedAt: string;
+}>({
   key: "userState",
-  default: { user: "" },
+  default: {
+    createdAt: "",
+    email: "",
+    id: 0,
+    lastLoginAt: "",
+    nickname: "",
+    profileImage: "",
+    status: "",
+    updatedAt: "",
+  },
 });
 
 export const navAtom = atom({
