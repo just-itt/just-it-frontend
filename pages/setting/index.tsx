@@ -1,13 +1,49 @@
-import React, { useState, ReactElement } from "react";
+import React, { ReactElement, ChangeEvent, useState } from "react";
+import Image from "next/image";
+import { useRecoilState } from "recoil";
 
 import { Button, Division, Heading, LabelContent } from "@components/common";
 import { MainLayout } from "@components/layout";
+import { usePatchNickname, usePostProfileImage } from "services";
+import { userAtom } from "@recoil/common";
 import { PencilIcon, TrashIcon, PictureIcon, PersonIcon } from "@icons/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
 const Setting: NextPageWithLayout = () => {
-  const [profile, setProfile] = useState(null);
+  const [profile] = useRecoilState(userAtom);
+  const { mutate: usePostProfileImageMutate } = usePostProfileImage();
+  const { mutate: usePatchNicknameMutate } = usePatchNickname();
+
+  const [nickname, setNickname] = useState(
+    profile.nickname ? profile.nickname : "",
+  );
+
+  const handleAddProfile = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      usePostProfileImageMutate({ body: { file: reader.result as string } });
+    };
+
+    reader.readAsDataURL(file as File);
+  };
+
+  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
+  const handleSubmitChangeNickname = () => {
+    usePatchNicknameMutate(
+      { body: { nickname } },
+      {
+        onSuccess: () => {
+          alert("닉네임이 변경 되었습니다.");
+        },
+      },
+    );
+  };
 
   return (
     <S.Setting>
@@ -15,12 +51,19 @@ const Setting: NextPageWithLayout = () => {
         <Heading css={S.heading} heading="기본 정보" />
         <S.ProfileWrapper>
           <S.Profile>
-            <PersonIcon />
+            {profile.profileImage ? (
+              <Image src={profile.profileImage} alt="프로필 이미지" />
+            ) : (
+              <PersonIcon />
+            )}
           </S.Profile>
-          <button type="button">
-            {profile ? <PencilIcon /> : <PictureIcon />}
-          </button>
-          {profile && (
+          <input
+            type="file"
+            accept=".jpeg, .jpg, .png"
+            onChange={handleAddProfile}
+          />
+          {profile.profileImage ? <PencilIcon /> : <PictureIcon />}
+          {profile.profileImage && (
             <button type="button">
               <TrashIcon />
             </button>
@@ -43,11 +86,17 @@ const Setting: NextPageWithLayout = () => {
               <LabelContent.Input
                 css={S.nicknameInput}
                 placeholder=""
-                value="캔디바"
+                value={nickname}
+                handleChange={handleChangeNickname}
               />
             </S.EmailIconWrapper>
           </LabelContent>
-          <Button mode="primary" label="변경사항 저장" />
+          <Button
+            type="button"
+            mode="primary"
+            label="변경사항 저장"
+            handler={handleSubmitChangeNickname}
+          />
         </S.Form>
         <Division css={S.division} />
         <Heading css={S.heading} heading="비밀번호 변경" />
