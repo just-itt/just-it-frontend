@@ -2,10 +2,15 @@ import React, { ReactElement, ChangeEvent, useState } from "react";
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 
-import { Button, Division, Heading, LabelContent } from "@components/common";
-import { MainLayout } from "@components/layout";
-import { usePatchNickname, usePostProfileImage } from "services";
-import { userAtom } from "@recoil/common";
+import {
+  MainLayout,
+  Button,
+  Division,
+  Heading,
+  LabelContent,
+} from "@components/index";
+import { usePatchNickname, usePostProfileImage } from "@service/index";
+import { userAtom } from "@recoil/index";
 import { PencilIcon, TrashIcon, PictureIcon, PersonIcon } from "@icons/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
@@ -21,13 +26,14 @@ const Setting: NextPageWithLayout = () => {
 
   const handleAddProfile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
-      usePostProfileImageMutate({ body: { file: reader.result as string } });
-    };
+    if (!file) return;
 
-    reader.readAsDataURL(file as File);
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    usePostProfileImageMutate(formData);
   };
 
   const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +58,12 @@ const Setting: NextPageWithLayout = () => {
         <S.ProfileWrapper>
           <S.Profile>
             {profile.profileImage ? (
-              <Image src={profile.profileImage} alt="프로필 이미지" />
+              <Image
+                src={profile.profileImage}
+                alt="프로필 이미지"
+                width={80}
+                height={80}
+              />
             ) : (
               <PersonIcon />
             )}
