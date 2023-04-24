@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { patchNickname, postProfileImage } from "apis";
+import { deleteProfileImage, patchNickname, postProfileImage } from "apis";
 import type {
   PatchNicknameQueryModel,
   PostProfileImageQueryModel,
@@ -15,5 +15,11 @@ export const usePatchNickname = () => {
 export const usePostProfileImage = () => {
   return useMutation({
     mutationFn: (req: PostProfileImageQueryModel) => postProfileImage(req),
+  });
+};
+
+export const useDeleteProfileImage = () => {
+  return useMutation({
+    mutationFn: () => deleteProfileImage(),
   });
 };

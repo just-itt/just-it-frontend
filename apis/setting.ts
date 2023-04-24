@@ -16,3 +16,9 @@ export const postProfileImage = async (req: PostProfileImageQueryModel) => {
 
   return res;
 };
+
+export const deleteProfileImage = async () => {
+  const res = await ax.delete("/members/me/profile-image");
+
+  return res;
+};
