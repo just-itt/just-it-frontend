@@ -1,5 +1,4 @@
-import React, { ReactElement, ChangeEvent, useState } from "react";
-import Image from "next/image";
+import React, { useState, ReactElement, ChangeEvent } from "react";
 import { useRecoilState } from "recoil";
 
 import {
@@ -8,105 +7,114 @@ import {
   Division,
   Heading,
   LabelContent,
+  SetProfile,
 } from "@components/index";
-import { usePatchNickname, usePostProfileImage } from "@service/index";
-import { userAtom } from "@recoil/index";
-import { PencilIcon, TrashIcon, PictureIcon, PersonIcon } from "@icons/index";
+import {
+  useDeleteProfileImage,
+  usePatchNickname,
+  usePostProfileImage,
+} from "@service/index";
+import { profileAtom } from "@recoil/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
 const Setting: NextPageWithLayout = () => {
-  const [profile] = useRecoilState(userAtom);
+  const [profile] = useRecoilState(profileAtom);
   const { mutate: usePostProfileImageMutate } = usePostProfileImage();
+  const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();
 
+  const [changeProfile, setChangeProfile] = useState<File | string | null>(
+    null,
+  );
+  const [changeProfileString, setChangeProfileString] = useState<string | null>(
+    null,
+  );
   const [nickname, setNickname] = useState(
     profile.nickname ? profile.nickname : "",
   );
 
-  const handleAddProfile = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeProfile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
-    if (!file) return;
+    if (file) {
+      setChangeProfile(file);
 
-    const formData = new FormData();
-
-    formData.append("file", file);
-
-    usePostProfileImageMutate(formData);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setChangeProfileString(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
 
-  const handleSubmitChangeNickname = () => {
-    usePatchNicknameMutate(
-      { body: { nickname } },
-      {
-        onSuccess: () => {
-          alert("닉네임이 변경 되었습니다.");
-        },
-      },
-    );
+  const handleClickDeleteProfile = () => {
+    setChangeProfileString("");
+    setChangeProfile("");
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const temp = [];
+
+      if (nickname !== profile.nickname) {
+        temp.push(usePatchNicknameMutate({ body: { nickname } }));
+      }
+
+      if (changeProfile) {
+        const formData = new FormData();
+        formData.append("file", changeProfile);
+
+        temp.push(usePostProfileImageMutate(formData));
+      }
+
+      if (changeProfile === "") {
+        temp.push(useDeleteProfileImageMutate());
+      }
+
+      await Promise.all(temp);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <S.Setting>
       <div>
         <Heading css={S.heading} heading="기본 정보" />
-        <S.ProfileWrapper>
-          <S.Profile>
-            {profile.profileImage ? (
-              <Image
-                src={profile.profileImage}
-                alt="프로필 이미지"
-                width={80}
-                height={80}
-              />
-            ) : (
-              <PersonIcon />
-            )}
-          </S.Profile>
-          <input
-            type="file"
-            accept=".jpeg, .jpg, .png"
-            onChange={handleAddProfile}
-          />
-          {profile.profileImage ? <PencilIcon /> : <PictureIcon />}
-          {profile.profileImage && (
-            <button type="button">
-              <TrashIcon />
-            </button>
-          )}
-        </S.ProfileWrapper>
+        <SetProfile
+          src={profile.profileImage}
+          alt={`${profile.nickname}의 프로필 사진`}
+          changeProfileString={changeProfileString}
+          handleChangeProfile={handleChangeProfile}
+          handleDeleteProfile={handleClickDeleteProfile}
+        />
         <S.Form>
-          <LabelContent css={S.labelContent} label="이메일">
-            <S.EmailIconWrapper>
-              {"hoon4528@gmail.com".includes("gmail") && <PersonIcon />}
-              <LabelContent.Input
-                css={S.emailInput}
-                placeholder=""
-                disabled
-                value="hoon4528@gmail.com"
-              />
-            </S.EmailIconWrapper>
+          <LabelContent css={S.labelContent} label="닉네임">
+            <LabelContent.Input
+              css={S.nicknameInput}
+              placeholder=""
+              value={nickname}
+              handleChange={handleChangeNickname}
+            />
           </LabelContent>
-          <LabelContent css={S.nicknameLabelContent} label="닉네임">
-            <S.EmailIconWrapper>
-              <LabelContent.Input
-                css={S.nicknameInput}
-                placeholder=""
-                value={nickname}
-                handleChange={handleChangeNickname}
-              />
-            </S.EmailIconWrapper>
+          <LabelContent css={S.emailLabelContent} label="이메일">
+            <LabelContent.Input
+              css={S.emailInput}
+              placeholder=""
+              disabled
+              value={profile.email}
+            />
           </LabelContent>
           <Button
             type="button"
             mode="primary"
             label="변경사항 저장"
-            handler={handleSubmitChangeNickname}
+            handler={handleSubmit}
           />
         </S.Form>
         <Division css={S.division} />

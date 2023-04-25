@@ -11,3 +11,4 @@ export * from "./modal";
 export { default as Nav } from "./nav/Nav.component";
 // export { default as PheedDetail } from "./pheedDetail/PheedDetail.component";
 export { default as Portal } from "./potal/Potal.component";
+export { default as Profile } from "./profile/Profile.component";
