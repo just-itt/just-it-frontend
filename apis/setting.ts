@@ -22,3 +22,9 @@ export const deleteProfileImage = async () => {
 
   return res;
 };
+
+export const deleteMember = async () => {
+  const res = await ax.patch("/members/withdraw");
+
+  return res;
+};
