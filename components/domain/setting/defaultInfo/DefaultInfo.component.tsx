@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import { useRecoilState } from "recoil";
 
 import { Heading, Button } from "@components/index";
 import {
@@ -6,24 +7,15 @@ import {
   usePatchNickname,
   usePostProfileImage,
 } from "@service/index";
+import { profileAtom } from "@recoil/index";
 import { SetNickname, SetProfile } from "./containers";
 import * as S from "./DefaultInfo.styled";
 
-interface DefaultInfoProps {
-  profileImage: string | null;
-  profileNickname: string;
-  email: string;
-}
+const DefaultInfo = () => {
+  const [profile] = useRecoilState(profileAtom);
 
-const DefaultInfo = ({
-  profileImage,
-  profileNickname,
-  email,
-}: DefaultInfoProps) => {
-  const [nickname, setNickname] = useState(profileNickname);
-  const [changeProfile, setChangeProfile] = useState<File | string | null>(
-    null,
-  );
+  const [nickname, setNickname] = useState(profile.nickname);
+  const [changeProfile, setChangeProfile] = useState<File | "" | null>(null);
   const [changeProfileString, setChangeProfileString] = useState<string | null>(
     null,
   );
@@ -59,7 +51,7 @@ const DefaultInfo = ({
     try {
       const temp = [];
 
-      if (nickname !== profileNickname) {
+      if (nickname !== profile.nickname) {
         temp.push(usePatchNicknameMutate({ body: { nickname } }));
       }
 
@@ -86,7 +78,7 @@ const DefaultInfo = ({
     <S.Wrapper>
       <Heading css={S.heading} heading="기본 정보" />
       <SetProfile
-        src={profileImage}
+        src={profile.profileImage}
         alt={`${nickname}의 프로필 사진`}
         changeProfileString={changeProfileString}
         handleChangeProfile={handleChangeProfile}
@@ -94,13 +86,13 @@ const DefaultInfo = ({
       />
       <SetNickname
         nickname={nickname}
-        email={email}
+        email={profile.email}
         handleChangeNickname={handleChangeNickname}
       />
       <Button
         css={S.button}
         type="button"
-        disabled={changeProfileString === null && nickname === profileNickname}
+        disabled={changeProfileString === null && nickname === profile.nickname}
         mode="primary"
         label="변경사항 저장"
         handler={handleSubmit}
