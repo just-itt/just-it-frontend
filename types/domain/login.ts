@@ -29,3 +29,10 @@ export interface MemberProfileServerModel {
   status: string;
   updated_at: string;
 }
+
+export interface LoginForm {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  authCode: string;
+}

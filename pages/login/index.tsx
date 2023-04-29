@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import Cookies from "js-cookie";
 
-import { SignIn, SignUp } from "@components/index";
-import { useCreateMember, useGetMemberProfile, useLogin } from "services";
+import { SignIn, SignUp, SignInBtn } from "@components/index";
+import { useCreateMember, useGetMemberProfile, useLogin } from "@service/index";
 import { profileAtom } from "@recoil/common";
 import { KakaoIcon, LogoLongIcon } from "@icons/index";
 import * as S from "./index.styled";
@@ -30,26 +30,16 @@ const Login = () => {
   const setUserState = useSetRecoilState(profileAtom);
   const [isSignUp, setIsSignUp] = useState(true);
 
+  const handleClickSignUp = () => {
+    setIsSignUp(!isSignUp);
+  };
+
   const { mutate: useCreateMemberMutate } = useCreateMember();
   const { mutate: useLoginMutate } = useLogin();
   const { mutate: useMemberProfileMutate } = useGetMemberProfile();
 
   const handleClickSumbmit = (data: { email: string; password: string }) => {
     if (isSignUp) {
-      useCreateMemberMutate(
-        {
-          query: {
-            email: watch("email"),
-            password: watch("password"),
-          },
-        },
-        {
-          onSuccess: () => {
-            push("/");
-          },
-        },
-      );
-    } else {
       useLoginMutate(
         {
           query: {
@@ -89,6 +79,20 @@ const Login = () => {
           },
         },
       );
+    } else {
+      useCreateMemberMutate(
+        {
+          query: {
+            email: watch("email"),
+            password: watch("password"),
+          },
+        },
+        {
+          onSuccess: () => {
+            push("/");
+          },
+        },
+      );
     }
   };
 
@@ -111,6 +115,7 @@ const Login = () => {
           <SignIn watch={watch} errors={errors} register={register} />
         )}
       </form>
+      <SignInBtn isSignUp={isSignUp} handleClickSignUp={handleClickSignUp} />
     </S.Layout>
   );
 };

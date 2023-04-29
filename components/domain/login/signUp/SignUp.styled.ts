@@ -18,27 +18,6 @@ export const LoginBtn = styled.button`
   `}
 `;
 
-export const SignUpWrapper = styled.div`
-  display: flex;
-  column-gap: 8px;
-  margin: 0 auto;
-`;
-
-export const SignUpQuestion = styled.span`
-  ${({ theme }) => css`
-    ${theme.font.regular_14};
-    color: ${theme.color.grey_600};
-  `}
-`;
-
-export const SignUp = styled.button`
-  ${({ theme }) => css`
-    ${theme.font.regular_14};
-    color: ${theme.color.blue_300};
-    text-decoration: underline;
-  `}
-`;
-
 export const PasswordHint = styled.span`
   ${({ theme }) => css`
     ${theme.font.regular_14};

@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import type {
+  UseFormWatch,
+  UseFormRegister,
+  FieldErrors,
+} from "react-hook-form";
 
 import { AuthCodeInput, FormInput } from "@components/index";
 import { useEmailAuth, useEmailAuthCode } from "@service/index";
 import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "utils/validate";
+import type { LoginForm } from "types";
 import * as S from "./SignIn.styled";
 
 interface SignInProps {
-  watch: any;
-  errors: any;
-  register: any;
+  watch: UseFormWatch<LoginForm>;
+  errors: FieldErrors<LoginForm>;
+  register: UseFormRegister<LoginForm>;
 }
 
 const SignIn = ({ watch, errors, register }: SignInProps) => {
@@ -44,8 +50,6 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
       },
     );
   };
-
-  const handleClickSignUp = () => {};
 
   return (
     <>
@@ -96,6 +100,25 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
       <FormInput
         css={S.marginBottom}
         autoComplete="new-password"
+        placeholder="비밀번호"
+        type="password"
+        hasValue={!!watch("password")}
+        hasError={!!errors.password}
+        errorMsg={
+          errors.password?.type === "required"
+            ? "비밀번호를 입력해 주세요."
+            : errors.password?.type === "pattern"
+            ? "비밀번호 조건에 맞지 않습니다."
+            : ""
+        }
+        register={register("password", {
+          required: true,
+          pattern: PASSWORD_VALIDATE,
+        })}
+      />
+      <FormInput
+        css={S.marginBottom}
+        autoComplete="new-password"
         placeholder="비밀번호 확인"
         type="password"
         hasValue={!!watch("passwordConfirm")}
@@ -110,8 +133,7 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
         register={register("passwordConfirm", {
           required: true,
           pattern: PASSWORD_VALIDATE,
-          validate: (value: any, formValues: any) =>
-            value === formValues.password,
+          validate: (value, formValues) => value === formValues.password,
         })}
       />
       <S.PasswordHint>
@@ -120,13 +142,6 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
       <S.LoginBtn type="submit" disabled={Object.keys(errors).length !== 0}>
         회원가입
       </S.LoginBtn>
-
-      <S.SignUpWrapper>
-        <S.SignUpQuestion>이미 계정이 있으신가요?</S.SignUpQuestion>
-        <S.SignUp type="submit" onClick={handleClickSignUp}>
-          로그인
-        </S.SignUp>
-      </S.SignUpWrapper>
     </>
   );
 };
