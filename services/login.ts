@@ -1,11 +1,23 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { createMember, emailAuth, emailAuthCode, login } from "apis";
+import {
+  createMember,
+  emailAuth,
+  emailAuthCode,
+  getMemberProfile,
+  login,
+  patchResetPassword,
+  postFindPasswordEmailCheck,
+  postFindPasswordEmailSend,
+} from "apis";
 import type {
   CreateMemberQueryModel,
   EmailAuthCodeQueryModel,
   EmailAuthQueryModel,
   LoginQueryModel,
+  PatchResetPasswordQueryModel,
+  PostFindPasswordEmailCheckQueryModel,
+  PostFindPasswordEmailSendQueryModel,
 } from "types";
 
 export const useEmailAuth = () => {
@@ -29,5 +41,33 @@ export const useCreateMember = () => {
 export const useLogin = () => {
   return useMutation({
     mutationFn: (req: LoginQueryModel) => login(req),
+  });
+};
+
+export const useGetMemberProfile = () => {
+  return useMutation({
+    mutationFn: () => getMemberProfile(),
+  });
+};
+
+export const usePostFindPasswordEmailSend = (
+  req: PostFindPasswordEmailSendQueryModel,
+) => {
+  return useMutation({
+    mutationFn: () => postFindPasswordEmailSend(req),
+  });
+};
+
+export const usePostFindPasswordEmailCheck = (
+  req: PostFindPasswordEmailCheckQueryModel,
+) => {
+  return useMutation({
+    mutationFn: () => postFindPasswordEmailCheck(req),
+  });
+};
+
+export const usePatchResetPassword = (req: PatchResetPasswordQueryModel) => {
+  return useMutation({
+    mutationFn: () => patchResetPassword(req),
   });
 };

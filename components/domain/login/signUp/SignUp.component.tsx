@@ -53,7 +53,9 @@ const SignUp = ({ watch, errors, register }: SignUpProps) => {
           required: true,
         })}
       />
-      <S.ResetPassword href="">비밀번호를 잊으셨나요?</S.ResetPassword>
+      <S.ResetPassword href="/findPassword">
+        비밀번호를 잊으셨나요?
+      </S.ResetPassword>
       <S.LoginBtn type="submit" disabled={Object.keys(errors).length !== 0}>
         로그인
       </S.LoginBtn>

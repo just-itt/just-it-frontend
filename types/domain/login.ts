@@ -36,3 +36,15 @@ export interface LoginForm {
   passwordConfirm: string;
   authCode: string;
 }
+
+export interface PostFindPasswordEmailSendQueryModel {
+  body: { email: string };
+}
+
+export interface PostFindPasswordEmailCheckQueryModel {
+  body: { email: string; auth_code: string };
+}
+
+export interface PatchResetPasswordQueryModel {
+  body: { email: string; password: string };
+}

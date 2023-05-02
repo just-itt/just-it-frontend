@@ -7,6 +7,9 @@ import type {
   LoginQueryModel,
   LoginServerModel,
   MemberProfileServerModel,
+  PostFindPasswordEmailSendQueryModel,
+  PostFindPasswordEmailCheckQueryModel,
+  PatchResetPasswordQueryModel,
 } from "types";
 
 export const emailAuth = async (req: EmailAuthQueryModel) => {
@@ -39,6 +42,28 @@ export const getMemberProfile = async (): Promise<
   AxiosResponse<MemberProfileServerModel>
 > => {
   const res = await ax.get("/members/me");
+
+  return res;
+};
+
+export const postFindPasswordEmailSend = async (
+  req: PostFindPasswordEmailSendQueryModel,
+) => {
+  const res = await ax.post("/accounts/find-pw/send", req.body);
+
+  return res;
+};
+
+export const postFindPasswordEmailCheck = async (
+  req: PostFindPasswordEmailCheckQueryModel,
+) => {
+  const res = await ax.post("/accounts/find-pw/check", req.body);
+
+  return res;
+};
+
+export const patchResetPassword = async (req: PatchResetPasswordQueryModel) => {
+  const res = await ax.patch("/accounts/reset-pw", req.body);
 
   return res;
 };
