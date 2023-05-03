@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { AuthCodeInput, Button, FormInput } from "@components/index";
@@ -12,6 +13,8 @@ import { PASSWORD_VALIDATE } from "utils/validate";
 import * as S from "./index.styled";
 
 const FindPassword = () => {
+  const { push } = useRouter();
+
   const [isClickAuthBtn, setIsClickAuthBtn] = useState(false);
   const [isCheckAuthCode, setIsCheckAuthCode] = useState(false);
 
@@ -63,6 +66,7 @@ const FindPassword = () => {
     patchResetPasswordMutate(undefined, {
       onSuccess: () => {
         alert("성공");
+        push("/login");
       },
       onError: () => {
         alert("실패");
@@ -87,6 +91,8 @@ const FindPassword = () => {
         register={register("email", { required: true })}
         hasValue={!!watch("email")}
         hasError={!!errors.email}
+        inputDisabled={isClickAuthBtn}
+        btnDisabled={isClickAuthBtn}
         handleAuthCode={handleAuthCode}
       />
       {isClickAuthBtn && (
@@ -98,6 +104,8 @@ const FindPassword = () => {
           hasValue={!!watch("authCode")}
           hasError={!!errors.authCode}
           isCheckAuthCode={isCheckAuthCode}
+          inputDisabled={isCheckAuthCode}
+          btnDisabled={isCheckAuthCode}
           register={register("authCode", {
             required: true,
           })}
