@@ -3,10 +3,12 @@ import { useMutation } from "@tanstack/react-query";
 import {
   deleteMember,
   deleteProfileImage,
+  patchChangePassword,
   patchNickname,
   postProfileImage,
 } from "apis";
 import type {
+  PatchChangePasswordQueryModel,
   PatchNicknameQueryModel,
   PostProfileImageQueryModel,
 } from "types";
@@ -32,5 +34,12 @@ export const useDeleteProfileImage = () => {
 export const useDeleteMember = () => {
   return useMutation({
     mutationFn: () => deleteMember(),
+  });
+};
+
+export const usePatchChangePassword = () => {
+  return useMutation({
+    mutationFn: (req: PatchChangePasswordQueryModel) =>
+      patchChangePassword(req),
   });
 };

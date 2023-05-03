@@ -1,6 +1,7 @@
 import { ax } from "apis";
 
 import type {
+  PatchChangePasswordQueryModel,
   PatchNicknameQueryModel,
   PostProfileImageQueryModel,
 } from "types";
@@ -25,6 +26,14 @@ export const deleteProfileImage = async () => {
 
 export const deleteMember = async () => {
   const res = await ax.patch("/members/withdraw");
+
+  return res;
+};
+
+export const patchChangePassword = async (
+  req: PatchChangePasswordQueryModel,
+) => {
+  const res = await ax.patch("/members/me/pw", req.body);
 
   return res;
 };
