@@ -17,24 +17,6 @@ export const imgUpload = (theme: Theme) => css`
   }
 `;
 
-export const ContentWrapper = styled.div`
-  width: 100%;
-`;
-
-export const margin = (theme: Theme) => css`
-  margin-bottom: 32px;
-
-  @media (min-width: ${theme.breakPoint.minTablet}) {
-    max-width: 520px;
-  }
-`;
-
-export const textArea = (theme: Theme) => css`
-  @media (min-width: ${theme.breakPoint.minTablet}) {
-    height: 390px;
-  }
-`;
-
 export const Canvas = styled.canvas`
   width: 100px;
   height: 100px;
