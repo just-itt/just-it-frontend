@@ -1,6 +1,9 @@
-import React, { ReactElement } from "react";
+import React, { useEffect, ReactElement } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { useSetRecoilState } from "recoil";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import type { GetServerSidePropsContext } from "next";
 
 import {
   MainLayout,
@@ -10,13 +13,35 @@ import {
   SuggestedMenu,
 } from "@components/index";
 import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
+import { profileAtom } from "@recoil/common";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
-const index: NextPageWithLayout = () => {
+interface IndexProps {
+  profile: {
+    createdAt: string;
+    id: number;
+    email: string;
+    nickname: string;
+    profileImage: string | null;
+    status: string;
+    lastLoginAt: string;
+    updatedAt: string;
+  };
+}
+
+const index: NextPageWithLayout = ({ profile }: IndexProps) => {
   const {
     query: { id },
   } = useRouter();
+
+  const setUserState = useSetRecoilState(profileAtom);
+
+  useEffect(() => {
+    if (!profile) return;
+
+    setUserState(profile);
+  }, []);
 
   return (
     <S.Main isClickPheed={!!id}>
@@ -72,5 +97,38 @@ const index: NextPageWithLayout = () => {
 index.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
+
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { req } = ctx;
+
+  const token = req.cookies.auth;
+
+  if (token) {
+    const ax = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+      timeout: 3000,
+    });
+    ax.defaults.headers.Authorization = `Bearer ${token}`;
+
+    const { data } = await ax.get("/members/me");
+
+    return {
+      props: {
+        profile: {
+          createdAt: data.created_at,
+          email: data.email,
+          id: data.id,
+          nickname: data.nickname,
+          profileImage: data.profile_image,
+          status: data.status,
+          lastLoginAt: data.last_login_at,
+          updatedAt: data.updated_at,
+        },
+      },
+    };
+  }
+
+  return { props: {} };
+}
 
 export default index;

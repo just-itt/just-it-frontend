@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 
 import { UnvisibleIcon, VisibleIcon } from "@icons/index";
 import * as S from "./LabelContent.styled";
@@ -14,15 +14,18 @@ interface InputProps {
   disabled?: boolean;
   placeholder: string;
   value?: string;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 interface PasswordInputProps {
   placeholder: string;
+  register: any;
 }
 
 interface TextareaProps {
   className?: string;
   placeholder: string;
+  handleChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const LabelContent = ({ className, label, children }: LabelContentProps) => {
@@ -39,6 +42,7 @@ LabelContent.Input = ({
   disabled,
   placeholder,
   value,
+  handleChange,
 }: InputProps) => {
   return (
     <S.Input
@@ -46,11 +50,15 @@ LabelContent.Input = ({
       disabled={disabled}
       placeholder={placeholder}
       value={value}
+      onChange={handleChange}
     />
   );
 };
 
-LabelContent.PasswordInput = ({ placeholder }: PasswordInputProps) => {
+LabelContent.PasswordInput = ({
+  placeholder,
+  register,
+}: PasswordInputProps) => {
   const [isPasswordBtnClick, setIsPasswordBtnClick] = useState(false);
 
   const handleClickPasswordBtn = () => {
@@ -62,6 +70,7 @@ LabelContent.PasswordInput = ({ placeholder }: PasswordInputProps) => {
       <S.Input
         type={isPasswordBtnClick ? "text" : "password"}
         placeholder={placeholder}
+        {...register}
       />
       <button type="button" onClick={handleClickPasswordBtn}>
         {isPasswordBtnClick ? <VisibleIcon /> : <UnvisibleIcon />}
@@ -70,8 +79,18 @@ LabelContent.PasswordInput = ({ placeholder }: PasswordInputProps) => {
   );
 };
 
-LabelContent.Textarea = ({ className, placeholder }: TextareaProps) => {
-  return <S.Textarea className={className} placeholder={placeholder} />;
+LabelContent.Textarea = ({
+  className,
+  placeholder,
+  handleChange,
+}: TextareaProps) => {
+  return (
+    <S.Textarea
+      className={className}
+      placeholder={placeholder}
+      onChange={handleChange}
+    />
+  );
 };
 
 export default LabelContent;

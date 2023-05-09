@@ -4,7 +4,11 @@ import Link from "next/link";
 import { PersonIcon } from "@icons/index";
 import * as S from "./Header.styled";
 
-const Header = () => {
+interface HeaderProps {
+  handleSubmit: () => void;
+}
+
+const Header = ({ handleSubmit }: HeaderProps) => {
   return (
     <S.Header>
       <S.ContentWrapper>
@@ -14,7 +18,9 @@ const Header = () => {
           </Link>
           새 글 올리기
         </div>
-        <S.CreateBtn type="button">완료</S.CreateBtn>
+        <S.CreateBtn type="button" onClick={handleSubmit}>
+          올리기
+        </S.CreateBtn>
       </S.ContentWrapper>
     </S.Header>
   );

@@ -6,22 +6,30 @@ import * as S from "./CreatePheedFilter.styled";
 
 interface CreatePheedFilterProps {
   handleClickFilter: (id: number) => () => void;
+  handleTitle: (e: any) => void;
+  handleContent: (e: any) => void;
 }
 
-const CreatePheedFilter = ({ handleClickFilter }: CreatePheedFilterProps) => {
+const CreatePheedFilter = ({
+  handleClickFilter,
+  handleTitle,
+  handleContent,
+}: CreatePheedFilterProps) => {
   const { data } = useGetTags();
-
-  console.log(data);
 
   return (
     <S.ContentWrapper>
       <LabelContent css={S.margin} label="글 제목 (필수)">
-        <LabelContent.Input placeholder="음식 이름 입력..." />
+        <LabelContent.Input
+          placeholder="음식 이름 입력..."
+          handleChange={handleTitle}
+        />
       </LabelContent>
       <LabelContent css={S.margin} label="설명">
         <LabelContent.Textarea
           css={S.textArea}
           placeholder="공유할 음식에 대해 자유롭게 설명해 주세요"
+          handleChange={handleContent}
         />
       </LabelContent>
       <LabelContent css={S.margin} label={data?.[0].title}>

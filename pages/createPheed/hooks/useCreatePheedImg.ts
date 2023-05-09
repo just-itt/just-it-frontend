@@ -25,6 +25,7 @@ const useCreatePheedImg = () => {
   };
 
   return {
+    imgFile,
     previewUrl,
     handleChangeImg,
     handleChangeRatio,

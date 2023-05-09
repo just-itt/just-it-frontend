@@ -3,3 +3,10 @@ export interface PatchNicknameQueryModel {
 }
 
 export type PostProfileImageQueryModel = FormData;
+
+export interface PatchChangePasswordQueryModel {
+  body: {
+    origin_password: string;
+    new_password: string;
+  };
+}
