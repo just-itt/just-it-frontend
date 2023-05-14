@@ -4,6 +4,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { MainLayout, Heading, Filter, Pheed } from "@components/index";
 import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
+import { useGetMyPheeds } from "@service/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
@@ -11,6 +12,8 @@ const MyPheed: NextPageWithLayout = () => {
   const {
     query: { id },
   } = useRouter();
+
+  const { data } = useGetMyPheeds();
 
   return (
     <S.Main isClickPheed={!!id}>
@@ -26,33 +29,13 @@ const MyPheed: NextPageWithLayout = () => {
             }}
           >
             <Masonry gutter="10px">
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
+              {data?.items.map(pheed => (
+                <Pheed
+                  key={pheed.image.image}
+                  src={pheed.image.image}
+                  title={pheed.title}
+                />
+              ))}
             </Masonry>
           </ResponsiveMasonry>
         </div>
