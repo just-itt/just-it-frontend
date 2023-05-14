@@ -22,7 +22,7 @@ const index = () => {
         <ImgUpload
           css={S.imgUpload}
           previewUrl={previewUrl}
-          handleChangeImg={handleChangeImg}
+          register={register}
           handleChangeRatio={handleChangeRatio}
         />
         <CreatePheedFilter

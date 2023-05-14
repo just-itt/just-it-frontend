@@ -26,7 +26,20 @@ const useCreatePheedForm = () => {
   };
 
   const createPheed = (data: any) => {
-    console.log(data);
+    const formData = new FormData();
+
+    formData.append("image", data.file[0]);
+    formData.append(
+      "payload",
+      JSON.stringify({
+        title: data.title,
+        content: data.content,
+        ratio: "1:1",
+        tag_options: data.tagOptions,
+      }),
+    );
+
+    postPheedMutate(formData);
   };
 
   return {
