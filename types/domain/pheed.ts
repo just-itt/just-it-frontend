@@ -17,3 +17,11 @@ export interface GetMyPheedsServerModel {
     updated_at: string;
   }[];
 }
+
+export interface CreatePheedForm {
+  file: FileList | null;
+  ratio: "1:1" | "3:4" | "4:3";
+  title: string;
+  content?: string;
+  tagOptions: number[];
+}

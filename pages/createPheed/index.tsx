@@ -6,14 +6,18 @@ import {
   CreatePheedFilter,
   ImgUpload,
 } from "@components/index";
-import { useCreatePheedForm, useCreatePheedImg } from "./hooks";
+import { useCreatePheedForm } from "./hooks";
 import * as S from "./index.styled";
 
 const index = () => {
-  const { imgFile, previewUrl, handleChangeImg, handleChangeRatio } =
-    useCreatePheedImg();
-  const { register, watch, handleSubmit, handleClickFilter } =
-    useCreatePheedForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    handleChangeRatio,
+    handleClickFilter,
+    handleDeleteImgFile,
+  } = useCreatePheedForm();
 
   return (
     <>
@@ -21,9 +25,9 @@ const index = () => {
       <CreatePheedLayout css={S.layout}>
         <ImgUpload
           css={S.imgUpload}
-          previewUrl={previewUrl}
           register={register}
           handleChangeRatio={handleChangeRatio}
+          handleDeleteImgFile={handleDeleteImgFile}
         />
         <CreatePheedFilter
           register={register}

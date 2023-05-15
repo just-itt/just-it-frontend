@@ -1,16 +1,13 @@
 import { useForm } from "react-hook-form";
 
 import { usePostPheed } from "@service/index";
+import type { CreatePheedForm } from "types";
 
 const useCreatePheedForm = () => {
-  const { register, setValue, watch, handleSubmit } = useForm<{
-    file: File | null;
-    title: string;
-    content?: string;
-    tagOptions: number[];
-  }>({
+  const { register, setValue, watch, handleSubmit } = useForm<CreatePheedForm>({
     defaultValues: {
       file: null,
+      ratio: "1:1",
       title: "",
       content: "",
       tagOptions: [],
@@ -25,7 +22,15 @@ const useCreatePheedForm = () => {
     setValue("tagOptions", [...watch("tagOptions"), id]);
   };
 
-  const createPheed = (data: any) => {
+  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
+    setValue("ratio", ratio);
+  };
+
+  const handleDeleteImgFile = () => {
+    setValue("file", null);
+  };
+
+  const createPheed = (data: CreatePheedForm) => {
     const formData = new FormData();
 
     formData.append("image", data.file[0]);
@@ -46,7 +51,9 @@ const useCreatePheedForm = () => {
     register,
     watch,
     handleSubmit: handleSubmit(createPheed),
+    handleChangeRatio,
     handleClickFilter,
+    handleDeleteImgFile,
   };
 };
 
