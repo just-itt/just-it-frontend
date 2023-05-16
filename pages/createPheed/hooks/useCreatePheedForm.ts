@@ -10,17 +10,19 @@ const useCreatePheedForm = () => {
       ratio: "1:1",
       title: "",
       content: "",
-      tagOptions: [],
+      tagOptions: { what: [], when: [], who: [] },
     },
   });
 
   const { mutate: postPheedMutate } = usePostPheed();
 
-  const handleClickFilter = (id: number) => () => {
-    if (watch("tagOptions").includes(id)) return;
-
-    setValue("tagOptions", [...watch("tagOptions"), id]);
-  };
+  const handleClickFilter =
+    (key: "what" | "when" | "who", id: number) => () => {
+      setValue("tagOptions", {
+        ...watch("tagOptions"),
+        [key]: [id],
+      });
+    };
 
   const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
     setValue("ratio", ratio);
@@ -40,7 +42,11 @@ const useCreatePheedForm = () => {
         title: data.title,
         content: data.content,
         ratio: "1:1",
-        tag_options: data.tagOptions,
+        tag_options: [
+          ...data.tagOptions.what,
+          ...data.tagOptions.when,
+          ...data.tagOptions.who,
+        ],
       }),
     );
 

@@ -9,7 +9,7 @@ import {
 import { useCreatePheedForm } from "./hooks";
 import * as S from "./index.styled";
 
-const index = () => {
+const CreatePheed = () => {
   const {
     register,
     watch,
@@ -39,4 +39,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default CreatePheed;

@@ -36,10 +36,14 @@ export const FilterItem = styled.button<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
     flex-grow: 1;
     height: 40px;
-    border: 1px solid
-      ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_300}`};
+    border: 1px solid ${isSelect ? theme.color.blue_300 : theme.color.grey_300};
     border-radius: 100px;
     padding: 8px 20px;
-    color: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_700}`};
+    color: ${isSelect ? theme.color.blue_300 : theme.color.grey_700};
+    background-color: ${isSelect ? theme.color.blue_100 : theme.color.grey_100};
+
+    :hover {
+      background-color: ${theme.color.grey_200};
+    }
   `}
 `;

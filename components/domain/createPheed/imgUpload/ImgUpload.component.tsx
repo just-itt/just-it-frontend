@@ -1,39 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
-import { PersonIcon, UploadIcon } from "@icons/index";
+import { TrashIcon, PencilIcon, UploadIcon } from "@icons/index";
 import * as S from "./ImgUpload.styled";
 
 interface ImgUploadProps {
   className?: string;
-  previewUrl: string;
-  handleChangeImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleChangeRatio: (x: number, y: number) => () => void;
+  register: any;
+  handleChangeRatio: (ratio: "1:1" | "3:4" | "4:3") => () => void;
+  handleDeleteImgFile: () => void;
 }
 
 const ImgUpload = ({
   className,
-  previewUrl,
-  handleChangeImg,
+  register,
   handleChangeRatio,
+  handleDeleteImgFile,
 }: ImgUploadProps) => {
-  return previewUrl ? (
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
+
+  const handleChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      setPreviewImg(reader.result as string);
+    };
+  };
+
+  const handleClickDeleteImgFile = () => {
+    handleDeleteImgFile();
+    setPreviewImg(null);
+  };
+
+  return previewImg ? (
     <S.PreviewImgWrapper className={className}>
-      <Image src={previewUrl} alt="img" fill objectFit="cover" />
+      <Image
+        src={previewImg}
+        alt="업로드 이미지 미리보기"
+        fill
+        style={{ objectFit: "contain" }}
+      />
       <S.PreviewBtnWrapper>
         <S.EditBtnWrapper>
-          <button type="button">
-            <PersonIcon />
+          <label htmlFor="imgUpload">
+            <PencilIcon />
+            <S.UploadInput
+              id="imgUpload"
+              type="file"
+              accept=".jpg, .jpeg, .png"
+              {...register("file", {
+                onChange: handleChangeImg,
+              })}
+            />
+          </label>
+          <button type="button" onClick={handleClickDeleteImgFile}>
+            <TrashIcon />
           </button>
         </S.EditBtnWrapper>
         <S.RatioBtnWrapper>
-          <S.RatioBtn type="button" onClick={handleChangeRatio(1, 1)}>
+          <S.RatioBtn type="button" onClick={handleChangeRatio("1:1")}>
             1:1
           </S.RatioBtn>
-          <S.RatioBtn type="button" onClick={handleChangeRatio(3, 4)}>
+          <S.RatioBtn type="button" onClick={handleChangeRatio("3:4")}>
             3:4
           </S.RatioBtn>
-          <S.RatioBtn type="button" onClick={handleChangeRatio(4, 3)}>
+          <S.RatioBtn type="button" onClick={handleChangeRatio("4:3")}>
             4:3
           </S.RatioBtn>
         </S.RatioBtnWrapper>
@@ -45,8 +80,9 @@ const ImgUpload = ({
         id="imgUpload"
         type="file"
         accept=".jpg, .jpeg, .png"
-        multiple
-        onChange={handleChangeImg}
+        {...register("file", {
+          onChange: handleChangeImg,
+        })}
       />
       <UploadIcon />
       <span>사진 업로드</span>

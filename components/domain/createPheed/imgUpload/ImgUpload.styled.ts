@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 export const ImgUpload = styled.label`
   ${({ theme }) => css`
     ${theme.flexMixin.flex_justifyC_alignC};
-
     flex-flow: column;
     width: 100%;
     height: 268px;
@@ -14,7 +13,10 @@ export const ImgUpload = styled.label`
     cursor: pointer;
 
     & > svg {
+      width: 52px;
+      height: 48px;
       margin-bottom: 20px;
+      fill: ${theme.color.grey_400};
     }
 
     & > span:first-of-type {
@@ -36,13 +38,17 @@ export const UploadInput = styled.input`
 `;
 
 export const PreviewImgWrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 268px;
-  border-radius: 10px;
-  overflow: hidden;
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 268px;
+    border: 1px dashed ${theme.color.grey_400};
+    border-radius: 10px;
+    background-color: ${theme.color.grey_100};
+    overflow: hidden;
+  `}
 `;
 
 export const PreviewBtnWrapper = styled.div`
@@ -56,19 +62,38 @@ export const PreviewBtnWrapper = styled.div`
     height: 88px;
     padding: 0 24px;
     border-radius: 0 0 10px 10px;
-    background-color: ${theme.color.grey_900};
-    opacity: 0.6;
+    background-color: ${theme.color.grey_900_60};
   `}
 `;
 
 export const EditBtnWrapper = styled.div`
-  display: flex;
-  column-gap: 15px;
+  ${({ theme }) => css`
+    display: flex;
+    column-gap: 15px;
 
-  & > button {
-    width: 40px;
-    height: 40px;
-  }
+    & > button {
+      width: 40px;
+      height: 40px;
+    }
+
+    & > label {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: ${theme.color.white};
+    }
+  `}
 `;
 
 export const AddBtn = styled.label`

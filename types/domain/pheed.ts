@@ -23,5 +23,5 @@ export interface CreatePheedForm {
   ratio: "1:1" | "3:4" | "4:3";
   title: string;
   content?: string;
-  tagOptions: number[];
+  tagOptions: { what: number[]; when: number[]; who: number[] };
 }
