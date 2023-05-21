@@ -1,36 +1,53 @@
-import React, { ChangeEvent } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import type { UseFormRegisterReturn, UseFormWatch } from "react-hook-form";
 
+import { makeImagePreview } from "utils/index";
 import { PencilIcon, PersonIcon, PictureIcon, TrashIcon } from "@icons/index";
 import * as S from "./SetProfile.styled";
 
 interface SetProfileProps {
   src: string | null;
   alt: string;
-  changeProfileString: string | null;
-  handleChangeProfile: (e: ChangeEvent<HTMLInputElement>) => void;
+  watch: UseFormWatch<{
+    profile: string | FileList | null;
+    nickname: string;
+    email: string;
+  }>;
+  register: UseFormRegisterReturn<"profile">;
   handleDeleteProfile: () => void;
 }
 
 const SetProfile = ({
   src,
   alt,
-  changeProfileString,
-  handleChangeProfile,
+  watch,
+  register,
   handleDeleteProfile,
 }: SetProfileProps) => {
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  const isNewProfile = watch("profile") instanceof FileList;
+
+  useEffect(() => {
+    if (isNewProfile) {
+      const file = watch("profile")?.[0] as File;
+      makeImagePreview(file).then(res => setPreviewUrl(res));
+    }
+  }, [watch("profile")]);
+
   return (
     <S.Wrapper>
       <S.IconWrapper>
-        {changeProfileString ? (
+        {isNewProfile ? (
           <Image
-            src={changeProfileString}
+            src={previewUrl}
             alt="변경 할 프로필 사진"
             layout="responsive"
             width={1}
             height={1}
           />
-        ) : changeProfileString === "" ? (
+        ) : typeof watch("profile") === "string" && watch("profile") === "" ? (
           <PersonIcon css={S.personIcon} />
         ) : src ? (
           <Image src={src} alt={alt} layout="responsive" width={1} height={1} />
@@ -42,17 +59,13 @@ const SetProfile = ({
         type="file"
         accept=".jpeg, .jpg, .png"
         id="profile"
-        onChange={handleChangeProfile}
+        {...register}
       />
       <S.LabelWrapper>
         <S.Label htmlFor="profile">
-          {(src || changeProfileString) && changeProfileString !== "" ? (
-            <PencilIcon />
-          ) : (
-            <PictureIcon />
-          )}
+          {src || isNewProfile ? <PencilIcon /> : <PictureIcon />}
         </S.Label>
-        {(src || changeProfileString) && changeProfileString !== "" && (
+        {(src || isNewProfile) && (
           <S.DeleteBtn onClick={handleDeleteProfile}>
             <TrashIcon type="button" />
           </S.DeleteBtn>

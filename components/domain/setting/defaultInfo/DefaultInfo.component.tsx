@@ -1,5 +1,6 @@
-import React, { useState, ChangeEvent } from "react";
+import React from "react";
 import { useRecoilState } from "recoil";
+import { useForm } from "react-hook-form";
 
 import { Heading, Button } from "@components/index";
 import {
@@ -14,55 +15,49 @@ import * as S from "./DefaultInfo.styled";
 const DefaultInfo = () => {
   const [profile] = useRecoilState(profileAtom);
 
-  const [nickname, setNickname] = useState(profile.nickname);
-  const [changeProfile, setChangeProfile] = useState<File | "" | null>(null);
-  const [changeProfileString, setChangeProfileString] = useState<string | null>(
-    null,
-  );
+  const { register, watch, setValue, handleSubmit } = useForm<{
+    profile: string | FileList | null;
+    nickname: string;
+    email: string;
+  }>({
+    defaultValues: {
+      profile: profile.profileImage,
+      nickname: profile.nickname,
+      email: profile.email,
+    },
+  });
 
   const { mutate: usePostProfileImageMutate } = usePostProfileImage();
   const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();
 
-  const handleChangeProfile = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (file) {
-      setChangeProfile(file);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setChangeProfileString(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    setNickname(e.target.value);
-  };
-
   const handleClickDeleteProfile = () => {
-    setChangeProfileString("");
-    setChangeProfile("");
+    setValue("profile", "");
   };
 
-  const handleSubmit = async () => {
+  const updateProfile = async (data: {
+    nickname?: string;
+    profile: string | FileList | null;
+  }) => {
     try {
       const temp = [];
 
-      if (nickname !== profile.nickname) {
-        temp.push(usePatchNicknameMutate({ body: { nickname } }));
+      if (data.nickname !== profile.nickname && data.nickname) {
+        temp.push(
+          usePatchNicknameMutate({ body: { nickname: data.nickname } }),
+        );
       }
 
-      if (changeProfile) {
+      if (typeof watch("profile") === "object") {
+        const profileImage = data.profile?.[0] as File;
+
         const formData = new FormData();
-        formData.append("file", changeProfile);
+        formData.append("file", profileImage);
 
         temp.push(usePostProfileImageMutate(formData));
       }
 
-      if (changeProfile === "") {
+      if (watch("profile") === "") {
         temp.push(useDeleteProfileImageMutate());
       }
 
@@ -79,23 +74,26 @@ const DefaultInfo = () => {
       <Heading css={S.heading} heading="기본 정보" />
       <SetProfile
         src={profile.profileImage}
-        alt={`${nickname}의 프로필 사진`}
-        changeProfileString={changeProfileString}
-        handleChangeProfile={handleChangeProfile}
+        alt={`${watch("nickname")}의 프로필 사진`}
+        watch={watch}
+        register={register("profile")}
         handleDeleteProfile={handleClickDeleteProfile}
       />
       <SetNickname
-        nickname={nickname}
-        email={profile.email}
-        handleChangeNickname={handleChangeNickname}
+        nicknameRegister={register("nickname")}
+        emailRegister={register("email")}
       />
       <Button
         css={S.button}
         type="button"
-        disabled={changeProfileString === null && nickname === profile.nickname}
+        disabled={
+          !(watch("profile") instanceof FileList) &&
+          watch("profile") !== "" &&
+          watch("nickname") === profile.nickname
+        }
         mode="primary"
         label="변경사항 저장"
-        handler={handleSubmit}
+        handler={handleSubmit(updateProfile)}
       />
     </S.Wrapper>
   );

@@ -1,27 +1,22 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
 import { LabelContent } from "@components/index";
 import * as S from "./SetNickname.styled";
 
 interface SetNicknameProps {
-  nickname: string;
-  email: string;
-  handleChangeNickname: (e: ChangeEvent<HTMLInputElement>) => void;
+  nicknameRegister: UseFormRegisterReturn<"nickname">;
+  emailRegister: UseFormRegisterReturn<"email">;
 }
 
-const SetNickname = ({
-  nickname,
-  email,
-  handleChangeNickname,
-}: SetNicknameProps) => {
+const SetNickname = ({ nicknameRegister, emailRegister }: SetNicknameProps) => {
   return (
     <S.Form>
       <LabelContent css={S.labelContent} label="닉네임">
         <LabelContent.Input
           css={S.nicknameInput}
           placeholder=""
-          value={nickname}
-          handleChange={handleChangeNickname}
+          register={nicknameRegister}
         />
       </LabelContent>
       <LabelContent css={S.emailLabelContent} label="이메일">
@@ -29,7 +24,7 @@ const SetNickname = ({
           css={S.emailInput}
           placeholder=""
           disabled
-          value={email}
+          register={emailRegister}
         />
       </LabelContent>
     </S.Form>
