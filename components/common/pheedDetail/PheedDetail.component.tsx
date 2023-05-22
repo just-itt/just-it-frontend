@@ -8,6 +8,11 @@ import {
   DropdownBtn,
   ConfirmModal,
 } from "@components/index";
+import {
+  useDeleteBookmark,
+  useGetPheedDetail,
+  usePostBookmark,
+} from "@service/index";
 import { useModal } from "@hooks/index";
 import {
   BookMarkIcon,
@@ -17,42 +22,31 @@ import {
 } from "@icons/index";
 import * as S from "./PheedDetail.styled";
 
-const dummyComments = [
-  {
-    nickname: "부산사나이",
-    comment:
-      "사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요사진으로만 봐도 침이 주르륵이네요",
-  },
-  {
-    nickname: "농심신라면",
-    comment: "위치좀 알려주세요!!",
-  },
-];
-
-const dummyHashtag = [
-  { icon: "hi", title: "한식" },
-  { icon: "hi", title: "더위가 심한 날" },
-];
-
-interface PheedDetailProps {
-  src: string;
-  title: string;
-}
-
-const PheedDetail = ({ src, title }: PheedDetailProps) => {
-  const { replace } = useRouter();
-
-  const [isBookMark, setIsBookMark] = useState(false);
+const PheedDetail = () => {
+  const {
+    replace,
+    pathname,
+    query: { id },
+  } = useRouter();
 
   const { handleOpenModal } = useModal();
+  const { data } = useGetPheedDetail({ id: id as string });
+  const { mutate: postBookmarkMutate } = usePostBookmark();
+  const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
 
   const handleClickBookMark = () => {
-    setIsBookMark(!isBookMark);
+    if (data?.is_bookmark) {
+      deleteBookmarkMutate({ body: { id: id as string } });
+    } else {
+      postBookmarkMutate({ body: { id: id as string } });
+    }
   };
 
   const handleCloseModal = () => {
-    replace("/", "/", { scroll: false });
+    replace(pathname, pathname, { scroll: false });
   };
+
+  if (!data) return null;
 
   return (
     <S.Wrapper>
@@ -67,7 +61,7 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
         </button>
         <S.BtnWrapper>
           <button type="button" onClick={handleClickBookMark}>
-            {isBookMark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
+            {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
           <DropdownBtn
             btnRender={<MoreIcon />}
@@ -83,12 +77,12 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
       </S.HeaderWrapper>
       <S.ProfileWrapper>
         <S.Profile />
-        <S.Nickname>캔디바</S.Nickname>
+        <S.Nickname>아이디</S.Nickname>
       </S.ProfileWrapper>
       <S.ImgWrapper>
         <Image
-          src="/imgs/food1.jpeg"
-          alt="음식사진"
+          src={data.image.image}
+          alt={`${data.title} 사진`}
           width={0}
           height={0}
           sizes="100vw"
@@ -101,21 +95,13 @@ const PheedDetail = ({ src, title }: PheedDetailProps) => {
         <S.ImgCircle />
       </S.ImgWrapper>
       <S.ContentWrapper>
-        <S.Title>웨스터돔 오말리</S.Title>
-        <S.Content>
-          뚝섬역과 서울숲역 중간에 위치한 이탈리안 레스토랑 오말리. <br />
-          <br />
-          스테이크는 역시나 현지인 분들이 하는 곳이 찐이고 양파 더 주는 곳은
-          근본이자 천국이다. <br />
-          <br />
-          스테이크는 역시 양파 반 고기 반해서 먹는 게 최고다. 그리고 바삭했던
-          감자취팀마저 너무 맛있었다. <br />
-          <br />
-          출근길에 올리려니 배가 고프다 오늘 점심 뭐나오지
-        </S.Content>
-        <HashTag css={S.hashTag} hashTags={dummyHashtag} />
+        <S.Title>{data.title}</S.Title>
+        <S.Content>{data.content}</S.Content>
+        <HashTag css={S.hashTag} hashTags={data.tag_options} />
       </S.ContentWrapper>
-      <Comments css={S.CommentsWrapper} comments={dummyComments} />
+      {data.replies && (
+        <Comments css={S.CommentsWrapper} comments={data.replies} />
+      )}
       <S.FormWrapper>
         <S.Profile />
         <S.InputWrapper>

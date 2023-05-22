@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSetRecoilState } from "recoil";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { GetServerSidePropsContext } from "next";
+import type { NextPageWithLayout } from "pages/_app";
 
 import {
   MainLayout,
@@ -14,7 +15,7 @@ import {
 } from "@components/index";
 import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
 import { profileAtom } from "@recoil/common";
-import type { NextPageWithLayout } from "pages/_app";
+import type { GetPheedsServerModel } from "types";
 import * as S from "./index.styled";
 
 interface IndexProps {
@@ -28,9 +29,10 @@ interface IndexProps {
     lastLoginAt: string;
     updatedAt: string;
   };
+  pheeds: GetPheedsServerModel["items"];
 }
 
-const index: NextPageWithLayout = ({ profile }: IndexProps) => {
+const index: NextPageWithLayout = ({ profile, pheeds }: IndexProps) => {
   const {
     query: { id },
   } = useRouter();
@@ -48,7 +50,7 @@ const index: NextPageWithLayout = ({ profile }: IndexProps) => {
       <S.PheedWrapper isClickPheed={!!id}>
         <div>
           <SuggestedMenu />
-          <Heading css={S.heading} heading="실시간 인기 피드" />
+          <Heading css={S.heading} heading="실시간 피드" />
           <Filter />
           <ResponsiveMasonry
             columnsCountBreakPoints={{
@@ -58,33 +60,13 @@ const index: NextPageWithLayout = ({ profile }: IndexProps) => {
             }}
           >
             <Masonry gutter="10px">
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
-              <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-              <Pheed src="/imgs/food2.jpeg" title="피자" />
-              <Pheed src="/imgs/food3.jpeg" title="핫도그" />
-              <Pheed src="/imgs/food4.jpeg" title="떡볶이" />
-              <Pheed src="/imgs/food5.png" title="스시롤" />
-              <Pheed src="/imgs/food6.jpeg" title="스시" />
-              <Pheed src="/imgs/food7.jpeg" title="돈까스" />
-              <Pheed src="/imgs/food8.jpeg" title="고등어 백반" />
-              <Pheed src="/imgs/food9.jpeg" title="양꼬치" />
+              {pheeds?.map(pheed => (
+                <Pheed
+                  src={pheed.image.image}
+                  id={pheed.id}
+                  title={pheed.title}
+                />
+              ))}
             </Masonry>
           </ResponsiveMasonry>
         </div>
@@ -103,12 +85,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   const token = req.cookies.auth;
 
+  const ax = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    timeout: 3000,
+  });
+
   if (token) {
-    const ax = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-      timeout: 3000,
-    });
     ax.defaults.headers.Authorization = `Bearer ${token}`;
+    const { data: pheeds } = await ax.get("/posts");
 
     const { data } = await ax.get("/members/me");
 
@@ -124,6 +108,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
           lastLoginAt: data.last_login_at,
           updatedAt: data.updated_at,
         },
+        pheeds: pheeds.items,
       },
     };
   }
