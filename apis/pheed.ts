@@ -1,12 +1,10 @@
 import { ax } from "apis";
 
 import type {
-  DeletePheedBookmarkQueryModel,
   GetMyPheedsServerModel,
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
   GetPheedsServerModel,
-  PostPheedBookmarkQueryModel,
   PostPheedQueryModel,
 } from "types";
 
@@ -32,12 +30,4 @@ export const getPheeds = async () => {
   const { data } = await ax.get<GetPheedsServerModel>("/posts");
 
   return data.items;
-};
-
-export const postPheedBookmark = (req: PostPheedBookmarkQueryModel) => {
-  return ax.post(`/posts/${req.body.id}/bookmarks`);
-};
-
-export const deletePheedBookmark = (req: DeletePheedBookmarkQueryModel) => {
-  return ax.delete(`/posts/${req.body.id}/bookmarks`);
 };
