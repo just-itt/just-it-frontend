@@ -7,9 +7,9 @@ import {
   postPheedBookmark,
 } from "apis";
 import type {
-  DeletePheedBookmarkQueryModel,
+  DeleteBookmarkQueryModel,
   GetPheedDetailQueryModel,
-  PostPheedBookmarkQueryModel,
+  PostBookmarkQueryModel,
   PostPheedQueryModel,
 } from "types";
 
@@ -35,13 +35,12 @@ export const useGetPheedDetail = (req: GetPheedDetailQueryModel) => {
 
 export const usePostBookmark = () => {
   return useMutation({
-    mutationFn: (req: PostPheedBookmarkQueryModel) => postPheedBookmark(req),
+    mutationFn: (req: PostBookmarkQueryModel) => postPheedBookmark(req),
   });
 };
 
 export const useDeleteBookmark = () => {
   return useMutation({
-    mutationFn: (req: DeletePheedBookmarkQueryModel) =>
-      deletePheedBookmark(req),
+    mutationFn: (req: DeleteBookmarkQueryModel) => deletePheedBookmark(req),
   });
 };

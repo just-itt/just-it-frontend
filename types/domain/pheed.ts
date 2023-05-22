@@ -54,11 +54,3 @@ export interface GetPheedsServerModel {
     tag_options: { id: number; title: string; tag_title: string }[];
   }[];
 }
-
-export interface PostPheedBookmarkQueryModel {
-  body: { id: string };
-}
-
-export interface DeletePheedBookmarkQueryModel {
-  body: { id: string };
-}

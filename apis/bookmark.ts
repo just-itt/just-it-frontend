@@ -1,14 +1,11 @@
 import { ax } from "apis";
 
-import type {
-  DeletePheedBookmarkQueryModel,
-  PostPheedBookmarkQueryModel,
-} from "types";
+import type { DeleteBookmarkQueryModel, PostBookmarkQueryModel } from "types";
 
-export const postPheedBookmark = (req: PostPheedBookmarkQueryModel) => {
+export const postPheedBookmark = (req: PostBookmarkQueryModel) => {
   return ax.post(`/posts/${req.body.id}/bookmarks`);
 };
 
-export const deletePheedBookmark = (req: DeletePheedBookmarkQueryModel) => {
+export const deletePheedBookmark = (req: DeleteBookmarkQueryModel) => {
   return ax.delete(`/posts/${req.body.id}/bookmarks`);
 };

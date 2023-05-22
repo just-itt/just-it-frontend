@@ -36,9 +36,23 @@ const PheedDetail = () => {
 
   const handleClickBookMark = () => {
     if (data?.is_bookmark) {
-      deleteBookmarkMutate({ body: { id: id as string } });
+      deleteBookmarkMutate(
+        { body: { id: id as string } },
+        {
+          onSuccess: () => {
+            alert("북마크가 해제되었습니다.");
+          },
+        },
+      );
     } else {
-      postBookmarkMutate({ body: { id: id as string } });
+      postBookmarkMutate(
+        { body: { id: id as string } },
+        {
+          onSuccess: () => {
+            alert("북마크에 추가되었습니다.");
+          },
+        },
+      );
     }
   };
 
