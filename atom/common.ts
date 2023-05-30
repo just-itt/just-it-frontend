@@ -1,7 +1,7 @@
 import React from "react";
 import { atom } from "recoil";
 
-export const userAtom = atom<{
+export const profileAtom = atom<{
   createdAt: string;
   email: string;
   id: number;
@@ -29,10 +29,7 @@ export const navAtom = atom({
   default: false,
 });
 
-export const modalAtom = atom<{
-  isOpen: boolean;
-  modalComponent: null | React.ReactNode;
-}>({
+export const modalAtom = atom<null | React.ReactNode>({
   key: "modalState",
-  default: { isOpen: false, modalComponent: null },
+  default: null,
 });

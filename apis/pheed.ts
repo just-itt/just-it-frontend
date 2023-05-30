@@ -1,6 +1,7 @@
 import { ax } from "apis";
 
 import type {
+  DeletePheedQueryModel,
   GetMyPheedsServerModel,
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
@@ -10,6 +11,12 @@ import type {
 
 export const postPheed = async (req: PostPheedQueryModel) => {
   const res = await ax.post("/posts", req);
+
+  return res;
+};
+
+export const deletePheed = async (req: DeletePheedQueryModel) => {
+  const res = await ax.delete(`/posts/${req.id}`);
 
   return res;
 };

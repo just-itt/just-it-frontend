@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-import { Button, Dim, Portal } from "@components/common";
+import { Button } from "@components/index";
 import { useModal } from "@hooks/index";
 import * as S from "./ConfirmModal.styled";
 
@@ -9,6 +9,7 @@ interface ConfirmModalProps {
   content: string;
   confirmLabel: string;
   cancelLabel: string;
+  handleConfirm: () => void;
 }
 
 const ConfirmModal = ({
@@ -16,10 +17,11 @@ const ConfirmModal = ({
   content,
   confirmLabel,
   cancelLabel,
+  handleConfirm,
 }: ConfirmModalProps) => {
   const confirmModalRef = useRef<HTMLDivElement>(null);
 
-  const { isOpenModal, handleCloseModal } = useModal();
+  const { handleCloseModal } = useModal();
 
   const handleClickCancelBtn = () => {
     handleCloseModal();
@@ -43,25 +45,24 @@ const ConfirmModal = ({
   }, []);
 
   return (
-    <Portal>
-      {isOpenModal && (
-        <Dim>
-          <S.Wrapper className={className} ref={confirmModalRef}>
-            <S.Content>{content}</S.Content>
-            <S.BtnWrapper>
-              <Button
-                css={S.cancelBtn}
-                type="button"
-                mode="primary"
-                label={cancelLabel}
-                handler={handleClickCancelBtn}
-              />
-              <Button type="button" mode="primary" label={confirmLabel} />
-            </S.BtnWrapper>
-          </S.Wrapper>
-        </Dim>
-      )}
-    </Portal>
+    <S.Wrapper className={className} ref={confirmModalRef}>
+      <S.Content>{content}</S.Content>
+      <S.BtnWrapper>
+        <Button
+          css={S.cancelBtn}
+          type="button"
+          mode="primary"
+          label={cancelLabel}
+          handler={handleClickCancelBtn}
+        />
+        <Button
+          type="button"
+          mode="primary"
+          label={confirmLabel}
+          handler={handleConfirm}
+        />
+      </S.BtnWrapper>
+    </S.Wrapper>
   );
 };
 

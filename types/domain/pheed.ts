@@ -54,3 +54,7 @@ export interface GetPheedsServerModel {
     tag_options: { id: number; title: string; tag_title: string }[];
   }[];
 }
+
+export interface DeletePheedQueryModel {
+  id: string;
+}

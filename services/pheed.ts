@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
+  deletePheed,
   deletePheedBookmark,
   getPheedDetail,
   postPheed,
@@ -8,6 +9,7 @@ import {
 } from "apis";
 import type {
   DeleteBookmarkQueryModel,
+  DeletePheedQueryModel,
   GetPheedDetailQueryModel,
   PostBookmarkQueryModel,
   PostPheedQueryModel,
@@ -23,6 +25,12 @@ const pheedKeys = {
 export const usePostPheed = () => {
   return useMutation({
     mutationFn: (req: PostPheedQueryModel) => postPheed(req),
+  });
+};
+
+export const useDeletePheed = () => {
+  return useMutation({
+    mutationFn: (req: DeletePheedQueryModel) => deletePheed(req),
   });
 };
 

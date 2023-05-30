@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
 
 import {
   Comments,
@@ -10,9 +11,11 @@ import {
 } from "@components/index";
 import {
   useDeleteBookmark,
+  useDeletePheed,
   useGetPheedDetail,
   usePostBookmark,
 } from "@service/index";
+import { profileAtom } from "@recoil/index";
 import { useModal } from "@hooks/index";
 import {
   BookMarkIcon,
@@ -29,10 +32,13 @@ const PheedDetail = () => {
     query: { id },
   } = useRouter();
 
-  const { handleOpenModal } = useModal();
+  const [profileState] = useRecoilState(profileAtom);
+
+  const { handleOpenModal, handleCloseModal } = useModal();
   const { data } = useGetPheedDetail({ id: id as string });
   const { mutate: postBookmarkMutate } = usePostBookmark();
   const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
+  const { mutate: deletePheed } = useDeletePheed();
 
   const handleClickBookMark = () => {
     if (data?.is_bookmark) {
@@ -56,7 +62,7 @@ const PheedDetail = () => {
     }
   };
 
-  const handleCloseModal = () => {
+  const handleCloseDetailModal = () => {
     replace(pathname, pathname, { scroll: false });
   };
 
@@ -64,29 +70,48 @@ const PheedDetail = () => {
 
   return (
     <S.Wrapper>
-      <ConfirmModal
-        content="내 글을 삭제하시겠어요?"
-        confirmLabel="삭제하기"
-        cancelLabel="취소"
-      />
       <S.HeaderWrapper>
-        <button type="button" onClick={handleCloseModal}>
+        <button type="button" onClick={handleCloseDetailModal}>
           <CloseIcon />
         </button>
         <S.BtnWrapper>
           <button type="button" onClick={handleClickBookMark}>
             {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
-          <DropdownBtn
-            btnRender={<MoreIcon />}
-            dropdownItems={[
-              {
-                label: "수정하기",
-                value: "edit",
-              },
-              { label: "삭제하기", value: "delete", handler: handleOpenModal },
-            ]}
-          />
+          {profileState.id === data.author_id && (
+            <DropdownBtn
+              btnRender={<MoreIcon />}
+              dropdownItems={[
+                {
+                  label: "수정하기",
+                  value: "edit",
+                },
+                {
+                  label: "삭제하기",
+                  value: "delete",
+                  handler: handleOpenModal(
+                    <ConfirmModal
+                      content="내 글을 삭제하시겠어요?"
+                      confirmLabel="삭제하기"
+                      cancelLabel="취소"
+                      handleConfirm={() =>
+                        deletePheed(
+                          { id: id as string },
+                          {
+                            onSuccess: () => {
+                              alert("피드 삭제 성공");
+                              handleCloseDetailModal();
+                              handleCloseModal();
+                            },
+                          },
+                        )
+                      }
+                    />,
+                  ),
+                },
+              ]}
+            />
+          )}
         </S.BtnWrapper>
       </S.HeaderWrapper>
       <S.ProfileWrapper>
