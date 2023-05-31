@@ -2,7 +2,7 @@ import React from "react";
 
 import {
   CreatePheedLayout,
-  CreatePheedHeader,
+  PheedHeader,
   CreatePheedFilter,
   ImgUpload,
 } from "@components/index";
@@ -21,7 +21,7 @@ const CreatePheed = () => {
 
   return (
     <>
-      <CreatePheedHeader handleSubmit={handleSubmit} />
+      <PheedHeader handleSubmit={handleSubmit} />
       <CreatePheedLayout css={S.layout}>
         <ImgUpload
           css={S.imgUpload}

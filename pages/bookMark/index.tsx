@@ -6,7 +6,7 @@ import type { GetServerSidePropsContext } from "next";
 import type { NextPageWithLayout } from "pages/_app";
 
 import { MainLayout, Heading, Filter, Pheed } from "@components/index";
-import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
+import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import type { GetBookmarksServerModel } from "types";
 import * as S from "./index.styled";
 

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import { PersonIcon } from "@icons/index";
-import * as S from "./Header.styled";
+import * as S from "./PheedHeader.styled";
 
 interface HeaderProps {
   handleSubmit: () => void;

@@ -13,7 +13,7 @@ import {
   Heading,
   SuggestedMenu,
 } from "@components/index";
-import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
+import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { profileAtom } from "@recoil/common";
 import type { GetPheedsServerModel } from "types";
 import * as S from "./index.styled";
