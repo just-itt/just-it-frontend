@@ -6,11 +6,18 @@ import type {
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
   GetPheedsServerModel,
+  PatchPheedQueryModel,
   PostPheedQueryModel,
 } from "types";
 
 export const postPheed = async (req: PostPheedQueryModel) => {
   const res = await ax.post("/posts", req);
+
+  return res;
+};
+
+export const editPheed = async (req: PatchPheedQueryModel) => {
+  const res = await ax.patch(`/posts/${req.id}`, req.body);
 
   return res;
 };

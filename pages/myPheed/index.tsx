@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { MainLayout, Heading, Filter, Pheed } from "@components/index";
-import PheedDetail from "@components/common/pheedDetail/PheedDetail.component";
+import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetMyPheeds } from "@service/index";
 import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
@@ -34,6 +34,7 @@ const MyPheed: NextPageWithLayout = () => {
                   key={pheed.image.image}
                   src={pheed.image.image}
                   title={pheed.title}
+                  id={pheed.id}
                 />
               ))}
             </Masonry>

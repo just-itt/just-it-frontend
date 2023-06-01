@@ -7,13 +7,14 @@ import * as S from "./Pheed.styled";
 interface PheedProps {
   src: string;
   title: string;
+  id: number;
 }
 
-const Pheed = ({ src, title }: PheedProps) => {
+const Pheed = ({ src, title, id }: PheedProps) => {
   const { replace } = useRouter();
 
   const handleClickPheed = () => {
-    replace("?id=123", "?id=123", { scroll: false });
+    replace(`?id=${id}`, `?id=${id}`, { scroll: false });
   };
 
   return (
@@ -24,8 +25,7 @@ const Pheed = ({ src, title }: PheedProps) => {
           alt="음식사진"
           width={0}
           height={0}
-          sizes="100vw"
-          style={{ width: "100%", height: "auto", borderRadius: "20px" }}
+          style={{ width: "100%", height: "auto" }}
         />
       </S.ImgWrapper>
       <S.Title>{title}</S.Title>

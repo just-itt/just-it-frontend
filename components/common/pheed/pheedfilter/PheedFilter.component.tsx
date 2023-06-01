@@ -4,7 +4,7 @@ import type { UseFormRegister } from "react-hook-form";
 import { LabelContent } from "@components/index";
 import { useGetTags } from "@service/index";
 import { EMOJI } from "assets/filter";
-import * as S from "./CreatePheedFilter.styled";
+import * as S from "./PheedFilter.styled";
 
 interface CreatePheedFilterProps {
   register: UseFormRegister<any>;

@@ -29,6 +29,8 @@ const PheedDetail = () => {
   const {
     replace,
     pathname,
+    push,
+    asPath,
     query: { id },
   } = useRouter();
 
@@ -85,6 +87,12 @@ const PheedDetail = () => {
                 {
                   label: "수정하기",
                   value: "edit",
+                  handler: () =>
+                    push(
+                      `/editPheed?id=${id}&currentPath=${encodeURIComponent(
+                        asPath,
+                      )}`,
+                    ),
                 },
                 {
                   label: "삭제하기",

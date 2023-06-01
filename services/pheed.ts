@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   deletePheed,
   deletePheedBookmark,
+  editPheed,
   getPheedDetail,
   postPheed,
   postPheedBookmark,
@@ -11,6 +12,7 @@ import type {
   DeleteBookmarkQueryModel,
   DeletePheedQueryModel,
   GetPheedDetailQueryModel,
+  PatchPheedQueryModel,
   PostBookmarkQueryModel,
   PostPheedQueryModel,
 } from "types";
@@ -25,6 +27,12 @@ const pheedKeys = {
 export const usePostPheed = () => {
   return useMutation({
     mutationFn: (req: PostPheedQueryModel) => postPheed(req),
+  });
+};
+
+export const useEditPheed = () => {
+  return useMutation({
+    mutationFn: (req: PatchPheedQueryModel) => editPheed(req),
   });
 };
 

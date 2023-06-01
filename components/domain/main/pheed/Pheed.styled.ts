@@ -9,6 +9,20 @@ export const DetailBtn = styled.button`
 export const ImgWrapper = styled.div`
   position: relative;
   margin-bottom: 8px;
+  border-radius: 20px;
+  overflow: hidden;
+
+  @media (hover: hover) {
+    :hover {
+      & > img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  & > img {
+    transition: transform 0.2s ease-in-out;
+  }
 `;
 
 export const Title = styled.h3`

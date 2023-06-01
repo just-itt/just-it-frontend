@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { TrashIcon, PencilIcon, UploadIcon } from "@icons/index";
@@ -6,6 +6,7 @@ import * as S from "./ImgUpload.styled";
 
 interface ImgUploadProps {
   className?: string;
+  defaultImage?: string;
   register: any;
   handleChangeRatio: (ratio: "1:1" | "3:4" | "4:3") => () => void;
   handleDeleteImgFile: () => void;
@@ -13,6 +14,7 @@ interface ImgUploadProps {
 
 const ImgUpload = ({
   className,
+  defaultImage,
   register,
   handleChangeRatio,
   handleDeleteImgFile,
@@ -35,6 +37,12 @@ const ImgUpload = ({
     handleDeleteImgFile();
     setPreviewImg(null);
   };
+
+  useEffect(() => {
+    if (!defaultImage) return;
+
+    setPreviewImg(defaultImage);
+  }, [defaultImage]);
 
   return previewImg ? (
     <S.PreviewImgWrapper className={className}>

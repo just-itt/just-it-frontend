@@ -5,10 +5,11 @@ import { PersonIcon } from "@icons/index";
 import * as S from "./PheedHeader.styled";
 
 interface HeaderProps {
+  type: "create" | "edit";
   handleSubmit: () => void;
 }
 
-const Header = ({ handleSubmit }: HeaderProps) => {
+const Header = ({ type, handleSubmit }: HeaderProps) => {
   return (
     <S.Header>
       <S.ContentWrapper>
@@ -16,10 +17,10 @@ const Header = ({ handleSubmit }: HeaderProps) => {
           <Link css={S.link} href="/">
             <PersonIcon />
           </Link>
-          새 글 올리기
+          {type === "create" ? "새 글 올리기" : "글 수정하기"}
         </div>
         <S.CreateBtn type="button" onClick={handleSubmit}>
-          올리기
+          {type === "create" ? "올리기" : "수정하기"}
         </S.CreateBtn>
       </S.ContentWrapper>
     </S.Header>
