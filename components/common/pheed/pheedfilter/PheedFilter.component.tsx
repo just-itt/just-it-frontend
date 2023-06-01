@@ -33,7 +33,9 @@ const CreatePheedFilter = ({
         <LabelContent.Textarea
           css={S.textArea}
           placeholder="공유할 음식에 대해 자유롭게 설명해 주세요"
-          register={register("content")}
+          register={register("content", {
+            required: true,
+          })}
         />
       </LabelContent>
       <LabelContent css={S.margin} label="무엇을 먹었나요? (필수)">
