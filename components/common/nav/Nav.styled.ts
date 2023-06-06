@@ -86,8 +86,8 @@ export const NavMenu = styled(Link)<{ isclick: string }>`
     height: 48px;
     padding: 0 20px;
     color: ${isclick === "true"
-      ? `${theme.color.blue_200}`
-      : `${theme.color.grey_500}`};
+      ? `${theme.color.blue_300}`
+      : `${theme.color.grey_700}`};
     background-color: ${isclick === "true"
       ? `${theme.color.blue_navBg}`
       : "inherit"};
@@ -111,7 +111,7 @@ export const NavMenu = styled(Link)<{ isclick: string }>`
       svg {
         display: block;
         fill: ${isclick === "true"
-          ? `${theme.color.blue_200}`
+          ? `${theme.color.blue_300}`
           : `${theme.color.grey_500}`};
       }
 
