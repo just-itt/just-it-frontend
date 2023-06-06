@@ -107,8 +107,26 @@ export const CreatePheed = styled(Link)`
     width: 99px;
     height: 40px;
     border-radius: 100px;
-    background-color: ${theme.color.blue_200};
+    background-color: ${theme.color.blue_300};
     color: ${theme.color.white};
+  `}
+`;
+
+export const ProfileLink = styled(Link)`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid ${theme.color.grey_300};
+    border-radius: 100px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: ${theme.color.grey_500};
+    }
   `}
 `;
 

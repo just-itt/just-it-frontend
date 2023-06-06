@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
-import { userAtom, navAtom } from "@recoil/common";
+import { Profile } from "@components/index";
+import { profileAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
 import {
   LogoShortIcon,
@@ -15,15 +16,14 @@ import * as S from "./Header.styled";
 const Header = () => {
   const { isMobile, isTablet, isDesktop } = useViewport();
 
-  const [userState, setUserState] = useRecoilState(userAtom);
+  const [profileState] = useRecoilState(profileAtom);
+
   const setNavState = useSetRecoilState(navAtom);
 
   const handleClickMenu = () => {
     setNavState(true);
     document.body.style.overflow = "hidden";
   };
-
-  useEffect(() => {}, []);
 
   return (
     <S.Header>
@@ -35,17 +35,20 @@ const Header = () => {
           <LogoShortIcon />
         </Link>
       </S.LogoWrapper>
-      {isMobile && userState.user && (
+      {isMobile && profileState.id && (
         <S.MobileLoginWrapper>
           <button type="button">
             <SearchLongIcon />
           </button>
-          <Link href="/">
-            <SearchLongIcon />
+          <Link href="/setting">
+            <Profile
+              src={profileState.profileImage}
+              alt={`${profileState.nickname}님의 프로필 사진`}
+            />
           </Link>
         </S.MobileLoginWrapper>
       )}
-      {isMobile && !userState.user && (
+      {isMobile && !profileState.id && (
         <S.MobileLoginWrapper>
           <button type="button">
             <SearchLongIcon />
@@ -53,7 +56,7 @@ const Header = () => {
           <S.LoginBtn href="/login">로그인</S.LoginBtn>
         </S.MobileLoginWrapper>
       )}
-      {(isTablet || isDesktop) && userState.user && (
+      {(isTablet || isDesktop) && profileState.id && (
         <>
           <S.SearchWrapper>
             <SearchShortIcon />
@@ -61,13 +64,16 @@ const Header = () => {
           </S.SearchWrapper>
           <S.FlexWrapper>
             <S.CreatePheed href="/createPheed">새 글 등록</S.CreatePheed>
-            <button type="button">
-              <SearchLongIcon />
-            </button>
+            <S.ProfileLink href="setting">
+              <Profile
+                src={profileState.profileImage}
+                alt={`${profileState.nickname}의 프로필 사진`}
+              />
+            </S.ProfileLink>
           </S.FlexWrapper>
         </>
       )}
-      {(isTablet || isDesktop) && !userState.user && (
+      {(isTablet || isDesktop) && !profileState.id && (
         <>
           <S.SearchWrapper>
             <SearchShortIcon />
