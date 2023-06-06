@@ -8,7 +8,14 @@ import type {
   GetPheedsServerModel,
   PatchPheedQueryModel,
   PostPheedQueryModel,
+  PostPheedReplyQueryModel,
 } from "types";
+
+export const getPheeds = async () => {
+  const { data } = await ax.get<GetPheedsServerModel>("/posts");
+
+  return data.items;
+};
 
 export const postPheed = async (req: PostPheedQueryModel) => {
   const res = await ax.post("/posts", req);
@@ -40,8 +47,8 @@ export const getMyPheeds = async () => {
   return data;
 };
 
-export const getPheeds = async () => {
-  const { data } = await ax.get<GetPheedsServerModel>("/posts");
+export const postPheedReply = async (req: PostPheedReplyQueryModel) => {
+  const { data } = await ax.post(`/posts/${req.id}/replies`, req.body);
 
-  return data.items;
+  return data;
 };

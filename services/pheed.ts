@@ -7,6 +7,7 @@ import {
   getPheedDetail,
   postPheed,
   postPheedBookmark,
+  postPheedReply,
 } from "apis";
 import type {
   DeleteBookmarkQueryModel,
@@ -15,6 +16,7 @@ import type {
   PatchPheedQueryModel,
   PostBookmarkQueryModel,
   PostPheedQueryModel,
+  PostPheedReplyQueryModel,
 } from "types";
 
 const pheedKeys = {
@@ -58,5 +60,11 @@ export const usePostBookmark = () => {
 export const useDeleteBookmark = () => {
   return useMutation({
     mutationFn: (req: DeleteBookmarkQueryModel) => deletePheedBookmark(req),
+  });
+};
+
+export const usePostPheedReply = () => {
+  return useMutation({
+    mutationFn: (req: PostPheedReplyQueryModel) => postPheedReply(req),
   });
 };

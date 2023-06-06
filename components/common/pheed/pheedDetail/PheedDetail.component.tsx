@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
 import {
   Comments,
-  HashTag,
-  DropdownBtn,
   ConfirmModal,
+  DropdownBtn,
+  HashTag,
+  Profile,
 } from "@components/index";
 import {
   useDeleteBookmark,
   useDeletePheed,
   useGetPheedDetail,
   usePostBookmark,
+  usePostPheedReply,
 } from "@service/index";
 import { profileAtom } from "@recoil/index";
 import { useModal } from "@hooks/index";
@@ -37,35 +39,43 @@ const PheedDetail = () => {
   const [profileState] = useRecoilState(profileAtom);
 
   const { handleOpenModal, handleCloseModal } = useModal();
+
   const { data } = useGetPheedDetail({ id: id as string });
   const { mutate: postBookmarkMutate } = usePostBookmark();
   const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
   const { mutate: deletePheed } = useDeletePheed();
+  const { mutate: postPheedReply } = usePostPheedReply();
+
+  const [comment, setComment] = useState("");
 
   const handleClickBookMark = () => {
+    const body = { id: id as string };
+
+    const makeAlert = alert(
+      data?.is_bookmark
+        ? "북마크가 해제되었습니다."
+        : "북마크에 추가되었습니다.",
+    );
+
     if (data?.is_bookmark) {
-      deleteBookmarkMutate(
-        { body: { id: id as string } },
-        {
-          onSuccess: () => {
-            alert("북마크가 해제되었습니다.");
-          },
-        },
-      );
+      deleteBookmarkMutate({ body }, { onSuccess: () => makeAlert });
     } else {
-      postBookmarkMutate(
-        { body: { id: id as string } },
-        {
-          onSuccess: () => {
-            alert("북마크에 추가되었습니다.");
-          },
-        },
-      );
+      postBookmarkMutate({ body }, { onSuccess: () => makeAlert });
     }
   };
 
   const handleCloseDetailModal = () => {
     replace(pathname, pathname, { scroll: false });
+  };
+
+  const handleAddReply = () => {
+    postPheedReply(
+      {
+        id: id as string,
+        body: { content: comment },
+      },
+      { onSuccess: () => alert("댓글 등록이 완료되었습니다.") },
+    );
   };
 
   if (!data) return null;
@@ -150,10 +160,19 @@ const PheedDetail = () => {
         <Comments css={S.CommentsWrapper} comments={data.replies} />
       )}
       <S.FormWrapper>
-        <S.Profile />
+        <Profile
+          css={S.profile}
+          src={profileState.profileImage ?? null}
+          alt={`${profileState.nickname}님의 프로필 사진`}
+        />
         <S.InputWrapper>
-          <S.Input placeholder="댓글 남기기..." />
-          <S.ApplyBtn>등록</S.ApplyBtn>
+          <S.Input
+            placeholder="댓글 남기기..."
+            onChange={e => setComment(e.target.value)}
+          />
+          <S.ApplyBtn type="button" onClick={handleAddReply}>
+            등록
+          </S.ApplyBtn>
         </S.InputWrapper>
       </S.FormWrapper>
     </S.Wrapper>

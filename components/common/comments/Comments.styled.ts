@@ -9,13 +9,18 @@ export const Wrapper = styled.div`
 
 export const CommentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 40px 1fr;
-  column-gap: 12px;
+  grid-template-columns: 44px 1fr;
+  column-gap: 16px;
 
   svg {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
   }
+`;
+
+export const profile = css`
+  width: 44px;
+  height: 44px;
 `;
 
 export const ContentWrapper = styled.div`

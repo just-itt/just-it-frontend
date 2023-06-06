@@ -1,3 +1,5 @@
+import type { Comment } from "./common";
+
 export type PostPheedQueryModel = FormData;
 
 export interface PatchPheedQueryModel {
@@ -19,7 +21,7 @@ export interface GetPheedDetailServerModel {
     ratio: "1:1" | "3:4" | "4:3";
   };
   is_bookmark: boolean;
-  replies: any[];
+  replies: Comment[];
   tag_options: { id: number; tag_title: string; title: string }[];
   title: string;
   updated_at: string;
@@ -66,4 +68,11 @@ export interface GetPheedsServerModel {
 
 export interface DeletePheedQueryModel {
   id: string;
+}
+
+export interface PostPheedReplyQueryModel {
+  id: string;
+  body: {
+    content: string;
+  };
 }

@@ -79,8 +79,8 @@ export const ProfileWrapper = styled.div`
 
 export const Profile = styled.div`
   ${({ theme }) => css`
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 100px;
     background-color: ${theme.color.grey_900};
   `}
@@ -149,28 +149,27 @@ export const CommentsWrapper = (theme: Theme) => css`
   padding: 16px 20px;
 
   @media (min-width: ${theme.breakPoint.minDesktop}) {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 `;
 
 export const FormWrapper = styled.form`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 44px 1fr;
     column-gap: 12px;
-
     padding: 12px 16px;
-
-    svg {
-      width: 40px;
-      height: 40px;
-    }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       margin-bottom: 0;
       padding: 20px 0;
     }
   `}
+`;
+
+export const profile = css`
+  width: 44px;
+  height: 44px;
 `;
 
 export const InputWrapper = styled.div`
