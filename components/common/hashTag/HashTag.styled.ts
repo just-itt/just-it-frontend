@@ -5,8 +5,9 @@ export const Wrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
     display: flex;
-    column-gap: 8px;
-    height: 36px;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 36px;
     padding-left: 12px;
 
     ::before {
