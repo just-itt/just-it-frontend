@@ -1,130 +1,176 @@
 import React from "react";
-import type { UseFormRegister } from "react-hook-form";
+import type {
+  UseFormRegister,
+  FieldErrors,
+  UseFormWatch,
+} from "react-hook-form";
 
-import { LabelContent } from "@components/index";
+import { ErrorWrapper, LabelContent } from "@components/index";
 import { useGetTags } from "@service/index";
 import { EMOJI } from "assets/filter";
+import type { PheedForm } from "types";
 import * as S from "./PheedFilter.styled";
 
-interface CreatePheedFilterProps {
-  register: UseFormRegister<any>;
-  watch: any;
-  handleClickFilter: (key: "what" | "when" | "who", id: number) => () => void;
+interface PheedFilterProps {
+  register: UseFormRegister<PheedForm>;
+  watch: UseFormWatch<PheedForm>;
+  errors: FieldErrors<PheedForm>;
 }
 
-const CreatePheedFilter = ({
-  register,
-  watch,
-  handleClickFilter,
-}: CreatePheedFilterProps) => {
+const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
   const { data } = useGetTags();
 
   return (
     <S.ContentWrapper>
-      <LabelContent css={S.margin} label="글 제목  (필수)">
-        <LabelContent.Input
-          placeholder="음식 이름 입력..."
-          register={register("title", {
-            required: true,
-          })}
-        />
+      <LabelContent css={S.margin} label="음식 이름 (필수)">
+        <ErrorWrapper
+          isError={!!errors?.title}
+          errorMessage="음식 이름을 입력해주세요."
+        >
+          <LabelContent.Input
+            placeholder="음식 이름 입력..."
+            isError={!!errors?.title}
+            register={register("title", {
+              required: true,
+            })}
+          />
+        </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="설명">
-        <LabelContent.Textarea
-          css={S.textArea}
-          placeholder="공유할 음식에 대해 자유롭게 설명해 주세요"
-          register={register("content", {
-            required: true,
-          })}
-        />
+      <LabelContent css={S.margin} label="간단한 설명 (필수)">
+        <ErrorWrapper
+          isError={!!errors?.content}
+          errorMessage="간단한 설명을 입력해주세요."
+        >
+          <LabelContent.Textarea
+            css={S.textArea}
+            placeholder="공유할 음식에 대해 자유롭게 설명해 주세요"
+            isError={!!errors?.content}
+            register={register("content", {
+              required: true,
+            })}
+          />
+        </ErrorWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="무엇을 먹었나요? (필수)">
-        <S.FilterWrapper>
-          {data?.[0].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").what.includes(id)}
-                onClick={handleClickFilter("what", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
-              </S.FilterItem>
-            </li>
-          ))}
-        </S.FilterWrapper>
+        <ErrorWrapper
+          isError={!!errors?.what}
+          errorMessage="태그를 선택해 주세요."
+        >
+          <S.FilterWrapper>
+            {data?.[0].options.map(({ id, title }) => {
+              return (
+                <S.FilterItem key={title} isSelect={watch("what") === `${id}`}>
+                  <label
+                    htmlFor={`what${id}`}
+                  >{`${EMOJI[title]} ${title}`}</label>
+                  <input
+                    id={`what${id}`}
+                    type="radio"
+                    value={id}
+                    {...register("what", {
+                      required: true,
+                    })}
+                  />
+                </S.FilterItem>
+              );
+            })}
+          </S.FilterWrapper>
+        </ErrorWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="언제 먹었나요? (필수)">
-        <S.FilterWrapper>
-          {data?.[1].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").when.includes(id)}
-                onClick={handleClickFilter("when", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
+        <ErrorWrapper
+          isError={!!errors?.when}
+          errorMessage="태그를 선택해 주세요."
+        >
+          <S.FilterWrapper>
+            {data?.[1].options.map(({ id, title }) => (
+              <S.FilterItem key={title} isSelect={watch("when") === `${id}`}>
+                <label
+                  htmlFor={`when${id}`}
+                >{`${EMOJI[title]} ${title}`}</label>
+                <input
+                  id={`when${id}`}
+                  type="radio"
+                  value={id}
+                  {...register("when", {
+                    required: true,
+                  })}
+                />
               </S.FilterItem>
-            </li>
-          ))}
-        </S.FilterWrapper>
+            ))}
+          </S.FilterWrapper>
+        </ErrorWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="누구랑 먹었나요? (필수)">
-        <S.FilterWrapper>
-          {data?.[2].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").who.includes(id)}
-                onClick={handleClickFilter("who", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
+        <ErrorWrapper
+          isError={!!errors?.who}
+          errorMessage="태그를 선택해 주세요."
+        >
+          <S.FilterWrapper>
+            {data?.[2].options.map(({ id, title }) => (
+              <S.FilterItem key={title} isSelect={watch("who") === `${id}`}>
+                <label htmlFor={`who${id}`}>{`${EMOJI[title]} ${title}`}</label>
+                <input
+                  id={`who${id}`}
+                  type="radio"
+                  value={id}
+                  {...register("who", {
+                    required: true,
+                  })}
+                />
               </S.FilterItem>
-            </li>
-          ))}
-        </S.FilterWrapper>
+            ))}
+          </S.FilterWrapper>
+        </ErrorWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="기분은 어땠나요?">
         <S.FilterWrapper>
           {data?.[3].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").who.includes(id)}
-                onClick={handleClickFilter("who", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
-              </S.FilterItem>
-            </li>
+            <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
+              <label
+                htmlFor={`checkbox${id}`}
+              >{`${EMOJI[title]} ${title}`}</label>
+              <input
+                id={`checkbox${id}`}
+                type="checkbox"
+                value={id}
+                {...register("etc")}
+              />
+            </S.FilterItem>
           ))}
         </S.FilterWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="날씨는 어땠나요?">
         <S.FilterWrapper>
           {data?.[4].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").who.includes(id)}
-                onClick={handleClickFilter("who", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
-              </S.FilterItem>
-            </li>
+            <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
+              <label
+                htmlFor={`checkbox${id}`}
+              >{`${EMOJI[title]} ${title}`}</label>
+              <input
+                id={`checkbox${id}`}
+                type="checkbox"
+                value={id}
+                {...register("etc")}
+              />
+            </S.FilterItem>
           ))}
         </S.FilterWrapper>
       </LabelContent>
       <LabelContent css={S.margin} label="분위기는 어땠나요?">
         <S.FilterWrapper>
           {data?.[5].options.map(({ id, title }) => (
-            <li key={title}>
-              <S.FilterItem
-                type="button"
-                isSelect={watch("tagOptions").who.includes(id)}
-                onClick={handleClickFilter("who", id)}
-              >
-                {`${EMOJI[title]} ${title}`}
-              </S.FilterItem>
-            </li>
+            <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
+              <label
+                htmlFor={`checkbox${id}`}
+              >{`${EMOJI[title]} ${title}`}</label>
+              <input
+                id={`checkbox${id}`}
+                type="checkbox"
+                value={id}
+                {...register("etc")}
+              />
+            </S.FilterItem>
           ))}
         </S.FilterWrapper>
       </LabelContent>
@@ -132,4 +178,4 @@ const CreatePheedFilter = ({
   );
 };
 
-export default CreatePheedFilter;
+export default PheedFilter;

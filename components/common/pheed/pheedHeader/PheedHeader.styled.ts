@@ -41,7 +41,11 @@ export const CreateBtn = styled.button`
     height: 36px;
     border-radius: 100px;
     color: ${theme.color.white};
-    background-color: ${theme.color.blue_200};
+    background-color: ${theme.color.blue_300};
+
+    :disabled {
+      opacity: 0.3;
+    }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       width: 66px;

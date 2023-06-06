@@ -6,10 +6,11 @@ import * as S from "./PheedHeader.styled";
 
 interface HeaderProps {
   type: "create" | "edit";
+  isError: boolean;
   handleSubmit: () => void;
 }
 
-const Header = ({ type, handleSubmit }: HeaderProps) => {
+const Header = ({ type, isError, handleSubmit }: HeaderProps) => {
   return (
     <S.Header>
       <S.ContentWrapper>
@@ -19,7 +20,7 @@ const Header = ({ type, handleSubmit }: HeaderProps) => {
           </Link>
           {type === "create" ? "새 글 올리기" : "글 수정하기"}
         </div>
-        <S.CreateBtn type="button" onClick={handleSubmit}>
+        <S.CreateBtn disabled={isError} type="button" onClick={handleSubmit}>
           {type === "create" ? "올리기" : "수정하기"}
         </S.CreateBtn>
       </S.ContentWrapper>

@@ -1,13 +1,13 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const ImgUpload = styled.label`
-  ${({ theme }) => css`
+export const ImgUpload = styled.label<{ isError: boolean }>`
+  ${({ theme, isError }) => css`
     ${theme.flexMixin.flex_justifyC_alignC};
     flex-flow: column;
     width: 100%;
     height: 268px;
-    border: 1px dashed ${theme.color.grey_400};
+    border: 1px dashed ${isError ? theme.color.red_200 : theme.color.grey_400};
     border-radius: 10px;
     background-color: ${theme.color.grey_100};
     cursor: pointer;
@@ -77,9 +77,7 @@ export const EditBtnWrapper = styled.div`
     }
 
     & > label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      ${theme.flexMixin.flex_justifyC_alignC}
       width: 40px;
       height: 40px;
 
@@ -98,11 +96,8 @@ export const EditBtnWrapper = styled.div`
 
 export const AddBtn = styled.label`
   ${({ theme }) => css`
+    ${theme.flexMixin.flex_justifyC_alignC}
     ${theme.font.medium_15};
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width: 40px;
     height: 40px;
     color: ${theme.color.white};

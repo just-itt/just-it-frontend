@@ -13,28 +13,30 @@ const EditPheed = () => {
   const {
     register,
     watch,
+    errors,
     handleSubmit,
     handleChangeRatio,
-    handleClickFilter,
     handleDeleteImgFile,
   } = useEditPheedForm();
 
   return (
     <>
-      <PheedHeader type="edit" handleSubmit={handleSubmit} />
+      <PheedHeader
+        type="edit"
+        isError={!!Object.keys(errors).length}
+        handleSubmit={handleSubmit}
+      />
       <PheedLayout css={S.layout}>
         <ImgUpload
           css={S.imgUpload}
+          type="edit"
+          isError={!!errors.file}
           defaultImage={watch("defaultImage")}
           register={register}
           handleChangeRatio={handleChangeRatio}
           handleDeleteImgFile={handleDeleteImgFile}
         />
-        <PheedFilter
-          register={register}
-          watch={watch}
-          handleClickFilter={handleClickFilter}
-        />
+        <PheedFilter register={register} watch={watch} errors={errors} />
       </PheedLayout>
     </>
   );

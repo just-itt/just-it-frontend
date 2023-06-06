@@ -1,5 +1,10 @@
 export type PostPheedQueryModel = FormData;
 
+export interface PatchPheedQueryModel {
+  id: string;
+  body: FormData;
+}
+
 export interface GetPheedDetailQueryModel {
   id: string;
 }
@@ -11,7 +16,7 @@ export interface GetPheedDetailServerModel {
   id: number;
   image: {
     image: string;
-    ratio: string;
+    ratio: "1:1" | "3:4" | "4:3";
   };
   is_bookmark: boolean;
   replies: any[];
@@ -34,12 +39,16 @@ export interface GetMyPheedsServerModel {
   }[];
 }
 
-export interface CreatePheedForm {
+export interface PheedForm {
   file: FileList | null;
+  defaultImage?: string;
   ratio: "1:1" | "3:4" | "4:3";
   title: string;
   content?: string;
-  tagOptions: { what: number[]; when: number[]; who: number[] };
+  what: string | null;
+  when: string | null;
+  who: string | null;
+  etc: string[];
 }
 
 export interface GetPheedsServerModel {

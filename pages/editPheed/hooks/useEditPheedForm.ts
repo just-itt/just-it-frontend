@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { useEditPheed, useGetPheedDetail } from "@service/index";
-import type { EditPheedForm } from "types";
+import type { PheedForm } from "types";
 
 const useEditPheedForm = () => {
   const {
@@ -11,28 +11,29 @@ const useEditPheedForm = () => {
     query: { id: pheedId, currentPath },
   } = useRouter();
 
-  const { register, setValue, watch, reset, handleSubmit } =
-    useForm<EditPheedForm>({
-      defaultValues: {
-        file: null,
-        defaultImage: "",
-        ratio: "1:1",
-        title: "",
-        content: "",
-        tagOptions: { what: [], when: [], who: [] },
-      },
-    });
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+    reset,
+    handleSubmit,
+  } = useForm<PheedForm>({
+    defaultValues: {
+      file: null,
+      defaultImage: "",
+      ratio: "1:1",
+      title: "",
+      content: "",
+      what: null,
+      when: null,
+      who: null,
+      etc: [],
+    },
+  });
 
   const { data: pheedData } = useGetPheedDetail({ id: pheedId as string });
   const { mutate: patchPheedMutate } = useEditPheed();
-
-  const handleClickFilter =
-    (key: "what" | "when" | "who", id: number) => () => {
-      setValue("tagOptions", {
-        ...watch("tagOptions"),
-        [key]: [id],
-      });
-    };
 
   const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
     setValue("ratio", ratio);
@@ -42,21 +43,16 @@ const useEditPheedForm = () => {
     setValue("file", null);
   };
 
-  const editPheed = (data: EditPheedForm) => {
+  const editPheed = (data: PheedForm) => {
     const formData = new FormData();
 
-    // formData.append("image", data.file[0]);
     formData.append(
       "payload",
       JSON.stringify({
         title: data.title,
         content: data.content,
         ratio: "1:1",
-        tag_options: [
-          ...data.tagOptions.what,
-          ...data.tagOptions.when,
-          ...data.tagOptions.who,
-        ],
+        tag_options: [data.what, data.when, data.who, ...data.etc],
       }),
     );
 
@@ -80,20 +76,21 @@ const useEditPheedForm = () => {
       ratio: pheedData.image.ratio,
       title: pheedData.title,
       content: pheedData.content,
-      tagOptions: {
-        what: [pheedData.tag_options[0].id],
-        when: [pheedData.tag_options[1].id],
-        who: [pheedData.tag_options[2].id],
-      },
+      what: `${pheedData.tag_options[0].id}`,
+      when: `${pheedData.tag_options[1].id}`,
+      who: `${pheedData.tag_options[2].id}`,
+      etc: pheedData.tag_options
+        .filter((_, i) => i > 2)
+        .map(item => `${item.id}`),
     });
   }, [pheedData]);
 
   return {
     register,
     watch,
+    errors,
     handleSubmit: handleSubmit(editPheed),
     handleChangeRatio,
-    handleClickFilter,
     handleDeleteImgFile,
   };
 };

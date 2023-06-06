@@ -1,28 +1,33 @@
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 
 import { usePostPheed } from "@service/index";
-import type { CreatePheedForm } from "types";
+import type { PheedForm } from "types";
 
 const useCreatePheedForm = () => {
-  const { register, setValue, watch, handleSubmit } = useForm<CreatePheedForm>({
+  const { push } = useRouter();
+
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<PheedForm>({
+    mode: "all",
     defaultValues: {
       file: null,
       ratio: "1:1",
       title: "",
       content: "",
-      tagOptions: { what: [], when: [], who: [] },
+      what: null,
+      when: null,
+      who: null,
+      etc: [],
     },
   });
 
   const { mutate: postPheedMutate } = usePostPheed();
-
-  const handleClickFilter =
-    (key: "what" | "when" | "who", id: number) => () => {
-      setValue("tagOptions", {
-        ...watch("tagOptions"),
-        [key]: [id],
-      });
-    };
 
   const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
     setValue("ratio", ratio);
@@ -32,8 +37,10 @@ const useCreatePheedForm = () => {
     setValue("file", null);
   };
 
-  const createPheed = (data: CreatePheedForm) => {
+  const createPheed = (data: PheedForm) => {
     const formData = new FormData();
+
+    if (!data.what || !data.when || !data.who || !data.file) return;
 
     formData.append("image", data.file[0]);
     formData.append(
@@ -43,22 +50,31 @@ const useCreatePheedForm = () => {
         content: data.content,
         ratio: "1:1",
         tag_options: [
-          ...data.tagOptions.what,
-          ...data.tagOptions.when,
-          ...data.tagOptions.who,
+          +data.what,
+          +data.when,
+          +data.who,
+          ...data.etc.map(item => +item),
         ],
       }),
     );
 
-    postPheedMutate(formData);
+    postPheedMutate(formData, {
+      onSuccess: () => {
+        alert("피드가 생성되었습니다.");
+        push("/");
+      },
+      onError: () => {
+        alert("피드 생성을 실패했습니다. 다시 시도해 주세요.");
+      },
+    });
   };
 
   return {
     register,
     watch,
+    errors,
     handleSubmit: handleSubmit(createPheed),
     handleChangeRatio,
-    handleClickFilter,
     handleDeleteImgFile,
   };
 };

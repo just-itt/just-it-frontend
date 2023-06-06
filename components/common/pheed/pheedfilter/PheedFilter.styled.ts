@@ -21,29 +21,37 @@ export const textArea = (theme: Theme) => css`
   }
 `;
 
-export const FilterWrapper = styled.ul`
+export const FilterWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  column-gap: 10px;
-  row-gap: 10px;
-
-  li {
-    list-style: none;
-  }
+  gap: 10px;
 `;
 
-export const FilterItem = styled.button<{ isSelect: boolean }>`
+export const FilterItem = styled.div<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
-    flex-grow: 1;
-    height: 40px;
-    border: 1px solid ${isSelect ? theme.color.blue_300 : theme.color.grey_300};
-    border-radius: 100px;
-    padding: 8px 20px;
-    color: ${isSelect ? theme.color.blue_300 : theme.color.grey_700};
-    background-color: ${isSelect ? theme.color.blue_100 : theme.color.grey_100};
+    & > label {
+      ${theme.font.regular_14};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px;
+      border: 1px solid
+        ${isSelect ? theme.color.blue_300 : theme.color.grey_300};
+      border-radius: 100px;
+      padding: 8px 20px;
+      color: ${isSelect ? theme.color.blue_300 : theme.color.grey_700};
+      background-color: ${isSelect
+        ? theme.color.blue_100
+        : theme.color.grey_100};
 
-    :hover {
-      background-color: ${theme.color.grey_200};
+      :hover {
+        background-color: ${theme.color.grey_200};
+        cursor: pointer;
+      }
+    }
+
+    & > input {
+      display: none;
     }
   `}
 `;
