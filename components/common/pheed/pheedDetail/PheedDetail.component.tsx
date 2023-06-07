@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -10,13 +10,7 @@ import {
   HashTag,
   Profile,
 } from "@components/index";
-import {
-  useDeleteBookmark,
-  useDeletePheed,
-  useGetPheedDetail,
-  usePostBookmark,
-  usePostPheedReply,
-} from "@service/index";
+import { useDeletePheed, useGetPheedDetail } from "@service/index";
 import { profileAtom } from "@recoil/index";
 import { useModal } from "@hooks/index";
 import {
@@ -25,6 +19,7 @@ import {
   CloseIcon,
   MoreIcon,
 } from "@icons/index";
+import { useBookMark, usePheedReply } from "./hooks";
 import * as S from "./PheedDetail.styled";
 
 const PheedDetail = () => {
@@ -38,44 +33,17 @@ const PheedDetail = () => {
 
   const [profileState] = useRecoilState(profileAtom);
 
-  const { handleOpenModal, handleCloseModal } = useModal();
+  const { data, refetch } = useGetPheedDetail({ id: id as string });
 
-  const { data } = useGetPheedDetail({ id: id as string });
-  const { mutate: postBookmarkMutate } = usePostBookmark();
-  const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
   const { mutate: deletePheed } = useDeletePheed();
-  const { mutate: postPheedReply } = usePostPheedReply();
 
-  const [comment, setComment] = useState("");
-
-  const handleClickBookMark = () => {
-    const body = { id: id as string };
-
-    const makeAlert = alert(
-      data?.is_bookmark
-        ? "북마크가 해제되었습니다."
-        : "북마크에 추가되었습니다.",
-    );
-
-    if (data?.is_bookmark) {
-      deleteBookmarkMutate({ body }, { onSuccess: () => makeAlert });
-    } else {
-      postBookmarkMutate({ body }, { onSuccess: () => makeAlert });
-    }
-  };
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { register, handleSubmit, handleDeletePheedReply } =
+    usePheedReply(refetch);
+  const { handleClickBookMark } = useBookMark(data!, refetch);
 
   const handleCloseDetailModal = () => {
     replace(pathname, pathname, { scroll: false });
-  };
-
-  const handleAddReply = () => {
-    postPheedReply(
-      {
-        id: id as string,
-        body: { content: comment },
-      },
-      { onSuccess: () => alert("댓글 등록이 완료되었습니다.") },
-    );
   };
 
   if (!data) return null;
@@ -97,12 +65,13 @@ const PheedDetail = () => {
                 {
                   label: "수정하기",
                   value: "edit",
-                  handler: () =>
+                  handler: () => {
                     push(
                       `/editPheed?id=${id}&currentPath=${encodeURIComponent(
                         asPath,
                       )}`,
-                    ),
+                    );
+                  },
                 },
                 {
                   label: "삭제하기",
@@ -112,7 +81,7 @@ const PheedDetail = () => {
                       content="내 글을 삭제하시겠어요?"
                       confirmLabel="삭제하기"
                       cancelLabel="취소"
-                      handleConfirm={() =>
+                      handleConfirm={() => {
                         deletePheed(
                           { id: id as string },
                           {
@@ -122,8 +91,8 @@ const PheedDetail = () => {
                               handleCloseModal();
                             },
                           },
-                        )
-                      }
+                        );
+                      }}
                     />,
                   ),
                 },
@@ -157,9 +126,13 @@ const PheedDetail = () => {
         <HashTag css={S.hashTag} hashTags={data.tag_options} />
       </S.ContentWrapper>
       {data.replies && (
-        <Comments css={S.CommentsWrapper} comments={data.replies} />
+        <Comments
+          css={S.CommentsWrapper}
+          comments={data.replies}
+          handleDeletePheedReply={handleDeletePheedReply}
+        />
       )}
-      <S.FormWrapper>
+      <S.FormWrapper onSubmit={handleSubmit}>
         <Profile
           css={S.profile}
           src={profileState.profileImage ?? null}
@@ -168,11 +141,12 @@ const PheedDetail = () => {
         <S.InputWrapper>
           <S.Input
             placeholder="댓글 남기기..."
-            onChange={e => setComment(e.target.value)}
+            {...register("comment", {
+              required: true,
+              validate: value => value.trim().length > 0,
+            })}
           />
-          <S.ApplyBtn type="button" onClick={handleAddReply}>
-            등록
-          </S.ApplyBtn>
+          <S.ApplyBtn>등록</S.ApplyBtn>
         </S.InputWrapper>
       </S.FormWrapper>
     </S.Wrapper>

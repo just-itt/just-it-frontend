@@ -76,3 +76,10 @@ export interface PostPheedReplyQueryModel {
     content: string;
   };
 }
+
+export interface DeletePheedReplyQueryModel {
+  id: number;
+  body: {
+    reply_id: number;
+  };
+}

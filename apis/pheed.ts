@@ -2,6 +2,7 @@ import { ax } from "apis";
 
 import type {
   DeletePheedQueryModel,
+  DeletePheedReplyQueryModel,
   GetMyPheedsServerModel,
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
@@ -49,6 +50,14 @@ export const getMyPheeds = async () => {
 
 export const postPheedReply = async (req: PostPheedReplyQueryModel) => {
   const { data } = await ax.post(`/posts/${req.id}/replies`, req.body);
+
+  return data;
+};
+
+export const deletePheedReply = async (req: DeletePheedReplyQueryModel) => {
+  const { data } = await ax.delete(
+    `/posts/${req.id}/replies/${req.body.reply_id}`,
+  );
 
   return data;
 };
