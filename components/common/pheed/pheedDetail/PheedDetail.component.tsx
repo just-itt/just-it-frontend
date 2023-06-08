@@ -125,7 +125,7 @@ const PheedDetail = () => {
         <S.Content>{data.content}</S.Content>
         <HashTag css={S.hashTag} hashTags={data.tag_options} />
       </S.ContentWrapper>
-      {data.replies && (
+      {!!data.replies.length && (
         <Comments
           css={S.CommentsWrapper}
           comments={data.replies}

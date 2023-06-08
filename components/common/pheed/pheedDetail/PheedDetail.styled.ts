@@ -145,7 +145,6 @@ export const hashTag = css`
 
 export const CommentsWrapper = (theme: Theme) => css`
   border-top: 0.5px solid ${theme.color.grey_200};
-  border-bottom: 0.5px solid ${theme.color.grey_200};
   padding: 16px 20px;
 
   @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -158,6 +157,7 @@ export const FormWrapper = styled.form`
     display: grid;
     grid-template-columns: 44px 1fr;
     column-gap: 12px;
+    border-top: 0.5px solid ${theme.color.grey_200};
     padding: 12px 16px;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
