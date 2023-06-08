@@ -1,34 +1,27 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactElement } from "react";
 import { RecoilRoot } from "recoil";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import { Global, ThemeProvider } from "@emotion/react";
-import type { NextPage } from "next";
-import type { AppProps } from "next/app";
 
-import { BaseModal } from "@components/index";
 import { queryClient } from "services";
+import { BaseModal } from "@components/index";
 import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
+import type { AppLayoutProps } from "next/app";
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-
-const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-  const getLayout = Component.getLayout || (page => page);
+const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
+  const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-          {getLayout(<Component {...pageProps} />)}
-          <BaseModal />
-          <div id="modal" />
+          <Hydrate state={pageProps.dehydrateState}>
+            {getLayout(<Component {...pageProps} />)}
+            <BaseModal />
+            <div id="modal" />
+          </Hydrate>
         </QueryClientProvider>
       </RecoilRoot>
     </ThemeProvider>

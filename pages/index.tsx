@@ -1,10 +1,10 @@
 import React, { useEffect, ReactElement } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { useSetRecoilState } from "recoil";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { GetServerSidePropsContext } from "next";
-import type { NextPageWithLayout } from "pages/_app";
 
 import {
   MainLayout,
@@ -14,8 +14,8 @@ import {
   SuggestedMenu,
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
+import { pheedKeys, useGetPheeds } from "@service/index";
 import { profileAtom } from "@recoil/common";
-import type { GetPheedsServerModel } from "types";
 import * as S from "./index.styled";
 
 interface IndexProps {
@@ -29,15 +29,18 @@ interface IndexProps {
     lastLoginAt: string;
     updatedAt: string;
   };
-  pheeds: GetPheedsServerModel["items"];
 }
 
-const index: NextPageWithLayout = ({ profile, pheeds }: IndexProps) => {
+const index = ({ profile }: IndexProps) => {
   const {
-    query: { id },
+    query: { id, pheedSearch },
   } = useRouter();
 
   const setUserState = useSetRecoilState(profileAtom);
+
+  const { data } = useGetPheeds({
+    query: { ...(pheedSearch && { search_word: pheedSearch as string }) },
+  });
 
   useEffect(() => {
     if (!profile) return;
@@ -60,7 +63,7 @@ const index: NextPageWithLayout = ({ profile, pheeds }: IndexProps) => {
             }}
           >
             <Masonry gutter="10px">
-              {pheeds?.map(pheed => (
+              {data?.map(pheed => (
                 <Pheed
                   src={pheed.image.image}
                   id={pheed.id}
@@ -81,7 +84,7 @@ index.getLayout = function getLayout(page: ReactElement) {
 };
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const { req } = ctx;
+  const { req, query } = ctx;
 
   const token = req.cookies.auth;
 
@@ -90,9 +93,24 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     timeout: 3000,
   });
 
+  const queryClient = new QueryClient();
+
   if (token) {
     ax.defaults.headers.Authorization = `Bearer ${token}`;
-    const { data: pheeds } = await ax.get("/posts");
+
+    const filter = {
+      ...(query?.search_word && { search_word: query?.search_word as string }),
+      ...(query?.tag_options && {
+        tag_options: query?.tag_options as string[],
+      }),
+    };
+    await queryClient.prefetchQuery({
+      queryKey: pheedKeys.pheed({ query: filter }),
+      queryFn: async () => {
+        const { data } = await ax.get("/posts", { params: filter });
+        return data;
+      },
+    });
 
     const { data } = await ax.get("/members/me");
 
@@ -108,7 +126,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
           lastLoginAt: data.last_login_at,
           updatedAt: data.updated_at,
         },
-        pheeds: pheeds.items,
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       },
     };
   }

@@ -29,7 +29,7 @@
   },
   "include": [
     "./.eslintrc.js",
-    "custom.d.ts",
+    "types/declare",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
