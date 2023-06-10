@@ -1,29 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { LabelContent } from "@components/index";
+import { useGetTags } from "@service/index";
 import { useModal } from "@hooks/index";
 import { CloseIcon } from "@icons/index";
-import {
-  DAY_OF_THE_WEEKS,
-  EMOTIONS,
-  FOOD_CATEGORIES,
-  MOODS,
-  SEASONS,
-  TIME_ZONES,
-  WEATHERS,
-  WHO_WITHS,
-} from "assets/filter";
+import { EMOJI } from "assets/filter";
 import * as S from "./FilterModal.styled";
 
-const FilterModal = () => {
-  const { modalRef, isOpenModal, handleCloseModal } = useModal();
+const FILTER_TITLES = [
+  "# 종류",
+  "# 시간",
+  "# 누구와",
+  "# 기분",
+  "# 날씨, 계절",
+  "# 분위기",
+];
 
-  const handleSaveFilter = () => {
-    handleCloseModal();
+const FilterModal = () => {
+  const { data } = useGetTags();
+
+  const { handleCloseModal } = useModal();
+
+  const [selectTags, setSelectTags] = useState<string[]>([]);
+
+  const handleSaveFilter = () => handleCloseModal();
+
+  const handleClickTag = (tagId: number) => () => {
+    setSelectTags(
+      selectTags.includes(`${tagId}`)
+        ? selectTags.filter(selectTagId => selectTagId !== `${tagId}`)
+        : [...selectTags, `${tagId}`],
+    );
   };
 
   return (
-    <S.Modal open={isOpenModal} ref={modalRef}>
+    <S.Modal>
       <S.HeadingWrapper>
         <S.Heading>맞춤필터 설정</S.Heading>
         <S.CloseBtn type="button" onClick={handleCloseModal}>
@@ -34,69 +45,21 @@ const FilterModal = () => {
         {/* <LabelContent label="필터명">
           <S.Input placeholder="예) 오늘의 맞춤 필터" />
         </LabelContent> */}
-        <LabelContent label="# 종류">
-          <S.FilterWrapper>
-            {FOOD_CATEGORIES.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 시간">
-          <S.FilterWrapper>
-            {[...DAY_OF_THE_WEEKS, ...TIME_ZONES].map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 누구와">
-          <S.FilterWrapper>
-            {WHO_WITHS.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 기분">
-          <S.FilterWrapper>
-            {EMOTIONS.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 날씨">
-          <S.FilterWrapper>
-            {WEATHERS.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 계절">
-          <S.FilterWrapper>
-            {SEASONS.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
-        <LabelContent label="# 분위기">
-          <S.FilterWrapper>
-            {MOODS.map(item => (
-              <S.FilterItem key={item.key} isSelect={false}>
-                {item.label}
-              </S.FilterItem>
-            ))}
-          </S.FilterWrapper>
-        </LabelContent>
+        {FILTER_TITLES.map((filterTitle, i) => (
+          <LabelContent label={filterTitle}>
+            <S.FilterWrapper>
+              {data?.[i].options.map(({ id, title }) => (
+                <S.FilterItem
+                  key={id}
+                  isSelect={selectTags.includes(`${id}`)}
+                  onClick={handleClickTag(id)}
+                >
+                  {`${EMOJI[title]} ${title}`}
+                </S.FilterItem>
+              ))}
+            </S.FilterWrapper>
+          </LabelContent>
+        ))}
       </S.Body>
       <S.BtnWrapper>
         <S.ConfirmBtn type="button" onClick={handleSaveFilter}>
