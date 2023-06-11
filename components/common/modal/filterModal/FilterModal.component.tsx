@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { LabelContent } from "@components/index";
-import { useGetTags } from "@service/index";
-import { useModal } from "@hooks/index";
 import { CloseIcon } from "@icons/index";
 import { EMOJI } from "assets/filter";
+import { useTag } from "./hooks";
 import * as S from "./FilterModal.styled";
 
 const FILTER_TITLES = [
@@ -17,21 +16,13 @@ const FILTER_TITLES = [
 ];
 
 const FilterModal = () => {
-  const { data } = useGetTags();
-
-  const { handleCloseModal } = useModal();
-
-  const [selectTags, setSelectTags] = useState<string[]>([]);
-
-  const handleSaveFilter = () => handleCloseModal();
-
-  const handleClickTag = (tagId: number) => () => {
-    setSelectTags(
-      selectTags.includes(`${tagId}`)
-        ? selectTags.filter(selectTagId => selectTagId !== `${tagId}`)
-        : [...selectTags, `${tagId}`],
-    );
-  };
+  const {
+    data,
+    selectTags,
+    handleClickTag,
+    handleSaveFilter,
+    handleCloseModal,
+  } = useTag();
 
   return (
     <S.Modal>
