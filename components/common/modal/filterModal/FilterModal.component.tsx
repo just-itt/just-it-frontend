@@ -17,7 +17,7 @@ const FILTER_TITLES = [
 
 const FilterModal = () => {
   const {
-    data,
+    tags,
     selectTags,
     handleClickTag,
     handleSaveFilter,
@@ -39,7 +39,7 @@ const FilterModal = () => {
         {FILTER_TITLES.map((filterTitle, i) => (
           <LabelContent label={filterTitle}>
             <S.FilterWrapper>
-              {data?.[i].options.map(({ id, title }) => (
+              {tags?.[i].options.map(({ id, title }) => (
                 <S.FilterItem
                   key={id}
                   isSelect={selectTags.includes(`${id}`)}

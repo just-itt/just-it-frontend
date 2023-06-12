@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { useGetTags, usePostCustomTag } from "@service/index";
+import { useGetCustomTags, useGetTags, usePostCustomTag } from "@service/index";
 import { useModal } from "@hooks/index";
 
 const useTag = () => {
-  const { data } = useGetTags();
+  const { data: tags } = useGetTags();
+  const { data: customTags } = useGetCustomTags();
   const { mutate: postCustomTagMutate } = usePostCustomTag();
 
   const { handleCloseModal } = useModal();
@@ -36,8 +37,14 @@ const useTag = () => {
     );
   };
 
+  useEffect(() => {
+    if (!customTags) return;
+
+    setSelectTags(customTags.tag_options.map(tag => `${tag.id}`));
+  }, [customTags]);
+
   return {
-    data,
+    tags,
     selectTags,
     handleClickTag,
     handleCloseModal,
