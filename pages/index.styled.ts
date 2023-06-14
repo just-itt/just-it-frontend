@@ -10,7 +10,6 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: flex;
-      margin-left: 248px;
       overflow-y: ${isClickPheed && "visible"};
     }
   `}
@@ -18,16 +17,20 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
 
 export const PheedWrapper = styled.div<{ isClickPheed: boolean }>`
   ${({ theme, isClickPheed }) => css`
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      width: ${isClickPheed ? "calc(100% - 523px)" : "100%"};
+      border-right: ${isClickPheed && `1px solid ${theme.color.grey_200}`};
+      overflow-y: ${isClickPheed ? "auto" : "visible"};
+    }
+  `}
+`;
+
+export const PaddingWrapper = styled.div`
+  ${({ theme }) => css`
     padding: 20px;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       padding: 40px;
-    }
-
-    @media (min-width: ${theme.breakPoint.minDesktop}) {
-      width: ${isClickPheed ? "calc(100% - 784px)" : "100%"};
-      border-right: ${isClickPheed && `1px solid ${theme.color.grey_200}`};
-      overflow-y: ${isClickPheed ? "auto" : "visible"};
     }
   `}
 `;

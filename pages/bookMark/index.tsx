@@ -3,9 +3,8 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { GetServerSidePropsContext } from "next";
-import type { NextPageWithLayout } from "pages/_app";
 
-import { MainLayout, Heading, Filter, Pheed } from "@components/index";
+import { MainLayout, Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import type { GetBookmarksServerModel } from "types";
 import * as S from "./index.styled";
@@ -14,7 +13,7 @@ interface BookMarkProps {
   bookmarks: GetBookmarksServerModel;
 }
 
-const index: NextPageWithLayout = ({ bookmarks }: BookMarkProps) => {
+const index = ({ bookmarks }: BookMarkProps) => {
   const {
     query: { id },
   } = useRouter();
@@ -22,7 +21,7 @@ const index: NextPageWithLayout = ({ bookmarks }: BookMarkProps) => {
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
-        <div>
+        <S.PaddingWrapper>
           <Heading css={S.heading} heading="저장한 게시글" />
           <Filter />
           <ResponsiveMasonry
@@ -43,7 +42,8 @@ const index: NextPageWithLayout = ({ bookmarks }: BookMarkProps) => {
                 ))}
             </Masonry>
           </ResponsiveMasonry>
-        </div>
+        </S.PaddingWrapper>
+        <Footer />
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>

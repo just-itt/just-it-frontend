@@ -4,19 +4,17 @@ import {
   MainLayout,
   DefaultInfo,
   ChangePassword,
-  DeleteMemberBtn,
+  Btns,
 } from "@components/index";
-
-import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
-const Setting: NextPageWithLayout = () => {
+const Setting = () => {
   return (
     <S.Setting>
       <div>
         <DefaultInfo />
         <ChangePassword />
-        <DeleteMemberBtn />
+        <Btns />
       </div>
     </S.Setting>
   );

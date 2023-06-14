@@ -12,6 +12,7 @@ import {
   Pheed,
   Heading,
   SuggestedMenu,
+  Footer,
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { pheedKeys, useGetPheeds } from "@service/index";
@@ -51,7 +52,7 @@ const index = ({ profile }: IndexProps) => {
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
-        <div>
+        <S.PaddingWrapper>
           <SuggestedMenu />
           <Heading css={S.heading} heading="실시간 피드" />
           <Filter />
@@ -72,7 +73,8 @@ const index = ({ profile }: IndexProps) => {
               ))}
             </Masonry>
           </ResponsiveMasonry>
-        </div>
+        </S.PaddingWrapper>
+        <Footer />
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>
@@ -101,7 +103,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     const filter = {
       ...(query?.search_word && { search_word: query?.search_word as string }),
       ...(query?.tag_options && {
-        tag_options: query?.tag_options as string[],
+        tag_options: (query?.tag_options as string[]).map(item => +item),
       }),
     };
     await queryClient.prefetchQuery({

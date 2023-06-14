@@ -2,13 +2,12 @@ import React, { ReactElement } from "react";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
-import { MainLayout, Heading, Filter, Pheed } from "@components/index";
+import { MainLayout, Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetMyPheeds } from "@service/index";
-import type { NextPageWithLayout } from "pages/_app";
 import * as S from "./index.styled";
 
-const MyPheed: NextPageWithLayout = () => {
+const MyPheed = () => {
   const {
     query: { id },
   } = useRouter();
@@ -18,7 +17,7 @@ const MyPheed: NextPageWithLayout = () => {
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
-        <div>
+        <S.PaddingWrapper>
           <Heading css={S.heading} heading="내 게시글" />
           <Filter />
           <ResponsiveMasonry
@@ -39,7 +38,8 @@ const MyPheed: NextPageWithLayout = () => {
               ))}
             </Masonry>
           </ResponsiveMasonry>
-        </div>
+          <Footer />
+        </S.PaddingWrapper>
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>
