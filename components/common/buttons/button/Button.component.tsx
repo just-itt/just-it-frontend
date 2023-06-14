@@ -5,7 +5,7 @@ import * as S from "./Button.styled";
 interface ButtonProps {
   className?: string;
   mode: "primary" | "secondary";
-  type?: "button";
+  type?: "button" | "submit";
   disabled?: boolean;
   label: string;
   isError?: boolean;

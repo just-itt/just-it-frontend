@@ -47,11 +47,9 @@ const DropdownBtn = ({
       {btnRender}
       {isOpenDropdown && (
         <S.DropdownWrapper>
-          {dropdownItems.map(({ label, handler }, i) => (
-            <S.DropdownItem key={i}>
-              <button type="button" onClick={handler}>
-                {label}
-              </button>
+          {dropdownItems.map(({ label, handler }) => (
+            <S.DropdownItem key={label} onClick={handler}>
+              {label}
             </S.DropdownItem>
           ))}
         </S.DropdownWrapper>
