@@ -15,3 +15,8 @@ export const makeImagePreview = (imageFile: File): Promise<string> => {
     reader.readAsDataURL(imageFile);
   });
 };
+
+export const handleResize = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};

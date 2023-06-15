@@ -17,6 +17,7 @@ import {
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { pheedKeys, useGetPheeds } from "@service/index";
 import { profileAtom } from "@recoil/common";
+import { handleResize } from "utils";
 import * as S from "./index.styled";
 
 interface IndexProps {
@@ -47,6 +48,11 @@ const index = ({ profile }: IndexProps) => {
     if (!profile) return;
 
     setUserState(profile);
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (

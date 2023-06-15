@@ -5,7 +5,7 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
   ${({ theme, isClickPheed }) => css`
     position: relative;
     width: 100%;
-    height: calc(100vh - 72px);
+    height: calc(var(--vh) * 100 - 72px);
     overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -18,7 +18,7 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
 export const PheedWrapper = styled.div<{ isClickPheed: boolean }>`
   ${({ theme, isClickPheed }) => css`
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      width: ${isClickPheed ? "calc(100% - 784px)" : "100%"};
+      width: ${isClickPheed ? "calc(100% - 523px)" : "100%"};
       border-right: ${isClickPheed && `1px solid ${theme.color.grey_200}`};
       overflow-y: ${isClickPheed ? "auto" : "visible"};
     }

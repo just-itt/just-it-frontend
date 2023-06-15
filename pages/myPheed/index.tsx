@@ -1,10 +1,11 @@
-import React, { ReactElement } from "react";
+import React, { useEffect, ReactElement } from "react";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { MainLayout, Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetMyPheeds } from "@service/index";
+import { handleResize } from "utils";
 import * as S from "./index.styled";
 
 const MyPheed = () => {
@@ -13,6 +14,13 @@ const MyPheed = () => {
   } = useRouter();
 
   const { data } = useGetMyPheeds();
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <S.Main isClickPheed={!!id}>
@@ -38,8 +46,8 @@ const MyPheed = () => {
               ))}
             </Masonry>
           </ResponsiveMasonry>
-          <Footer />
         </S.PaddingWrapper>
+        <Footer />
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>

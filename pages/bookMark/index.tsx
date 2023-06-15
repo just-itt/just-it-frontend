@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { useEffect, ReactElement } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
@@ -6,6 +6,7 @@ import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
+import { handleResize } from "utils";
 import type { GetBookmarksServerModel } from "types";
 import * as S from "./index.styled";
 
@@ -17,6 +18,13 @@ const index = ({ bookmarks }: BookMarkProps) => {
   const {
     query: { id },
   } = useRouter();
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <S.Main isClickPheed={!!id}>

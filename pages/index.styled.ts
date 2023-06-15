@@ -5,7 +5,7 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
   ${({ theme, isClickPheed }) => css`
     position: relative;
     width: 100%;
-    height: calc(100vh - 72px);
+    height: calc(var(--vh) * 100 - 72px);
     overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
