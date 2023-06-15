@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 export const Modal = styled.div`
   ${({ theme }) => css`
     width: 100vw;
-    height: -webkit-fill-available;
+    height: calc(var(--vh) * 100);
     background-color: ${theme.color.white};
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -60,12 +60,9 @@ export const CloseBtn = styled.button`
       fill: ${theme.color.grey_900};
     }
 
-    @media (min-width: ${theme.breakPoint.minTablet}) {
-    }
-
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      left: unset;
-      right: 32px;
+      position: relative;
+      left: 0;
     }
   `}
 `;
@@ -76,7 +73,7 @@ export const Body = styled.div`
     flex-flow: column;
     row-gap: 32px;
     border-top: 1px solid ${theme.color.grey_200};
-    height: calc(100% - 60px - 82px);
+    height: calc(var(--vh) * 100 - 60px - 82px);
     padding: 32px;
     overflow-y: auto;
 

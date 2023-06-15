@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { LabelContent } from "@components/index";
 import { CloseIcon } from "@icons/index";
 import { EMOJI } from "assets/filter";
+import { handleResize } from "utils";
 import { useTag } from "./hooks";
 import * as S from "./FilterModal.styled";
 
@@ -23,6 +24,13 @@ const FilterModal = () => {
     handleSaveFilter,
     handleCloseModal,
   } = useTag();
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <S.Modal>

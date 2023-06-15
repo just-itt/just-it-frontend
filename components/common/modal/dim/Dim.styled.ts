@@ -9,11 +9,14 @@ export const Dim = styled.div`
     bottom: 0;
     left: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: ${theme.color.modal_Bg};
     z-index: ${theme.zIndex.modal};
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      justify-content: center;
+      align-items: center;
+    }
   `}
 `;
