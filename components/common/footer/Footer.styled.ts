@@ -7,6 +7,7 @@ export const Footer = styled.footer`
     ${theme.font.regular_12};
     height: 149px;
     border-top: 1px solid ${theme.color.grey_200};
+    padding: 20px 0 32px 0;
     color: ${theme.color.grey_500};
 
     & > svg {
@@ -18,7 +19,6 @@ export const Footer = styled.footer`
       ${theme.font.regular_14};
       row-gap: 12px;
       height: 105px;
-      padding-top: 20px;
 
       & > svg {
         margin-bottom: 0;

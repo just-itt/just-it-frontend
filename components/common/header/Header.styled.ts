@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 
-export const Header = styled.div`
+export const Header = styled.header`
   ${({ theme }) => css`
     position: sticky;
     top: 0;
@@ -42,7 +42,7 @@ export const MenuBtn = styled.button`
   `}
 `;
 
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled.form`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
