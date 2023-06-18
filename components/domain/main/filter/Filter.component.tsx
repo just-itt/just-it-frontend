@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
 
 import { ArrowLongIcon } from "@icons/index";
 import {
@@ -12,17 +11,18 @@ import {
 import * as S from "./Filter.styled";
 
 const Filter = () => {
-  const { push, query } = useRouter();
+  const { replace, query } = useRouter();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<{ key: string; label: string }[]>([]);
 
   const isSelect = (key: string) => !!query.filter?.includes(key);
 
-  const handleClickFilter = (key: string) => () =>
-    isSelect(key)
-      ? push({ query: {} })
-      : push({ query: { ...query, filter: key } });
+  const handleClickFilter = (key: string) => () => {
+    replace(
+      isSelect(key) ? { query: {} } : { query: { ...query, filter: key } },
+    );
+  };
 
   const handleOpenFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -43,14 +43,13 @@ const Filter = () => {
     <S.Filter>
       <S.FilterWrapper isFilterOpen={isFilterOpen}>
         {filters.map(item => (
-          <li key={uuidv4()}>
-            <S.FilterItem
-              isSelect={isSelect(item.key)}
-              onClick={handleClickFilter(item.key)}
-            >
-              {item.label}
-            </S.FilterItem>
-          </li>
+          <S.FilterItem
+            key={item.key}
+            isSelect={isSelect(item.key)}
+            onClick={handleClickFilter(item.key)}
+          >
+            {item.label}
+          </S.FilterItem>
         ))}
       </S.FilterWrapper>
       <S.OpenBtn

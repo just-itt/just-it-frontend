@@ -1,6 +1,5 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-
-import { theme } from "styles/theme";
 
 export const DetailBtn = styled.button`
   text-align: left;
@@ -26,9 +25,12 @@ export const ImgWrapper = styled.div`
 `;
 
 export const Title = styled.h3`
-  ${theme.font.semiBold_16};
-  margin-bottom: 4px;
-  padding-left: 4px;
+  ${({ theme }) => css`
+    ${theme.font.semiBold_16};
+    margin-bottom: 4px;
+    padding-left: 4px;
+    color: ${theme.color.black};
+  `}
 `;
 
 export const ContentWrapper = styled.div`
@@ -39,16 +41,20 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Content = styled.p`
-  ${theme.font.regular_15};
-  width: 300px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${({ theme }) => css`
+    ${theme.font.regular_15};
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `}
 `;
 
 export const MoreBtn = styled.button`
-  ${theme.font.regular_15};
-  width: 43px;
+  ${({ theme }) => css`
+    ${theme.font.regular_15};
+    width: 43px;
+  `}
 `;
 
 export const BadgeWrapper = styled.div`
@@ -65,5 +71,7 @@ export const Badge = styled.div`
 `;
 
 export const BadgeCount = styled.span`
-  ${theme.font.regular_14};
+  ${({ theme }) => css`
+    ${theme.font.regular_14};
+  `}
 `;

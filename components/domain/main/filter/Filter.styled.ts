@@ -24,7 +24,7 @@ export const Filter = styled.div`
   `}
 `;
 
-export const FilterWrapper = styled.ul<{ isFilterOpen: boolean }>`
+export const FilterWrapper = styled.div<{ isFilterOpen: boolean }>`
   ${({ isFilterOpen }) => css`
     display: flex;
     flex-wrap: ${isFilterOpen ? "wrap" : "nowrap"};
@@ -41,10 +41,11 @@ export const FilterItem = styled.button<{ isSelect: boolean }>`
     flex-grow: 1;
     height: 40px;
     border: 1px solid
-      ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_300}`};
+      ${isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`};
     border-radius: 100px;
     padding: 8px 20px;
-    color: ${isSelect ? `${theme.color.blue_200}` : `${theme.color.grey_700}`};
+    color: ${isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`};
+    background-color: ${isSelect && `${theme.color.blue_100}`};
 
     @media (hover: hover) {
       :hover {

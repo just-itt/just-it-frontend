@@ -11,10 +11,10 @@ interface PheedProps {
 }
 
 const Pheed = ({ src, title, id }: PheedProps) => {
-  const { replace } = useRouter();
+  const { replace, query } = useRouter();
 
   const handleClickPheed = () => {
-    replace(`?id=${id}`, `?id=${id}`, { scroll: false });
+    replace({ query: { ...query, id } }, undefined, { scroll: false });
   };
 
   return (

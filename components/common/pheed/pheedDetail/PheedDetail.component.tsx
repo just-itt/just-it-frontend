@@ -23,17 +23,11 @@ import { useBookMark, usePheedReply } from "./hooks";
 import * as S from "./PheedDetail.styled";
 
 const PheedDetail = () => {
-  const {
-    replace,
-    pathname,
-    push,
-    asPath,
-    query: { id },
-  } = useRouter();
+  const { replace, push, asPath, query } = useRouter();
 
   const [profileState] = useRecoilState(profileAtom);
 
-  const { data, refetch } = useGetPheedDetail({ id: id as string });
+  const { data, refetch } = useGetPheedDetail({ id: query.id as string });
 
   const { mutate: deletePheed } = useDeletePheed();
 
@@ -43,7 +37,9 @@ const PheedDetail = () => {
   const { handleClickBookMark } = useBookMark(data!, refetch);
 
   const handleCloseDetailModal = () => {
-    replace(pathname, pathname, { scroll: false });
+    const { id, ...updateQuery } = query;
+
+    replace({ query: updateQuery }, undefined, { scroll: false });
   };
 
   if (!data) return null;
@@ -67,9 +63,9 @@ const PheedDetail = () => {
                   value: "edit",
                   handler: () => {
                     push(
-                      `/editPheed?id=${id}&currentPath=${encodeURIComponent(
-                        asPath,
-                      )}`,
+                      `/editPheed?id=${
+                        query.id
+                      }&currentPath=${encodeURIComponent(asPath)}`,
                     );
                   },
                 },
@@ -83,7 +79,7 @@ const PheedDetail = () => {
                       cancelLabel="취소"
                       handleConfirm={() => {
                         deletePheed(
-                          { id: id as string },
+                          { id: query.id as string },
                           {
                             onSuccess: () => {
                               alert("피드 삭제 성공");
