@@ -72,13 +72,13 @@ export const Body = styled.div`
     display: flex;
     flex-flow: column;
     row-gap: 32px;
+    height: calc((var(--vh) * 100) - 60px - 82px);
     border-top: 1px solid ${theme.color.grey_200};
-    height: calc(var(--vh) * 100 - 60px - 82px);
     padding: 32px;
     overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
-      height: calc(100% - 88px - 72px);
+      height: calc((var(--vh) * 100) - 72px - 88px);
       margin-bottom: 0;
       padding: 40px;
     }

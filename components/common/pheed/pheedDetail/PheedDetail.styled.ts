@@ -12,8 +12,6 @@ export const Wrapper = styled.div`
     width: 100%;
     background-color: ${theme.color.white};
     z-index: ${theme.zIndex.modal};
-    overflow-y: scroll;
-
     @media (min-width: ${theme.breakPoint.minTablet}) {
       padding: 0 20%;
     }
@@ -21,10 +19,24 @@ export const Wrapper = styled.div`
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: relative;
       width: 536px;
-      height: calc(100vh - ${theme.constantCss.navHeight});
-      overflow-y: scroll;
       padding: 40px 40px 0 40px;
       z-index: 0;
+    }
+  `}
+`;
+
+export const ScrollWrapper = styled.div`
+  ${({ theme }) => css`
+    height: calc(var(--vh) * 100 - 64px - 69px);
+    overflow-y: auto;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      height: calc(var(--vh) * 100 - 125px - 105px - 27px);
+      overflow-y: auto;
     }
   `}
 `;
@@ -161,6 +173,7 @@ export const FormWrapper = styled.form`
     padding: 12px 16px;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
+      height: 85px;
       margin-bottom: 0;
       padding: 20px 0;
     }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -13,6 +13,7 @@ import {
 import { useDeletePheed, useGetPheedDetail } from "@service/index";
 import { profileAtom } from "@recoil/index";
 import { useModal } from "@hooks/index";
+import { handleResize } from "utils";
 import {
   BookMarkIcon,
   BookMarkMonoIcon,
@@ -41,6 +42,13 @@ const PheedDetail = () => {
 
     replace({ query: updateQuery }, undefined, { scroll: false });
   };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (!data) return null;
 
@@ -97,37 +105,39 @@ const PheedDetail = () => {
           )}
         </S.BtnWrapper>
       </S.HeaderWrapper>
-      <S.ProfileWrapper>
-        <S.Profile />
-        <S.Nickname>아이디</S.Nickname>
-      </S.ProfileWrapper>
-      <S.ImgWrapper>
-        <Image
-          src={data.image.image}
-          alt={`${data.title} 사진`}
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{
-            width: "100%",
-            height: "auto",
-            marginBottom: "20px",
-          }}
-        />
-        <S.ImgCircle />
-      </S.ImgWrapper>
-      <S.ContentWrapper>
-        <S.Title>{data.title}</S.Title>
-        <S.Content>{data.content}</S.Content>
-        <HashTag css={S.hashTag} hashTags={data.tag_options} />
-      </S.ContentWrapper>
-      {!!data.replies.length && (
-        <Comments
-          css={S.CommentsWrapper}
-          comments={data.replies}
-          handleDeletePheedReply={handleDeletePheedReply}
-        />
-      )}
+      <S.ScrollWrapper>
+        <S.ProfileWrapper>
+          <S.Profile />
+          <S.Nickname>아이디</S.Nickname>
+        </S.ProfileWrapper>
+        <S.ImgWrapper>
+          <Image
+            src={data.image.image}
+            alt={`${data.title} 사진`}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{
+              width: "100%",
+              height: "auto",
+              marginBottom: "20px",
+            }}
+          />
+          <S.ImgCircle />
+        </S.ImgWrapper>
+        <S.ContentWrapper>
+          <S.Title>{data.title}</S.Title>
+          <S.Content>{data.content}</S.Content>
+          <HashTag css={S.hashTag} hashTags={data.tag_options} />
+        </S.ContentWrapper>
+        {!!data.replies.length && (
+          <Comments
+            css={S.CommentsWrapper}
+            comments={data.replies}
+            handleDeletePheedReply={handleDeletePheedReply}
+          />
+        )}
+      </S.ScrollWrapper>
       <S.FormWrapper onSubmit={handleSubmit}>
         <Profile
           css={S.profile}
