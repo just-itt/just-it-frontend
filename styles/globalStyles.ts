@@ -130,16 +130,16 @@ export const globalStyle = css`
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-smoothing: antialiased;
     scrollbar-width: none;
-  }
-  *::-webkit-scrollbar {
-    display: none;
   }
 
   html {
     font-size: 62.5%;
     font-family: "Pretendard";
+  }
+
+  body {
+    min-height: 100vh;
   }
 
   button {
