@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRecoilState, useSetRecoilState } from "recoil";
 import { useForm } from "react-hook-form";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { Profile } from "@components/index";
 import { profileAtom, navAtom } from "@recoil/common";
 import { useViewport } from "@hooks/index";
 import {
+  AddIcon,
   LogoShortIcon,
   MenuIcon,
-  SearchLongIcon,
   SearchShortIcon,
 } from "@icons/index";
+import { LoginBtn, SearchForm } from "./container";
 import * as S from "./Header.styled";
 
 const Header = () => {
@@ -20,56 +21,27 @@ const Header = () => {
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
-  const [profileState] = useRecoilState(profileAtom);
-  const setNavState = useSetRecoilState(navAtom);
-
   const { register, reset, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { pheedSearch: "" },
   });
+
+  const [profileState] = useRecoilState(profileAtom);
+  const setNavState = useSetRecoilState(navAtom);
+
+  const [isFocusInput, setIsFocusInput] = useState(false);
 
   const handleClickMenu = () => {
     setNavState(true);
     document.body.style.overflow = "hidden";
   };
 
-  useEffect(() => {
-    reset({ pheedSearch: (query.pheedSearch as string) ?? "" });
-  }, [query]);
+  const handleFocusInput = () => setIsFocusInput(!isFocusInput);
 
   return (
     <S.Header>
-      <S.LogoWrapper>
-        <S.MenuBtn type="button" onClick={handleClickMenu}>
-          <MenuIcon />
-        </S.MenuBtn>
-        <Link href="/">
-          <LogoShortIcon />
-        </Link>
-      </S.LogoWrapper>
-      {isMobile && profileState.id && (
-        <S.MobileLoginWrapper>
-          <button type="button">
-            <SearchLongIcon />
-          </button>
-          <Link href="/setting">
-            <Profile
-              src={profileState.profileImage}
-              alt={`${profileState.nickname}님의 프로필 사진`}
-            />
-          </Link>
-        </S.MobileLoginWrapper>
-      )}
-      {isMobile && !profileState.id && (
-        <S.MobileLoginWrapper>
-          <button type="button">
-            <SearchLongIcon />
-          </button>
-          <S.LoginBtn href="/login">로그인</S.LoginBtn>
-        </S.MobileLoginWrapper>
-      )}
-      {(isTablet || isDesktop) && profileState.id && (
-        <>
+      {isMobile &&
+        (isFocusInput ? (
           <S.SearchWrapper
             onSubmit={handleSubmit(data =>
               replace({ query: { ...query, pheedSearch: data.pheedSearch } }),
@@ -79,22 +51,99 @@ const Header = () => {
             <S.Search
               placeholder="검색..."
               maxLength={30}
-              {...register("pheedSearch", { required: true })}
+              autoComplete="off"
+              autoFocus
+              {...register("pheedSearch", {
+                required: true,
+                onBlur: () => handleFocusInput(),
+              })}
             />
           </S.SearchWrapper>
+        ) : (
+          <>
+            <S.LogoWrapper>
+              <S.MenuBtn type="button" onClick={handleClickMenu}>
+                <MenuIcon />
+              </S.MenuBtn>
+              <Link href="/">
+                <LogoShortIcon />
+              </Link>
+            </S.LogoWrapper>
+            <S.FlexWrapper>
+              <S.SearchBtn type="button" onClick={handleFocusInput}>
+                <SearchShortIcon />
+              </S.SearchBtn>
+              {profileState.nickname ? (
+                <Link css={S.createPheedBtn} href="/createPheed">
+                  <AddIcon />
+                </Link>
+              ) : (
+                <Link css={S.loginBtn} href="/login">
+                  로그인
+                </Link>
+              )}
+            </S.FlexWrapper>
+          </>
+        ))}
+      {isTablet && (
+        <>
+          <S.LogoWrapper>
+            <S.MenuBtn type="button" onClick={handleClickMenu}>
+              <MenuIcon />
+            </S.MenuBtn>
+            <Link href="/">
+              <LogoShortIcon />
+            </Link>
+          </S.LogoWrapper>
           <S.FlexWrapper>
-            <S.CreatePheed href="/createPheed">새 글 등록</S.CreatePheed>
-            <S.ProfileLink href="setting">
-              <Profile
-                src={profileState.profileImage}
-                alt={`${profileState.nickname}의 프로필 사진`}
-              />
-            </S.ProfileLink>
+            {isFocusInput ? (
+              <S.SearchWrapper
+                onSubmit={handleSubmit(data =>
+                  replace({
+                    query: { ...query, pheedSearch: data.pheedSearch },
+                  }),
+                )}
+              >
+                <SearchShortIcon />
+                <S.Search
+                  placeholder="검색..."
+                  maxLength={30}
+                  autoComplete="off"
+                  autoFocus
+                  {...register("pheedSearch", {
+                    required: true,
+                    onBlur: () => handleFocusInput(),
+                  })}
+                />
+              </S.SearchWrapper>
+            ) : (
+              <S.SearchBtn type="button" onClick={handleFocusInput}>
+                <SearchShortIcon />
+              </S.SearchBtn>
+            )}
+
+            {profileState.nickname ? (
+              <Link css={S.createPheedBtn} href="/createPheed">
+                <AddIcon />
+              </Link>
+            ) : (
+              <Link css={S.loginBtn} href="/login">
+                로그인
+              </Link>
+            )}
           </S.FlexWrapper>
         </>
       )}
-      {(isTablet || isDesktop) && !profileState.id && (
+      {isDesktop && (
         <>
+          <S.LogoWrapper>
+            <S.MenuBtn type="button" onClick={handleClickMenu}>
+              <MenuIcon />
+            </S.MenuBtn>
+            <Link href="/">
+              <LogoShortIcon />
+            </Link>
+          </S.LogoWrapper>
           <S.SearchWrapper
             onSubmit={handleSubmit(data =>
               replace({ query: { ...query, pheedSearch: data.pheedSearch } }),
@@ -104,11 +153,32 @@ const Header = () => {
             <S.Search
               placeholder="검색..."
               maxLength={30}
-              {...register("pheedSearch", { required: true })}
+              autoComplete="off"
+              autoFocus
+              {...register("pheedSearch", {
+                required: true,
+                onBlur: () => handleFocusInput(),
+              })}
             />
           </S.SearchWrapper>
           <S.FlexWrapper>
-            <S.LoginBtn href="/login">로그인</S.LoginBtn>
+            {profileState.nickname ? (
+              <>
+                <Link css={S.createPheed} href="/createPheed">
+                  새 글 올리기
+                </Link>
+                <Link href="/setting">
+                  <Profile
+                    src={profileState.profileImage}
+                    alt={`${profileState.nickname}님의 프로필 사진`}
+                  />
+                </Link>
+              </>
+            ) : (
+              <Link css={S.loginBtn} href="/login">
+                로그인
+              </Link>
+            )}
           </S.FlexWrapper>
         </>
       )}
