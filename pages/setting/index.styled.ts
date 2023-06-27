@@ -18,6 +18,10 @@ export const Setting = styled.div`
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: flex;
       justify-content: center;
+
+      & > div {
+        width: 788px;
+      }
     }
   `}
 `;

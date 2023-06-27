@@ -18,6 +18,7 @@ export const Form = styled.form`
 `;
 
 export const labelContent = css`
+  width: 388px;
   margin-bottom: 20px;
 `;
 

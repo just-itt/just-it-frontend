@@ -17,7 +17,7 @@ export const labelContent = css`
 `;
 
 export const nicknameInput = css`
-  width: 100%;
+  width: 388px;
 `;
 
 export const emailLabelContent = css`
@@ -25,5 +25,5 @@ export const emailLabelContent = css`
 `;
 
 export const emailInput = css`
-  width: 100%;
+  width: 388px;
 `;
