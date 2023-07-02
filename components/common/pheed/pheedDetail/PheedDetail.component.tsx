@@ -62,7 +62,7 @@ const PheedDetail = () => {
           <button type="button" onClick={handleClickBookMark}>
             {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
-          {profileState.id === data.author_id && (
+          {profileState.id === data.author.id && (
             <DropdownBtn
               btnRender={<MoreIcon />}
               dropdownItems={[
@@ -107,8 +107,11 @@ const PheedDetail = () => {
       </S.HeaderWrapper>
       <S.ScrollWrapper>
         <S.ProfileWrapper>
-          <S.Profile />
-          <S.Nickname>아이디</S.Nickname>
+          <Profile
+            src={data.author.profile_image}
+            alt={`${data.author.nickname}님의 프로필 사진`}
+          />
+          <S.Nickname>{data.author.nickname}</S.Nickname>
         </S.ProfileWrapper>
         <S.ImgWrapper>
           <Image
@@ -130,13 +133,11 @@ const PheedDetail = () => {
           <S.Content>{data.content}</S.Content>
           <HashTag css={S.hashTag} hashTags={data.tag_options} />
         </S.ContentWrapper>
-        {!!data.replies.length && (
-          <Comments
-            css={S.CommentsWrapper}
-            comments={data.replies}
-            handleDeletePheedReply={handleDeletePheedReply}
-          />
-        )}
+        <Comments
+          css={S.CommentsWrapper}
+          comments={data.replies}
+          handleDeletePheedReply={handleDeletePheedReply}
+        />
       </S.ScrollWrapper>
       <S.FormWrapper onSubmit={handleSubmit}>
         <Profile

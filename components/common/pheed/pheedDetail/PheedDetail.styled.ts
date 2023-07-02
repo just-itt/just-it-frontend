@@ -159,8 +159,12 @@ export const CommentsWrapper = (theme: Theme) => css`
   border-top: 0.5px solid ${theme.color.grey_200};
   padding: 16px 20px;
 
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    padding: 40px 20px;
+  }
+
   @media (min-width: ${theme.breakPoint.minDesktop}) {
-    padding: 20px 0;
+    padding: 40px 0px;
   }
 `;
 
