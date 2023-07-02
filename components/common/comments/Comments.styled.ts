@@ -7,9 +7,17 @@ export const Wrapper = styled.div`
   row-gap: 32px;
 `;
 
+export const NoCommentWrapper = styled.div`
+  ${({ theme }) => css`
+    ${theme.font.regular_15};
+    text-align: center;
+    color: ${theme.color.grey_500};
+  `}
+`;
+
 export const CommentWrapper = styled.div`
   display: grid;
-  grid-template-columns: 44px 1fr;
+  grid-template-columns: 44px 1fr 60px;
   column-gap: 16px;
 
   svg {
@@ -47,5 +55,19 @@ export const Nickname = styled.span`
 export const Comment = styled.span`
   ${({ theme }) => css`
     ${theme.font.regular_14};
+  `}
+`;
+
+export const BtnWrapper = styled.div`
+  ${({ theme }) => css`
+    ${theme.flexMixin.flex_justifyC};
+    column-gap: 5px;
+    height: fit-content;
+
+    svg {
+      width: 16px;
+      height: 18px;
+      fill: ${theme.color.grey_900};
+    }
   `}
 `;
