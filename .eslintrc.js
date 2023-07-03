@@ -43,5 +43,11 @@ module.exports = {
     "no-restricted-syntax": "off",
     "no-plusplus": "off", // https://stackoverflow.com/questions/65628948/eslint-error-unary-operator-used-no-plusplus
     "no-nested-ternary": "off", // 삼항연산자 중첩 금지 해제
+    "no-console": "off", // console.log 에러 해제
+    "no-alert": "off", // alert 에러 해제
+    "@typescript-eslint/no-explicit-any": "off", // err any 타입 에러 해제
+    "@typescript-eslint/no-non-null-assertion": "off", // 접미사 연산자를 사용하여 null이 아닌 어설션을 허용하지 않습니다
+    "consistent-return": "off", // consistent-return 해제
+    "react/no-array-index-key": "off", // map 안에서 key로 index 사용하지 못하게 하는 에러 해제
   },
 };
