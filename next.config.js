@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -11,9 +12,6 @@ const nextConfig = {
     });
     return config;
   },
-  // images: {
-  // domains: ["i.pinimg.com"],
-  // },
   images: {
     unoptimized: true,
   },
