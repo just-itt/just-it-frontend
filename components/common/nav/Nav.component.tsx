@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { navAtom } from "@recoil/common";
+import { navAtom, profileAtom } from "@recoil/common";
 import { Profile } from "@components/index";
 import {
   ArrowShortIcon,
@@ -20,6 +20,7 @@ const Nav = () => {
   const { pathname } = useRouter();
 
   const [navState, setNavState] = useRecoilState(navAtom);
+  const profile = useRecoilValue(profileAtom);
 
   const handleCloseNav = () => {
     setNavState(false);
@@ -39,11 +40,22 @@ const Nav = () => {
         </S.CloseBtn>
       </S.Wrapper>
       <S.ProfileWrapper>
-        <Link href="/login">
-          <Profile css={S.profile} src={null} alt="비어있는 프로필 이미지" />
-          로그인하기
-          <ArrowShortIcon />
-        </Link>
+        {profile.nickname ? (
+          <>
+            <Profile
+              css={S.profile}
+              src={profile.profileImage}
+              alt={`${profile.nickname}님의 프로필 사진`}
+            />
+            {profile.nickname}
+          </>
+        ) : (
+          <Link href="/login" onClick={handleCloseNav}>
+            <Profile css={S.profile} src={null} alt="비어있는 프로필 이미지" />
+            로그인하기
+            <ArrowShortIcon />
+          </Link>
+        )}
       </S.ProfileWrapper>
       <S.NavItem>
         <S.NavMenu href="/" isclick={(pathname === "/").toString()}>

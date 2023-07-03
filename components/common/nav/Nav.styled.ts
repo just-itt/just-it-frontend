@@ -68,6 +68,7 @@ export const CloseBtn = styled.button`
 export const ProfileWrapper = styled.div`
   ${({ theme }) => css`
     ${theme.font.semiBold_16};
+    ${theme.flexMixin.flex_alignC};
     padding: 12px 0 12px 20px;
     border-bottom: 1px solid ${theme.color.grey_300};
 
