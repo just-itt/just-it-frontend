@@ -32,24 +32,26 @@ const index = ({ bookmarks }: BookMarkProps) => {
         <S.PaddingWrapper>
           <Heading css={S.heading} heading="저장한 게시글" />
           <Filter />
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              555: 2,
-              900: 3,
-              1200: 4,
-            }}
-          >
-            <Masonry gutter="10px">
-              {bookmarks.count &&
-                bookmarks.items.map(bookmark => (
-                  <Pheed
-                    src={bookmark.image.image}
-                    title={bookmark.title}
-                    id={bookmark.id}
-                  />
-                ))}
-            </Masonry>
-          </ResponsiveMasonry>
+          {bookmarks ? (
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{
+                555: 2,
+                900: 3,
+                1200: 4,
+              }}
+            >
+              <Masonry gutter="10px">
+                {bookmarks.count &&
+                  bookmarks.items.map(bookmark => (
+                    <Pheed
+                      src={bookmark.image.image}
+                      title={bookmark.title}
+                      id={bookmark.id}
+                    />
+                  ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          ) : null}
         </S.PaddingWrapper>
         <Footer />
       </S.PheedWrapper>

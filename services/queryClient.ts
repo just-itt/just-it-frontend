@@ -9,7 +9,7 @@ export const queryClient = new QueryClient({
       // refetchOnReconnect: true, // 기본 값 사용 - true
       refetchOnWindowFocus: false,
       retry: 0, //
-      suspense: true,
+      // suspense: true,
       onError: err => console.log(err),
     },
     mutations: {

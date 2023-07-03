@@ -28,6 +28,7 @@ export const PheedWrapper = styled.div<{ isClickPheed: boolean }>`
 export const PaddingWrapper = styled.div`
   ${({ theme }) => css`
     padding: 20px;
+    min-height: calc(100vh - 197px);
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       padding: 40px;

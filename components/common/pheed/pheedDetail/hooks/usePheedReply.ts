@@ -19,7 +19,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
   });
 
   const handleDeletePheedReply = (replyId: number) => () =>
-    deletePheedReply({ id: +id!, body: { reply_id: replyId } });
+    deletePheedReply({ id: +id!, body: { post_id: +id!, reply_id: replyId } });
 
   return {
     register,

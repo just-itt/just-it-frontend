@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 
 import { navAtom } from "@recoil/common";
+import { Profile } from "@components/index";
 import {
+  ArrowShortIcon,
   BookMarkMonoIcon,
   CloseIcon,
   EditMonoIcon,
@@ -35,6 +38,13 @@ const Nav = () => {
           <CloseIcon />
         </S.CloseBtn>
       </S.Wrapper>
+      <S.ProfileWrapper>
+        <Link href="/login">
+          <Profile css={S.profile} src={null} alt="비어있는 프로필 이미지" />
+          로그인하기
+          <ArrowShortIcon />
+        </Link>
+      </S.ProfileWrapper>
       <S.NavItem>
         <S.NavMenu href="/" isclick={(pathname === "/").toString()}>
           <TagIcon />

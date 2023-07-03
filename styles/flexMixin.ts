@@ -37,4 +37,10 @@ export const flexMixin = {
     flex-flow: column;
     align-items: center;
   `,
+  flex_column_justifyC_alignC: css`
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  `,
 };

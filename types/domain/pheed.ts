@@ -12,7 +12,15 @@ export interface GetPheedDetailQueryModel {
 }
 
 export interface GetPheedDetailServerModel {
-  author_id: number;
+  author: {
+    created_at: string;
+    email: string;
+    id: number;
+    last_login_at: string;
+    nickname: string;
+    profile_image: string;
+    updated_at: string;
+  };
   content: string;
   created_at: string;
   id: number;
@@ -53,6 +61,13 @@ export interface PheedForm {
   etc: string[];
 }
 
+export interface GetPheedsQueryModel {
+  query: {
+    search_word?: string;
+    tag_options?: number[];
+  };
+}
+
 export interface GetPheedsServerModel {
   count: number;
   items: {
@@ -80,6 +95,7 @@ export interface PostPheedReplyQueryModel {
 export interface DeletePheedReplyQueryModel {
   id: number;
   body: {
+    post_id: number;
     reply_id: number;
   };
 }

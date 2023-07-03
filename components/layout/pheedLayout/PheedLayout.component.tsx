@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as S from "./pheedLayout.styled";
+import * as S from "./PheedLayout.styled";
 
 interface CreatePheedLayoutProps {
   className?: string;

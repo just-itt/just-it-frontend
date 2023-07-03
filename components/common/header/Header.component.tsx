@@ -13,7 +13,6 @@ import {
   MenuIcon,
   SearchShortIcon,
 } from "@icons/index";
-import { LoginBtn, SearchForm } from "./container";
 import * as S from "./Header.styled";
 
 const Header = () => {
@@ -21,7 +20,7 @@ const Header = () => {
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
-  const { register, reset, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { pheedSearch: "" },
   });
@@ -154,7 +153,6 @@ const Header = () => {
               placeholder="검색..."
               maxLength={30}
               autoComplete="off"
-              autoFocus
               {...register("pheedSearch", {
                 required: true,
                 onBlur: () => handleFocusInput(),

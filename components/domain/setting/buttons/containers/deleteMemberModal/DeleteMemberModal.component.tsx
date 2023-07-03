@@ -12,7 +12,7 @@ const DeleteMemberModal = () => {
   const { push } = useRouter();
   const { mutate: deleteMemberMutate } = useDeleteMember();
 
-  const { modalRef, isOpenModal, handleCloseModal } = useModal();
+  const { modalRef, handleCloseModal } = useModal();
 
   const handleDeleteMember = () => {
     deleteMemberMutate(undefined, {
@@ -26,7 +26,7 @@ const DeleteMemberModal = () => {
   };
 
   return (
-    <S.Modal open={isOpenModal} ref={modalRef}>
+    <S.Modal open ref={modalRef}>
       <S.CloseBtn type="button" onClick={handleCloseModal}>
         <CloseIcon />
       </S.CloseBtn>

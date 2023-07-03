@@ -15,6 +15,7 @@ const SetNickname = ({ nicknameRegister, emailRegister }: SetNicknameProps) => {
       <LabelContent css={S.labelContent} label="닉네임">
         <LabelContent.Input
           css={S.nicknameInput}
+          isError={false}
           placeholder=""
           register={nicknameRegister}
         />
@@ -22,6 +23,7 @@ const SetNickname = ({ nicknameRegister, emailRegister }: SetNicknameProps) => {
       <LabelContent css={S.emailLabelContent} label="이메일">
         <LabelContent.Input
           css={S.emailInput}
+          isError={false}
           placeholder=""
           disabled
           register={emailRegister}

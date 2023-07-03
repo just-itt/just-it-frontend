@@ -1,12 +1,19 @@
 import React from "react";
 
 import { FilterModal, Heading, Pheed } from "@components/index";
+import { useGetCustomTags, useGetPheeds } from "@service/index";
 import { useModal } from "@hooks/index";
 import { FilterIcon } from "@icons/index";
 import * as S from "./SuggestedMenu.styled";
 
 const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
+
+  const { data: customTags } = useGetCustomTags();
+  const { data } = useGetPheeds(
+    { query: { tag_options: customTags?.tag_options.map(item => item.id) } },
+    !!customTags?.tag_options,
+  );
 
   return (
     <S.SuggestedMenu>
@@ -21,9 +28,9 @@ const SuggestedMenu = () => {
         </S.FilterSettingBtn>
       </S.HeadingWrapper>
       <S.PheedWrapper>
-        <Pheed src="/imgs/food1.jpeg" title="설렁탕" />
-        <Pheed src="/imgs/food2.jpeg" title="피자" />
-        <Pheed src="/imgs/food3.jpeg" title="핫도그" />
+        {data?.map(pheed => (
+          <Pheed src={pheed.image.image} title={pheed.title} id={pheed.id} />
+        ))}
       </S.PheedWrapper>
     </S.SuggestedMenu>
   );

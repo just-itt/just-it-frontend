@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Nav = styled.ul<{ isOpen: boolean }>`
@@ -63,6 +63,47 @@ export const CloseBtn = styled.button`
       fill: ${theme.color.grey_900};
     }
   `}
+`;
+
+export const ProfileWrapper = styled.div`
+  ${({ theme }) => css`
+    ${theme.font.semiBold_16};
+    padding: 12px 0 12px 20px;
+    border-bottom: 1px solid ${theme.color.grey_300};
+
+    & > a {
+      ${theme.flexMixin.flex_alignC};
+      color: ${theme.color.grey_900};
+
+      & > svg {
+        width: 20px;
+        height: 20px;
+        margin-left: 4px;
+        fill: ${theme.color.grey_900};
+        transform: rotate(-90deg);
+      }
+    }
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      display: none;
+    }
+  `}
+`;
+
+export const profile = (theme: Theme) => css`
+  width: 48px;
+  height: 48px;
+  margin-right: 16px;
+  border: 1px solid ${theme.color.grey_300};
+
+  a {
+    color: ${theme.color.grey_900};
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const NavItem = styled.li`

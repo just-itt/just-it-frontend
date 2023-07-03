@@ -35,11 +35,11 @@ export const InputWrapper = styled.div`
   `}
 `;
 
-export const Input = styled.input`
-  ${({ theme }) => css`
+export const Input = styled.input<{ isError: boolean }>`
+  ${({ theme, isError }) => css`
     width: 100%;
     height: 44px;
-    border: 1px solid ${theme.color.grey_300};
+    border: 1px solid ${isError ? theme.color.red_200 : theme.color.grey_300};
     border-radius: 5px;
     padding: 10px 12px;
 
@@ -49,10 +49,10 @@ export const Input = styled.input`
   `}
 `;
 
-export const Textarea = styled.textarea`
-  ${({ theme }) => css`
+export const Textarea = styled.textarea<{ isError: boolean }>`
+  ${({ theme, isError }) => css`
     height: 400px;
-    border: 1px solid ${theme.color.grey_300};
+    border: 1px solid ${isError ? theme.color.red_200 : theme.color.grey_300};
     border-radius: 5px;
     padding: 10px 12px;
     resize: none;

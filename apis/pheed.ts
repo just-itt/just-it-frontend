@@ -6,14 +6,17 @@ import type {
   GetMyPheedsServerModel,
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
+  GetPheedsQueryModel,
   GetPheedsServerModel,
   PatchPheedQueryModel,
   PostPheedQueryModel,
   PostPheedReplyQueryModel,
 } from "types";
 
-export const getPheeds = async () => {
-  const { data } = await ax.get<GetPheedsServerModel>("/posts");
+export const getPheeds = async (req: GetPheedsQueryModel) => {
+  const { data } = await ax.get<GetPheedsServerModel>("/posts", {
+    params: req.query,
+  });
 
   return data.items;
 };

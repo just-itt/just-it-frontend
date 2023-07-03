@@ -1,6 +1,5 @@
 import React from "react";
 
-// import { CheckBlueIcon } from "@icons/index";
 import FormInput from "../formInput/FormInput.component";
 import * as S from "./AuthCodeInput.styled";
 

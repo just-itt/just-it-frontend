@@ -10,6 +10,7 @@ export { default as CloseIcon } from "./close.svg";
 export { default as DeleteIcon } from "./delete.svg";
 export { default as EditMonoIcon } from "./editMono.svg";
 export { default as FilterIcon } from "./filter.svg";
+export { default as FooterIcon } from "./footer.svg";
 export { default as InfoIcon } from "./info.svg";
 export { default as KakaoIcon } from "./kakao.svg";
 export { default as LogoLongIcon } from "./logoLong.svg";

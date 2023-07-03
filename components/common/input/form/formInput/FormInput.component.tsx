@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { PersonIcon, UnvisibleIcon, VisibleIcon } from "@icons/index";
+import { UnvisibleIcon, VisibleIcon } from "@icons/index";
 import * as S from "./FormInput.style";
 
 interface FormInputProps {

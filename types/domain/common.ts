@@ -26,3 +26,22 @@ export interface Comment {
   post_id: number;
   updated_at: string;
 }
+
+export interface GetCustomTagsServerModel {
+  id: number;
+  title: string;
+  tag_options: { id: number; title: string }[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PostCustomTagQueryModel {
+  body: {
+    title: string;
+    tag_options: number[];
+  };
+}
+
+export interface GetCustomPheedQueryModel {
+  query: { tag_options: number[] };
+}

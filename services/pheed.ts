@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { UseQueryOptions, useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   deletePheed,
@@ -6,6 +6,7 @@ import {
   deletePheedReply,
   editPheed,
   getPheedDetail,
+  getPheeds,
   postPheed,
   postPheedBookmark,
   postPheedReply,
@@ -15,17 +16,29 @@ import type {
   DeletePheedQueryModel,
   DeletePheedReplyQueryModel,
   GetPheedDetailQueryModel,
+  GetPheedsQueryModel,
   PatchPheedQueryModel,
   PostBookmarkQueryModel,
   PostPheedQueryModel,
   PostPheedReplyQueryModel,
 } from "types";
 
-const pheedKeys = {
+export const pheedKeys = {
   all: ["pheed"] as const,
+  pheeds: () => [...pheedKeys.all, "pheed"] as const,
+  pheed: (req: GetPheedsQueryModel) =>
+    [...pheedKeys.pheeds(), req.query.search_word] as const,
   pheedDetails: () => [...pheedKeys.all, "pheedDetail"] as const,
   pheedDetail: (id: GetPheedDetailQueryModel) =>
     [...pheedKeys.pheedDetails(), id] as const,
+};
+
+export const useGetPheeds = (req: GetPheedsQueryModel, enabled?: boolean) => {
+  return useQuery({
+    queryKey: pheedKeys.pheed(req),
+    queryFn: () => getPheeds(req),
+    enabled,
+  });
 };
 
 export const usePostPheed = () => {
