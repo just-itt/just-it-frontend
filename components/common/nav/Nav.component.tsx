@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
 import Link from "next/link";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { navAtom, profileAtom } from "@recoil/common";
-import { Profile } from "@components/index";
+import { LoginLinkModal, Profile } from "@components/index";
+import { useModal } from "@hooks/index";
 import {
   ArrowShortIcon,
   BookMarkMonoIcon,
@@ -17,14 +18,24 @@ import {
 import * as S from "./Nav.styled";
 
 const Nav = () => {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   const [navState, setNavState] = useRecoilState(navAtom);
   const profile = useRecoilValue(profileAtom);
 
+  const { handleOpenModal } = useModal();
+
   const handleCloseNav = () => {
     setNavState(false);
     document.body.style.removeProperty("overflow");
+  };
+
+  const handleCheckLogin = (path: string) => () => {
+    if (path === "/") push(path);
+    if (!profile.nickname) {
+      handleCloseNav();
+      handleOpenModal(<LoginLinkModal />)();
+    }
   };
 
   useEffect(() => {
@@ -58,23 +69,29 @@ const Nav = () => {
         )}
       </S.ProfileWrapper>
       <S.NavItem>
-        <S.NavMenu href="/" isclick={(pathname === "/").toString()}>
+        <S.NavMenu
+          type="button"
+          isclick={(pathname === "/").toString()}
+          onClick={handleCheckLogin("/")}
+        >
           <TagIcon />
           탐색하기
         </S.NavMenu>
       </S.NavItem>
       <S.NavItem>
         <S.NavMenu
-          href="myPheed"
+          type="button"
           isclick={(pathname === "/myPheed").toString()}
+          onClick={handleCheckLogin("/myPheed")}
         >
           <EditMonoIcon />내 게시글
         </S.NavMenu>
       </S.NavItem>
       <S.NavItem>
         <S.NavMenu
-          href="bookMark"
+          type="button"
           isclick={(pathname === "/bookMark").toString()}
+          onClick={handleCheckLogin("/bookMark")}
         >
           <BookMarkMonoIcon />
           저장한 게시글
@@ -82,8 +99,9 @@ const Nav = () => {
       </S.NavItem>
       <S.NavItem>
         <S.NavMenu
-          href="setting"
+          type="button"
           isclick={(pathname === "/setting").toString()}
+          onClick={handleCheckLogin("/setting")}
         >
           <SettingMonoIcon />
           설정

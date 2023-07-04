@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
@@ -120,7 +119,7 @@ export const NavItem = styled.li`
   `}
 `;
 
-export const NavMenu = styled(Link)<{ isclick: string }>`
+export const NavMenu = styled.button<{ isclick: string }>`
   ${({ theme, isclick }) => css`
     ${theme.font.semiBold_16};
     ${theme.flexMixin.flex_alignC};
