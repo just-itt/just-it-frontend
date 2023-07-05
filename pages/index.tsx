@@ -45,12 +45,11 @@ const index = ({ profile }: IndexProps) => {
   });
 
   useEffect(() => {
-    if (!profile) return;
-
-    setUserState(profile);
-
     handleResize();
     window.addEventListener("resize", handleResize);
+
+    if (!profile) return;
+    setUserState(profile);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
