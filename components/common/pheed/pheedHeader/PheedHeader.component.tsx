@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { PersonIcon } from "@icons/index";
+import { ArrowLineIcon } from "@icons/index";
 import * as S from "./PheedHeader.styled";
 
 interface HeaderProps {
@@ -16,9 +16,11 @@ const Header = ({ type, isError, handleSubmit }: HeaderProps) => {
       <S.ContentWrapper>
         <div>
           <Link css={S.link} href="/">
-            <PersonIcon />
+            <ArrowLineIcon />
           </Link>
-          {type === "create" ? "새 글 올리기" : "글 수정하기"}
+          <S.Heading>
+            {type === "create" ? "새 글 올리기" : "글 수정하기"}
+          </S.Heading>
         </div>
         <S.CreateBtn disabled={isError} type="button" onClick={handleSubmit}>
           {type === "create" ? "올리기" : "수정하기"}

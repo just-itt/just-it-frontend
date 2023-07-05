@@ -11,7 +11,6 @@ export const Header = styled.header`
 
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
-    ${theme.font.bold_20};
     ${theme.flexMixin.flex_justifySb_alignC};
     max-width: 1080px;
     height: 100%;
@@ -34,22 +33,35 @@ export const link = css`
   margin-right: 8px;
 `;
 
+export const Heading = styled.h2`
+  ${({ theme }) => css`
+    display: none;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      display: block;
+    }
+  `}
+`;
+
 export const CreateBtn = styled.button`
   ${({ theme }) => css`
     ${theme.flexMixin.flex_justifyC_alignC};
+    ${theme.font.bold_16};
     width: 62px;
     height: 36px;
-    border-radius: 100px;
-    color: ${theme.color.white};
-    background-color: ${theme.color.blue_300};
+    color: ${theme.color.blue_300};
 
     :disabled {
       opacity: 0.3;
     }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
-      width: 66px;
+      ${theme.font.semiBold_15};
+      width: 79px;
       height: 40px;
+      border-radius: 100px;
+      color: ${theme.color.white};
+      background-color: ${theme.color.blue_300};
     }
   `}
 `;
