@@ -3,9 +3,16 @@ import { css } from "@emotion/react";
 
 export const Header = styled.header`
   ${({ theme }) => css`
+    position: sticky;
+    top: 0;
     min-width: 390px;
     height: ${theme.constantCss.navHeight};
     border-bottom: 1px solid ${theme.color.grey_200};
+    background-color: ${theme.color.white};
+
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      position: relative;
+    }
   `}
 `;
 

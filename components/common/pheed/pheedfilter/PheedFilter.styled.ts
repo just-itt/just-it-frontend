@@ -2,9 +2,18 @@ import styled from "@emotion/styled";
 import { Theme, css } from "@emotion/react";
 
 export const ContentWrapper = styled.div`
-  width: 100%;
-  height: calc(100vh - 100px);
-  overflow-y: scroll;
+  ${({ theme }) => css`
+    width: 100%;
+    height: calc(100vh - 100px);
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      overflow-y: scroll;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  `}
 `;
 
 export const margin = (theme: Theme) => css`
