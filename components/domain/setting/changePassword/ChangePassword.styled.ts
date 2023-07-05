@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const heading = css`
@@ -17,9 +17,13 @@ export const Form = styled.form`
   `}
 `;
 
-export const labelContent = css`
-  width: 388px;
+export const labelContent = (theme: Theme) => css`
+  width: 100%;
   margin-bottom: 20px;
+
+  @media (min-width: ${theme.breakPoint.minDesktop}) {
+    width: 386px;
+  }
 `;
 
 export const division = css`

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Form = styled.form`
@@ -16,14 +16,22 @@ export const labelContent = css`
   margin-bottom: 20px;
 `;
 
-export const nicknameInput = css`
-  width: 388px;
+export const nicknameInput = (theme: Theme) => css`
+  width: 100%;
+
+  @media (min-width: ${theme.breakPoint.minDesktop}) {
+    width: 386px;
+  }
 `;
 
 export const emailLabelContent = css`
   margin-bottom: 40px;
 `;
 
-export const emailInput = css`
-  width: 388px;
+export const emailInput = (theme: Theme) => css`
+  width: 100%;
+
+  @media (min-width: ${theme.breakPoint.minDesktop}) {
+    width: 386px;
+  }
 `;
