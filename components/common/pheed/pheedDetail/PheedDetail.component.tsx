@@ -108,6 +108,7 @@ const PheedDetail = () => {
       <S.ScrollWrapper>
         <S.ProfileWrapper>
           <Profile
+            css={S.profile}
             src={data.author.profile_image}
             alt={`${data.author.nickname}님의 프로필 사진`}
           />

@@ -89,15 +89,6 @@ export const ProfileWrapper = styled.div`
   `}
 `;
 
-export const Profile = styled.div`
-  ${({ theme }) => css`
-    width: 44px;
-    height: 44px;
-    border-radius: 100px;
-    background-color: ${theme.color.grey_900};
-  `}
-`;
-
 export const Nickname = styled.span`
   ${({ theme }) => css`
     ${theme.font.semiBold_16};
@@ -184,9 +175,14 @@ export const FormWrapper = styled.form`
   `}
 `;
 
-export const profile = css`
-  width: 44px;
-  height: 44px;
+export const profile = (theme: Theme) => css`
+  width: 40px;
+  height: 40px;
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    width: 44px;
+    height: 44px;
+  }
 `;
 
 export const InputWrapper = styled.div`
@@ -196,6 +192,7 @@ export const InputWrapper = styled.div`
 export const Input = styled.input`
   ${({ theme }) => css`
     width: 100%;
+    height: 100%;
     border: 1px solid ${theme.color.grey_300};
     border-radius: 100px;
     padding: 10px 53px 10px 16px;
