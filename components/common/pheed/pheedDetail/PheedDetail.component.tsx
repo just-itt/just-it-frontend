@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
 
 import {
   Comments,
@@ -10,8 +9,11 @@ import {
   HashTag,
   Profile,
 } from "@components/index";
-import { useDeletePheed, useGetPheedDetail } from "@service/index";
-import { profileAtom } from "@recoil/index";
+import {
+  useDeletePheed,
+  useGetMyProfile,
+  useGetPheedDetail,
+} from "@service/index";
 import { useModal } from "@hooks/index";
 import { handleResize } from "utils";
 import {
@@ -26,9 +28,8 @@ import * as S from "./PheedDetail.styled";
 const PheedDetail = () => {
   const { replace, push, asPath, query } = useRouter();
 
-  const [profileState] = useRecoilState(profileAtom);
-
   const { data, refetch } = useGetPheedDetail({ id: query.id as string });
+  const { data: profile } = useGetMyProfile();
 
   const { mutate: deletePheed } = useDeletePheed();
 
@@ -50,7 +51,7 @@ const PheedDetail = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!data) return null;
+  if (!data || !profile) return null;
 
   return (
     <S.Wrapper>
@@ -62,7 +63,7 @@ const PheedDetail = () => {
           <button type="button" onClick={handleClickBookMark}>
             {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
-          {profileState.id === data.author.id && (
+          {profile.id === data.author.id && (
             <DropdownBtn
               btnRender={<MoreIcon />}
               dropdownItems={[
@@ -143,8 +144,8 @@ const PheedDetail = () => {
       <S.FormWrapper onSubmit={handleSubmit}>
         <Profile
           css={S.profile}
-          src={profileState.profileImage ?? null}
-          alt={`${profileState.nickname}님의 프로필 사진`}
+          src={profile.profile_image ?? null}
+          alt={`${profile.nickname}님의 프로필 사진`}
         />
         <S.InputWrapper>
           <S.Input
