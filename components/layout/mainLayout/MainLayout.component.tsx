@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header, Nav } from "@components/common";
+import { Header, Nav } from "@components/index";
 import * as S from "./MainLayout.styled";
 
 interface MainLayoutProps {

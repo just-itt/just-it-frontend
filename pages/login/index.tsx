@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
 import Cookies from "js-cookie";
 
 import { SignIn, SignUp, SignInBtn } from "@components/index";
-import { useCreateMember, useGetMemberProfile, useLogin } from "@service/index";
-import { profileAtom } from "@recoil/common";
+import { useCreateMember, useLogin } from "@service/index";
 import { KakaoIcon, LogoLongIcon } from "@icons/index";
 import * as S from "./index.styled";
 
@@ -27,7 +25,6 @@ const Login = () => {
     },
   });
 
-  const setUserState = useSetRecoilState(profileAtom);
   const [isSignUp, setIsSignUp] = useState(true);
 
   const handleClickSignUp = () => {
@@ -36,7 +33,6 @@ const Login = () => {
 
   const { mutate: useCreateMemberMutate } = useCreateMember();
   const { mutate: useLoginMutate } = useLogin();
-  const { mutate: useMemberProfileMutate } = useGetMemberProfile();
 
   const handleClickSumbmit = (data: { email: string; password: string }) => {
     if (isSignUp) {
@@ -50,22 +46,19 @@ const Login = () => {
         {
           onSuccess: loginRes => {
             Cookies.set("auth", loginRes.data.token, { expires: 2 });
-            useMemberProfileMutate(undefined, {
-              onSuccess: memberRes => {
-                setUserState({
-                  id: memberRes.data.id,
-                  email: memberRes.data.email,
-                  nickname: memberRes.data.nickname,
-                  profileImage: memberRes.data.profile_image,
-                  status: memberRes.data.status,
-                  lastLoginAt: memberRes.data.last_login_at,
-                  createdAt: memberRes.data.created_at,
-                  updatedAt: memberRes.data.updated_at,
-                });
 
-                push("/");
-              },
-            });
+            // setUserState({
+            //   id: myProfile.data.id,
+            //   email: myProfile.data.email,
+            //   nickname: myProfile.data.nickname,
+            //   profileImage: myProfile.data.profile_image,
+            //   status: myProfile.data.status,
+            //   lastLoginAt: myProfile.data.last_login_at,
+            //   createdAt: myProfile.data.created_at,
+            //   updatedAt: myProfile.data.updated_at,
+            // });
+
+            push("/");
           },
           onError: (loginErr: any) => {
             const errMessage = loginErr.response.data.detail;

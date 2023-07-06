@@ -1,10 +1,9 @@
 import React from "react";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useResetRecoilState } from "recoil";
+import { QueryClient } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 
 import { useModal } from "@hooks/index";
-import { profileAtom } from "@recoil/common";
 import { DeleteMemberModal } from "./containers";
 import * as S from "./Btns";
 
@@ -12,12 +11,12 @@ const Btns = () => {
   const { push } = useRouter();
   const { handleOpenModal } = useModal();
 
-  const resetProfile = useResetRecoilState(profileAtom);
+  const queryClient = new QueryClient();
 
   const handleLogout = () => {
     Cookies.remove("auth");
     push("/");
-    resetProfile();
+    queryClient.clear();
   };
 
   return (

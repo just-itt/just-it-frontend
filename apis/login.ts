@@ -38,12 +38,10 @@ export const login = async (
   return res;
 };
 
-export const getMemberProfile = async (): Promise<
-  AxiosResponse<MemberProfileServerModel>
-> => {
-  const res = await ax.get("/members/me");
+export const getMyProfile = async () => {
+  const { data } = await ax.get<MemberProfileServerModel>("/members/me");
 
-  return res;
+  return data;
 };
 
 export const postFindPasswordEmailSend = async (

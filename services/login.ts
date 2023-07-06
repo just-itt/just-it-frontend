@@ -1,10 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 
 import {
   createMember,
   emailAuth,
   emailAuthCode,
-  getMemberProfile,
+  getMyProfile,
   login,
   patchResetPassword,
   postFindPasswordEmailCheck,
@@ -44,9 +45,13 @@ export const useLogin = () => {
   });
 };
 
-export const useGetMemberProfile = () => {
-  return useMutation({
-    mutationFn: () => getMemberProfile(),
+export const useGetMyProfile = () => {
+  return useQuery({
+    queryKey: ["myProfile"],
+    queryFn: () => getMyProfile(),
+    enabled: !!Cookies.get("auth"),
+    staleTime: Infinity,
+    cacheTime: Infinity,
   });
 };
 

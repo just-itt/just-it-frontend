@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 import { Profile } from "@components/index";
-import { profileAtom, navAtom } from "@recoil/common";
+import { useGetMyProfile } from "@service/index";
+import { navAtom } from "@recoil/index";
 import { useViewport } from "@hooks/index";
 import {
   AddIcon,
@@ -20,15 +21,14 @@ const Header = () => {
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
+  const { data: profile } = useGetMyProfile();
+
+  const setNavState = useSetRecoilState(navAtom);
+  const [isFocusInput, setIsFocusInput] = useState(false);
   const { register, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { pheedSearch: "" },
   });
-
-  const [profileState] = useRecoilState(profileAtom);
-  const setNavState = useSetRecoilState(navAtom);
-
-  const [isFocusInput, setIsFocusInput] = useState(false);
 
   const handleClickMenu = () => {
     setNavState(true);
@@ -72,7 +72,7 @@ const Header = () => {
               <S.SearchBtn type="button" onClick={handleFocusInput}>
                 <SearchShortIcon />
               </S.SearchBtn>
-              {profileState.nickname ? (
+              {profile ? (
                 <Link css={S.createPheedBtn} href="/createPheed">
                   <AddIcon />
                 </Link>
@@ -121,7 +121,7 @@ const Header = () => {
               </S.SearchBtn>
             )}
 
-            {profileState.nickname ? (
+            {profile ? (
               <Link css={S.createPheedBtn} href="/createPheed">
                 <AddIcon />
               </Link>
@@ -160,15 +160,15 @@ const Header = () => {
             />
           </S.SearchWrapper>
           <S.FlexWrapper>
-            {profileState.nickname ? (
+            {profile ? (
               <>
                 <Link css={S.createPheed} href="/createPheed">
                   새 글 올리기
                 </Link>
                 <Link href="/setting">
                   <Profile
-                    src={profileState.profileImage}
-                    alt={`${profileState.nickname}님의 프로필 사진`}
+                    src={profile.profile_image}
+                    alt={`${profile.nickname}님의 프로필 사진`}
                   />
                 </Link>
               </>

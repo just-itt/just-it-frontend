@@ -1,39 +1,30 @@
-import React from "react";
-import { useRecoilState } from "recoil";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { Heading, Button } from "@components/index";
 import {
   useDeleteProfileImage,
+  useGetMyProfile,
   usePatchNickname,
   usePostProfileImage,
 } from "@service/index";
-import { profileAtom } from "@recoil/index";
 import { SetNickname, SetProfile } from "./containers";
 import * as S from "./DefaultInfo.styled";
 
 const DefaultInfo = () => {
-  const [profile] = useRecoilState(profileAtom);
+  const { data: profile } = useGetMyProfile();
 
-  const { register, watch, setValue, handleSubmit } = useForm<{
+  const { register, watch, setValue, reset, handleSubmit } = useForm<{
     profile: string | FileList | null;
     nickname: string;
     email: string;
-  }>({
-    defaultValues: {
-      profile: profile.profileImage,
-      nickname: profile.nickname,
-      email: profile.email,
-    },
-  });
+  }>();
 
   const { mutate: usePostProfileImageMutate } = usePostProfileImage();
   const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();
 
-  const handleClickDeleteProfile = () => {
-    setValue("profile", "");
-  };
+  const handleClickDeleteProfile = () => setValue("profile", "");
 
   const updateProfile = async (data: {
     nickname?: string;
@@ -42,7 +33,7 @@ const DefaultInfo = () => {
     try {
       const temp = [];
 
-      if (data.nickname !== profile.nickname && data.nickname) {
+      if (data.nickname !== profile?.nickname && data.nickname) {
         temp.push(
           usePatchNicknameMutate({ body: { nickname: data.nickname } }),
         );
@@ -69,11 +60,23 @@ const DefaultInfo = () => {
     }
   };
 
+  useEffect(() => {
+    if (!profile) return;
+
+    reset({
+      profile: profile.profile_image,
+      nickname: profile?.nickname,
+      email: profile?.email,
+    });
+  }, [profile]);
+
+  if (!profile) return;
+
   return (
     <S.Wrapper>
       <Heading css={S.heading} heading="기본 정보" />
       <SetProfile
-        src={profile.profileImage}
+        src={profile.profile_image}
         alt={`${watch("nickname")}의 프로필 사진`}
         watch={watch}
         register={register("profile")}

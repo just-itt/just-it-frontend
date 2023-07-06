@@ -1,10 +1,11 @@
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
-import { navAtom, profileAtom } from "@recoil/common";
+import { navAtom } from "@recoil/common";
 import { LoginLinkModal, Profile } from "@components/index";
+import { useGetMyProfile } from "@service/index";
 import { useModal } from "@hooks/index";
 import {
   ArrowShortIcon,
@@ -20,10 +21,10 @@ import * as S from "./Nav.styled";
 const Nav = () => {
   const { pathname, push } = useRouter();
 
-  const [navState, setNavState] = useRecoilState(navAtom);
-  const profile = useRecoilValue(profileAtom);
-
   const { handleOpenModal } = useModal();
+
+  const [navState, setNavState] = useRecoilState(navAtom);
+  const { data: profile } = useGetMyProfile();
 
   const handleCloseNav = () => {
     setNavState(false);
@@ -32,15 +33,13 @@ const Nav = () => {
 
   const handleCheckLogin = (path: string) => () => {
     if (path === "/") push(path);
-    if (!profile.nickname) {
-      handleCloseNav();
+    if (profile) {
+      push(path);
+    } else {
       handleOpenModal(<LoginLinkModal />)();
     }
-  };
-
-  useEffect(() => {
     handleCloseNav();
-  }, [pathname]);
+  };
 
   return (
     <S.Nav isOpen={navState}>
@@ -51,11 +50,11 @@ const Nav = () => {
         </S.CloseBtn>
       </S.Wrapper>
       <S.ProfileWrapper>
-        {profile.nickname ? (
+        {profile ? (
           <>
             <Profile
               css={S.profile}
-              src={profile.profileImage}
+              src={profile.profile_image}
               alt={`${profile.nickname}님의 프로필 사진`}
             />
             {profile.nickname}

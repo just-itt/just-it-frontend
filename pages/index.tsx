@@ -2,7 +2,6 @@ import React, { useEffect, ReactElement } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { useSetRecoilState } from "recoil";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { GetServerSidePropsContext } from "next";
 
@@ -16,40 +15,24 @@ import {
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { pheedKeys, useGetPheeds } from "@service/index";
-import { profileAtom } from "@recoil/common";
 import { handleResize } from "utils";
 import * as S from "./index.styled";
 
-interface IndexProps {
-  profile: {
-    createdAt: string;
-    id: number;
-    email: string;
-    nickname: string;
-    profileImage: string | null;
-    status: string;
-    lastLoginAt: string;
-    updatedAt: string;
-  };
-}
-
-const index = ({ profile }: IndexProps) => {
+const index = () => {
   const {
     query: { id, pheedSearch },
   } = useRouter();
 
-  const setUserState = useSetRecoilState(profileAtom);
-
-  const { data } = useGetPheeds({
-    query: { ...(pheedSearch && { search_word: pheedSearch as string }) },
+  const { data: pheeds } = useGetPheeds({
+    query: {
+      ...(pheedSearch &&
+        typeof pheedSearch === "string" && { search_word: pheedSearch }),
+    },
   });
 
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
-
-    if (!profile) return;
-    setUserState(profile);
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -69,7 +52,7 @@ const index = ({ profile }: IndexProps) => {
             }}
           >
             <Masonry gutter="10px">
-              {data?.map(pheed => (
+              {pheeds?.map(pheed => (
                 <Pheed
                   src={pheed.image.image}
                   id={pheed.id}
@@ -102,15 +85,24 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   const queryClient = new QueryClient();
 
+  const filter = {
+    ...(query?.search_word && { search_word: query?.search_word as string }),
+    ...(query?.tag_options && {
+      tag_options: (query?.tag_options as string[]).map(item => +item),
+    }),
+  };
+
+  await queryClient.prefetchQuery({
+    queryKey: pheedKeys.pheed({ query: filter }),
+    queryFn: async () => {
+      const { data } = await ax.get("/posts", { params: filter });
+      return data;
+    },
+  });
+
   if (token) {
     ax.defaults.headers.Authorization = `Bearer ${token}`;
 
-    const filter = {
-      ...(query?.search_word && { search_word: query?.search_word as string }),
-      ...(query?.tag_options && {
-        tag_options: (query?.tag_options as string[]).map(item => +item),
-      }),
-    };
     await queryClient.prefetchQuery({
       queryKey: pheedKeys.pheed({ query: filter }),
       queryFn: async () => {
@@ -118,27 +110,13 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
         return data;
       },
     });
-
-    const { data } = await ax.get("/members/me");
-
-    return {
-      props: {
-        profile: {
-          createdAt: data.created_at,
-          email: data.email,
-          id: data.id,
-          nickname: data.nickname,
-          profileImage: data.profile_image,
-          status: data.status,
-          lastLoginAt: data.last_login_at,
-          updatedAt: data.updated_at,
-        },
-        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-      },
-    };
   }
 
-  return { props: {} };
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
 }
 
 export default index;
