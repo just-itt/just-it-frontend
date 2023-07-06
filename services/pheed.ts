@@ -7,6 +7,7 @@ import {
   editPheed,
   getPheedDetail,
   getPheeds,
+  patchPheedReply,
   postPheed,
   postPheedBookmark,
   postPheedReply,
@@ -18,6 +19,7 @@ import type {
   GetPheedDetailQueryModel,
   GetPheedsQueryModel,
   PatchPheedQueryModel,
+  PatchPheedReplyQueryModel,
   PostBookmarkQueryModel,
   PostPheedQueryModel,
   PostPheedReplyQueryModel,
@@ -87,5 +89,11 @@ export const usePostPheedReply = () => {
 export const useDeletePheedReply = () => {
   return useMutation({
     mutationFn: (req: DeletePheedReplyQueryModel) => deletePheedReply(req),
+  });
+};
+
+export const usePatchPheedReply = () => {
+  return useMutation({
+    mutationFn: (req: PatchPheedReplyQueryModel) => patchPheedReply(req),
   });
 };

@@ -9,6 +9,7 @@ import type {
   GetPheedsQueryModel,
   GetPheedsServerModel,
   PatchPheedQueryModel,
+  PatchPheedReplyQueryModel,
   PostPheedQueryModel,
   PostPheedReplyQueryModel,
 } from "types";
@@ -60,6 +61,14 @@ export const postPheedReply = async (req: PostPheedReplyQueryModel) => {
 export const deletePheedReply = async (req: DeletePheedReplyQueryModel) => {
   const { data } = await ax.delete(
     `/posts/${req.id}/replies/${req.body.reply_id}`,
+  );
+
+  return data;
+};
+
+export const patchPheedReply = async (req: PatchPheedReplyQueryModel) => {
+  const { data } = await ax.delete(
+    `/posts/${req.body.post_id}/replies/${req.body.reply_id}`,
   );
 
   return data;

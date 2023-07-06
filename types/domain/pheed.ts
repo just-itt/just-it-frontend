@@ -99,3 +99,10 @@ export interface DeletePheedReplyQueryModel {
     reply_id: number;
   };
 }
+
+export interface PatchPheedReplyQueryModel {
+  body: {
+    post_id: number;
+    reply_id: number;
+  };
+}
