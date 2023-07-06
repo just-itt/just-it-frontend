@@ -1,4 +1,5 @@
 import React from "react";
+import Cookies from "js-cookie";
 
 import { FilterModal, Heading, Pheed } from "@components/index";
 import { useGetCustomTags, useGetPheeds } from "@service/index";
@@ -9,10 +10,10 @@ import * as S from "./SuggestedMenu.styled";
 const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
 
-  const { data: customTags } = useGetCustomTags();
+  const { data: customTags } = useGetCustomTags(!!Cookies.get("auth"));
   const { data } = useGetPheeds(
     { query: { tag_options: customTags?.tag_options.map(item => item.id) } },
-    !!customTags?.tag_options,
+    !!customTags?.tag_options || !!Cookies.get("auth"),
   );
 
   return (

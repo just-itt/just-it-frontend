@@ -14,10 +14,11 @@ export const useGetTags = () => {
   return useQuery({ queryKey: commonKeys.tags, queryFn: () => getGetTags() });
 };
 
-export const useGetCustomTags = () => {
+export const useGetCustomTags = (enabled?: boolean) => {
   return useQuery({
     queryKey: commonKeys.customTags,
     queryFn: () => getCustomTags(),
+    enabled,
   });
 };
 
