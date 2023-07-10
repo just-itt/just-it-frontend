@@ -32,7 +32,11 @@ const Nav = () => {
   };
 
   const handleCheckLogin = (path: string) => () => {
-    if (path === "/") push(path);
+    if (path === "/") {
+      push(path);
+      return;
+    }
+
     if (profile) {
       push(path);
     } else {

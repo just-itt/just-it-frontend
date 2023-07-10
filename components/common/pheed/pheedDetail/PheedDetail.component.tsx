@@ -51,7 +51,7 @@ const PheedDetail = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!data || !profile) return null;
+  if (!data) return null;
 
   return (
     <S.Wrapper>
@@ -63,7 +63,7 @@ const PheedDetail = () => {
           <button type="button" onClick={handleClickBookMark}>
             {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
           </button>
-          {profile.id === data.author.id && (
+          {profile?.id === data.author.id && (
             <DropdownBtn
               btnRender={<MoreIcon />}
               dropdownItems={[
@@ -144,11 +144,12 @@ const PheedDetail = () => {
       <S.FormWrapper onSubmit={handleSubmit}>
         <Profile
           css={S.profile}
-          src={profile.profile_image ?? null}
-          alt={`${profile.nickname}님의 프로필 사진`}
+          src={profile?.profile_image ?? null}
+          alt={`${profile?.nickname}님의 프로필 사진`}
         />
         <S.InputWrapper>
           <S.Input
+            autoComplete="off"
             placeholder="댓글 남기기..."
             {...register("comment", {
               required: true,
