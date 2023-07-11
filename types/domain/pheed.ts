@@ -104,5 +104,6 @@ export interface PatchPheedReplyQueryModel {
   body: {
     post_id: number;
     reply_id: number;
+    content: string;
   };
 }

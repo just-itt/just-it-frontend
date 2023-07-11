@@ -34,8 +34,15 @@ const PheedDetail = () => {
   const { mutate: deletePheed } = useDeletePheed();
 
   const { handleOpenModal, handleCloseModal } = useModal();
-  const { register, handleSubmit, handleDeletePheedReply } =
-    usePheedReply(refetch);
+  const {
+    replyType,
+    changeReplyType,
+    register,
+    handleSubmit,
+    handleCancelPheedReply,
+    handleEditPheedReply,
+    handleDeletePheedReply,
+  } = usePheedReply(refetch);
   const { handleClickBookMark } = useBookMark(data!, refetch);
 
   const handleCloseDetailModal = () => {
@@ -138,6 +145,10 @@ const PheedDetail = () => {
         <Comments
           css={S.CommentsWrapper}
           comments={data.replies}
+          replyType={replyType}
+          changeReplyType={changeReplyType}
+          handleCancelPheedReply={handleCancelPheedReply}
+          handleEditPheedReply={handleEditPheedReply}
           handleDeletePheedReply={handleDeletePheedReply}
         />
       </S.ScrollWrapper>

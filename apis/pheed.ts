@@ -67,8 +67,9 @@ export const deletePheedReply = async (req: DeletePheedReplyQueryModel) => {
 };
 
 export const patchPheedReply = async (req: PatchPheedReplyQueryModel) => {
-  const { data } = await ax.delete(
+  const { data } = await ax.patch(
     `/posts/${req.body.post_id}/replies/${req.body.reply_id}`,
+    { content: req.body.content },
   );
 
   return data;

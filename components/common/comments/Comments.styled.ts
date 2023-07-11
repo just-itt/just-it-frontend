@@ -58,16 +58,48 @@ export const Comment = styled.span`
   `}
 `;
 
+export const dropdown = css`
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  ul {
+    top: 0px;
+  }
+`;
+
 export const BtnWrapper = styled.div`
   ${({ theme }) => css`
-    ${theme.flexMixin.flex_justifyC};
-    column-gap: 5px;
-    height: fit-content;
+    ${theme.flexMixin.flex_justifyC_alignC};
+    column-gap: 10px;
 
-    svg {
-      width: 16px;
-      height: 18px;
-      fill: ${theme.color.grey_900};
+    & > button {
+      ${theme.flexMixin.flex_justifyC_alignC};
+
+      svg {
+        width: 18px;
+        height: 18px;
+        fill: ${theme.color.grey_900};
+      }
+    }
+  `}
+`;
+
+export const EditNotice = styled.div`
+  ${({ theme }) => css`
+    ${theme.font.regular_15};
+    ${theme.flexMixin.flex_justifySb};
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 48px;
+    padding: 12px 40px;
+    color: ${theme.color.grey_700};
+    background-color: ${theme.color.grey_100};
+
+    & > button {
+      color: ${theme.color.grey_700};
     }
   `}
 `;
