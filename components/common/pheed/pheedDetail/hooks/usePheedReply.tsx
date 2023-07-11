@@ -4,9 +4,12 @@ import { useForm } from "react-hook-form";
 
 import {
   useDeletePheedReply,
+  useGetMyProfile,
   usePatchPheedReply,
   usePostPheedReply,
 } from "@service/index";
+import { useModal } from "@hooks/index";
+import { LoginLinkModal } from "@components/common/modal";
 
 const initForm = {
   comment: "",
@@ -19,6 +22,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
     query: { id },
   } = useRouter();
 
+  const { data: profile } = useGetMyProfile();
   const { mutate: postPheedReply } = usePostPheedReply();
   const { mutate: deletePheedReply } = useDeletePheedReply();
   const { mutate: patchPheedReply } = usePatchPheedReply();
@@ -28,6 +32,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
     defaultValues: initForm,
   });
 
+  const { handleOpenModal } = useModal();
   const [replyType, setReplyType] = useState<"create" | "edit">("create");
 
   const changeReplyType = () => {
@@ -40,28 +45,17 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
     content: string,
     replyId: number,
     postId: number,
-  ) => {
-    console.log("replyId", replyId);
-    console.log("postId", postId);
-    reset({ comment: content, postId: `${postId}`, replyId: `${replyId}` });
-  };
+  ) => reset({ comment: content, postId: `${postId}`, replyId: `${replyId}` });
 
-  const handleDeletePheedReply = (replyId: number) => () =>
-    deletePheedReply(
-      { id: +id!, body: { post_id: +id!, reply_id: replyId } },
-      {
-        onSuccess: () => {
-          refetchPheedDetail();
-          alert("댓글 삭제가 완료되었습니다.");
-        },
-      },
-    );
+  const createPheed = (e: any) => {
+    e.preventDefault();
 
-  return {
-    replyType,
-    changeReplyType,
-    register,
-    handleSubmit: handleSubmit(submitData => {
+    if (!profile) {
+      handleOpenModal(<LoginLinkModal />)();
+      return;
+    }
+
+    handleSubmit(submitData => {
       if (replyType === "create") {
         postPheedReply(
           {
@@ -95,7 +89,25 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
           },
         );
       }
-    }),
+    })();
+  };
+
+  const handleDeletePheedReply = (replyId: number) => () =>
+    deletePheedReply(
+      { id: +id!, body: { post_id: +id!, reply_id: replyId } },
+      {
+        onSuccess: () => {
+          refetchPheedDetail();
+          alert("댓글 삭제가 완료되었습니다.");
+        },
+      },
+    );
+
+  return {
+    replyType,
+    changeReplyType,
+    register,
+    handleSubmit: createPheed,
     handleCancelPheedReply,
     handleEditPheedReply,
     handleDeletePheedReply,

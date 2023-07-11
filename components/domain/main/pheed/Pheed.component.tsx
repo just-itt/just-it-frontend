@@ -22,9 +22,11 @@ const Pheed = ({ src, title, id }: PheedProps) => {
       <S.ImgWrapper>
         <Image
           src={src}
-          alt="음식사진"
+          alt={`${title} 음식 사진`}
           width={0}
           height={0}
+          placeholder="blur"
+          blurDataURL={src}
           style={{ width: "100%", height: "auto" }}
         />
       </S.ImgWrapper>
