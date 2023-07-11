@@ -40,7 +40,7 @@ const Comments = ({
   };
 
   return (
-    <>
+    <S.PositionWrapper>
       <S.Wrapper className={className}>
         {comments.length === 0 ? (
           <S.NoCommentWrapper>
@@ -101,7 +101,7 @@ const Comments = ({
           </button>
         </S.EditNotice>
       )}
-    </>
+    </S.PositionWrapper>
   );
 };
 

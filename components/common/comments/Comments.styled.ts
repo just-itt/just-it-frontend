@@ -1,6 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const PositionWrapper = styled.div`
+  position: relative;
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: column;
