@@ -22,14 +22,16 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
             {getLayout(<Component {...pageProps} />)}
             <BaseModal />
             <Toaster
+              containerStyle={{ zIndex: "99999999999" }}
               toastOptions={{
+                duration: 2500,
                 style: {
                   width: "350px",
                   height: "48px",
                   borderRadius: "5px",
                   fontSize: "14px",
-                  color: "#FFFFFF",
-                  backgroundColor: "#1E242B",
+                  color: "#1E242B",
+                  backgroundColor: "#FFFFFF",
                 },
               }}
             />
