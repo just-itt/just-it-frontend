@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { Heading, Button } from "@components/index";
 import {
@@ -54,7 +55,7 @@ const DefaultInfo = () => {
 
       await Promise.all(temp);
 
-      alert("기본 정보가 변경되었습니다");
+      toast.success("기본 정보가 변경되었습니다");
     } catch (e) {
       console.log(e);
     }

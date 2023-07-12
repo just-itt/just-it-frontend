@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 import { useDeleteBookmark, usePostBookmark } from "@service/index";
 import type { GetPheedDetailServerModel } from "types";
@@ -23,7 +24,7 @@ const useBookMark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
-            alert("북마크가 해제되었습니다.");
+            toast.success("북마크가 해제되었습니다.");
           },
         },
       );
@@ -33,7 +34,7 @@ const useBookMark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
-            alert("북마크에 추가되었습니다.");
+            toast.success("북마크에 추가되었습니다.");
           },
         },
       );

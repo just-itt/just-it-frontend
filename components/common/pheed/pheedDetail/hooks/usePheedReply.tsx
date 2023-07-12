@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 import {
   useDeletePheedReply,
@@ -48,8 +48,6 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
     postId: number,
   ) => reset({ comment: content, postId: `${postId}`, replyId: `${replyId}` });
 
-  const notify = () => toast.success("Here is your toast.");
-
   const createPheed = (e: any) => {
     e.preventDefault();
 
@@ -69,7 +67,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
             onSuccess: () => {
               refetchPheedDetail();
               reset(initForm);
-              notify();
+              toast.success("댓글 작성이 완료되었습니다.");
             },
           },
         );
@@ -87,7 +85,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
               refetchPheedDetail();
               reset(initForm);
               changeReplyType();
-              alert("댓글 수정이 완료되었습니다.");
+              toast.success("댓글 수정이 완료되었습니다.");
             },
           },
         );
@@ -101,7 +99,7 @@ const usePheedReply = (refetchPheedDetail: () => void) => {
       {
         onSuccess: () => {
           refetchPheedDetail();
-          alert("댓글 삭제가 완료되었습니다.");
+          toast.success("댓글 삭제가 완료되었습니다.");
         },
       },
     );

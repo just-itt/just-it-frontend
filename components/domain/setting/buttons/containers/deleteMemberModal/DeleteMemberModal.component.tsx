@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 
 import { Button } from "@components/index";
@@ -17,7 +18,7 @@ const DeleteMemberModal = () => {
   const handleDeleteMember = () => {
     deleteMemberMutate(undefined, {
       onSuccess: () => {
-        alert("계정 삭제가 완료되었습니다.");
+        toast.success("계정 삭제가 완료되었습니다.");
         push("/");
         Cookies.remove("auth");
         handleCloseModal();

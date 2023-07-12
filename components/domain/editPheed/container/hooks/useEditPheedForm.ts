@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { useEditPheed, useGetPheedDetail } from "@service/index";
 import type { PheedForm } from "types";
@@ -60,7 +61,7 @@ const useEditPheedForm = () => {
       { id: pheedId as string, body: formData },
       {
         onSuccess: () => {
-          alert("피드 수정이 완료되었습니다.");
+          toast.success("피드 수정이 완료되었습니다.");
           push(currentPath as string);
         },
       },

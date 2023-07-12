@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 import {
   Comments,
@@ -98,7 +99,7 @@ const PheedDetail = () => {
                           { id: query.id as string },
                           {
                             onSuccess: () => {
-                              alert("피드 삭제 성공");
+                              toast.success("피드 삭제 성공");
                               handleCloseDetailModal();
                               handleCloseModal();
                             },

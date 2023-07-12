@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 
 import { useCreateMember, useLogin } from "@service/index";
@@ -69,7 +70,7 @@ const LoginContainer = () => {
               errMessage === "Not Found: No Member matches the given query." ||
               errMessage === "Password is not correct"
             ) {
-              alert("아이디 또는 비밀번호 오류입니다.");
+              toast.error("아이디 또는 비밀번호 오류입니다.");
             }
           },
         },
@@ -96,7 +97,7 @@ const LoginContainer = () => {
       <S.LogoWrapper href="/">
         <LogoLongIcon />
       </S.LogoWrapper>
-      <S.KakaoLoginBtn type="button" onClick={() => alert("준비 중입니다 :)")}>
+      <S.KakaoLoginBtn type="button" onClick={() => toast("준비 중입니다 :)")}>
         <KakaoIcon />
         카카오 로그인
       </S.KakaoLoginBtn>

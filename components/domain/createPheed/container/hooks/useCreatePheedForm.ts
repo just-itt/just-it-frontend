@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { usePostPheed } from "@service/index";
 import type { PheedForm } from "types";
@@ -60,11 +61,11 @@ const useCreatePheedForm = () => {
 
     postPheedMutate(formData, {
       onSuccess: () => {
-        alert("피드가 생성되었습니다.");
+        toast.success("피드가 생성되었습니다.");
         push("/");
       },
       onError: () => {
-        alert("피드 생성을 실패했습니다. 다시 시도해 주세요.");
+        toast.error("피드 생성을 실패했습니다. 다시 시도해 주세요.");
       },
     });
   };

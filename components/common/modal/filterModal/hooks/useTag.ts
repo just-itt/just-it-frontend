@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 import { useGetCustomTags, useGetTags, usePostCustomTag } from "@service/index";
 import { useModal } from "@hooks/index";
@@ -30,7 +31,7 @@ const useTag = () => {
       },
       {
         onSuccess: () => {
-          alert("커스텀 필터가 저장되었습니다.");
+          toast.success("커스텀 필터가 저장되었습니다.");
           handleCloseModal();
         },
       },

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { AuthCodeInput, Button, FormInput } from "@components/index";
 import {
@@ -43,35 +44,25 @@ const FindPasswordContainer = () => {
 
   const handleAuthCode = () => {
     postFindPasswordEmailSendMutate(undefined, {
-      onSuccess: () => {
-        setIsClickAuthBtn(true);
-      },
-      onError: () => {
-        alert("error 발생");
-      },
+      onSuccess: () => setIsClickAuthBtn(true),
+      onError: () => toast.error("error 발생"),
     });
   };
 
   const handleCheckAuthCode = () => {
     postFindPasswordEmailCheckMutate(undefined, {
-      onSuccess: () => {
-        setIsCheckAuthCode(true);
-      },
-      onError: () => {
-        alert("실패");
-      },
+      onSuccess: () => setIsCheckAuthCode(true),
+      onError: () => toast.error("error 발생"),
     });
   };
 
   const handleResetPassword = () => {
     patchResetPasswordMutate(undefined, {
       onSuccess: () => {
-        alert("성공");
+        toast.success("성공");
         push("/login");
       },
-      onError: () => {
-        alert("실패");
-      },
+      onError: () => toast.error("error 발생"),
     });
   };
 

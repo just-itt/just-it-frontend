@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 
 import { usePatchChangePassword } from "@service/index";
+import { toast } from "react-hot-toast";
 
 interface ChangePasswordForm {
   password: string;
@@ -34,11 +35,7 @@ const useChangePassword = () => {
           new_password: data.newPassword,
         },
       },
-      {
-        onSuccess: () => {
-          alert("비밀번호가 변경 되었습니다.");
-        },
-      },
+      { onSuccess: () => toast.success("비밀번호가 변경 되었습니다.") },
     );
   };
 

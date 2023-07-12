@@ -4,6 +4,7 @@ import type {
   UseFormRegister,
   FieldErrors,
 } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 import { AuthCodeInput, FormInput } from "@components/index";
 import { useEmailAuth, useEmailAuthCode } from "@service/index";
@@ -33,7 +34,7 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
         },
         onError: (err: any) => {
           if (err.response.data.message === "Email already authorized") {
-            alert("이미 가입한 이메일이다!");
+            toast.error("이미 가입한 이메일입니다!");
           }
         },
       },

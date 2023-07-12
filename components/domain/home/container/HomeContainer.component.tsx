@@ -8,6 +8,7 @@ import {
   Heading,
   SuggestedMenu,
   Footer,
+  PheedHeader,
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetPheeds } from "@service/index";
@@ -50,6 +51,7 @@ const HomeContainer = () => {
             <Masonry gutter="10px">
               {pheeds?.map(pheed => (
                 <Pheed
+                  key={pheed.id}
                   src={pheed.image.image}
                   id={pheed.id}
                   title={pheed.title}

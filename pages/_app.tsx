@@ -21,7 +21,18 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
           <Hydrate state={pageProps.dehydrateState}>
             {getLayout(<Component {...pageProps} />)}
             <BaseModal />
-            <Toaster />
+            <Toaster
+              toastOptions={{
+                style: {
+                  width: "350px",
+                  height: "48px",
+                  borderRadius: "5px",
+                  fontSize: "14px",
+                  color: "#FFFFFF",
+                  backgroundColor: "#1E242B",
+                },
+              }}
+            />
             <div id="modal" />
           </Hydrate>
         </QueryClientProvider>

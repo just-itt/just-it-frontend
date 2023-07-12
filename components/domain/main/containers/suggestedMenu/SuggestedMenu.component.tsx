@@ -30,7 +30,12 @@ const SuggestedMenu = () => {
       </S.HeadingWrapper>
       <S.PheedWrapper>
         {data?.map(pheed => (
-          <Pheed src={pheed.image.image} title={pheed.title} id={pheed.id} />
+          <Pheed
+            key={pheed.id}
+            src={pheed.image.image}
+            title={pheed.title}
+            id={pheed.id}
+          />
         ))}
       </S.PheedWrapper>
     </S.SuggestedMenu>
