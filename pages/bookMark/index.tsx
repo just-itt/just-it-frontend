@@ -1,63 +1,16 @@
-import React, { useEffect, ReactElement } from "react";
-import { useRouter } from "next/router";
+import React, { ReactElement } from "react";
 import axios from "axios";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import type { GetServerSidePropsContext } from "next";
 
-import { MainLayout, Heading, Filter, Pheed, Footer } from "@components/index";
-import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
-import { handleResize } from "utils";
+import { MainLayout, BookmarkContainer } from "@components/index";
 import type { GetBookmarksServerModel } from "types";
-import * as S from "./index.styled";
 
-interface BookMarkProps {
+interface BookmarkProps {
   bookmarks: GetBookmarksServerModel;
 }
 
-const index = ({ bookmarks }: BookMarkProps) => {
-  const {
-    query: { id },
-  } = useRouter();
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return (
-    <S.Main isClickPheed={!!id}>
-      <S.PheedWrapper isClickPheed={!!id}>
-        <S.PaddingWrapper>
-          <Heading css={S.heading} heading="저장한 게시글" />
-          <Filter />
-          {bookmarks ? (
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{
-                555: 2,
-                900: 3,
-                1200: 4,
-              }}
-            >
-              <Masonry gutter="10px">
-                {bookmarks.count &&
-                  bookmarks.items.map(bookmark => (
-                    <Pheed
-                      src={bookmark.image.image}
-                      title={bookmark.title}
-                      id={bookmark.id}
-                    />
-                  ))}
-              </Masonry>
-            </ResponsiveMasonry>
-          ) : null}
-        </S.PaddingWrapper>
-        <Footer />
-      </S.PheedWrapper>
-      {id && <PheedDetail />}
-    </S.Main>
-  );
+const index = ({ bookmarks }: BookmarkProps) => {
+  return <BookmarkContainer bookmarks={bookmarks} />;
 };
 
 index.getLayout = function getLayout(page: ReactElement) {
@@ -66,7 +19,6 @@ index.getLayout = function getLayout(page: ReactElement) {
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { req } = ctx;
-
   const token = req.cookies.auth;
 
   const ax = axios.create({

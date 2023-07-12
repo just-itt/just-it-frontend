@@ -1,23 +1,9 @@
 import React, { ReactElement } from "react";
 
-import {
-  MainLayout,
-  DefaultInfo,
-  ChangePassword,
-  Btns,
-} from "@components/index";
-import * as S from "./index.styled";
+import { MainLayout, SettingContainer } from "@components/index";
 
 const Setting = () => {
-  return (
-    <S.Setting>
-      <div>
-        <DefaultInfo />
-        <ChangePassword />
-        <Btns />
-      </div>
-    </S.Setting>
-  );
+  return <SettingContainer />;
 };
 
 Setting.getLayout = function getLayout(page: ReactElement) {
