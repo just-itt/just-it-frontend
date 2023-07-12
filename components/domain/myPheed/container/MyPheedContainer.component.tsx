@@ -22,6 +22,8 @@ const MyPheedContainer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  if (!data) return null;
+
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
@@ -36,7 +38,7 @@ const MyPheedContainer = () => {
             }}
           >
             <Masonry gutter="10px">
-              {data?.items.map(pheed => (
+              {data.items.map(pheed => (
                 <Pheed
                   key={pheed.image.image}
                   src={pheed.image.image}

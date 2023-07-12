@@ -40,8 +40,9 @@ const BookmarkContainer = ({ bookmarks }: BookMarkContainerProps) => {
             >
               <Masonry gutter="10px">
                 {bookmarks.count &&
-                  bookmarks.items.map((bookmark: any) => (
+                  bookmarks.items.map((bookmark, i) => (
                     <Pheed
+                      key={i}
                       src={bookmark.image.image}
                       title={bookmark.title}
                       id={bookmark.id}

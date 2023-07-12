@@ -6,7 +6,7 @@ export const navAtom = atom({
   default: false,
 });
 
-export const modalAtom = atom<null | React.ReactNode>({
+export const modalAtom = atom<React.ReactNode | null>({
   key: "modalState",
   default: null,
 });
