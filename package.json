@@ -28,6 +28,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.5",
+    "react-hot-toast": "^2.4.1",
     "react-responsive": "^9.0.2",
     "react-responsive-masonry": "^2.1.7",
     "recoil": "^0.7.6",
