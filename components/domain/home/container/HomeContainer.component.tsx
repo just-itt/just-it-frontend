@@ -8,7 +8,6 @@ import {
   Heading,
   SuggestedMenu,
   Footer,
-  PheedHeader,
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetPheeds } from "@service/index";
