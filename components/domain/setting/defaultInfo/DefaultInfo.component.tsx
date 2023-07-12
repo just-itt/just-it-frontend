@@ -70,7 +70,7 @@ const DefaultInfo = () => {
     });
   }, [profile]);
 
-  if (!profile) return;
+  if (!profile) return null;
 
   return (
     <S.Wrapper>
