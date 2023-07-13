@@ -14,7 +14,7 @@ const Profile = ({ className, src, alt }: ProfileProps) => {
   return (
     <S.Wrapper className={className}>
       {src ? (
-        <Image src={src} alt={alt} width={1} height={1} layout="responsive" />
+        <Image src={src} alt={alt} fill style={{ objectFit: "fill" }} />
       ) : (
         <PersonIcon />
       )}
