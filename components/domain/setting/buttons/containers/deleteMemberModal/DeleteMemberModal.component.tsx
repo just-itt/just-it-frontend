@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import Cookies from "js-cookie";
 
@@ -11,6 +12,8 @@ import * as S from "./DeleteMemberModal.styled";
 
 const DeleteMemberModal = () => {
   const { push } = useRouter();
+
+  const queryClient = useQueryClient();
   const { mutate: deleteMemberMutate } = useDeleteMember();
 
   const { modalRef, handleCloseModal } = useModal();
@@ -20,6 +23,7 @@ const DeleteMemberModal = () => {
       onSuccess: () => {
         toast.success("계정 삭제가 완료되었습니다.");
         push("/");
+        queryClient.clear();
         Cookies.remove("auth");
         handleCloseModal();
       },
