@@ -1,6 +1,8 @@
 import { ReactElement } from "react";
+import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Global, ThemeProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
 
@@ -15,9 +17,16 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        />
+      </Head>
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
           <Hydrate state={pageProps.dehydrateState}>
             {getLayout(<Component {...pageProps} />)}
             <BaseModal />
