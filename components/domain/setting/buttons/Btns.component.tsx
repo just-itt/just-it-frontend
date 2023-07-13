@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { QueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 
 import { useModal } from "@hooks/index";
@@ -11,7 +11,7 @@ const Btns = () => {
   const { push } = useRouter();
   const { handleOpenModal } = useModal();
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     Cookies.remove("auth");
