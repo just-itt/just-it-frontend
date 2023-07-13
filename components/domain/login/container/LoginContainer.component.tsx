@@ -30,9 +30,7 @@ const LoginContainer = () => {
 
   const [isSignUp, setIsSignUp] = useState(true);
 
-  const handleClickSignUp = () => {
-    setIsSignUp(!isSignUp);
-  };
+  const handleClickSignUp = () => setIsSignUp(!isSignUp);
 
   const { mutate: useCreateMemberMutate } = useCreateMember();
   const { mutate: useLoginMutate } = useLogin();
@@ -47,24 +45,12 @@ const LoginContainer = () => {
           },
         },
         {
-          onSuccess: loginRes => {
-            Cookies.set("auth", loginRes.data.token, { expires: 2 });
-
-            // setUserState({
-            //   id: myProfile.data.id,
-            //   email: myProfile.data.email,
-            //   nickname: myProfile.data.nickname,
-            //   profileImage: myProfile.data.profile_image,
-            //   status: myProfile.data.status,
-            //   lastLoginAt: myProfile.data.last_login_at,
-            //   createdAt: myProfile.data.created_at,
-            //   updatedAt: myProfile.data.updated_at,
-            // });
-
+          onSuccess: res => {
+            Cookies.set("auth", res.data.token, { expires: 2 });
             push("/");
           },
-          onError: (loginErr: any) => {
-            const errMessage = loginErr.response.data.detail;
+          onError: (err: any) => {
+            const errMessage = err.response.data.detail;
 
             if (
               errMessage === "Not Found: No Member matches the given query." ||
@@ -83,11 +69,7 @@ const LoginContainer = () => {
             password: watch("password"),
           },
         },
-        {
-          onSuccess: () => {
-            push("/");
-          },
-        },
+        { onSuccess: () => push("/") },
       );
     }
   };
@@ -97,7 +79,10 @@ const LoginContainer = () => {
       <S.LogoWrapper href="/">
         <LogoLongIcon />
       </S.LogoWrapper>
-      <S.KakaoLoginBtn type="button" onClick={() => toast("준비 중입니다 :)")}>
+      <S.KakaoLoginBtn
+        type="button"
+        onClick={() => toast.error("조금만 기다려 주세요 :)")}
+      >
         <KakaoIcon />
         카카오 로그인
       </S.KakaoLoginBtn>
