@@ -1,7 +1,7 @@
 import React from "react";
 import Cookies from "js-cookie";
 
-import { FilterModal, Heading, Pheed } from "@components/index";
+import { FilterModal, Heading, LoginLinkModal, Pheed } from "@components/index";
 import { useGetCustomTags, useGetPheeds } from "@service/index";
 import { useModal } from "@hooks/index";
 import { FilterIcon } from "@icons/index";
@@ -16,14 +16,17 @@ const SuggestedMenu = () => {
     !!customTags?.tag_options || !!Cookies.get("auth"),
   );
 
+  const handleFilterModal = () => {
+    handleOpenModal(
+      Cookies.get("auth") ? <FilterModal /> : <LoginLinkModal />,
+    )();
+  };
+
   return (
     <S.SuggestedMenu>
       <S.HeadingWrapper>
         <Heading heading="오늘의 추천 메뉴" />
-        <S.FilterSettingBtn
-          type="button"
-          onClick={handleOpenModal(<FilterModal />)}
-        >
+        <S.FilterSettingBtn type="button" onClick={handleFilterModal}>
           <FilterIcon />
           <span>필터 설정</span>
         </S.FilterSettingBtn>
