@@ -27,6 +27,8 @@ export const Wrapper = styled.div`
 
 export const ScrollWrapper = styled.div`
   ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
     height: calc(var(--vh) * 100 - 64px - 69px);
     overflow-y: auto;
 
@@ -120,6 +122,9 @@ export const ImgCircle = styled.div`
 
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     padding: 0 20px;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -138,6 +143,7 @@ export const Title = styled.h2`
 export const Content = styled.p`
   ${({ theme }) => css`
     ${theme.font.regular_14};
+    flex-grow: 1;
     margin-bottom: 20px;
   `}
 `;
