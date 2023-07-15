@@ -93,8 +93,8 @@ const Nav = () => {
       <S.NavItem>
         <S.NavMenu
           type="button"
-          isclick={(pathname === "/bookMark").toString()}
-          onClick={handleCheckLogin("/bookMark")}
+          isclick={(pathname === "/bookmark").toString()}
+          onClick={handleCheckLogin("/bookmark")}
         >
           <BookMarkMonoIcon />
           저장한 게시글
