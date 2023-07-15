@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -12,17 +11,22 @@ import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
 import type { AppLayoutProps } from "next/app";
 
+// console.log(`
+
+//        ██╗██╗   ██╗███████╗████████╗   ██╗████████╗
+//        ██║██║   ██║██╔════╝╚══██╔══╝   ██║╚══██╔══╝
+//        ██║██║   ██║███████╗   ██║█████╗██║   ██║
+//   ██   ██║██║   ██║╚════██║   ██║╚════╝██║   ██║
+//   ╚█████╔╝╚██████╔╝███████║   ██║      ██║   ██║
+//    ╚════╝  ╚═════╝ ╚══════╝   ╚═╝      ╚═╝   ╚═╝
+
+// `);
+
 const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
   const getLayout = Component.getLayout ?? ((page: ReactElement) => page);
 
   return (
     <ThemeProvider theme={theme}>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        />
-      </Head>
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
