@@ -49,5 +49,6 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": "off", // 접미사 연산자를 사용하여 null이 아닌 어설션을 허용하지 않습니다
     "consistent-return": "off", // consistent-return 해제
     "react/no-array-index-key": "off", // map 안에서 key로 index 사용하지 못하게 하는 에러 해제
+    "prefer-destructuring": "off", // https://eslint.org/docs/latest/rules/prefer-destructuring
   },
 };
