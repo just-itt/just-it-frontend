@@ -37,7 +37,7 @@ const MyPheedContainer = () => {
               1200: 4,
             }}
           >
-            <Masonry gutter="10px">
+            <Masonry gutter="16px">
               {data.items.map(pheed => (
                 <Pheed
                   key={pheed.image.image}

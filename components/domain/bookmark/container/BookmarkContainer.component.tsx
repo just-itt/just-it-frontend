@@ -38,7 +38,7 @@ const BookmarkContainer = ({ bookmarks }: BookMarkContainerProps) => {
                 1200: 4,
               }}
             >
-              <Masonry gutter="10px">
+              <Masonry gutter="16px">
                 {bookmarks.count &&
                   bookmarks.items.map((bookmark, i) => (
                     <Pheed
