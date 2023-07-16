@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import {
@@ -29,9 +30,10 @@ import * as S from "./PheedDetail.styled";
 const PheedDetail = () => {
   const { replace, push, asPath, query } = useRouter();
 
+  const queryClient = useQueryClient();
+
   const { data, refetch } = useGetPheedDetail({ id: query.id as string });
   const { data: profile } = useGetMyProfile();
-
   const { mutate: deletePheed } = useDeletePheed();
 
   const { handleOpenModal, handleCloseModal } = useModal();
@@ -100,6 +102,7 @@ const PheedDetail = () => {
                           {
                             onSuccess: () => {
                               toast.success("피드 삭제 성공");
+                              queryClient.invalidateQueries(["myPheed"]);
                               handleCloseDetailModal();
                               handleCloseModal();
                             },
