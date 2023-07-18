@@ -9,6 +9,7 @@ import { queryClient } from "services";
 import { BaseModal } from "@components/index";
 import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
+import "../public/fonts/style.css";
 import type { AppLayoutProps } from "next/app";
 
 // console.log(`
