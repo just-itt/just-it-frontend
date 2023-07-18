@@ -1,6 +1,7 @@
 import React from "react";
 
 import { DropdownBtn, Profile } from "@components/index";
+import { useGetMyProfile } from "@service/index";
 import { MoreIcon } from "@icons/index";
 import type { Comment } from "types";
 import * as S from "./Comments.styled";
@@ -28,6 +29,8 @@ const Comments = ({
   handleEditPheedReply,
   handleDeletePheedReply,
 }: CommentsProps) => {
+  const { data: profile } = useGetMyProfile();
+
   const handleEdit =
     (content: string, replyId: number, postId: number) => () => {
       changeReplyType();
@@ -51,7 +54,7 @@ const Comments = ({
           comments.map(
             (
               {
-                author: { profile_image, nickname },
+                author: { profile_image, nickname, id },
                 content,
                 id: replyId,
                 post_id,
@@ -72,22 +75,24 @@ const Comments = ({
                   <S.Nickname>{nickname}</S.Nickname>
                   <S.Comment>{content}</S.Comment>
                 </S.ContentWrapper>
-                <DropdownBtn
-                  css={S.dropdown}
-                  btnRender={<MoreIcon />}
-                  dropdownItems={[
-                    {
-                      label: "수정",
-                      value: "edit",
-                      handler: handleEdit(content, replyId, post_id),
-                    },
-                    {
-                      label: "삭제",
-                      value: "delete",
-                      handler: handleDeletePheedReply(replyId),
-                    },
-                  ]}
-                />
+                {profile?.id === id && (
+                  <DropdownBtn
+                    css={S.dropdown}
+                    btnRender={<MoreIcon />}
+                    dropdownItems={[
+                      {
+                        label: "수정",
+                        value: "edit",
+                        handler: handleEdit(content, replyId, post_id),
+                      },
+                      {
+                        label: "삭제",
+                        value: "delete",
+                        handler: handleDeletePheedReply(replyId),
+                      },
+                    ]}
+                  />
+                )}
               </S.CommentWrapper>
             ),
           )
