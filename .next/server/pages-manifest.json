@@ -4,11 +4,11 @@
   "/createPheed": "pages/createPheed.html",
   "/editPheed": "pages/editPheed.html",
   "/findPassword": "pages/findPassword.html",
-  "/_error": "pages/_error.js",
   "/login": "pages/login.html",
   "/setting": "pages/setting.html",
+  "/_error": "pages/_error.js",
   "/bookmark": "pages/bookmark.js",
-  "/": "pages/index.js",
   "/myPheed": "pages/myPheed.js",
+  "/": "pages/index.js",
   "/404": "pages/404.html"
 }

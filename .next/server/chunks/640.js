@@ -685,12 +685,14 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7640);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8205);
-/* harmony import */ var _Comments_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(9107);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5193);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__]);
-_components_index__WEBPACK_IMPORTED_MODULE_1__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+/* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2677);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8205);
+/* harmony import */ var _Comments_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9107);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__, _service_index__WEBPACK_IMPORTED_MODULE_2__]);
+([_components_index__WEBPACK_IMPORTED_MODULE_1__, _service_index__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -707,6 +709,10 @@ const Comments = ({
   handleEditPheedReply,
   handleDeletePheedReply
 }) => {
+  const {
+    data: profile
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetMyProfile */ .eL)();
+
   const handleEdit = (content, replyId, postId) => () => {
     changeReplyType();
     handleEditPheedReply(content, replyId, postId);
@@ -717,37 +723,38 @@ const Comments = ({
     handleCancelPheedReply();
   };
 
-  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .PositionWrapper */ .wo, {
-    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .Wrapper */ .im, {
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .PositionWrapper */ .wo, {
+    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .Wrapper */ .im, {
       className: className,
-      children: comments.length === 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .NoCommentWrapper */ .rw, {
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx("div", {
+      children: comments.length === 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .NoCommentWrapper */ .rw, {
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("div", {
           children: "\uB313\uAE00\uC774 \uC5C6\uC5B4\uC694."
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx("div", {
+        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("div", {
           children: "\uCCAB\uBC88\uC9F8 \uB313\uAE00\uC744 \uB2EC\uC544\uBCF4\uC2DC\uACA0\uC5B4\uC694?"
         })]
       }) : comments.map(({
         author: {
           profile_image,
-          nickname
+          nickname,
+          id
         },
         content,
         id: replyId,
         post_id
-      }, i) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .CommentWrapper */ .Ke, {
-        children: [profile_image ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .Profile */ .NZ, {
-          css: _Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .profile */ .N5,
+      }, i) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .CommentWrapper */ .Ke, {
+        children: [profile_image ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .Profile */ .NZ, {
+          css: _Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .profile */ .N5,
           src: profile_image,
           alt: `${nickname}님의 프로필 사진`
-        }) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .Profile */ .NZ, {}), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .ContentWrapper */ .vs, {
-          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .Nickname */ .iV, {
+        }) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .Profile */ .NZ, {}), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .ContentWrapper */ .vs, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .Nickname */ .iV, {
             children: nickname
-          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .Comment */ .sv, {
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .Comment */ .sv, {
             children: content
           })]
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .DropdownBtn */ .od, {
-          css: _Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .dropdown */ .j6,
-          btnRender: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_2__/* .MoreIcon */ .nX, {}),
+        }), profile?.id === id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .DropdownBtn */ .od, {
+          css: _Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .dropdown */ .j6,
+          btnRender: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .MoreIcon */ .nX, {}),
           dropdownItems: [{
             label: "수정",
             value: "edit",
@@ -759,8 +766,8 @@ const Comments = ({
           }]
         })]
       }, i))
-    }), replyType === "edit" && (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_3__/* .EditNotice */ .hq, {
-      children: ["\uB313\uAE00\uC744 \uC218\uC815\uD558\uACE0 \uC788\uC2B5\uB2C8\uB2E4.", _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx("button", {
+    }), replyType === "edit" && (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_Comments_styled__WEBPACK_IMPORTED_MODULE_4__/* .EditNotice */ .hq, {
+      children: ["\uB313\uAE00\uC744 \uC218\uC815\uD558\uACE0 \uC788\uC2B5\uB2C8\uB2E4.", _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("button", {
         type: "button",
         onClick: handleCancel,
         children: "\uCDE8\uC18C"
