@@ -5,7 +5,7 @@ import type {
 } from "types";
 import ax from "./axios";
 
-export const getGetTags = async (): Promise<TagsServerModel> => {
+export const getGetCreatePheedTags = async (): Promise<TagsServerModel> => {
   const { data } = await ax.get("/tags");
 
   return data;

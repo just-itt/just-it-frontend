@@ -16,13 +16,13 @@ import * as S from "./HomeContainer.styled";
 
 const HomeContainer = () => {
   const {
-    query: { id, pheedSearch },
+    query: { id, filter, pheedSearch },
   } = useRouter();
 
   const { data: pheeds } = useGetPheeds({
     query: {
-      ...(pheedSearch &&
-        typeof pheedSearch === "string" && { search_word: pheedSearch }),
+      ...(pheedSearch && { search_word: pheedSearch as string }),
+      ...(filter && { tag_options: filter }),
     },
   });
 
@@ -33,8 +33,6 @@ const HomeContainer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!pheeds) return null;
-
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
@@ -42,24 +40,26 @@ const HomeContainer = () => {
           <SuggestedMenu />
           <Heading css={S.heading} heading="실시간 피드" />
           <Filter />
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{
-              555: 2,
-              900: 3,
-              1200: 4,
-            }}
-          >
-            <Masonry gutter="16px">
-              {pheeds.map(pheed => (
-                <Pheed
-                  key={pheed.id}
-                  src={pheed.image.image}
-                  id={pheed.id}
-                  title={pheed.title}
-                />
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
+          {pheeds?.length ? (
+            <ResponsiveMasonry
+              columnsCountBreakPoints={{
+                555: 2,
+                900: 3,
+                1200: 4,
+              }}
+            >
+              <Masonry gutter="16px">
+                {pheeds.map(pheed => (
+                  <Pheed
+                    key={pheed.id}
+                    src={pheed.image.image}
+                    id={pheed.id}
+                    title={pheed.title}
+                  />
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
+          ) : null}
         </S.PaddingWrapper>
         <Footer />
       </S.PheedWrapper>

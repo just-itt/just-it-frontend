@@ -18,6 +18,7 @@ import type {
   DeletePheedReplyQueryModel,
   GetPheedDetailQueryModel,
   GetPheedsQueryModel,
+  GetSuggestedPheedsQueryModel,
   PatchPheedQueryModel,
   PatchPheedReplyQueryModel,
   PostBookmarkQueryModel,
@@ -27,12 +28,23 @@ import type {
 
 export const pheedKeys = {
   all: ["pheed"] as const,
+  suggestedPheeds: (req: GetSuggestedPheedsQueryModel) => [req] as const,
   pheeds: () => [...pheedKeys.all, "pheed"] as const,
-  pheed: (req: GetPheedsQueryModel) =>
-    [...pheedKeys.pheeds(), req.query.search_word] as const,
+  pheed: (req: GetPheedsQueryModel) => [...pheedKeys.pheeds(), req] as const,
   pheedDetails: () => [...pheedKeys.all, "pheedDetail"] as const,
   pheedDetail: (id: GetPheedDetailQueryModel) =>
     [...pheedKeys.pheedDetails(), id] as const,
+};
+
+export const useGetSuggestedPheeds = (
+  req: GetSuggestedPheedsQueryModel,
+  enabled?: boolean,
+) => {
+  return useQuery({
+    queryKey: pheedKeys.suggestedPheeds(req),
+    queryFn: () => getPheeds(req),
+    enabled,
+  });
 };
 
 export const useGetPheeds = (req: GetPheedsQueryModel, enabled?: boolean) => {

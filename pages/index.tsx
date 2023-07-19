@@ -15,9 +15,7 @@ index.getLayout = function getLayout(page: ReactElement) {
 };
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const { req, query } = ctx;
-
-  const token = req.cookies.auth;
+  const { query } = ctx;
 
   const ax = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -28,8 +26,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   const filter = {
     ...(query?.search_word && { search_word: query?.search_word as string }),
-    ...(query?.tag_options && {
-      tag_options: (query?.tag_options as string[]).map(item => +item),
+    ...(query?.filter && {
+      tag_options: query.filter,
     }),
   };
 
@@ -41,17 +39,16 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   });
 
-  if (token) {
-    ax.defaults.headers.Authorization = `Bearer ${token}`;
-
-    await queryClient.prefetchQuery({
-      queryKey: pheedKeys.pheed({ query: filter }),
-      queryFn: async () => {
-        const { data } = await ax.get("/posts", { params: filter });
-        return data;
-      },
-    });
-  }
+  // TODO: 인증 없이 호출 하도록 수정되면 로직 추가
+  // await queryClient.prefetchQuery({
+  //   queryKey: commonKeys.tags,
+  //   queryFn: async () => {
+  //     const { data } = await ax.get("/tags");
+  //     return data;
+  //   },
+  //   cacheTime: Infinity,
+  //   staleTime: Infinity,
+  // });
 
   return {
     props: {

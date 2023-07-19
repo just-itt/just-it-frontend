@@ -6,7 +6,7 @@ import type {
 } from "react-hook-form";
 
 import { ErrorWrapper, LabelContent } from "@components/index";
-import { useGetTags } from "@service/index";
+import { useGetCreatePheedTags } from "@service/index";
 import { EMOJI } from "assets/filter";
 import type { PheedForm } from "types";
 import * as S from "./PheedFilter.styled";
@@ -18,7 +18,9 @@ interface PheedFilterProps {
 }
 
 const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
-  const { data } = useGetTags();
+  const { data } = useGetCreatePheedTags();
+
+  if (!data) return null;
 
   return (
     <S.ContentWrapper>
@@ -30,9 +32,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           <LabelContent.Input
             placeholder="음식 이름 입력..."
             isError={!!errors?.title}
-            register={register("title", {
-              required: true,
-            })}
+            register={register("title", { required: true })}
           />
         </ErrorWrapper>
       </LabelContent>
@@ -45,9 +45,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
             css={S.textArea}
             placeholder="공유할 음식에 대해 자유롭게 설명해 주세요"
             isError={!!errors?.content}
-            register={register("content", {
-              required: true,
-            })}
+            register={register("content", { required: true })}
           />
         </ErrorWrapper>
       </LabelContent>
@@ -57,7 +55,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           errorMessage="태그를 선택해 주세요."
         >
           <S.FilterWrapper>
-            {data?.[0].options.map(({ id, title }) => {
+            {data[0].options.map(({ id, title }) => {
               return (
                 <S.FilterItem key={title} isSelect={watch("what") === `${id}`}>
                   <label
@@ -67,9 +65,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                     id={`what${id}`}
                     type="radio"
                     value={id}
-                    {...register("what", {
-                      required: true,
-                    })}
+                    {...register("what", { required: true })}
                   />
                 </S.FilterItem>
               );
@@ -83,7 +79,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           errorMessage="태그를 선택해 주세요."
         >
           <S.FilterWrapper>
-            {data?.[1].options.map(({ id, title }) => (
+            {data[1].options.map(({ id, title }) => (
               <S.FilterItem key={title} isSelect={watch("when") === `${id}`}>
                 <label
                   htmlFor={`when${id}`}
@@ -92,9 +88,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                   id={`when${id}`}
                   type="radio"
                   value={id}
-                  {...register("when", {
-                    required: true,
-                  })}
+                  {...register("when", { required: true })}
                 />
               </S.FilterItem>
             ))}
@@ -107,16 +101,14 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           errorMessage="태그를 선택해 주세요."
         >
           <S.FilterWrapper>
-            {data?.[2].options.map(({ id, title }) => (
+            {data[2].options.map(({ id, title }) => (
               <S.FilterItem key={title} isSelect={watch("who") === `${id}`}>
                 <label htmlFor={`who${id}`}>{`${EMOJI[title]} ${title}`}</label>
                 <input
                   id={`who${id}`}
                   type="radio"
                   value={id}
-                  {...register("who", {
-                    required: true,
-                  })}
+                  {...register("who", { required: true })}
                 />
               </S.FilterItem>
             ))}
@@ -125,7 +117,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
       </LabelContent>
       <LabelContent css={S.margin} label="기분은 어땠나요?">
         <S.FilterWrapper>
-          {data?.[3].options.map(({ id, title }) => (
+          {data[3].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
               <label
                 htmlFor={`checkbox${id}`}
@@ -142,7 +134,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
       </LabelContent>
       <LabelContent css={S.margin} label="날씨는 어땠나요?">
         <S.FilterWrapper>
-          {data?.[4].options.map(({ id, title }) => (
+          {data[4].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
               <label
                 htmlFor={`checkbox${id}`}
@@ -159,7 +151,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
       </LabelContent>
       <LabelContent css={S.margin} label="분위기는 어땠나요?">
         <S.FilterWrapper>
-          {data?.[5].options.map(({ id, title }) => (
+          {data[5].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
               <label
                 htmlFor={`checkbox${id}`}

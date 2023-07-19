@@ -2,7 +2,7 @@ import React from "react";
 import Cookies from "js-cookie";
 
 import { FilterModal, Heading, LoginLinkModal, Pheed } from "@components/index";
-import { useGetCustomTags, useGetPheeds } from "@service/index";
+import { useGetCustomTags, useGetSuggestedPheeds } from "@service/index";
 import { useModal } from "@hooks/index";
 import { FilterIcon } from "@icons/index";
 import * as S from "./SuggestedMenu.styled";
@@ -11,8 +11,8 @@ const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
 
   const { data: customTags } = useGetCustomTags(!!Cookies.get("auth"));
-  const { data } = useGetPheeds(
-    { query: { tag_options: customTags?.tag_options.map(item => item.id) } },
+  const { data: pheeds } = useGetSuggestedPheeds(
+    { query: { tag_options: [] } },
     !!customTags?.tag_options || !!Cookies.get("auth"),
   );
 
@@ -32,7 +32,7 @@ const SuggestedMenu = () => {
         </S.FilterSettingBtn>
       </S.HeadingWrapper>
       <S.PheedWrapper>
-        {data?.map(pheed => (
+        {pheeds?.map(pheed => (
           <Pheed
             key={pheed.id}
             src={pheed.image.image}

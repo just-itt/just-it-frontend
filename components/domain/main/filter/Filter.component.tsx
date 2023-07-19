@@ -1,55 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
+import { useGetTags } from "@service/common";
 import { ArrowLongIcon } from "@icons/index";
-import {
-  DAY_OF_THE_WEEKS,
-  FOOD_CATEGORIES,
-  TIME_ZONES,
-  WHO_WITHS,
-} from "assets/filter";
+import { EMOJI } from "assets/filter";
 import * as S from "./Filter.styled";
 
 const Filter = () => {
   const { replace, query } = useRouter();
 
+  const { data: tags } = useGetTags();
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filters, setFilters] = useState<{ key: string; label: string }[]>([]);
 
-  const isSelect = (key: string) => !!query.filter?.includes(key);
+  const isSelect = (key: number) => !!query.filter?.includes(`${key}`);
 
-  const handleClickFilter = (key: string) => () => {
-    replace(
-      isSelect(key) ? { query: {} } : { query: { ...query, filter: key } },
-    );
+  const handleOpenFilter = () => setIsFilterOpen(!isFilterOpen);
+
+  const handleClickFilter = (key: number) => () => {
+    const filterQuery = query.filter || [];
+
+    if (isSelect(key)) {
+      if (typeof filterQuery === "string") {
+        const deleteQuery = { ...query };
+        delete deleteQuery.filter;
+
+        replace({ query: deleteQuery });
+      } else {
+        replace({
+          query: {
+            ...query,
+            filter: filterQuery.filter(id => id !== `${key}`),
+          },
+        });
+      }
+    } else {
+      replace({ query: { ...query, filter: [...filterQuery, `${key}`] } });
+    }
   };
 
-  const handleOpenFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
-  useEffect(() => {
-    setFilters(
-      [
-        ...FOOD_CATEGORIES,
-        ...DAY_OF_THE_WEEKS,
-        ...TIME_ZONES,
-        ...WHO_WITHS,
-      ].sort(() => Math.random() - 0.5),
-    );
-  }, []);
+  if (!tags) return null;
 
   return (
     <S.Filter>
       <S.FilterWrapper isFilterOpen={isFilterOpen}>
-        {filters.map(item => (
-          <S.FilterItem
-            key={item.key}
-            isSelect={isSelect(item.key)}
-            onClick={handleClickFilter(item.key)}
-          >
-            {item.label}
-          </S.FilterItem>
+        {tags.map(tag => (
+          <S.FilterItemWrapper key={tag.id}>
+            <S.FilterItem
+              isSelect={isSelect(tag.id)}
+              onClick={handleClickFilter(tag.id)}
+            >
+              {tag.title} {EMOJI[tag.title]}
+            </S.FilterItem>
+          </S.FilterItemWrapper>
         ))}
       </S.FilterWrapper>
       <S.OpenBtn

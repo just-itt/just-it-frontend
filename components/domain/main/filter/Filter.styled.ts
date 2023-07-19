@@ -14,7 +14,7 @@ export const Filter = styled.div`
       top: 0;
       right: 40px;
       width: 60px;
-      height: 100%;
+      height: 40px;
       background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff);
     }
 
@@ -40,9 +40,13 @@ export const FilterWrapper = styled.div<{ isFilterOpen: boolean }>`
   `}
 `;
 
+export const FilterItemWrapper = styled.div`
+  /* flex-grow: 0; */
+`;
+
 export const FilterItem = styled.button<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
-    flex-grow: 1;
+    width: fit-content;
     height: 40px;
     border: 1px solid
       ${isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`};

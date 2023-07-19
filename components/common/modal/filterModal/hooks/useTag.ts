@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 
-import { useGetCustomTags, useGetTags, usePostCustomTag } from "@service/index";
+import {
+  useGetCustomTags,
+  useGetCreatePheedTags,
+  usePostCustomTag,
+} from "@service/index";
 import { useModal } from "@hooks/index";
 
 const useTag = () => {
-  const { data: tags } = useGetTags();
+  const { data: tags } = useGetCreatePheedTags();
   const { data: customTags } = useGetCustomTags();
   const { mutate: postCustomTagMutate } = usePostCustomTag();
 
