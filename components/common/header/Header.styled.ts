@@ -62,6 +62,8 @@ export const SearchBtn = styled.button`
     height: 28px;
 
     svg {
+      width: 28px;
+      height: 28px;
       fill: ${theme.color.grey_500};
     }
   `}
@@ -72,6 +74,8 @@ export const createPheedBtn = (theme: Theme) => css`
   height: 28px;
 
   svg {
+    width: 28px;
+    height: 28px;
     fill: ${theme.color.grey_500};
   }
 `;
