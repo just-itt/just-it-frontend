@@ -43,5 +43,5 @@ export interface PostCustomTagQueryModel {
 }
 
 export interface GetCustomPheedQueryModel {
-  query: { tag_options: number[] };
+  query: { tag_options: string[] };
 }

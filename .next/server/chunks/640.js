@@ -64,14 +64,14 @@ __webpack_async_result__();
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "_F": () => (/* binding */ postCustomTag),
-/* harmony export */   "k$": () => (/* binding */ getGetTags),
+/* harmony export */   "cB": () => (/* binding */ getGetCreatePheedTags),
 /* harmony export */   "nI": () => (/* binding */ getCustomTags)
 /* harmony export */ });
 /* harmony import */ var _axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3666);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_axios__WEBPACK_IMPORTED_MODULE_0__]);
 _axios__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
-const getGetTags = async () => {
+const getGetCreatePheedTags = async () => {
   const {
     data
   } = await _axios__WEBPACK_IMPORTED_MODULE_0__/* ["default"].get */ .Z.get("/tags");
@@ -114,10 +114,10 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "Wi": () => (/* reexport safe */ _bookmark__WEBPACK_IMPORTED_MODULE_1__.W),
 /* harmony export */   "_F": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_2__._F),
 /* harmony export */   "ax": () => (/* reexport safe */ _axios__WEBPACK_IMPORTED_MODULE_0__.Z),
+/* harmony export */   "cB": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_2__.cB),
 /* harmony export */   "gY": () => (/* reexport safe */ _bookmark__WEBPACK_IMPORTED_MODULE_1__.g),
 /* harmony export */   "gd": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_3__.gd),
 /* harmony export */   "hp": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_3__.hp),
-/* harmony export */   "k$": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_2__.k$),
 /* harmony export */   "k5": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.k5),
 /* harmony export */   "lS": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_3__.lS),
 /* harmony export */   "nI": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_2__.nI),
@@ -324,147 +324,8 @@ __webpack_async_result__();
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "$F": () => (/* binding */ TIME_ZONES),
-/* harmony export */   "$V": () => (/* binding */ FOOD_CATEGORIES),
-/* harmony export */   "BV": () => (/* binding */ DAY_OF_THE_WEEKS),
-/* harmony export */   "Dd": () => (/* binding */ EMOJI),
-/* harmony export */   "y": () => (/* binding */ WHO_WITHS)
+/* harmony export */   "D": () => (/* binding */ EMOJI)
 /* harmony export */ });
-/* unused harmony exports EMOTIONS, WEATHERS, SEASONS, MOODS */
-const FOOD_CATEGORIES = [{
-  key: "한식",
-  label: "한식 🍚"
-}, {
-  key: "일식",
-  label: "일식 🍣"
-}, {
-  key: "중식",
-  label: "중식 🥟"
-}, {
-  key: "양식",
-  label: "양식 🍽"
-}, {
-  key: "분식",
-  label: "분식 🍜"
-}, {
-  key: "채식",
-  label: "채식 🌱"
-}, {
-  key: "샐러드",
-  label: "샐러드 🥗"
-}, {
-  key: "집밥",
-  label: "집밥 🥘"
-}];
-const DAY_OF_THE_WEEKS = [{
-  key: "평일",
-  label: "평일 📅"
-}, {
-  key: "주말",
-  label: "주말 🌞"
-}];
-const TIME_ZONES = [{
-  key: "아침",
-  label: "아침 🌅"
-}, {
-  key: "점심",
-  label: "점심 🏞"
-}, {
-  key: "저녁",
-  label: "저녁 🌇"
-}, {
-  key: "심야",
-  label: "심야 🌃"
-}, {
-  key: "새벽",
-  label: "새벽 🌄"
-}];
-const WHO_WITHS = [{
-  key: "혼자",
-  label: "혼자 👤"
-}, {
-  key: "가족",
-  label: "가족 👨‍👩‍👧‍👦"
-}, {
-  key: "연인",
-  label: "연인 👫"
-}, {
-  key: "친구들(남자)",
-  label: "친구들(남자) 👬"
-}, {
-  key: "친구들(여자)",
-  label: "친구들(여자) 👭"
-}, {
-  key: "직장 동료",
-  label: "직장 동료 🧑‍💻"
-}];
-const EMOTIONS = [{
-  key: "기쁨",
-  label: "기쁨 😊"
-}, {
-  key: "즐거움",
-  label: "즐거움 🤗"
-}, {
-  key: "우울함",
-  label: "우울함 😢"
-}, {
-  key: "화남",
-  label: "화남 😡"
-}, {
-  key: "스트레스",
-  label: "스트레스 😫"
-}];
-const WEATHERS = [{
-  key: "맑음",
-  label: "맑음 ☀️"
-}, {
-  key: "흐림",
-  label: "흐림 ⛅️"
-}, {
-  key: "비",
-  label: "비 🌧"
-}, {
-  key: "눈",
-  label: "눈 🌨"
-}, {
-  key: "바람",
-  label: "바람 💨"
-}];
-const SEASONS = [{
-  key: "봄",
-  label: "봄 🌸"
-}, {
-  key: "여름",
-  label: "여름 🍉"
-}, {
-  key: "가을",
-  label: "가을 🍁"
-}, {
-  key: "겨울",
-  label: "겨울 ☃️"
-}];
-const MOODS = [{
-  key: "로맨틱",
-  label: "로맨틱 💕"
-}, {
-  key: "감성적",
-  label: "감성적 🌹"
-}, {
-  key: "활기찬",
-  label: "활기찬 🤗"
-}, {
-  key: "고급스러운",
-  label: "고급스러운 💎"
-}, {
-  key: "빈티지",
-  label: "빈티지 📻"
-}, {
-  key: "전통적",
-  label: "전통적 🇰🇷🇰"
-}, {
-  key: "시끌벅적한",
-  label: "시끌벅적한 📣"
-}];
 const EMOJI = {
   한식: "🥘",
   일식: "🍣",
@@ -1239,7 +1100,7 @@ const HashTag_component_HashTag = ({
     children: hashTags.map(({
       title
     }) => (0,jsx_runtime_.jsxs)(HashTag, {
-      children: [filter/* EMOJI */.Dd[title], " ", title]
+      children: [filter/* EMOJI */.D[title], " ", title]
     }, title))
   });
 };
@@ -1513,8 +1374,8 @@ const SearchBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__
   target: "e1y09ypm2"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:center;align-items:center;width:28px;height:28px;svg{fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const createPheedBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:28px;height:28px;svg{fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0);
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:center;align-items:center;width:28px;height:28px;svg{width:28px;height:28px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const createPheedBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:28px;height:28px;svg{width:28px;height:28px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0);
 const loginBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";padding:6px 18px;border-radius:100px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";@media (min-width: ", theme.breakPoint.minDesktop, "){padding:8px 20px;}" + ( true ? "" : 0),  true ? "" : 0);
 const SearchWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("form",  true ? {
   target: "e1y09ypm1"
@@ -2365,10 +2226,10 @@ const FilterModal = () => {
           }) => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .FilterItem */ .L2, {
             isSelect: selectTags.includes(`${id}`),
             onClick: handleClickTag(id),
-            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
           }, id))
         })
-      }))
+      }, i))
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .BtnWrapper */ .Bo, {
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .ConfirmBtn */ .Ji, {
         type: "button",
@@ -2502,7 +2363,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([reac
 const useTag = () => {
   const {
     data: tags
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetTags */ .pD)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetCreatePheedTags */ .HE)();
   const {
     data: customTags
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetCustomTags */ .tp)();
@@ -2736,6 +2597,7 @@ const Nav = () => {
   const handleCheckLogin = path => () => {
     if (path === "/") {
       push(path);
+      handleCloseNav();
       return;
     }
 
@@ -3784,7 +3646,8 @@ const PheedFilter = ({
 }) => {
   const {
     data
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetTags */ .pD)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetCreatePheedTags */ .HE)();
+  if (!data) return null;
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .ContentWrapper */ .vs, {
     children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
       css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
@@ -3822,7 +3685,7 @@ const PheedFilter = ({
         isError: !!errors?.what,
         errorMessage: "\uD0DC\uADF8\uB97C \uC120\uD0DD\uD574 \uC8FC\uC138\uC694.",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-          children: data?.[0].options.map(({
+          children: data[0].options.map(({
             id,
             title
           }) => {
@@ -3830,7 +3693,7 @@ const PheedFilter = ({
               isSelect: watch("what") === `${id}`,
               children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
                 htmlFor: `what${id}`,
-                children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+                children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
               }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
                 id: `what${id}`,
                 type: "radio",
@@ -3849,14 +3712,14 @@ const PheedFilter = ({
         isError: !!errors?.when,
         errorMessage: "\uD0DC\uADF8\uB97C \uC120\uD0DD\uD574 \uC8FC\uC138\uC694.",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-          children: data?.[1].options.map(({
+          children: data[1].options.map(({
             id,
             title
           }) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterItem */ .L2, {
             isSelect: watch("when") === `${id}`,
             children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
               htmlFor: `when${id}`,
-              children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+              children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
             }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
               id: `when${id}`,
               type: "radio",
@@ -3874,14 +3737,14 @@ const PheedFilter = ({
         isError: !!errors?.who,
         errorMessage: "\uD0DC\uADF8\uB97C \uC120\uD0DD\uD574 \uC8FC\uC138\uC694.",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-          children: data?.[2].options.map(({
+          children: data[2].options.map(({
             id,
             title
           }) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterItem */ .L2, {
             isSelect: watch("who") === `${id}`,
             children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
               htmlFor: `who${id}`,
-              children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+              children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
             }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
               id: `who${id}`,
               type: "radio",
@@ -3896,14 +3759,14 @@ const PheedFilter = ({
       css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
       label: "\uAE30\uBD84\uC740 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-        children: data?.[3].options.map(({
+        children: data[3].options.map(({
           id,
           title
         }) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterItem */ .L2, {
           isSelect: watch("etc").includes(`${id}`),
           children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
             htmlFor: `checkbox${id}`,
-            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
           }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
             id: `checkbox${id}`,
             type: "checkbox",
@@ -3915,14 +3778,14 @@ const PheedFilter = ({
       css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
       label: "\uB0A0\uC528\uB294 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-        children: data?.[4].options.map(({
+        children: data[4].options.map(({
           id,
           title
         }) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterItem */ .L2, {
           isSelect: watch("etc").includes(`${id}`),
           children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
             htmlFor: `checkbox${id}`,
-            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
           }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
             id: `checkbox${id}`,
             type: "checkbox",
@@ -3934,14 +3797,14 @@ const PheedFilter = ({
       css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
       label: "\uBD84\uC704\uAE30\uB294 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
-        children: data?.[5].options.map(({
+        children: data[5].options.map(({
           id,
           title
         }) => (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterItem */ .L2, {
           isSelect: watch("etc").includes(`${id}`),
           children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
             htmlFor: `checkbox${id}`,
-            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .Dd[title]} ${title}`
+            children: `${assets_filter__WEBPACK_IMPORTED_MODULE_3__/* .EMOJI */ .D[title]} ${title}`
           }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("input", _objectSpread({
             id: `checkbox${id}`,
             type: "checkbox",
@@ -4957,14 +4820,17 @@ const HomeContainer = () => {
   const {
     query: {
       id,
+      filter,
       pheedSearch
     }
   } = (0,next_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
   const {
     data: pheeds
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_5__/* .useGetPheeds */ .hQ)({
-    query: _objectSpread({}, pheedSearch && typeof pheedSearch === "string" && {
+    query: _objectSpread(_objectSpread({}, pheedSearch && {
       search_word: pheedSearch
+    }), filter && {
+      tag_options: filter
     })
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -4972,7 +4838,6 @@ const HomeContainer = () => {
     window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
     return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
   }, []);
-  if (!pheeds) return null;
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .Main */ .or, {
     isClickPheed: !!id,
     children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .PheedWrapper */ .Om, {
@@ -4981,7 +4846,7 @@ const HomeContainer = () => {
         children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .SuggestedMenu */ .bE, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
           css: _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .heading */ .nP,
           heading: "\uC2E4\uC2DC\uAC04 \uD53C\uB4DC"
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
+        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), pheeds?.length ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
           columnsCountBreakPoints: {
             555: 2,
             900: 3,
@@ -4995,7 +4860,7 @@ const HomeContainer = () => {
               title: pheed.title
             }, pheed.id))
           })
-        })]
+        }) : null]
       }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Footer */ .$_, {})]
     }), id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {})]
   });
@@ -5768,10 +5633,10 @@ const SuggestedMenu = () => {
     data: customTags
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetCustomTags */ .tp)(!!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
   const {
-    data
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetPheeds */ .hQ)({
+    data: pheeds
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetSuggestedPheeds */ .vY)({
     query: {
-      tag_options: customTags?.tag_options.map(item => item.id)
+      tag_options: []
     }
   }, !!customTags?.tag_options || !!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
 
@@ -5791,7 +5656,7 @@ const SuggestedMenu = () => {
         })]
       })]
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_SuggestedMenu_styled__WEBPACK_IMPORTED_MODULE_6__/* .PheedWrapper */ .Om, {
-      children: data?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Pheed */ .wA, {
+      children: pheeds?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Pheed */ .wA, {
         src: pheed.image.image,
         title: pheed.title,
         id: pheed.id
@@ -5848,56 +5713,25 @@ const PheedWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_
 
 /***/ }),
 
-/***/ 4920:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 5333:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ Filter_component)
-});
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(6689);
-// EXTERNAL MODULE: external "next/router"
-var router_ = __webpack_require__(1853);
-// EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
-// EXTERNAL MODULE: ./assets/filter.ts
-var filter = __webpack_require__(258);
-// EXTERNAL MODULE: external "@emotion/styled/base"
-var base_ = __webpack_require__(777);
-var base_default = /*#__PURE__*/__webpack_require__.n(base_);
-// EXTERNAL MODULE: external "@emotion/react"
-var react_ = __webpack_require__(2805);
-;// CONCATENATED MODULE: ./components/domain/main/filter/Filter.styled.ts
-
-
-const Filter = /*#__PURE__*/base_default()("div",  true ? {
-  target: "eoqtwp03"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)("position:relative;display:flex;column-gap:10px;margin-bottom:12px;&::after{content:\"\";position:absolute;top:0;right:40px;width:60px;height:100%;background:linear-gradient(to right, rgba(255, 255, 255, 0), #fff);}@media (min-width: ", theme.breakPoint.minTablet, "){margin-bottom:16px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const FilterWrapper = /*#__PURE__*/base_default()("div",  true ? {
-  target: "eoqtwp02"
-} : 0)(({
-  isFilterOpen
-}) => /*#__PURE__*/(0,react_.css)("display:flex;flex-wrap:", isFilterOpen ? "wrap" : "nowrap", ";column-gap:10px;row-gap:10px;width:calc(100% - 40px);overflow-x:", isFilterOpen ? "visible" : "scroll", ";white-space:nowrap;::-webkit-scrollbar{display:none;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const FilterItem = /*#__PURE__*/base_default()("button",  true ? {
-  target: "eoqtwp01"
-} : 0)(({
-  theme,
-  isSelect
-}) => /*#__PURE__*/(0,react_.css)("flex-grow:1;height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const OpenBtn = /*#__PURE__*/base_default()("button",  true ? {
-  target: "eoqtwp00"
-} : 0)(({
-  theme,
-  isFilterOpen
-}) => /*#__PURE__*/(0,react_.css)("display:flex;justify-content:center;align-items:center;width:40px;height:40px;border:1px solid ", theme.color.grey_300, ";border-radius:100px;background-color:", theme.color.grey_100, ";transition:transform 0.2s ease;&>svg{width:17px;height:17 px;fill:", theme.color.grey_700, ";transform:", isFilterOpen ? "rotate(90deg)" : "rotate(270deg)", ";transition:transform 0.2s ease;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-// EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
-var jsx_runtime_ = __webpack_require__(5193);
-;// CONCATENATED MODULE: ./components/domain/main/filter/Filter.component.tsx
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _service_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7776);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8205);
+/* harmony import */ var assets_filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(258);
+/* harmony import */ var _Filter_styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9182);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_service_common__WEBPACK_IMPORTED_MODULE_2__]);
+_service_common__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -5912,57 +5746,118 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-const Filter_component_Filter = () => {
+
+const Filter = () => {
   const {
     replace,
     query
-  } = (0,router_.useRouter)();
+  } = (0,next_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
+  const {
+    data: tags
+  } = (0,_service_common__WEBPACK_IMPORTED_MODULE_2__/* .useGetTags */ .pD)();
   const {
     0: isFilterOpen,
     1: setIsFilterOpen
-  } = (0,external_react_.useState)(false);
-  const {
-    0: filters,
-    1: setFilters
-  } = (0,external_react_.useState)([]);
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
-  const isSelect = key => !!query.filter?.includes(key);
+  const isSelect = key => !!query.filter?.includes(`${key}`);
+
+  const handleOpenFilter = () => setIsFilterOpen(!isFilterOpen);
 
   const handleClickFilter = key => () => {
-    replace(isSelect(key) ? {
-      query: {}
-    } : {
-      query: _objectSpread(_objectSpread({}, query), {}, {
-        filter: key
-      })
-    });
+    const filterQuery = query.filter || [];
+
+    if (isSelect(key)) {
+      if (typeof filterQuery === "string") {
+        const deleteQuery = _objectSpread({}, query);
+
+        delete deleteQuery.filter;
+        replace({
+          query: deleteQuery
+        });
+      } else {
+        replace({
+          query: _objectSpread(_objectSpread({}, query), {}, {
+            filter: filterQuery.filter(id => id !== `${key}`)
+          })
+        });
+      }
+    } else {
+      replace({
+        query: _objectSpread(_objectSpread({}, query), {}, {
+          filter: [...filterQuery, `${key}`]
+        })
+      });
+    }
   };
 
-  const handleOpenFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
-  (0,external_react_.useEffect)(() => {
-    setFilters([...filter/* FOOD_CATEGORIES */.$V, ...filter/* DAY_OF_THE_WEEKS */.BV, ...filter/* TIME_ZONES */.$F, ...filter/* WHO_WITHS */.y].sort(() => Math.random() - 0.5));
-  }, []);
-  return (0,jsx_runtime_.jsxs)(Filter, {
-    children: [jsx_runtime_.jsx(FilterWrapper, {
+  if (!tags) return null;
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Filter_styled__WEBPACK_IMPORTED_MODULE_5__/* .Filter */ .wn, {
+    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_Filter_styled__WEBPACK_IMPORTED_MODULE_5__/* .FilterWrapper */ .kI, {
       isFilterOpen: isFilterOpen,
-      children: filters.map(item => jsx_runtime_.jsx(FilterItem, {
-        isSelect: isSelect(item.key),
-        onClick: handleClickFilter(item.key),
-        children: item.label
-      }, item.key))
-    }), jsx_runtime_.jsx(OpenBtn, {
+      children: tags.map(tag => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_Filter_styled__WEBPACK_IMPORTED_MODULE_5__/* .FilterItemWrapper */ .ok, {
+        children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Filter_styled__WEBPACK_IMPORTED_MODULE_5__/* .FilterItem */ .L2, {
+          isSelect: isSelect(tag.id),
+          onClick: handleClickFilter(tag.id),
+          children: [tag.title, " ", assets_filter__WEBPACK_IMPORTED_MODULE_4__/* .EMOJI */ .D[tag.title]]
+        })
+      }, tag.id))
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_Filter_styled__WEBPACK_IMPORTED_MODULE_5__/* .OpenBtn */ .OJ, {
       type: "button",
       isFilterOpen: isFilterOpen,
       onClick: handleOpenFilter,
-      children: jsx_runtime_.jsx(icons/* ArrowLongIcon */.Fw, {})
+      children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .ArrowLongIcon */ .Fw, {})
     })]
   });
 };
 
-/* harmony default export */ const Filter_component = (Filter_component_Filter);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Filter);
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 9182:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "L2": () => (/* binding */ FilterItem),
+/* harmony export */   "OJ": () => (/* binding */ OpenBtn),
+/* harmony export */   "kI": () => (/* binding */ FilterWrapper),
+/* harmony export */   "ok": () => (/* binding */ FilterItemWrapper),
+/* harmony export */   "wn": () => (/* binding */ Filter)
+/* harmony export */ });
+/* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
+/* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2805);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const Filter = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "eoqtwp04"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:relative;display:flex;column-gap:10px;margin-bottom:12px;&::after{content:\"\";position:absolute;top:0;right:40px;width:60px;height:40px;background:linear-gradient(to right, rgba(255, 255, 255, 0), #fff);}@media (min-width: ", theme.breakPoint.minTablet, "){margin-bottom:16px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const FilterWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "eoqtwp03"
+} : 0)(({
+  isFilterOpen
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;flex-wrap:", isFilterOpen ? "wrap" : "nowrap", ";column-gap:10px;row-gap:10px;width:calc(100% - 40px);overflow-x:", isFilterOpen ? "visible" : "scroll", ";white-space:nowrap;::-webkit-scrollbar{display:none;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const FilterItemWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "eoqtwp02"
+} : 0)( true ? "" : 0);
+const FilterItem = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
+  target: "eoqtwp01"
+} : 0)(({
+  theme,
+  isSelect
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:fit-content;height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const OpenBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
+  target: "eoqtwp00"
+} : 0)(({
+  theme,
+  isFilterOpen
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:center;align-items:center;width:40px;height:40px;border:1px solid ", theme.color.grey_300, ";border-radius:100px;background-color:", theme.color.grey_100, ";transition:transform 0.2s ease;&>svg{width:17px;height:17 px;fill:", theme.color.grey_700, ";transform:", isFilterOpen ? "rotate(90deg)" : "rotate(270deg)", ";transition:transform 0.2s ease;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -5977,9 +5872,9 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ });
 /* harmony import */ var _containers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1770);
 /* harmony import */ var _pheed_Pheed_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9930);
-/* harmony import */ var _filter_Filter_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4920);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_containers__WEBPACK_IMPORTED_MODULE_0__]);
-_containers__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+/* harmony import */ var _filter_Filter_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5333);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_containers__WEBPACK_IMPORTED_MODULE_0__, _filter_Filter_component__WEBPACK_IMPORTED_MODULE_2__]);
+([_containers__WEBPACK_IMPORTED_MODULE_0__, _filter_Filter_component__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -8171,10 +8066,11 @@ var SvgVisible = function SvgVisible(props) {
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$o": () => (/* binding */ usePostCustomTag),
+/* harmony export */   "HE": () => (/* binding */ useGetCreatePheedTags),
 /* harmony export */   "pD": () => (/* binding */ useGetTags),
 /* harmony export */   "tp": () => (/* binding */ useGetCustomTags)
 /* harmony export */ });
-/* unused harmony export useGetCustomPheeds */
+/* unused harmony exports commonKeys, useGetCustomPheeds */
 /* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9752);
 /* harmony import */ var apis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8500);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__, apis__WEBPACK_IMPORTED_MODULE_1__]);
@@ -8183,14 +8079,28 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tan
 
 const commonKeys = {
   all: ["common"],
+  createPheedTag: ["createPheedTag"],
   tags: ["tags"],
   customTags: ["customTags"],
   customPheeds: () => [...commonKeys.customTags, "customPheeds"]
 };
+const useGetCreatePheedTags = () => {
+  return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
+    queryKey: commonKeys.createPheedTag,
+    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getGetCreatePheedTags */ .cB)(),
+    cacheTime: Infinity,
+    staleTime: Infinity
+  });
+};
 const useGetTags = () => {
   return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
     queryKey: commonKeys.tags,
-    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getGetTags */ .k$)()
+    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getGetCreatePheedTags */ .cB)(),
+    select: data => data.flatMap(({
+      options
+    }) => options),
+    cacheTime: Infinity,
+    staleTime: Infinity
   });
 };
 const useGetCustomTags = enabled => {
@@ -8231,6 +8141,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "Gg": () => (/* reexport safe */ _setting__WEBPACK_IMPORTED_MODULE_5__.Gg),
 /* harmony export */   "H4": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.H4),
 /* harmony export */   "HD": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.HD),
+/* harmony export */   "HE": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_0__.HE),
 /* harmony export */   "HJ": () => (/* reexport safe */ _setting__WEBPACK_IMPORTED_MODULE_5__.HJ),
 /* harmony export */   "LN": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.LN),
 /* harmony export */   "Mt": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.Mt),
@@ -8245,9 +8156,9 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "f0": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.f0),
 /* harmony export */   "hQ": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.hQ),
 /* harmony export */   "mK": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.mK),
-/* harmony export */   "pD": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_0__.pD),
 /* harmony export */   "qG": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.qG),
 /* harmony export */   "tp": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_0__.tp),
+/* harmony export */   "vY": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.vY),
 /* harmony export */   "ww": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.ww),
 /* harmony export */   "yb": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.yb)
 /* harmony export */ });
@@ -8381,6 +8292,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "Mt": () => (/* binding */ useDeleteBookmark),
 /* harmony export */   "hQ": () => (/* binding */ useGetPheeds),
 /* harmony export */   "qG": () => (/* binding */ useDeletePheedReply),
+/* harmony export */   "vY": () => (/* binding */ useGetSuggestedPheeds),
 /* harmony export */   "ww": () => (/* binding */ usePostBookmark)
 /* harmony export */ });
 /* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9752);
@@ -8391,10 +8303,18 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tan
 
 const pheedKeys = {
   all: ["pheed"],
+  suggestedPheeds: req => [req],
   pheeds: () => [...pheedKeys.all, "pheed"],
-  pheed: req => [...pheedKeys.pheeds(), req.query.search_word],
+  pheed: req => [...pheedKeys.pheeds(), req],
   pheedDetails: () => [...pheedKeys.all, "pheedDetail"],
   pheedDetail: id => [...pheedKeys.pheedDetails(), id]
+};
+const useGetSuggestedPheeds = (req, enabled) => {
+  return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
+    queryKey: pheedKeys.suggestedPheeds(req),
+    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getPheeds */ .xW)(req),
+    enabled
+  });
 };
 const useGetPheeds = (req, enabled) => {
   return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
