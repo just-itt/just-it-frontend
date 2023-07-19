@@ -34,6 +34,7 @@ const Nav = () => {
   const handleCheckLogin = (path: string) => () => {
     if (path === "/") {
       push(path);
+      handleCloseNav();
       return;
     }
 
