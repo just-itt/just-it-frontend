@@ -64,7 +64,7 @@ export interface PheedForm {
 export interface GetPheedsQueryModel {
   query: {
     search_word?: string;
-    tag_options?: number[];
+    tag_options?: string | string[];
   };
 }
 
@@ -105,5 +105,11 @@ export interface PatchPheedReplyQueryModel {
     post_id: number;
     reply_id: number;
     content: string;
+  };
+}
+
+export interface GetSuggestedPheedsQueryModel {
+  query: {
+    tag_options?: string | string[];
   };
 }
