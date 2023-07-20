@@ -8,6 +8,10 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
     height: calc(var(--vh) * 100 - 72px);
     overflow-y: auto;
 
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: flex;
       overflow-y: ${isClickPheed && "visible"};
@@ -28,7 +32,7 @@ export const PheedWrapper = styled.div<{ isClickPheed: boolean }>`
 export const PaddingWrapper = styled.div`
   ${({ theme }) => css`
     padding: 20px;
-    min-height: calc(100vh - 197px);
+    min-height: calc(var(--vh) * 100 - 197px);
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       padding: 40px;

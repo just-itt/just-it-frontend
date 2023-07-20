@@ -8,9 +8,11 @@ import {
   Heading,
   SuggestedMenu,
   Footer,
+  NoResult,
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetPheeds } from "@service/index";
+import { useViewport } from "@hooks/index";
 import { handleResize } from "utils";
 import * as S from "./HomeContainer.styled";
 
@@ -26,6 +28,8 @@ const HomeContainer = () => {
     },
   });
 
+  const { isMobile } = useViewport();
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -37,31 +41,35 @@ const HomeContainer = () => {
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          <SuggestedMenu />
-          <Heading css={S.heading} heading="실시간 피드" />
-          <Filter />
-          {pheeds?.length ? (
-            <ResponsiveMasonry
-              columnsCountBreakPoints={{
-                555: 2,
-                900: 3,
-                1200: 4,
-              }}
-            >
-              <Masonry gutter="16px">
-                {pheeds.map(pheed => (
-                  <Pheed
-                    key={pheed.id}
-                    src={pheed.image.image}
-                    id={pheed.id}
-                    title={pheed.title}
-                  />
-                ))}
-              </Masonry>
-            </ResponsiveMasonry>
-          ) : null}
+          {(!filter || !pheedSearch) && pheeds?.length === 0 ? (
+            <NoResult />
+          ) : (
+            <>
+              <SuggestedMenu />
+              <Heading css={S.heading} heading="실시간 피드" />
+              <Filter />
+              <ResponsiveMasonry
+                columnsCountBreakPoints={{
+                  555: 2,
+                  900: 3,
+                  1200: 4,
+                }}
+              >
+                <Masonry gutter="16px">
+                  {pheeds?.map(pheed => (
+                    <Pheed
+                      key={pheed.id}
+                      src={pheed.image.image}
+                      id={pheed.id}
+                      title={pheed.title}
+                    />
+                  ))}
+                </Masonry>
+              </ResponsiveMasonry>
+            </>
+          )}
         </S.PaddingWrapper>
-        <Footer />
+        {(!isMobile || pheeds?.length !== 0) && <Footer />}
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>
