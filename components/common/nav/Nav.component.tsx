@@ -9,7 +9,7 @@ import { useGetMyProfile } from "@service/index";
 import { useModal } from "@hooks/index";
 import {
   ArrowShortIcon,
-  BookMarkMonoIcon,
+  BookmarkMonoIcon,
   CloseIcon,
   EditMonoIcon,
   LogoShortIcon,
@@ -97,7 +97,7 @@ const Nav = () => {
           isclick={(pathname === "/bookmark").toString()}
           onClick={handleCheckLogin("/bookmark")}
         >
-          <BookMarkMonoIcon />
+          <BookmarkMonoIcon />
           저장한 게시글
         </S.NavMenu>
       </S.NavItem>

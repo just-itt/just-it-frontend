@@ -9,6 +9,7 @@ import {
   ConfirmModal,
   DropdownBtn,
   HashTag,
+  LoginLinkModal,
   Profile,
 } from "@components/index";
 import {
@@ -19,8 +20,8 @@ import {
 import { useModal } from "@hooks/index";
 import { handleResize } from "utils";
 import {
-  BookMarkIcon,
-  BookMarkMonoIcon,
+  BookmarkIcon,
+  BookmarkMonoIcon,
   CloseIcon,
   MoreIcon,
 } from "@icons/index";
@@ -46,12 +47,20 @@ const PheedDetail = () => {
     handleEditPheedReply,
     handleDeletePheedReply,
   } = usePheedReply(refetch);
-  const { handleClickBookMark } = useBookMark(data!, refetch);
+  const { handleClickBookmark } = useBookMark(data!, refetch);
 
   const handleCloseDetailModal = () => {
     const { id, ...updateQuery } = query;
 
     push({ query: updateQuery }, undefined, { scroll: false });
+  };
+
+  const handleBookmark = () => {
+    if (!profile) {
+      handleOpenModal(<LoginLinkModal />)();
+    } else {
+      handleClickBookmark();
+    }
   };
 
   useEffect(() => {
@@ -70,8 +79,8 @@ const PheedDetail = () => {
           <CloseIcon />
         </button>
         <S.BtnWrapper>
-          <button type="button" onClick={handleClickBookMark}>
-            {data.is_bookmark ? <BookMarkMonoIcon /> : <BookMarkIcon />}
+          <button type="button" onClick={handleBookmark}>
+            {data.is_bookmark ? <BookmarkMonoIcon /> : <BookmarkIcon />}
           </button>
           {profile?.id === data.author.id && (
             <DropdownBtn

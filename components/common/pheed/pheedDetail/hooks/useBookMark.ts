@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useDeleteBookmark, usePostBookmark } from "@service/index";
 import type { GetPheedDetailServerModel } from "types";
 
-const useBookMark = (
+const useBookmark = (
   data: GetPheedDetailServerModel,
   refetchPheedDetail: () => void,
 ) => {
@@ -15,7 +15,7 @@ const useBookMark = (
   const { mutate: postBookmarkMutate } = usePostBookmark();
   const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
 
-  const handleClickBookMark = () => {
+  const handleClickBookmark = () => {
     const body = { id: id as string };
 
     if (data?.is_bookmark) {
@@ -41,7 +41,7 @@ const useBookMark = (
     }
   };
 
-  return { handleClickBookMark };
+  return { handleClickBookmark };
 };
 
-export default useBookMark;
+export default useBookmark;
