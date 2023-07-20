@@ -17,7 +17,7 @@ import {
 import * as S from "./Header.styled";
 
 const Header = () => {
-  const { replace, query } = useRouter();
+  const { push, query } = useRouter();
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
@@ -43,7 +43,7 @@ const Header = () => {
         (isFocusInput ? (
           <S.SearchWrapper
             onSubmit={handleSubmit(data =>
-              replace({ query: { ...query, pheedSearch: data.pheedSearch } }),
+              push({ query: { ...query, pheedSearch: data.pheedSearch } }),
             )}
           >
             <SearchShortIcon />
@@ -98,7 +98,7 @@ const Header = () => {
             {isFocusInput ? (
               <S.SearchWrapper
                 onSubmit={handleSubmit(data =>
-                  replace({
+                  push({
                     query: { ...query, pheedSearch: data.pheedSearch },
                   }),
                 )}
@@ -145,7 +145,7 @@ const Header = () => {
           </S.LogoWrapper>
           <S.SearchWrapper
             onSubmit={handleSubmit(data =>
-              replace({ query: { ...query, pheedSearch: data.pheedSearch } }),
+              push({ query: { ...query, pheedSearch: data.pheedSearch } }),
             )}
           >
             <SearchShortIcon />

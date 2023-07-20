@@ -28,7 +28,7 @@ import { useBookMark, usePheedReply } from "./hooks";
 import * as S from "./PheedDetail.styled";
 
 const PheedDetail = () => {
-  const { replace, push, asPath, query } = useRouter();
+  const { push, asPath, query } = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -51,7 +51,7 @@ const PheedDetail = () => {
   const handleCloseDetailModal = () => {
     const { id, ...updateQuery } = query;
 
-    replace({ query: updateQuery }, undefined, { scroll: false });
+    push({ query: updateQuery }, undefined, { scroll: false });
   };
 
   useEffect(() => {

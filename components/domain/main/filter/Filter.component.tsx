@@ -7,7 +7,7 @@ import { EMOJI } from "assets/filter";
 import * as S from "./Filter.styled";
 
 const Filter = () => {
-  const { replace, query } = useRouter();
+  const { push, query } = useRouter();
 
   const { data: tags } = useGetTags();
 
@@ -25,9 +25,9 @@ const Filter = () => {
         const deleteQuery = { ...query };
         delete deleteQuery.filter;
 
-        replace({ query: deleteQuery });
+        push({ query: deleteQuery });
       } else {
-        replace({
+        push({
           query: {
             ...query,
             filter: filterQuery.filter(id => id !== `${key}`),
@@ -35,7 +35,7 @@ const Filter = () => {
         });
       }
     } else {
-      replace({ query: { ...query, filter: [...filterQuery, `${key}`] } });
+      push({ query: { ...query, filter: [...filterQuery, `${key}`] } });
     }
   };
 
