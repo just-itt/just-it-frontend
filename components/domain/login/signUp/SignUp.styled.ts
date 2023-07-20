@@ -14,7 +14,7 @@ export const LoginBtn = styled.button`
     margin-bottom: 40px;
     border-radius: 5px;
     color: ${theme.color.white};
-    background-color: ${theme.color.blue_200};
+    background-color: ${theme.color.blue_300};
   `}
 `;
 
