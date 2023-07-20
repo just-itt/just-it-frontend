@@ -13,7 +13,10 @@ const Filter = () => {
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const isSelect = (key: number) => !!query.filter?.includes(`${key}`);
+  const isSelect = (key: number) =>
+    typeof query.filter === "string"
+      ? query.filter === `${key}`
+      : !!query.filter?.includes(`${key}`);
 
   const handleOpenFilter = () => setIsFilterOpen(!isFilterOpen);
 
