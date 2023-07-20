@@ -30,6 +30,13 @@ const HomeContainer = () => {
 
   const { isMobile } = useViewport();
 
+  const isSearch = filter || pheedSearch;
+  const columnsCountBreakPoints = {
+    555: 2,
+    900: 3,
+    1200: 4,
+  };
+
   useEffect(() => {
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -37,26 +44,46 @@ const HomeContainer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  if (!pheeds) return null;
+
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          {(!filter || !pheedSearch) && pheeds?.length === 0 ? (
+          {isSearch && pheeds.length === 0 ? (
             <NoResult />
+          ) : isSearch && pheeds.length !== 0 ? (
+            <>
+              <Heading
+                css={S.heading}
+                heading="검색결과"
+                count={pheeds.length}
+              />
+              <ResponsiveMasonry
+                columnsCountBreakPoints={columnsCountBreakPoints}
+              >
+                <Masonry gutter="16px">
+                  {pheeds.map(pheed => (
+                    <Pheed
+                      key={pheed.id}
+                      src={pheed.image.image}
+                      id={pheed.id}
+                      title={pheed.title}
+                    />
+                  ))}
+                </Masonry>
+              </ResponsiveMasonry>
+            </>
           ) : (
             <>
               <SuggestedMenu />
               <Heading css={S.heading} heading="실시간 피드" />
               <Filter />
               <ResponsiveMasonry
-                columnsCountBreakPoints={{
-                  555: 2,
-                  900: 3,
-                  1200: 4,
-                }}
+                columnsCountBreakPoints={columnsCountBreakPoints}
               >
                 <Masonry gutter="16px">
-                  {pheeds?.map(pheed => (
+                  {pheeds.map(pheed => (
                     <Pheed
                       key={pheed.id}
                       src={pheed.image.image}
