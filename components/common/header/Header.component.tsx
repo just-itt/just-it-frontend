@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -25,9 +25,9 @@ const Header = () => {
 
   const setNavState = useSetRecoilState(navAtom);
   const [isFocusInput, setIsFocusInput] = useState(false);
-  const { register, handleSubmit } = useForm({
+  const { register, watch, setValue, handleSubmit } = useForm({
     mode: "all",
-    defaultValues: { pheedSearch: "" },
+    defaultValues: { pheedSearch: query.pheedSearch || "" },
   });
 
   const handleClickMenu = () => {
@@ -36,6 +36,10 @@ const Header = () => {
   };
 
   const handleFocusInput = () => setIsFocusInput(!isFocusInput);
+
+  useEffect(() => {
+    setValue("pheedSearch", query.pheedSearch || "");
+  }, [query]);
 
   return (
     <S.Header>
@@ -52,6 +56,7 @@ const Header = () => {
               maxLength={30}
               autoComplete="off"
               autoFocus
+              value={watch("pheedSearch")}
               {...register("pheedSearch", {
                 required: true,
                 onBlur: () => handleFocusInput(),
@@ -109,6 +114,7 @@ const Header = () => {
                   maxLength={30}
                   autoComplete="off"
                   autoFocus
+                  value={watch("pheedSearch")}
                   {...register("pheedSearch", {
                     required: true,
                     onBlur: () => handleFocusInput(),
@@ -153,6 +159,7 @@ const Header = () => {
               placeholder="검색..."
               maxLength={30}
               autoComplete="off"
+              value={watch("pheedSearch")}
               {...register("pheedSearch", {
                 required: true,
                 onBlur: () => handleFocusInput(),
