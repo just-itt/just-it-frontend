@@ -4,9 +4,10 @@ import { Theme, css } from "@emotion/react";
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    height: calc(100vh - 100px);
+    margin-bottom: 120px;
 
-    @media (min-width: ${theme.breakPoint.minTablet}) {
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      height: calc(var(--vh) * 100 + 100px);
       overflow-y: scroll;
 
       ::-webkit-scrollbar {

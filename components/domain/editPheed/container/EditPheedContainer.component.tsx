@@ -1,12 +1,7 @@
 import React from "react";
 
-import {
-  PheedLayout,
-  PheedHeader,
-  PheedFilter,
-  ImgUpload,
-} from "@components/index";
-import useEditPheedForm from "./hooks/useEditPheedForm";
+import { PheedHeader, PheedFilter, ImgUpload } from "@components/index";
+import { useEditPheedForm } from "./hooks";
 import * as S from "./EditPheedContainer.styled";
 
 const EditPheedContainer = () => {
@@ -26,7 +21,7 @@ const EditPheedContainer = () => {
         isError={!!Object.keys(errors).length}
         handleSubmit={handleSubmit}
       />
-      <PheedLayout css={S.layout}>
+      <S.Wrapper>
         <ImgUpload
           css={S.imgUpload}
           type="edit"
@@ -37,7 +32,7 @@ const EditPheedContainer = () => {
           handleDeleteImgFile={handleDeleteImgFile}
         />
         <PheedFilter register={register} watch={watch} errors={errors} />
-      </PheedLayout>
+      </S.Wrapper>
     </>
   );
 };

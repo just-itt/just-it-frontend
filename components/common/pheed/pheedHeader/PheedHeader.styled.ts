@@ -7,7 +7,9 @@ export const Header = styled.header`
     top: 0;
     min-width: 390px;
     height: ${theme.constantCss.navHeight};
+    margin-bottom: 28px;
     border-bottom: 1px solid ${theme.color.grey_200};
+    padding: 0 20px;
     background-color: ${theme.color.white};
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -22,7 +24,6 @@ export const ContentWrapper = styled.div`
     max-width: 1080px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 16px;
 
     & > div {
       ${theme.flexMixin.flex_alignC};

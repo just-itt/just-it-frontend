@@ -1,25 +1,29 @@
 import styled from "@emotion/styled";
 import { Theme, css } from "@emotion/react";
 
-export const layout = (theme: Theme) => css`
-  display: flex;
-  flex-flow: column;
-  row-gap: 32px;
+export const Wrapper = styled.div`
+  ${({ theme }) => css`
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 20px;
 
-  @media (min-width: ${theme.breakPoint.minTablet}) {
-    flex-flow: row;
-    column-gap: 40px;
-  }
+    @media (min-width: ${theme.breakPoint.minDesktop}) {
+      display: flex;
+      column-gap: 40px;
+      width: 100%;
+    }
+  `}
 `;
 
 export const imgUpload = (theme: Theme) => css`
+  margin-bottom: 40px;
+
   @media (min-width: ${theme.breakPoint.minTablet}) {
     max-width: 520px;
     height: 390px;
   }
-`;
 
-export const Canvas = styled.canvas`
-  width: 100px;
-  height: 100px;
+  @media (min-width: ${theme.breakPoint.minDesktop}) {
+    margin-bottom: 0px;
+  }
 `;
