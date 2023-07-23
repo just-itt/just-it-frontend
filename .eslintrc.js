@@ -50,5 +50,6 @@ module.exports = {
     "consistent-return": "off", // consistent-return 해제
     "react/no-array-index-key": "off", // map 안에서 key로 index 사용하지 못하게 하는 에러 해제
     "prefer-destructuring": "off", // https://eslint.org/docs/latest/rules/prefer-destructuring
+    "jsx-a11y/label-has-associated-control": "off", // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md
   },
 };
