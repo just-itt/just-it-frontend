@@ -10,6 +10,7 @@ const CreatePheedContainer = () => {
     watch,
     errors,
     handleSubmit,
+    handleCropImage,
     handleChangeRatio,
     handleDeleteImgFile,
   } = useCreatePheedForm();
@@ -27,6 +28,8 @@ const CreatePheedContainer = () => {
           type="create"
           isError={!!errors.file}
           register={register}
+          watch={watch}
+          handleCropImage={handleCropImage}
           handleChangeRatio={handleChangeRatio}
           handleDeleteImgFile={handleDeleteImgFile}
         />

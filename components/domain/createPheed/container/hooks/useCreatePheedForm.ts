@@ -18,6 +18,7 @@ const useCreatePheedForm = () => {
     mode: "all",
     defaultValues: {
       file: null,
+      uploadImageFile: null,
       ratio: "1:1",
       title: "",
       content: "",
@@ -30,26 +31,33 @@ const useCreatePheedForm = () => {
 
   const { mutate: postPheedMutate } = usePostPheed();
 
-  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
-    setValue("ratio", ratio);
-  };
+  const handleCropImage = (cropImageFile: Blob) =>
+    setValue("uploadImageFile", cropImageFile);
 
-  const handleDeleteImgFile = () => {
-    setValue("file", null);
-  };
+  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () =>
+    setValue("ratio", ratio);
+
+  const handleDeleteImgFile = () => setValue("file", null);
 
   const createPheed = (data: PheedForm) => {
     const formData = new FormData();
 
-    if (!data.what || !data.when || !data.who || !data.file) return;
+    if (
+      !data.what ||
+      !data.when ||
+      !data.who ||
+      !data.file ||
+      !data.uploadImageFile
+    )
+      return;
 
-    formData.append("image", data.file[0]);
+    formData.append("image", data.uploadImageFile);
     formData.append(
       "payload",
       JSON.stringify({
         title: data.title,
         content: data.content,
-        ratio: "1:1",
+        ratio: data.ratio,
         tag_options: [
           +data.what,
           +data.when,
@@ -75,6 +83,7 @@ const useCreatePheedForm = () => {
     watch,
     errors,
     handleSubmit: handleSubmit(createPheed),
+    handleCropImage,
     handleChangeRatio,
     handleDeleteImgFile,
   };

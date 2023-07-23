@@ -52,6 +52,7 @@ export interface GetMyPheedsServerModel {
 export interface PheedForm {
   file: FileList | null;
   defaultImage?: string;
+  uploadImageFile?: Blob | null;
   ratio: "1:1" | "3:4" | "4:3";
   title: string;
   content?: string;
