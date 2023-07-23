@@ -11,6 +11,7 @@ export const Header = styled.header`
     border-bottom: 1px solid ${theme.color.grey_200};
     padding: 0 20px;
     background-color: ${theme.color.white};
+    z-index: ${theme.zIndex.header};
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       position: relative;
