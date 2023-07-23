@@ -47,7 +47,6 @@ export const FilterSettingBtn = styled.button`
 export const PheedWrapper = styled.div`
   ${({ theme }) => css`
     display: flex;
-    height: 169px;
     column-gap: 12px;
     overflow-x: auto;
 
@@ -67,6 +66,7 @@ export const PheedWrapper = styled.div`
         align-items: center;
         width: 100%;
         height: 100%;
+        margin-bottom: 0;
       }
     }
 
