@@ -1,17 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import { CheckIcon } from "@icons/index";
 import * as S from "./DropdownBtn.styled";
 
 interface DropdownBtnProps {
   className?: string;
   btnRender: React.ReactNode;
   dropdownItems: { label: string; value: string; handler?: () => void }[];
+  selectValue?: string;
 }
 
 const DropdownBtn = ({
   className,
   btnRender,
   dropdownItems,
+  selectValue,
 }: DropdownBtnProps) => {
   const [isOpenDropdown, setIsOpenDropdown] = useState(false);
   const dropdownRef = useRef<HTMLButtonElement>(null);
@@ -47,9 +50,10 @@ const DropdownBtn = ({
       {btnRender}
       {isOpenDropdown && (
         <S.DropdownWrapper>
-          {dropdownItems.map(({ label, handler }) => (
+          {dropdownItems.map(({ label, value, handler }) => (
             <S.DropdownItem key={label} onClick={handler}>
               {label}
+              {selectValue && selectValue === value && <CheckIcon />}
             </S.DropdownItem>
           ))}
         </S.DropdownWrapper>

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const ImgUpload = styled.label<{ isError: boolean }>`
@@ -108,15 +108,33 @@ export const AddBtn = styled.label`
   `}
 `;
 
-export const RatioBtnWrapper = styled.div`
-  display: flex;
-  column-gap: 15px;
-`;
+export const dropdown = (theme: Theme) => css`
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
 
-export const RatioBtn = styled.button`
-  ${({ theme }) => css`
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  & > svg > path {
+    fill: ${theme.color.white};
+  }
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
     width: 40px;
     height: 40px;
-    color: ${theme.color.white};
-  `};
+
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    & > ul {
+      top: -140px;
+      right: -20px;
+      width: 158px;
+    }
+  }
 `;
