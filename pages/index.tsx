@@ -4,7 +4,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, HomeContainer } from "@components/index";
-import { pheedKeys } from "@service/index";
+import { commonKeys, pheedKeys } from "@service/index";
 
 const index = () => {
   return <HomeContainer />;
@@ -39,16 +39,15 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     },
   });
 
-  // TODO: 인증 없이 호출 하도록 수정되면 로직 추가
-  // await queryClient.prefetchQuery({
-  //   queryKey: commonKeys.tags,
-  //   queryFn: async () => {
-  //     const { data } = await ax.get("/tags");
-  //     return data;
-  //   },
-  //   cacheTime: Infinity,
-  //   staleTime: Infinity,
-  // });
+  await queryClient.prefetchQuery({
+    queryKey: commonKeys.tags,
+    queryFn: async () => {
+      const { data } = await ax.get("/tags");
+      return data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity,
+  });
 
   return {
     props: {
