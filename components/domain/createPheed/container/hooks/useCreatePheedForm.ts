@@ -31,7 +31,8 @@ const useCreatePheedForm = () => {
     },
   });
 
-  const { mutate: postPheedMutate } = usePostPheed();
+  const { mutate: postPheedMutate, isLoading: isPostPheedLoading } =
+    usePostPheed();
 
   const cropperRef = useRef<ReactCropperElement>(null);
 
@@ -100,6 +101,7 @@ const useCreatePheedForm = () => {
 
   return {
     cropperRef,
+    isPostPheedLoading,
     register,
     watch,
     errors,

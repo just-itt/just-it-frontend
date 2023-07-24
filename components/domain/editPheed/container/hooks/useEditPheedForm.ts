@@ -34,7 +34,8 @@ const useEditPheedForm = () => {
   });
 
   const { data: pheedData } = useGetPheedDetail({ id: pheedId as string });
-  const { mutate: patchPheedMutate } = useEditPheed();
+  const { mutate: patchPheedMutate, isLoading: isEditPheedLoading } =
+    useEditPheed();
 
   const deleteImgFile = () => setValue("file", null);
 
@@ -81,6 +82,7 @@ const useEditPheedForm = () => {
   }, [pheedData]);
 
   return {
+    isEditPheedLoading,
     register,
     watch,
     errors,

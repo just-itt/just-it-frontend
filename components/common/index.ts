@@ -15,3 +15,4 @@ export { default as Nav } from "./nav/Nav.component";
 export { default as NoResult } from "./noResult/NoResult.component";
 export { default as Portal } from "./potal/Potal.component";
 export { default as Profile } from "./profile/Profile.component";
+export { default as Spinner } from "./spinner/Spinner.component";

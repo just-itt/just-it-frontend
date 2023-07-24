@@ -5,14 +5,21 @@ import { useEditPheedForm } from "./hooks";
 import * as S from "./EditPheedContainer.styled";
 
 const EditPheedContainer = () => {
-  const { register, watch, errors, handleSubmit, deleteImgFile } =
-    useEditPheedForm();
+  const {
+    isEditPheedLoading,
+    register,
+    watch,
+    errors,
+    handleSubmit,
+    deleteImgFile,
+  } = useEditPheedForm();
 
   return (
     <>
       <PheedHeader
         type="edit"
         isError={!!Object.keys(errors).length}
+        isLoading={isEditPheedLoading}
         handleSubmit={handleSubmit}
       />
       <S.Wrapper>

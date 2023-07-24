@@ -7,6 +7,7 @@ import * as S from "./CreatePheedContainer.styled";
 const CreatePheedContainer = () => {
   const {
     cropperRef,
+    isPostPheedLoading,
     register,
     watch,
     errors,
@@ -21,6 +22,7 @@ const CreatePheedContainer = () => {
       <PheedHeader
         type="create"
         isError={!!Object.keys(errors).length}
+        isLoading={isPostPheedLoading}
         handleSubmit={handleSubmit}
       />
       <S.Wrapper>
