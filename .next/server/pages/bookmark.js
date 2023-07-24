@@ -48,7 +48,7 @@ async function getServerSideProps(ctx) {
   const token = req.cookies.auth;
   const ax = axios__WEBPACK_IMPORTED_MODULE_1__["default"].create({
     baseURL: "http://3.39.122.234/api/v1",
-    timeout: 3000
+    timeout: 5000
   });
 
   if (token) {
@@ -332,6 +332,13 @@ module.exports = require("react");
 
 /***/ }),
 
+/***/ 51:
+/***/ ((module) => {
+
+module.exports = require("react-cropper");
+
+/***/ }),
+
 /***/ 6405:
 /***/ ((module) => {
 
@@ -350,6 +357,13 @@ module.exports = require("react-responsive");
 /***/ ((module) => {
 
 module.exports = require("react-responsive-masonry");
+
+/***/ }),
+
+/***/ 3278:
+/***/ ((module) => {
+
+module.exports = require("react-spinners/ClipLoader");
 
 /***/ }),
 
@@ -409,7 +423,7 @@ module.exports = import("uuid");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [505,676,61,640], () => (__webpack_exec__(957)));
+var __webpack_exports__ = __webpack_require__.X(0, [505,676,534,640], () => (__webpack_exec__(957)));
 module.exports = __webpack_exports__;
 
 })();

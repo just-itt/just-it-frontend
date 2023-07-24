@@ -924,11 +924,14 @@ __webpack_require__.r(__webpack_exports__);
 
 const Document = () => {
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(next_document__WEBPACK_IMPORTED_MODULE_0__.Html, {
-    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx(next_document__WEBPACK_IMPORTED_MODULE_0__.Head, {
-      children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx("meta", {
+    children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(next_document__WEBPACK_IMPORTED_MODULE_0__.Head, {
+      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx("meta", {
         name: "viewport",
         content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-      })
+      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx("meta", {
+        name: "naver-site-verification",
+        content: "1acf413ed963d11f80583fa5826231aa86acaa23"
+      })]
     }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("body", {
       children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx(next_document__WEBPACK_IMPORTED_MODULE_0__.Main, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx(next_document__WEBPACK_IMPORTED_MODULE_0__.NextScript, {})]
     })]

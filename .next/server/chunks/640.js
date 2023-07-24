@@ -18,7 +18,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([axio
 
 const ax = axios__WEBPACK_IMPORTED_MODULE_0__["default"].create({
   baseURL: "http://3.39.122.234/api/v1",
-  timeout: 3000
+  timeout: 5000
 });
 ax.interceptors.request.use(config => {
   const token = js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth");
@@ -106,6 +106,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "L2": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_3__.L2),
 /* harmony export */   "Ms": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.Ms),
 /* harmony export */   "N6": () => (/* reexport safe */ _setting__WEBPACK_IMPORTED_MODULE_5__.N6),
+/* harmony export */   "Oi": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.Oi),
 /* harmony export */   "Oy": () => (/* reexport safe */ _setting__WEBPACK_IMPORTED_MODULE_5__.Oy),
 /* harmony export */   "Qf": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.Qf),
 /* harmony export */   "US": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_3__.US),
@@ -212,6 +213,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "Cf": () => (/* binding */ postPheedReply),
 /* harmony export */   "KA": () => (/* binding */ deletePheed),
 /* harmony export */   "Ms": () => (/* binding */ editPheed),
+/* harmony export */   "Oi": () => (/* binding */ getSuggestedPheed),
 /* harmony export */   "Qf": () => (/* binding */ getPheedDetail),
 /* harmony export */   "VT": () => (/* binding */ getMyPheeds),
 /* harmony export */   "k5": () => (/* binding */ postPheed),
@@ -273,6 +275,12 @@ const patchPheedReply = async req => {
   } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.patch(`/posts/${req.body.post_id}/replies/${req.body.reply_id}`, {
     content: req.body.content
   });
+  return data;
+};
+const getSuggestedPheed = async () => {
+  const {
+    data
+  } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.get("/posts/custom");
   return data;
 };
 __webpack_async_result__();
@@ -457,6 +465,8 @@ const Button_component_Button = ({
 };
 
 /* harmony default export */ const Button_component = (Button_component_Button);
+// EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
+var icons = __webpack_require__(7652);
 ;// CONCATENATED MODULE: ./components/common/buttons/dropdown/DropdownBtn.styled.ts
 
 
@@ -478,8 +488,9 @@ const DropdownItem = /*#__PURE__*/base_default()("li",  true ? {
   target: "e75vxrr0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_15, ";min-width:118px;&>button{width:100%;height:100%;padding:8px 20px;text-align:left;}@media (hover: hover){:hover{background-color:", theme.color.grey_100, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_15, ";", theme.flexMixin.flex_justifySb_alignC, ";min-width:118px;height:40px;padding:0 20px;&>button{width:100%;height:100%;padding:8px 20px;text-align:left;}&>svg{width:20px;height:20px;&>path{fill:", theme.color.blue_300, ";}}@media (hover: hover){:hover{background-color:", theme.color.grey_100, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 ;// CONCATENATED MODULE: ./components/common/buttons/dropdown/DropdownBtn.component.tsx
+
 
 
 
@@ -488,7 +499,8 @@ const DropdownItem = /*#__PURE__*/base_default()("li",  true ? {
 const DropdownBtn = ({
   className,
   btnRender,
-  dropdownItems
+  dropdownItems,
+  selectValue
 }) => {
   const {
     0: isOpenDropdown,
@@ -520,10 +532,11 @@ const DropdownBtn = ({
     children: [btnRender, isOpenDropdown && jsx_runtime_.jsx(DropdownWrapper, {
       children: dropdownItems.map(({
         label,
+        value,
         handler
-      }) => jsx_runtime_.jsx(DropdownItem, {
+      }) => (0,jsx_runtime_.jsxs)(DropdownItem, {
         onClick: handler,
-        children: label
+        children: [label, selectValue && selectValue === value && jsx_runtime_.jsx(icons/* CheckIcon */.nQ, {})]
       }, label))
     })]
   });
@@ -547,7 +560,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7640);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2677);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7652);
 /* harmony import */ var _Comments_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9107);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
@@ -786,7 +799,7 @@ var base_ = __webpack_require__(777);
 // EXTERNAL MODULE: external "@emotion/react"
 var react_ = __webpack_require__(2805);
 // EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
+var icons = __webpack_require__(7652);
 ;// CONCATENATED MODULE: ./components/common/dropdown/Dropdown.styled.ts
 
 
@@ -985,7 +998,7 @@ var external_react_ = __webpack_require__(6689);
 var next_link = __webpack_require__(1664);
 var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 // EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
+var icons = __webpack_require__(7652);
 // EXTERNAL MODULE: external "@emotion/styled/base"
 var base_ = __webpack_require__(777);
 var base_default = /*#__PURE__*/__webpack_require__.n(base_);
@@ -1129,7 +1142,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2677);
 /* harmony import */ var _recoil_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6319);
 /* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8110);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(7652);
 /* harmony import */ var _Header_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(1867);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__);
@@ -1158,7 +1171,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const Header = () => {
   const {
-    replace,
+    push,
     query
   } = (0,next_router__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
   const {
@@ -1176,11 +1189,13 @@ const Header = () => {
   } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const {
     register,
+    watch,
+    setValue,
     handleSubmit
   } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)({
     mode: "all",
     defaultValues: {
-      pheedSearch: ""
+      pheedSearch: query.pheedSearch || ""
     }
   });
 
@@ -1191,9 +1206,12 @@ const Header = () => {
 
   const handleFocusInput = () => setIsFocusInput(!isFocusInput);
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setValue("pheedSearch", query.pheedSearch || "");
+  }, [query]);
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Header */ .h4, {
     children: [isMobile && (isFocusInput ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-      onSubmit: handleSubmit(data => replace({
+      onSubmit: handleSubmit(data => push({
         query: _objectSpread(_objectSpread({}, query), {}, {
           pheedSearch: data.pheedSearch
         })
@@ -1202,7 +1220,8 @@ const Header = () => {
         placeholder: "\uAC80\uC0C9...",
         maxLength: 30,
         autoComplete: "off",
-        autoFocus: true
+        autoFocus: true,
+        value: watch("pheedSearch")
       }, register("pheedSearch", {
         required: true,
         onBlur: () => handleFocusInput()
@@ -1244,7 +1263,7 @@ const Header = () => {
         })]
       }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .FlexWrapper */ .A0, {
         children: [isFocusInput ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-          onSubmit: handleSubmit(data => replace({
+          onSubmit: handleSubmit(data => push({
             query: _objectSpread(_objectSpread({}, query), {}, {
               pheedSearch: data.pheedSearch
             })
@@ -1253,7 +1272,8 @@ const Header = () => {
             placeholder: "\uAC80\uC0C9...",
             maxLength: 30,
             autoComplete: "off",
-            autoFocus: true
+            autoFocus: true,
+            value: watch("pheedSearch")
           }, register("pheedSearch", {
             required: true,
             onBlur: () => handleFocusInput()
@@ -1283,7 +1303,7 @@ const Header = () => {
           children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .LogoShortIcon */ .xv, {})
         })]
       }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-        onSubmit: handleSubmit(data => replace({
+        onSubmit: handleSubmit(data => push({
           query: _objectSpread(_objectSpread({}, query), {}, {
             pheedSearch: data.pheedSearch
           })
@@ -1291,7 +1311,8 @@ const Header = () => {
         children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .SearchShortIcon */ .YA, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Search */ .ol, _objectSpread({
           placeholder: "\uAC80\uC0C9...",
           maxLength: 30,
-          autoComplete: "off"
+          autoComplete: "off",
+          value: watch("pheedSearch")
         }, register("pheedSearch", {
           required: true,
           onBlur: () => handleFocusInput()
@@ -1411,10 +1432,15 @@ var react_ = __webpack_require__(2805);
 
 
 const Heading = /*#__PURE__*/base_default()("h2",  true ? {
+  target: "e1atai0f1"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,react_.css)(theme.font.bold_18, ";@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.bold_20, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const Count = /*#__PURE__*/base_default()("span",  true ? {
   target: "e1atai0f0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,react_.css)(theme.font.bold_18, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,react_.css)("margin-left:4px;color:", theme.color.blue_200, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 // EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(5193);
 ;// CONCATENATED MODULE: ./components/common/heading/Heading.component.tsx
@@ -1422,13 +1448,17 @@ var jsx_runtime_ = __webpack_require__(5193);
 
 
 
+
 const Heading_component_Heading = ({
   className,
-  heading
+  heading,
+  count
 }) => {
-  return jsx_runtime_.jsx(Heading, {
+  return (0,jsx_runtime_.jsxs)(Heading, {
     className: className,
-    children: heading
+    children: [heading, count && jsx_runtime_.jsx(Count, {
+      children: count
+    })]
   });
 };
 
@@ -1442,24 +1472,26 @@ const Heading_component_Heading = ({
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$_": () => (/* reexport safe */ _footer_Footer_component__WEBPACK_IMPORTED_MODULE_8__.Z),
+/* harmony export */   "$j": () => (/* reexport safe */ _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_17__.Z),
 /* harmony export */   "Dd": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.Dd),
 /* harmony export */   "FU": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.FU),
 /* harmony export */   "HW": () => (/* reexport safe */ _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__.Z),
 /* harmony export */   "IX": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.IX),
 /* harmony export */   "JL": () => (/* reexport safe */ _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__.Z),
 /* harmony export */   "JU": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.JU),
-/* harmony export */   "NZ": () => (/* reexport safe */ _profile_Profile_component__WEBPACK_IMPORTED_MODULE_15__.Z),
+/* harmony export */   "NZ": () => (/* reexport safe */ _profile_Profile_component__WEBPACK_IMPORTED_MODULE_16__.Z),
 /* harmony export */   "VN": () => (/* reexport safe */ _hashTag_HashTag_component__WEBPACK_IMPORTED_MODULE_9__.Z),
 /* harmony export */   "Vx": () => (/* reexport safe */ _error__WEBPACK_IMPORTED_MODULE_1__.V),
 /* harmony export */   "X6": () => (/* reexport safe */ _heading_Heading_component__WEBPACK_IMPORTED_MODULE_11__.Z),
 /* harmony export */   "h4": () => (/* reexport safe */ _header_Header_component__WEBPACK_IMPORTED_MODULE_10__.Z),
-/* harmony export */   "h_": () => (/* reexport safe */ _potal_Potal_component__WEBPACK_IMPORTED_MODULE_14__.Z),
+/* harmony export */   "h_": () => (/* reexport safe */ _potal_Potal_component__WEBPACK_IMPORTED_MODULE_15__.Z),
 /* harmony export */   "iq": () => (/* reexport safe */ _labelContent_LabelContent_component__WEBPACK_IMPORTED_MODULE_12__.Z),
 /* harmony export */   "mv": () => (/* reexport safe */ _input__WEBPACK_IMPORTED_MODULE_2__.mv),
 /* harmony export */   "od": () => (/* reexport safe */ _buttons__WEBPACK_IMPORTED_MODULE_0__.o),
 /* harmony export */   "r": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.r),
 /* harmony export */   "rd": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.rd),
 /* harmony export */   "sm": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.sm),
+/* harmony export */   "xM": () => (/* reexport safe */ _noResult_NoResult_component__WEBPACK_IMPORTED_MODULE_14__.Z),
 /* harmony export */   "yt": () => (/* reexport safe */ _input__WEBPACK_IMPORTED_MODULE_2__.yt),
 /* harmony export */   "zQ": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.zQ),
 /* harmony export */   "zx": () => (/* reexport safe */ _buttons__WEBPACK_IMPORTED_MODULE_0__.z)
@@ -1478,10 +1510,14 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _heading_Heading_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(4935);
 /* harmony import */ var _labelContent_LabelContent_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(2873);
 /* harmony import */ var _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(893);
-/* harmony import */ var _potal_Potal_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(9720);
-/* harmony import */ var _profile_Profile_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(3740);
+/* harmony import */ var _noResult_NoResult_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(8517);
+/* harmony import */ var _potal_Potal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(9720);
+/* harmony import */ var _profile_Profile_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(3740);
+/* harmony import */ var _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(4265);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_input__WEBPACK_IMPORTED_MODULE_2__, _modal__WEBPACK_IMPORTED_MODULE_3__, _pheed__WEBPACK_IMPORTED_MODULE_4__, _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__, _header_Header_component__WEBPACK_IMPORTED_MODULE_10__, _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__]);
 ([_input__WEBPACK_IMPORTED_MODULE_2__, _modal__WEBPACK_IMPORTED_MODULE_3__, _pheed__WEBPACK_IMPORTED_MODULE_4__, _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__, _header_Header_component__WEBPACK_IMPORTED_MODULE_10__, _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
+
 
 
 
@@ -1681,7 +1717,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6555);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7652);
 /* harmony import */ var _FormInput_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(422);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
@@ -1840,7 +1876,7 @@ __webpack_require__.d(__webpack_exports__, {
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
 // EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
+var icons = __webpack_require__(7652);
 // EXTERNAL MODULE: external "@emotion/styled/base"
 var base_ = __webpack_require__(777);
 var base_default = /*#__PURE__*/__webpack_require__.n(base_);
@@ -2174,7 +2210,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7640);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7652);
 /* harmony import */ var assets_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(258);
 /* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(1376);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(126);
@@ -2350,29 +2386,32 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6201);
-/* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2677);
-/* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8110);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([react_hot_toast__WEBPACK_IMPORTED_MODULE_1__, _service_index__WEBPACK_IMPORTED_MODULE_2__]);
-([react_hot_toast__WEBPACK_IMPORTED_MODULE_1__, _service_index__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9752);
+/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6201);
+/* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2677);
+/* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8110);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__, react_hot_toast__WEBPACK_IMPORTED_MODULE_2__, _service_index__WEBPACK_IMPORTED_MODULE_3__]);
+([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__, react_hot_toast__WEBPACK_IMPORTED_MODULE_2__, _service_index__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
 
 
 const useTag = () => {
+  const queryClient = (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_1__.useQueryClient)();
   const {
     data: tags
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetCreatePheedTags */ .HE)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetCreatePheedTags */ .HE)();
   const {
     data: customTags
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useGetCustomTags */ .tp)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetCustomTags */ .tp)();
   const {
     mutate: postCustomTagMutate
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .usePostCustomTag */ .$o)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .usePostCustomTag */ .$o)();
   const {
     handleCloseModal
-  } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_3__/* .useModal */ .dd)();
+  } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_4__/* .useModal */ .dd)();
   const {
     0: selectTags,
     1: setSelectTags
@@ -2390,7 +2429,8 @@ const useTag = () => {
       }
     }, {
       onSuccess: () => {
-        react_hot_toast__WEBPACK_IMPORTED_MODULE_1__.toast.success("커스텀 필터가 저장되었습니다.");
+        react_hot_toast__WEBPACK_IMPORTED_MODULE_2__.toast.success("커스텀 필터가 저장되었습니다.");
+        queryClient.invalidateQueries(_service_index__WEBPACK_IMPORTED_MODULE_3__/* .pheedKeys.suggestedPheeds */ .Fd.suggestedPheeds);
         handleCloseModal();
       }
     });
@@ -2556,7 +2596,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7640);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2677);
 /* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8110);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7652);
 /* harmony import */ var _Nav_styled__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(2838);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
@@ -2653,7 +2693,7 @@ const Nav = () => {
         type: "button",
         isclick: (pathname === "/bookmark").toString(),
         onClick: handleCheckLogin("/bookmark"),
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookMarkMonoIcon */ .tf, {}), "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00"]
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookmarkMonoIcon */ ["in"], {}), "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00"]
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavItem */ .LY, {
       children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavMenu */ .Ml, {
@@ -2726,6 +2766,61 @@ const NavMenu = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___d
 
 /***/ }),
 
+/***/ 8517:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ NoResult_component)
+});
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(6689);
+// EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
+var icons = __webpack_require__(7652);
+// EXTERNAL MODULE: external "@emotion/styled/base"
+var base_ = __webpack_require__(777);
+var base_default = /*#__PURE__*/__webpack_require__.n(base_);
+// EXTERNAL MODULE: external "@emotion/react"
+var react_ = __webpack_require__(2805);
+;// CONCATENATED MODULE: ./components/common/noResult/NoResult.styled.ts
+
+
+const Wrapper = /*#__PURE__*/base_default()("div",  true ? {
+  target: "ekwk2qv1"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,react_.css)(theme.flexMixin.flex_column_justifyC_alignC, ";height:calc(var(--vh) * 100 - 72px - 105px - 80px);" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const icon = theme => /*#__PURE__*/(0,react_.css)("width:40px;height:40px;margin-bottom:20px;path{fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const Text = /*#__PURE__*/base_default()("p",  true ? {
+  target: "ekwk2qv0"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_14, ";color:", theme.color.grey_700, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+// EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(5193);
+;// CONCATENATED MODULE: ./components/common/noResult/NoResult.component.tsx
+
+
+
+
+
+
+const NoResult = () => {
+  return (0,jsx_runtime_.jsxs)(Wrapper, {
+    children: [jsx_runtime_.jsx(icons/* InfoIcon */.sz, {
+      css: icon
+    }), jsx_runtime_.jsx(Text, {
+      children: "\uCC3E\uC73C\uC2DC\uB294 \uACB0\uACFC\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4."
+    })]
+  });
+};
+
+/* harmony default export */ const NoResult_component = (NoResult);
+
+/***/ }),
+
 /***/ 4163:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
@@ -2737,13 +2832,17 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5675);
 /* harmony import */ var next_image__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_image__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7640);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8205);
-/* harmony import */ var _ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9718);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5193);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_2__]);
-_components_index__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+/* harmony import */ var react_cropper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(51);
+/* harmony import */ var react_cropper__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_cropper__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var cropperjs_dist_cropper_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6323);
+/* harmony import */ var cropperjs_dist_cropper_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(cropperjs_dist_cropper_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7640);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7652);
+/* harmony import */ var _ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(9718);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_4__]);
+_components_index__WEBPACK_IMPORTED_MODULE_4__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -2758,21 +2857,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
 const ImgUpload = ({
   className,
   type,
+  alt,
   isError,
-  defaultImage,
+  defaultImg,
   register,
+  dropdownSelectValue,
+  cropperRef,
+  handleImgCrop,
   handleChangeRatio,
-  handleDeleteImgFile
+  deleteImgFile
 }) => {
   const {
     0: previewImg,
     1: setPreviewImg
   } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
 
-  const handleChangeImg = event => {
+  const makePreviewImg = event => {
     const file = event.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
@@ -2781,67 +2887,89 @@ const ImgUpload = ({
     reader.onloadend = () => setPreviewImg(reader.result);
   };
 
-  const handleClickDeleteImgFile = () => {
-    handleDeleteImgFile();
+  const handleClickDeleteImageFile = () => {
+    deleteImgFile();
     setPreviewImg(null);
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (!defaultImage) return;
-    setPreviewImg(defaultImage);
-  }, [defaultImage]);
-  return previewImg ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .PreviewImgWrapper */ .$K, {
+    if (!defaultImg) return;
+    setPreviewImg(defaultImg);
+  }, [defaultImg]);
+  return previewImg ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .PreviewImgWrapper */ .$K, {
     className: className,
-    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx((next_image__WEBPACK_IMPORTED_MODULE_1___default()), {
-      src: previewImg,
-      alt: "\uC5C5\uB85C\uB4DC \uC774\uBBF8\uC9C0 \uBBF8\uB9AC\uBCF4\uAE30",
+    children: type === "create" ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx((react_cropper__WEBPACK_IMPORTED_MODULE_2___default()), {
+        ref: cropperRef,
+        style: {
+          width: "100%",
+          height: "100%"
+        },
+        src: previewImg,
+        alt: alt ?? "이미지 미리보기",
+        viewMode: 1,
+        background: false,
+        responsive: true,
+        autoCropArea: 1,
+        aspectRatio: 1 / 1,
+        movable: false,
+        guides: false,
+        cropBoxResizable: false,
+        crop: handleImgCrop
+      }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .PreviewBtnWrapper */ .VA, {
+        children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .EditBtnWrapper */ .hp, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx("label", {
+            htmlFor: "imgUpload",
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_5__/* .PencilIcon */ .vd, {})
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx("button", {
+            type: "button",
+            onClick: handleClickDeleteImageFile,
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_5__/* .TrashIcon */ .XH, {})
+          })]
+        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_4__/* .DropdownBtn */ .od, {
+          css: _ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .dropdown */ .j6,
+          btnRender: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_5__/* .RatioIcon */ .$1, {}),
+          dropdownItems: [{
+            label: "정방형",
+            value: "1:1",
+            handler: handleChangeRatio && handleChangeRatio("1:1")
+          }, {
+            label: "가로형 (3:4)",
+            value: "3:4",
+            handler: handleChangeRatio && handleChangeRatio("3:4")
+          }, {
+            label: "세로형 (4:3)",
+            value: "4:3",
+            handler: handleChangeRatio && handleChangeRatio("4:3")
+          }],
+          selectValue: dropdownSelectValue
+        })]
+      })]
+    }) : defaultImg && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx((next_image__WEBPACK_IMPORTED_MODULE_1___default()), {
+      src: defaultImg,
+      alt: alt ?? "이미지 미리보기",
       fill: true,
       style: {
         objectFit: "contain"
       }
-    }), type === "create" && (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .PreviewBtnWrapper */ .VA, {
-      children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .EditBtnWrapper */ .hp, {
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("label", {
-          htmlFor: "imgUpload",
-          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .PencilIcon */ .vd, {})
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("button", {
-          type: "button",
-          onClick: handleClickDeleteImgFile,
-          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .TrashIcon */ .XH, {})
-        })]
-      }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .RatioBtnWrapper */ .Xf, {
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .RatioBtn */ .aI, {
-          type: "button",
-          onClick: handleChangeRatio("1:1"),
-          children: "1:1"
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .RatioBtn */ .aI, {
-          type: "button",
-          onClick: handleChangeRatio("3:4"),
-          children: "3:4"
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .RatioBtn */ .aI, {
-          type: "button",
-          onClick: handleChangeRatio("4:3"),
-          children: "4:3"
-        })]
-      })]
-    })]
-  }) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .ErrorWrapper */ .Vx, {
+    })
+  }) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_4__/* .ErrorWrapper */ .Vx, {
     isError: isError,
     errorMessage: "\uC0AC\uC9C4\uC744 \uC5C5\uB85C\uB4DC\uD574 \uC8FC\uC138\uC694.",
-    children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .ImgUpload */ .rd, {
+    children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .ImgUpload */ .rd, {
       className: className,
       htmlFor: "imgUpload",
       isError: isError,
-      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_4__/* .UploadInput */ .jM, _objectSpread({
+      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_ImgUpload_styled__WEBPACK_IMPORTED_MODULE_6__/* .UploadInput */ .jM, _objectSpread({
         id: "imgUpload",
         type: "file",
         accept: ".jpg, .jpeg, .png"
       }, register("file", {
         required: true,
-        onChange: handleChangeImg
-      }))), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .UploadIcon */ .rG, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("span", {
+        onChange: makePreviewImg
+      }))), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_5__/* .UploadIcon */ .rG, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx("span", {
         children: "\uC0AC\uC9C4 \uC5C5\uB85C\uB4DC"
-      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx("span", {
+      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx("span", {
         children: "\uC74C\uC2DD \uC0AC\uC9C4 \uC678 \uB2E4\uB978 \uC0AC\uC9C4 \uC5C5\uB85C\uB4DC \uC2DC \uAD00\uB9AC\uC790\uC5D0 \uC758\uD574 \uC0AD\uC81C \uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
       })]
     })
@@ -2860,9 +2988,8 @@ __webpack_async_result__();
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$K": () => (/* binding */ PreviewImgWrapper),
 /* harmony export */   "VA": () => (/* binding */ PreviewBtnWrapper),
-/* harmony export */   "Xf": () => (/* binding */ RatioBtnWrapper),
-/* harmony export */   "aI": () => (/* binding */ RatioBtn),
 /* harmony export */   "hp": () => (/* binding */ EditBtnWrapper),
+/* harmony export */   "j6": () => (/* binding */ dropdown),
 /* harmony export */   "jM": () => (/* binding */ UploadInput),
 /* harmony export */   "rd": () => (/* binding */ ImgUpload)
 /* harmony export */ });
@@ -2877,48 +3004,38 @@ function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringif
 
 
 const ImgUpload = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("label",  true ? {
-  target: "ecl400o7"
+  target: "ecl400o5"
 } : 0)(({
   theme,
   isError
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.flexMixin.flex_justifyC_alignC, ";flex-flow:column;width:100%;height:268px;border:1px dashed ", isError ? theme.color.red_200 : theme.color.grey_400, ";border-radius:10px;background-color:", theme.color.grey_100, ";cursor:pointer;&>svg{width:52px;height:48px;margin-bottom:20px;fill:", theme.color.grey_400, ";}&>span:first-of-type{", theme.font.bold_20, ";color:", theme.color.grey_500, ";}&>span:last-of-type{", theme.font.regular_14, ";width:294px;text-align:center;color:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const UploadInput = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("input",  true ? {
-  target: "ecl400o6"
+  target: "ecl400o4"
 } : 0)( true ? {
   name: "eivff4",
   styles: "display:none"
 } : 0);
 const PreviewImgWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "ecl400o5"
+  target: "ecl400o3"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:relative;display:flex;justify-content:center;width:100%;height:268px;border:1px dashed ", theme.color.grey_400, ";border-radius:10px;background-color:", theme.color.grey_100, ";overflow:hidden;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const PreviewBtnWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "ecl400o4"
+  target: "ecl400o2"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:absolute;bottom:0;display:flex;justify-content:space-between;align-items:center;width:100%;height:88px;padding:0 24px;border-radius:0 0 10px 10px;background-color:", theme.color.grey_900_60, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const EditBtnWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "ecl400o3"
+  target: "ecl400o1"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;column-gap:15px;&>button{width:40px;height:40px;}&>label{", theme.flexMixin.flex_justifyC_alignC, " width:40px;height:40px;:hover{cursor:pointer;}}svg{width:24px;height:24px;fill:", theme.color.white, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const AddBtn = /*#__PURE__*/(/* unused pure expression or super */ null && (_styled("label",  true ? {
-  target: "ecl400o2"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/css(theme.flexMixin.flex_justifyC_alignC, " ", theme.font.medium_15, ";width:40px;height:40px;color:", theme.color.white, ";:hover{cursor:pointer;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0))));
-const RatioBtnWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "ecl400o1"
-} : 0)( true ? {
-  name: "1p0ea8n",
-  styles: "display:flex;column-gap:15px"
-} : 0);
-const RatioBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
   target: "ecl400o0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:40px;height:40px;color:", theme.color.white, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/css(theme.flexMixin.flex_justifyC_alignC, " ", theme.font.medium_15, ";width:40px;height:40px;color:", theme.color.white, ";:hover{cursor:pointer;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0))));
+const dropdown = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:36px;height:36px;background-color:transparent;&>svg{width:20px;height:20px;}&>svg>path{fill:", theme.color.white, ";}@media (min-width: ", theme.breakPoint.minTablet, "){width:40px;height:40px;&>svg{width:24px;height:24px;}&>ul{top:-140px;right:-20px;width:158px;}}" + ( true ? "" : 0),  true ? "" : 0);
 
 /***/ }),
 
@@ -2932,11 +3049,11 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "zQ": () => (/* reexport safe */ _pheedHeader_PheedHeader_component__WEBPACK_IMPORTED_MODULE_1__.Z)
 /* harmony export */ });
 /* harmony import */ var _pheedfilter_PheedFilter_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6804);
-/* harmony import */ var _pheedHeader_PheedHeader_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6478);
+/* harmony import */ var _pheedHeader_PheedHeader_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(441);
 /* harmony import */ var _imgUpload_ImgUpload_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4163);
 /* harmony import */ var _pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5489);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_pheedfilter_PheedFilter_component__WEBPACK_IMPORTED_MODULE_0__, _imgUpload_ImgUpload_component__WEBPACK_IMPORTED_MODULE_2__, _pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_3__]);
-([_pheedfilter_PheedFilter_component__WEBPACK_IMPORTED_MODULE_0__, _imgUpload_ImgUpload_component__WEBPACK_IMPORTED_MODULE_2__, _pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_pheedfilter_PheedFilter_component__WEBPACK_IMPORTED_MODULE_0__, _pheedHeader_PheedHeader_component__WEBPACK_IMPORTED_MODULE_1__, _imgUpload_ImgUpload_component__WEBPACK_IMPORTED_MODULE_2__, _pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_3__]);
+([_pheedfilter_PheedFilter_component__WEBPACK_IMPORTED_MODULE_0__, _pheedHeader_PheedHeader_component__WEBPACK_IMPORTED_MODULE_1__, _imgUpload_ImgUpload_component__WEBPACK_IMPORTED_MODULE_2__, _pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -2965,7 +3082,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2677);
 /* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8110);
 /* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(1376);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7652);
 /* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(9903);
 /* harmony import */ var _PheedDetail_styled__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(2366);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(5193);
@@ -3001,7 +3118,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 const PheedDetail = () => {
   const {
-    replace,
     push,
     asPath,
     query
@@ -3033,7 +3149,7 @@ const PheedDetail = () => {
     handleDeletePheedReply
   } = (0,_hooks__WEBPACK_IMPORTED_MODULE_9__/* .usePheedReply */ .v)(refetch);
   const {
-    handleClickBookMark
+    handleClickBookmark
   } = (0,_hooks__WEBPACK_IMPORTED_MODULE_9__/* .useBookMark */ .t)(data, refetch);
 
   const handleCloseDetailModal = () => {
@@ -3042,11 +3158,19 @@ const PheedDetail = () => {
     } = query,
           updateQuery = _objectWithoutProperties(query, _excluded);
 
-    replace({
+    push({
       query: updateQuery
     }, undefined, {
       scroll: false
     });
+  };
+
+  const handleBookmark = () => {
+    if (!profile) {
+      handleOpenModal(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_5__/* .LoginLinkModal */ .r, {}))();
+    } else {
+      handleClickBookmark();
+    }
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -3064,8 +3188,8 @@ const PheedDetail = () => {
       }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_PheedDetail_styled__WEBPACK_IMPORTED_MODULE_10__/* .BtnWrapper */ .Bo, {
         children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx("button", {
           type: "button",
-          onClick: handleClickBookMark,
-          children: data.is_bookmark ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookMarkMonoIcon */ .tf, {}) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookMarkIcon */ .K, {})
+          onClick: handleBookmark,
+          children: data.is_bookmark ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookmarkMonoIcon */ ["in"], {}) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookmarkIcon */ .pl, {})
         }), profile?.id === data.author.id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_5__/* .DropdownBtn */ .od, {
           btnRender: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .MoreIcon */ .nX, {}),
           dropdownItems: [{
@@ -3317,7 +3441,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([reac
 
 
 
-const useBookMark = (data, refetchPheedDetail) => {
+const useBookmark = (data, refetchPheedDetail) => {
   const {
     query: {
       id
@@ -3330,7 +3454,7 @@ const useBookMark = (data, refetchPheedDetail) => {
     mutate: deleteBookmarkMutate
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_2__/* .useDeleteBookmark */ .Mt)();
 
-  const handleClickBookMark = () => {
+  const handleClickBookmark = () => {
     const body = {
       id: id
     };
@@ -3357,11 +3481,11 @@ const useBookMark = (data, refetchPheedDetail) => {
   };
 
   return {
-    handleClickBookMark
+    handleClickBookmark
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useBookMark);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (useBookmark);
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
 
@@ -3518,60 +3642,24 @@ __webpack_async_result__();
 
 /***/ }),
 
-/***/ 6478:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 441:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "Z": () => (/* binding */ PheedHeader_component)
-});
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__(6689);
-// EXTERNAL MODULE: ./node_modules/next/link.js
-var next_link = __webpack_require__(1664);
-var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
-// EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
-// EXTERNAL MODULE: external "@emotion/styled/base"
-var base_ = __webpack_require__(777);
-var base_default = /*#__PURE__*/__webpack_require__.n(base_);
-// EXTERNAL MODULE: external "@emotion/react"
-var react_ = __webpack_require__(2805);
-;// CONCATENATED MODULE: ./components/common/pheed/pheedHeader/PheedHeader.styled.ts
-
-
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-
-const Header = /*#__PURE__*/base_default()("header",  true ? {
-  target: "e18dpg9b3"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)("position:sticky;top:0;min-width:390px;height:", theme.constantCss.navHeight, ";border-bottom:1px solid ", theme.color.grey_200, ";background-color:", theme.color.white, ";@media (min-width: ", theme.breakPoint.minDesktop, "){position:relative;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const ContentWrapper = /*#__PURE__*/base_default()("div",  true ? {
-  target: "e18dpg9b2"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)(theme.flexMixin.flex_justifySb_alignC, ";max-width:1080px;height:100%;margin:0 auto;padding:0 16px;&>div{", theme.flexMixin.flex_alignC, ";}@media (min-width: ", theme.breakPoint.minDesktop, "){padding:0;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const PheedHeader_styled_link =  true ? {
-  name: "a6zg8x",
-  styles: "width:24px;height:24px;margin-right:8px"
-} : 0;
-const Heading = /*#__PURE__*/base_default()("h2",  true ? {
-  target: "e18dpg9b1"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)("display:none;@media (min-width: ", theme.breakPoint.minTablet, "){display:block;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const CreateBtn = /*#__PURE__*/base_default()("button",  true ? {
-  target: "e18dpg9b0"
-} : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)(theme.flexMixin.flex_justifyC_alignC, ";", theme.font.bold_16, ";width:62px;height:36px;color:", theme.color.blue_300, ";:disabled{opacity:0.3;}@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.semiBold_15, ";width:79px;height:40px;border-radius:100px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-// EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
-var jsx_runtime_ = __webpack_require__(5193);
-;// CONCATENATED MODULE: ./components/common/pheed/pheedHeader/PheedHeader.component.tsx
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1664);
+/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7640);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7652);
+/* harmony import */ var _PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(3353);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_2__]);
+_components_index__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
 
 
@@ -3579,32 +3667,82 @@ var jsx_runtime_ = __webpack_require__(5193);
 
 
 
-const PheedHeader_component_Header = ({
+
+const Header = ({
   type,
   isError,
+  isLoading,
   handleSubmit
 }) => {
-  return jsx_runtime_.jsx(Header, {
-    children: (0,jsx_runtime_.jsxs)(ContentWrapper, {
-      children: [(0,jsx_runtime_.jsxs)("div", {
-        children: [jsx_runtime_.jsx((link_default()), {
-          css: PheedHeader_styled_link,
+  return _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__/* .Header */ .h4, {
+    children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__/* .ContentWrapper */ .vs, {
+      children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
+          css: _PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__/* .link */ .p4,
           href: "/",
-          children: jsx_runtime_.jsx(icons/* ArrowLineIcon */.gg, {})
-        }), jsx_runtime_.jsx(Heading, {
+          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_3__/* .ArrowLineIcon */ .gg, {})
+        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__/* .Heading */ .X6, {
           children: type === "create" ? "새 글 올리기" : "글 수정하기"
         })]
-      }), jsx_runtime_.jsx(CreateBtn, {
-        disabled: isError,
+      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedHeader_styled__WEBPACK_IMPORTED_MODULE_4__/* .CreateBtn */ .qF, {
+        disabled: isError || isLoading,
         type: "button",
         onClick: handleSubmit,
-        children: type === "create" ? "올리기" : "수정하기"
+        children: isLoading ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Spinner */ .$j, {}) : type === "create" ? "올리기" : "수정하기"
       })]
     })
   });
 };
 
-/* harmony default export */ const PheedHeader_component = (PheedHeader_component_Header);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Header);
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
+
+/***/ }),
+
+/***/ 3353:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "X6": () => (/* binding */ Heading),
+/* harmony export */   "h4": () => (/* binding */ Header),
+/* harmony export */   "p4": () => (/* binding */ link),
+/* harmony export */   "qF": () => (/* binding */ CreateBtn),
+/* harmony export */   "vs": () => (/* binding */ ContentWrapper)
+/* harmony export */ });
+/* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
+/* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2805);
+/* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+
+const Header = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("header",  true ? {
+  target: "e18dpg9b3"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:sticky;top:0;min-width:390px;height:", theme.constantCss.navHeight, ";margin-bottom:28px;border-bottom:1px solid ", theme.color.grey_200, ";padding:0 20px;background-color:", theme.color.white, ";z-index:", theme.zIndex.header, ";@media (min-width: ", theme.breakPoint.minDesktop, "){position:relative;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const ContentWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "e18dpg9b2"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.flexMixin.flex_justifySb_alignC, ";max-width:1080px;height:100%;margin:0 auto;&>div{", theme.flexMixin.flex_alignC, ";}@media (min-width: ", theme.breakPoint.minDesktop, "){padding:0;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const link =  true ? {
+  name: "a6zg8x",
+  styles: "width:24px;height:24px;margin-right:8px"
+} : 0;
+const Heading = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("h2",  true ? {
+  target: "e18dpg9b1"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:none;@media (min-width: ", theme.breakPoint.minTablet, "){display:block;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const CreateBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
+  target: "e18dpg9b0"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.flexMixin.flex_justifyC_alignC, ";", theme.font.bold_16, ";width:62px;height:36px;color:", theme.color.blue_300, ";:disabled{opacity:0.3;}@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.semiBold_15, ";width:79px;height:40px;border-radius:100px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -3845,7 +3983,7 @@ const ContentWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODUL
   target: "e1l3eh4i2"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;height:calc(100vh - 100px);@media (min-width: ", theme.breakPoint.minTablet, "){overflow-y:scroll;::-webkit-scrollbar{display:none;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;margin-bottom:120px;@media (min-width: ", theme.breakPoint.minDesktop, "){height:calc(var(--vh) * 100 + 100px);overflow-y:scroll;::-webkit-scrollbar{display:none;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const margin = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:32px;@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;}" + ( true ? "" : 0),  true ? "" : 0);
 const textArea = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("@media (min-width: ", theme.breakPoint.minTablet, "){height:300px;}" + ( true ? "" : 0),  true ? "" : 0);
 const FilterWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
@@ -3899,7 +4037,7 @@ var external_react_ = __webpack_require__(6689);
 var next_image = __webpack_require__(5675);
 var image_default = /*#__PURE__*/__webpack_require__.n(next_image);
 // EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
+var icons = __webpack_require__(7652);
 // EXTERNAL MODULE: external "@emotion/styled/base"
 var base_ = __webpack_require__(777);
 var base_default = /*#__PURE__*/__webpack_require__.n(base_);
@@ -3941,6 +4079,32 @@ const Profile = ({
 };
 
 /* harmony default export */ const Profile_component = (Profile);
+
+/***/ }),
+
+/***/ 4265:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3278);
+/* harmony import */ var react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const Spinner = () => {
+  return _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx((react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_1___default()), {
+    color: "#ffffff"
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Spinner);
 
 /***/ }),
 
@@ -4084,12 +4248,12 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7640);
-/* harmony import */ var _CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5524);
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6207);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6207);
+/* harmony import */ var _CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5524);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_3__]);
-([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_2__]);
+([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -4100,27 +4264,33 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_com
 
 const CreatePheedContainer = () => {
   const {
+    cropperRef,
+    isPostPheedLoading,
     register,
     watch,
     errors,
     handleSubmit,
-    handleChangeRatio,
-    handleDeleteImgFile
-  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_3__/* .useCreatePheedForm */ .r)();
+    deleteImgFile,
+    handleImgCrop,
+    handleChangeRatio
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__/* .useCreatePheedForm */ .r)();
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedHeader */ .zQ, {
       type: "create",
       isError: !!Object.keys(errors).length,
+      isLoading: isPostPheedLoading,
       handleSubmit: handleSubmit
-    }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedLayout */ .Mi, {
-      css: _CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_2__/* .layout */ .bK,
+    }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .Wrapper */ .i, {
       children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ImgUpload */ .rd, {
-        css: _CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_2__/* .imgUpload */ .cM,
+        css: _CreatePheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .imgUpload */ .c,
         type: "create",
         isError: !!errors.file,
         register: register,
-        handleChangeRatio: handleChangeRatio,
-        handleDeleteImgFile: handleDeleteImgFile
+        dropdownSelectValue: watch("ratio"),
+        cropperRef: cropperRef,
+        deleteImgFile: deleteImgFile,
+        handleImgCrop: handleImgCrop,
+        handleChangeRatio: handleChangeRatio
       }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedFilter */ .FU, {
         register: register,
         watch: watch,
@@ -4140,27 +4310,21 @@ __webpack_async_result__();
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "bK": () => (/* binding */ layout),
-/* harmony export */   "cM": () => (/* binding */ imgUpload)
+/* harmony export */   "c": () => (/* binding */ imgUpload),
+/* harmony export */   "i": () => (/* binding */ Wrapper)
 /* harmony export */ });
-/* unused harmony export Canvas */
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2805);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_react__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-
-const layout = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;flex-flow:column;row-gap:32px;@media (min-width: ", theme.breakPoint.minTablet, "){flex-flow:row;column-gap:40px;}" + ( true ? "" : 0),  true ? "" : 0);
-const imgUpload = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;height:390px;}" + ( true ? "" : 0),  true ? "" : 0);
-const Canvas = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("canvas",  true ? {
+const Wrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "euj8qjy0"
-} : 0)( true ? {
-  name: "1f9qe0",
-  styles: "width:100px;height:100px"
-} : 0);
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:fit-content;margin:0 auto;padding:0 20px;@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;column-gap:40px;width:100%;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const imgUpload = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:40px;@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;height:390px;}@media (min-width: ", theme.breakPoint.minDesktop, "){margin-bottom:0px;}" + ( true ? "" : 0),  true ? "" : 0);
 
 /***/ }),
 
@@ -4187,13 +4351,16 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1853);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5641);
-/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(6201);
-/* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2677);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([react_hook_form__WEBPACK_IMPORTED_MODULE_1__, react_hot_toast__WEBPACK_IMPORTED_MODULE_2__, _service_index__WEBPACK_IMPORTED_MODULE_3__]);
-([react_hook_form__WEBPACK_IMPORTED_MODULE_1__, react_hot_toast__WEBPACK_IMPORTED_MODULE_2__, _service_index__WEBPACK_IMPORTED_MODULE_3__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1853);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5641);
+/* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6201);
+/* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(2677);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([react_hook_form__WEBPACK_IMPORTED_MODULE_2__, react_hot_toast__WEBPACK_IMPORTED_MODULE_3__, _service_index__WEBPACK_IMPORTED_MODULE_4__]);
+([react_hook_form__WEBPACK_IMPORTED_MODULE_2__, react_hot_toast__WEBPACK_IMPORTED_MODULE_3__, _service_index__WEBPACK_IMPORTED_MODULE_4__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -4202,7 +4369,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([reac
 const useCreatePheedForm = () => {
   const {
     push
-  } = (0,next_router__WEBPACK_IMPORTED_MODULE_0__.useRouter)();
+  } = (0,next_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
   const {
     register,
     setValue,
@@ -4211,10 +4378,11 @@ const useCreatePheedForm = () => {
       errors
     },
     handleSubmit
-  } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_1__.useForm)({
+  } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_2__.useForm)({
     mode: "all",
     defaultValues: {
       file: null,
+      uploadImgFile: null,
       ratio: "1:1",
       title: "",
       content: "",
@@ -4225,45 +4393,65 @@ const useCreatePheedForm = () => {
     }
   });
   const {
-    mutate: postPheedMutate
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .usePostPheed */ .LN)();
+    mutate: postPheedMutate,
+    isLoading: isPostPheedLoading
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_4__/* .usePostPheed */ .LN)();
+  const cropperRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  const handleImgCrop = () => {
+    const cropper = cropperRef.current?.cropper.getCroppedCanvas();
+    cropper?.toBlob(blob => {
+      if (!blob) return;
+      const file = new File([blob], "croppedImg.png", {
+        type: "image/png"
+      });
+      setValue("uploadImgFile", file);
+    });
+  };
 
   const handleChangeRatio = ratio => () => {
+    const aspectRatios = {
+      "1:1": 1 / 1,
+      "3:4": 3 / 4,
+      "4:3": 4 / 3
+    };
+    cropperRef.current?.cropper.setAspectRatio(aspectRatios[ratio]);
     setValue("ratio", ratio);
   };
 
-  const handleDeleteImgFile = () => {
-    setValue("file", null);
-  };
+  const deleteImgFile = () => setValue("file", null);
 
   const createPheed = data => {
     const formData = new FormData();
-    if (!data.what || !data.when || !data.who || !data.file) return;
-    formData.append("image", data.file[0]);
+    if (!data.what || !data.when || !data.who || !data.file || !data.uploadImgFile) return;
+    formData.append("image", data.uploadImgFile);
     formData.append("payload", JSON.stringify({
       title: data.title,
       content: data.content,
-      ratio: "1:1",
+      ratio: data.ratio,
       tag_options: [+data.what, +data.when, +data.who, ...data.etc.map(item => +item)]
     }));
     postPheedMutate(formData, {
       onSuccess: () => {
-        react_hot_toast__WEBPACK_IMPORTED_MODULE_2__.toast.success("피드가 생성되었습니다.");
+        react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.toast.success("피드가 생성되었습니다.");
         push("/");
       },
       onError: () => {
-        react_hot_toast__WEBPACK_IMPORTED_MODULE_2__.toast.error("피드 생성을 실패했습니다. 다시 시도해 주세요.");
+        react_hot_toast__WEBPACK_IMPORTED_MODULE_3__.toast.error("피드 생성을 실패했습니다. 다시 시도해 주세요.");
       }
     });
   };
 
   return {
+    cropperRef,
+    isPostPheedLoading,
     register,
     watch,
     errors,
     handleSubmit: handleSubmit(createPheed),
-    handleChangeRatio,
-    handleDeleteImgFile
+    deleteImgFile,
+    handleImgCrop,
+    handleChangeRatio
   };
 };
 
@@ -4299,12 +4487,12 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(7640);
-/* harmony import */ var _hooks_useEditPheedForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2380);
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4001);
 /* harmony import */ var _EditPheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(4235);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks_useEditPheedForm__WEBPACK_IMPORTED_MODULE_2__]);
-([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks_useEditPheedForm__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_2__]);
+([_components_index__WEBPACK_IMPORTED_MODULE_1__, _hooks__WEBPACK_IMPORTED_MODULE_2__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
 
@@ -4315,28 +4503,28 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_com
 
 const EditPheedContainer = () => {
   const {
+    isEditPheedLoading,
     register,
     watch,
     errors,
     handleSubmit,
-    handleChangeRatio,
-    handleDeleteImgFile
-  } = (0,_hooks_useEditPheedForm__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z)();
+    deleteImgFile
+  } = (0,_hooks__WEBPACK_IMPORTED_MODULE_2__/* .useEditPheedForm */ .X)();
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
     children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedHeader */ .zQ, {
       type: "edit",
       isError: !!Object.keys(errors).length,
+      isLoading: isEditPheedLoading,
       handleSubmit: handleSubmit
-    }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedLayout */ .Mi, {
-      css: _EditPheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .layout */ .bK,
+    }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(_EditPheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .Wrapper */ .i, {
       children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ImgUpload */ .rd, {
-        css: _EditPheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .imgUpload */ .cM,
+        css: _EditPheedContainer_styled__WEBPACK_IMPORTED_MODULE_3__/* .imgUpload */ .c,
         type: "edit",
+        alt: watch("title"),
         isError: !!errors.file,
-        defaultImage: watch("defaultImage"),
+        defaultImg: watch("defaultImg"),
         register: register,
-        handleChangeRatio: handleChangeRatio,
-        handleDeleteImgFile: handleDeleteImgFile
+        deleteImgFile: deleteImgFile
       }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .PheedFilter */ .FU, {
         register: register,
         watch: watch,
@@ -4356,27 +4544,37 @@ __webpack_async_result__();
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "bK": () => (/* binding */ layout),
-/* harmony export */   "cM": () => (/* binding */ imgUpload)
+/* harmony export */   "c": () => (/* binding */ imgUpload),
+/* harmony export */   "i": () => (/* binding */ Wrapper)
 /* harmony export */ });
-/* unused harmony export Canvas */
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2805);
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_react__WEBPACK_IMPORTED_MODULE_1__);
 
 
-function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-
-const layout = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("@media (min-width: ", theme.breakPoint.minTablet, "){display:flex;column-gap:40px;}" + ( true ? "" : 0),  true ? "" : 0);
-const imgUpload = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:32px;@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;height:390px;}" + ( true ? "" : 0),  true ? "" : 0);
-const Canvas = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("canvas",  true ? {
+const Wrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "exa63t20"
-} : 0)( true ? {
-  name: "1f9qe0",
-  styles: "width:100px;height:100px"
-} : 0);
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:fit-content;margin:0 auto;padding:0 20px;@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;column-gap:40px;width:100%;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const imgUpload = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:40px;@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;height:390px;}@media (min-width: ", theme.breakPoint.minDesktop, "){margin-bottom:0px;}" + ( true ? "" : 0),  true ? "" : 0);
+
+/***/ }),
+
+/***/ 4001:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "X": () => (/* reexport safe */ _useEditPheedForm__WEBPACK_IMPORTED_MODULE_0__.Z)
+/* harmony export */ });
+/* harmony import */ var _useEditPheedForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2380);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_useEditPheedForm__WEBPACK_IMPORTED_MODULE_0__]);
+_useEditPheedForm__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
 
 /***/ }),
 
@@ -4422,7 +4620,7 @@ const useEditPheedForm = () => {
   } = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_2__.useForm)({
     defaultValues: {
       file: null,
-      defaultImage: "",
+      defaultImg: "",
       ratio: "1:1",
       title: "",
       content: "",
@@ -4438,16 +4636,11 @@ const useEditPheedForm = () => {
     id: pheedId
   });
   const {
-    mutate: patchPheedMutate
+    mutate: patchPheedMutate,
+    isLoading: isEditPheedLoading
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_4__/* .useEditPheed */ .AH)();
 
-  const handleChangeRatio = ratio => () => {
-    setValue("ratio", ratio);
-  };
-
-  const handleDeleteImgFile = () => {
-    setValue("file", null);
-  };
+  const deleteImgFile = () => setValue("file", null);
 
   const editPheed = data => {
     const formData = new FormData();
@@ -4472,7 +4665,7 @@ const useEditPheedForm = () => {
     if (!pheedData) return;
     reset({
       file: null,
-      defaultImage: pheedData.image.image,
+      defaultImg: pheedData.image.image,
       ratio: pheedData.image.ratio,
       title: pheedData.title,
       content: pheedData.content,
@@ -4483,12 +4676,12 @@ const useEditPheedForm = () => {
     });
   }, [pheedData]);
   return {
+    isEditPheedLoading,
     register,
     watch,
     errors,
     handleSubmit: handleSubmit(editPheed),
-    handleChangeRatio,
-    handleDeleteImgFile
+    deleteImgFile
   };
 };
 
@@ -4529,7 +4722,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6201);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7640);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2677);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7652);
 /* harmony import */ var utils_validate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(1073);
 /* harmony import */ var _FindPasswordContainer_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5784);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5193);
@@ -4793,10 +4986,11 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7640);
 /* harmony import */ var _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5489);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2677);
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1376);
-/* harmony import */ var _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7587);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5193);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8110);
+/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(1376);
+/* harmony import */ var _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(7587);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_3__, _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__, _service_index__WEBPACK_IMPORTED_MODULE_5__]);
 ([_components_index__WEBPACK_IMPORTED_MODULE_3__, _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__, _service_index__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -4804,6 +4998,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -4833,36 +5029,60 @@ const HomeContainer = () => {
       tag_options: filter
     })
   });
+  const {
+    isMobile
+  } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_6__/* .useViewport */ .Sj)();
+  const isSearch = filter || pheedSearch;
+  const columnsCountBreakPoints = {
+    555: 2,
+    900: 3,
+    1200: 4
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    (0,utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI)();
-    window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
-    return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
+    (0,utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI)();
+    window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
+    return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
   }, []);
-  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .Main */ .or, {
+  if (!pheeds) return null;
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .Main */ .or, {
     isClickPheed: !!id,
-    children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .PheedWrapper */ .Om, {
+    children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PheedWrapper */ .Om, {
       isClickPheed: !!id,
-      children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .PaddingWrapper */ .Z3, {
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .SuggestedMenu */ .bE, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
-          css: _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .heading */ .nP,
-          heading: "\uC2E4\uC2DC\uAC04 \uD53C\uB4DC"
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), pheeds?.length ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
-          columnsCountBreakPoints: {
-            555: 2,
-            900: 3,
-            1200: 4
-          },
-          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
-            gutter: "16px",
-            children: pheeds.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
-              src: pheed.image.image,
-              id: pheed.id,
-              title: pheed.title
-            }, pheed.id))
-          })
-        }) : null]
-      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Footer */ .$_, {})]
-    }), id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {})]
+      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PaddingWrapper */ .Z3, {
+        children: isSearch && pheeds.length === 0 ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .NoResult */ .xM, {}) : isSearch && pheeds.length !== 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
+            css: _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .heading */ .nP,
+            heading: "\uAC80\uC0C9\uACB0\uACFC",
+            count: pheeds.length
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
+            columnsCountBreakPoints: columnsCountBreakPoints,
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
+              gutter: "16px",
+              children: pheeds.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+                src: pheed.image.image,
+                id: pheed.id,
+                title: pheed.title
+              }, pheed.id))
+            })
+          })]
+        }) : (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .SuggestedMenu */ .bE, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
+            css: _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .heading */ .nP,
+            heading: "\uC2E4\uC2DC\uAC04 \uD53C\uB4DC"
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
+            columnsCountBreakPoints: columnsCountBreakPoints,
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
+              gutter: "16px",
+              children: pheeds.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+                src: pheed.image.image,
+                id: pheed.id,
+                title: pheed.title
+              }, pheed.id))
+            })
+          })]
+        })
+      }), (!isMobile || pheeds?.length !== 0) && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Footer */ .$_, {})]
+    }), id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {})]
   });
 };
 
@@ -4892,7 +5112,7 @@ const Main = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___defa
 } : 0)(({
   theme,
   isClickPheed
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:relative;width:100%;height:calc(var(--vh) * 100 - 72px);overflow-y:auto;@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;overflow-y:", isClickPheed && "visible", ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:relative;width:100%;height:calc(var(--vh) * 100 - 72px);overflow-y:auto;::-webkit-scrollbar{display:none;}@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;overflow-y:", isClickPheed && "visible", ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const PheedWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "effcplq1"
 } : 0)(({
@@ -4903,7 +5123,7 @@ const PaddingWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODUL
   target: "effcplq0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("padding:20px;min-height:calc(100vh - 197px);@media (min-width: ", theme.breakPoint.minTablet, "){padding:40px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("padding:20px;min-height:calc(var(--vh) * 100 - 197px);@media (min-width: ", theme.breakPoint.minTablet, "){padding:40px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const heading = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:12px;@media (min-width: ", theme.breakPoint.minTablet, "){margin-bottom:16px;}" + ( true ? "" : 0),  true ? "" : 0);
 
 /***/ }),
@@ -4981,7 +5201,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var react_hot_toast__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6201);
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9915);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2677);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7652);
 /* harmony import */ var _signUp_SignUp_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6827);
 /* harmony import */ var _signIn_SignIn_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(4801);
 /* harmony import */ var _signInBtn_SignInBtn_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(964);
@@ -5566,7 +5786,7 @@ const LoginBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___
   target: "e1mlmca52"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_16, ";width:100%;height:52px;margin-bottom:40px;border-radius:5px;color:", theme.color.white, ";background-color:", theme.color.blue_200, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_16, ";width:100%;height:52px;margin-bottom:40px;border-radius:5px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const PasswordHint = /*#__PURE__*/(/* unused pure expression or super */ null && (_styled("span",  true ? {
   target: "e1mlmca51"
 } : 0)(({
@@ -5609,7 +5829,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7640);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2677);
 /* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(8110);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7652);
 /* harmony import */ var _SuggestedMenu_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(3471);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
@@ -5633,12 +5853,8 @@ const SuggestedMenu = () => {
     data: customTags
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetCustomTags */ .tp)(!!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
   const {
-    data: pheeds
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetSuggestedPheeds */ .vY)({
-    query: {
-      tag_options: []
-    }
-  }, !!customTags?.tag_options || !!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
+    data: suggestedPheeds
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetSuggestedPheeds */ .vY)(!!customTags?.tag_options || !!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
 
   const handleFilterModal = () => {
     handleOpenModal(js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth") ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .FilterModal */ .Dd, {}) : _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .LoginLinkModal */ .r, {}))();
@@ -5656,7 +5872,7 @@ const SuggestedMenu = () => {
         })]
       })]
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_SuggestedMenu_styled__WEBPACK_IMPORTED_MODULE_6__/* .PheedWrapper */ .Om, {
-      children: pheeds?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Pheed */ .wA, {
+      children: suggestedPheeds?.items?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Pheed */ .wA, {
         src: pheed.image.image,
         title: pheed.title,
         id: pheed.id
@@ -5709,7 +5925,7 @@ const PheedWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_
   target: "erh1f6v0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;height:169px;column-gap:12px;overflow-x:auto;::-webkit-scrollbar{display:none;}&>button{flex:1;min-width:169px;min-height:169px;max-width:169px;max-height:169px;&>div{display:flex;align-items:center;width:100%;height:100%;}}@media (min-width: ", theme.breakPoint.minTablet, "){height:208px;&>button{min-width:208px;min-height:208px;max-width:208px;max-height:208px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){height:252px;column-gap:16px;&>button{min-width:252px;min-height:252px;max-width:252px;max-height:252px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;column-gap:12px;overflow-x:auto;::-webkit-scrollbar{display:none;}&>button{flex:1;min-width:169px;min-height:169px;max-width:169px;max-height:169px;&>div{display:flex;align-items:center;width:100%;height:100%;margin-bottom:0;}}@media (min-width: ", theme.breakPoint.minTablet, "){height:208px;&>button{min-width:208px;min-height:208px;max-width:208px;max-height:208px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){height:252px;column-gap:16px;&>button{min-width:252px;min-height:252px;max-width:252px;max-height:252px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -5725,7 +5941,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1853);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _service_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(7776);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7652);
 /* harmony import */ var assets_filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(258);
 /* harmony import */ var _Filter_styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9182);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5193);
@@ -5749,7 +5965,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const Filter = () => {
   const {
-    replace,
+    push,
     query
   } = (0,next_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
   const {
@@ -5760,7 +5976,7 @@ const Filter = () => {
     1: setIsFilterOpen
   } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
-  const isSelect = key => !!query.filter?.includes(`${key}`);
+  const isSelect = key => typeof query.filter === "string" ? query.filter === `${key}` : !!query.filter?.includes(`${key}`);
 
   const handleOpenFilter = () => setIsFilterOpen(!isFilterOpen);
 
@@ -5772,18 +5988,18 @@ const Filter = () => {
         const deleteQuery = _objectSpread({}, query);
 
         delete deleteQuery.filter;
-        replace({
+        push({
           query: deleteQuery
         });
       } else {
-        replace({
+        push({
           query: _objectSpread(_objectSpread({}, query), {}, {
             filter: filterQuery.filter(id => id !== `${key}`)
           })
         });
       }
     } else {
-      replace({
+      push({
         query: _objectSpread(_objectSpread({}, query), {}, {
           filter: [...filterQuery, `${key}`]
         })
@@ -5981,12 +6197,12 @@ const Pheed = ({
   id
 }) => {
   const {
-    replace,
+    push,
     query
   } = (0,router_.useRouter)();
 
   const handleClickPheed = () => {
-    replace({
+    push({
       query: _objectSpread(_objectSpread({}, query), {}, {
         id
       })
@@ -6264,7 +6480,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(7640);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2677);
 /* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8110);
-/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8205);
+/* harmony import */ var _icons_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(7652);
 /* harmony import */ var _DeleteMemberModal_styled__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(5836);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(5193);
 /* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__);
@@ -6951,7 +7167,7 @@ var image_default = /*#__PURE__*/__webpack_require__.n(next_image);
 // EXTERNAL MODULE: ./utils/util.ts
 var util = __webpack_require__(1376);
 // EXTERNAL MODULE: ./public/icons/index.ts + 31 modules
-var icons = __webpack_require__(8205);
+var icons = __webpack_require__(7652);
 // EXTERNAL MODULE: external "@emotion/styled/base"
 var base_ = __webpack_require__(777);
 var base_default = /*#__PURE__*/__webpack_require__.n(base_);
@@ -7097,6 +7313,7 @@ __webpack_async_result__();
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$_": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.$_),
+/* harmony export */   "$j": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.$j),
 /* harmony export */   "Dd": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.Dd),
 /* harmony export */   "Dk": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.Dk),
 /* harmony export */   "FU": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.FU),
@@ -7128,6 +7345,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "sm": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.sm),
 /* harmony export */   "wA": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.wA),
 /* harmony export */   "wn": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.wn),
+/* harmony export */   "xM": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.xM),
 /* harmony export */   "yt": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.yt),
 /* harmony export */   "zQ": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.zQ),
 /* harmony export */   "zx": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.zx)
@@ -7242,6 +7460,8 @@ __webpack_require__.d(__webpack_exports__, {
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
+// EXTERNAL MODULE: ./utils/util.ts
+var util = __webpack_require__(1376);
 // EXTERNAL MODULE: external "@emotion/styled/base"
 var base_ = __webpack_require__(777);
 var base_default = /*#__PURE__*/__webpack_require__.n(base_);
@@ -7250,11 +7470,11 @@ var react_ = __webpack_require__(2805);
 ;// CONCATENATED MODULE: ./components/layout/pheedLayout/PheedLayout.styled.ts
 
 
-const Section = /*#__PURE__*/base_default()("section",  true ? {
+const PheedLayout = /*#__PURE__*/base_default()("section",  true ? {
   target: "epzyu4c0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,react_.css)("min-width:390px;max-width:1080px;margin:0 auto;padding:32px 16px 0 16px;@media (min-width: ", theme.breakPoint.minDesktop, "){padding:32px 0 0 0;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,react_.css)("min-width:390px;max-width:1080px;height:calc(var(--vh) * 100);margin:0 auto;overflow-y:scroll;@media (min-width: ", theme.breakPoint.minDesktop, "){overflow-y:hidden;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 // EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(5193);
 ;// CONCATENATED MODULE: ./components/layout/pheedLayout/PheedLayout.component.tsx
@@ -7262,17 +7482,21 @@ var jsx_runtime_ = __webpack_require__(5193);
 
 
 
-const CreatePheedLayout = ({
-  className,
+
+const PheedLayout_component_PheedLayout = ({
   children
 }) => {
-  return jsx_runtime_.jsx(Section, {
-    className: className,
+  (0,external_react_.useEffect)(() => {
+    (0,util/* handleResize */.wI)();
+    window.addEventListener("resize", util/* handleResize */.wI);
+    return () => window.removeEventListener("resize", util/* handleResize */.wI);
+  }, []);
+  return jsx_runtime_.jsx(PheedLayout, {
     children: children
   });
 };
 
-/* harmony default export */ const PheedLayout_component = (CreatePheedLayout);
+/* harmony default export */ const PheedLayout_component = (PheedLayout_component_PheedLayout);
 
 /***/ }),
 
@@ -7416,7 +7640,7 @@ const useViewport = () => {
 
 /***/ }),
 
-/***/ 8205:
+/***/ 7652:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 
@@ -7426,12 +7650,14 @@ __webpack_require__.d(__webpack_exports__, {
   "gg": () => (/* reexport */ arrowLine),
   "Fw": () => (/* reexport */ arrowLong),
   "Dv": () => (/* reexport */ arrowShort),
-  "K": () => (/* reexport */ bookMark),
-  "tf": () => (/* reexport */ bookMarkMono),
+  "pl": () => (/* reexport */ bookmark),
+  "in": () => (/* reexport */ bookmarkMono),
+  "nQ": () => (/* reexport */ check),
   "Tw": () => (/* reexport */ icons_close),
   "nH": () => (/* reexport */ editMono),
   "k1": () => (/* reexport */ filter),
   "LA": () => (/* reexport */ footer),
+  "sz": () => (/* reexport */ info),
   "Pv": () => (/* reexport */ kakao),
   "tU": () => (/* reexport */ logoLong),
   "xv": () => (/* reexport */ logoShort),
@@ -7440,6 +7666,7 @@ __webpack_require__.d(__webpack_exports__, {
   "vd": () => (/* reexport */ pencil),
   "Tk": () => (/* reexport */ person),
   "eD": () => (/* reexport */ picture),
+  "$1": () => (/* reexport */ ratio),
   "YA": () => (/* reexport */ searchShort),
   "Yv": () => (/* reexport */ settingMono),
   "lO": () => (/* reexport */ tag),
@@ -7449,7 +7676,7 @@ __webpack_require__.d(__webpack_exports__, {
   "bM": () => (/* reexport */ visible)
 });
 
-// UNUSED EXPORTS: CheckIcon, ClearIcon, DeleteIcon, InfoIcon, RatioIcon, SearchLongIcon
+// UNUSED EXPORTS: ClearIcon, DeleteIcon, SearchLongIcon
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
@@ -7533,61 +7760,61 @@ var SvgArrowShort = function SvgArrowShort(props) {
   })));
 };
 /* harmony default export */ const arrowShort = (SvgArrowShort);
-;// CONCATENATED MODULE: ./public/icons/bookMark.svg
-var bookMark_path;
-function bookMark_extends() { bookMark_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return bookMark_extends.apply(this, arguments); }
+;// CONCATENATED MODULE: ./public/icons/bookmark.svg
+var bookmark_path;
+function bookmark_extends() { bookmark_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return bookmark_extends.apply(this, arguments); }
 
-var SvgBookMark = function SvgBookMark(props) {
-  return /*#__PURE__*/external_react_.createElement("svg", bookMark_extends({
+var SvgBookmark = function SvgBookmark(props) {
+  return /*#__PURE__*/external_react_.createElement("svg", bookmark_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 24 24",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), bookMark_path || (bookMark_path = /*#__PURE__*/external_react_.createElement("path", {
+  }, props), bookmark_path || (bookmark_path = /*#__PURE__*/external_react_.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "m21 22.5-9-6-9 6V4.17c0-.71.28-1.38.78-1.89.5-.5 1.18-.78 1.89-.78h12.66c.71 0 1.38.28 1.89.78.5.5.78 1.18.78 1.89V22.5Zm-2-3.74V4.18c0-.18-.07-.35-.2-.48s-.3-.2-.47-.2H5.68c-.18 0-.35.07-.48.2S5 4 5 4.17v14.59l7-4.67 7 4.67Z",
     fill: "#1E242B"
   })));
 };
-/* harmony default export */ const bookMark = (SvgBookMark);
-;// CONCATENATED MODULE: ./public/icons/bookMarkMono.svg
-var bookMarkMono_path;
-function bookMarkMono_extends() { bookMarkMono_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return bookMarkMono_extends.apply(this, arguments); }
+/* harmony default export */ const bookmark = (SvgBookmark);
+;// CONCATENATED MODULE: ./public/icons/bookmarkMono.svg
+var bookmarkMono_path;
+function bookmarkMono_extends() { bookmarkMono_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return bookmarkMono_extends.apply(this, arguments); }
 
-var SvgBookMarkMono = function SvgBookMarkMono(props) {
-  return /*#__PURE__*/external_react_.createElement("svg", bookMarkMono_extends({
+var SvgBookmarkMono = function SvgBookmarkMono(props) {
+  return /*#__PURE__*/external_react_.createElement("svg", bookmarkMono_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 24 24",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), bookMarkMono_path || (bookMarkMono_path = /*#__PURE__*/external_react_.createElement("path", {
+  }, props), bookmarkMono_path || (bookmarkMono_path = /*#__PURE__*/external_react_.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "m21 22.5-9-6-9 6V4.17A2.66 2.66 0 0 1 5.67 1.5h12.66A2.66 2.66 0 0 1 21 4.17V22.5Z",
     fill: "current"
   })));
 };
-/* harmony default export */ const bookMarkMono = (SvgBookMarkMono);
+/* harmony default export */ const bookmarkMono = (SvgBookmarkMono);
 ;// CONCATENATED MODULE: ./public/icons/check.svg
 var check_path;
 function check_extends() { check_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return check_extends.apply(this, arguments); }
 
 var SvgCheck = function SvgCheck(props) {
-  return /*#__PURE__*/React.createElement("svg", check_extends({
+  return /*#__PURE__*/external_react_.createElement("svg", check_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 20 20",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), check_path || (check_path = /*#__PURE__*/React.createElement("path", {
+  }, props), check_path || (check_path = /*#__PURE__*/external_react_.createElement("path", {
     d: "M7.475 15.78a.923.923 0 0 1-.372-.074c-.12-.054-.23-.13-.322-.223l-4.463-4.466A1.018 1.018 0 0 1 2.64 9.36a.992.992 0 0 1 1.09.219l3.77 3.77 8.802-8.83a.89.89 0 0 1 .684-.299.992.992 0 0 1 .992.993.904.904 0 0 1-.297.694L8.17 15.482c-.093.095-.202.17-.323.224a.923.923 0 0 1-.372.074Z",
     fill: "#1E242B"
   })));
 };
-/* harmony default export */ const check = ((/* unused pure expression or super */ null && (SvgCheck)));
+/* harmony default export */ const check = (SvgCheck);
 ;// CONCATENATED MODULE: ./public/icons/clear.svg
 var clear_path;
 function clear_extends() { clear_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return clear_extends.apply(this, arguments); }
@@ -7698,18 +7925,18 @@ var info_path;
 function info_extends() { info_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return info_extends.apply(this, arguments); }
 
 var SvgInfo = function SvgInfo(props) {
-  return /*#__PURE__*/React.createElement("svg", info_extends({
+  return /*#__PURE__*/external_react_.createElement("svg", info_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 40 40",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), info_path || (info_path = /*#__PURE__*/React.createElement("path", {
+  }, props), info_path || (info_path = /*#__PURE__*/external_react_.createElement("path", {
     d: "M40 20c0 11.05-8.95 20-20 20S0 31.05 0 20 8.95 0 20 0s20 8.95 20 20Zm-3 0c0-9.37-7.63-17-17-17-9.37 0-17 7.63-17 17 0 9.37 7.63 17 17 17 9.37 0 17-7.63 17-17Zm-19.5 3.19h3.47v-.78c0-.38.05-.69.15-.94.1-.25.29-.51.58-.78s.69-.59 1.21-.97c.7-.52 1.28-1.01 1.75-1.47.47-.46.82-.96 1.05-1.49.23-.53.35-1.18.35-1.91 0-1.38-.52-2.52-1.55-3.42-1.03-.9-2.48-1.35-4.35-1.35-1.22 0-2.34.15-3.37.46-.45.13-.88.28-1.3.45-.87.35-1.24 1.38-.82 2.22.38.76 1.28 1.09 2.07.77.3-.12.59-.22.88-.32.74-.23 1.48-.35 2.24-.35.76 0 1.34.15 1.76.44.42.3.63.73.63 1.31 0 .58-.17 1.07-.53 1.49-.35.42-.93.92-1.74 1.5-.92.66-1.56 1.3-1.94 1.91-.38.61-.57 1.36-.57 2.26v.97h.03Zm.24 6.21c.45.35 1 .53 1.64.53.64 0 1.17-.17 1.62-.53.45-.35.67-.92.67-1.71 0-.79-.23-1.4-.67-1.74-.45-.33-.99-.5-1.62-.5-.63 0-1.19.17-1.64.5-.45.33-.67.91-.67 1.74s.22 1.36.67 1.71Z",
     fill: "#1E242B"
   })));
 };
-/* harmony default export */ const info = ((/* unused pure expression or super */ null && (SvgInfo)));
+/* harmony default export */ const info = (SvgInfo);
 ;// CONCATENATED MODULE: ./public/icons/kakao.svg
 var kakao_path;
 function kakao_extends() { kakao_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return kakao_extends.apply(this, arguments); }
@@ -7875,18 +8102,18 @@ var ratio_path;
 function ratio_extends() { ratio_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return ratio_extends.apply(this, arguments); }
 
 var SvgRatio = function SvgRatio(props) {
-  return /*#__PURE__*/React.createElement("svg", ratio_extends({
+  return /*#__PURE__*/external_react_.createElement("svg", ratio_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 24 25",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), ratio_path || (ratio_path = /*#__PURE__*/React.createElement("path", {
+  }, props), ratio_path || (ratio_path = /*#__PURE__*/external_react_.createElement("path", {
     d: "M10.869 12.66 1.84 8.065a.63.63 0 0 1 0-1.12L10.87 2.36a2.496 2.496 0 0 1 2.262 0l9.028 4.584a.63.63 0 0 1 0 1.12l-9.028 4.583a2.496 2.496 0 0 1-2.262 0v.012Zm1.364-1.784 6.613-3.36-6.613-3.359a.524.524 0 0 0-.221-.058.523.523 0 0 0-.222.058l-6.613 3.36 6.613 3.359c.07.035.152.058.222.058s.151-.023.221-.058Zm-9.365.151 8.607 4.386c.327.163.723.163 1.062 0l8.607-4.386a.933.933 0 0 1 1.353.828.92.92 0 0 1-.513.828l-8.853 4.502a2.496 2.496 0 0 1-2.262 0l-8.853-4.49a.929.929 0 1 1 .84-1.656l.012-.012Zm0 4.456 8.607 4.385c.327.163.723.163 1.062 0l8.607-4.385a.933.933 0 0 1 1.353.828.92.92 0 0 1-.513.828L13.13 21.64a2.496 2.496 0 0 1-2.262 0l-8.853-4.49a.929.929 0 1 1 .84-1.656l.012-.012Z",
     fill: "#1E242B"
   })));
 };
-/* harmony default export */ const ratio = ((/* unused pure expression or super */ null && (SvgRatio)));
+/* harmony default export */ const ratio = (SvgRatio);
 ;// CONCATENATED MODULE: ./public/icons/searchLong.svg
 var searchLong_path;
 function searchLong_extends() { searchLong_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return searchLong_extends.apply(this, arguments); }
@@ -8067,10 +8294,11 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$o": () => (/* binding */ usePostCustomTag),
 /* harmony export */   "HE": () => (/* binding */ useGetCreatePheedTags),
+/* harmony export */   "eO": () => (/* binding */ commonKeys),
 /* harmony export */   "pD": () => (/* binding */ useGetTags),
 /* harmony export */   "tp": () => (/* binding */ useGetCustomTags)
 /* harmony export */ });
-/* unused harmony exports commonKeys, useGetCustomPheeds */
+/* unused harmony export useGetCustomPheeds */
 /* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9752);
 /* harmony import */ var apis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8500);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__, apis__WEBPACK_IMPORTED_MODULE_1__]);
@@ -8153,6 +8381,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "W9": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.W9),
 /* harmony export */   "X8": () => (/* reexport safe */ _myPheed__WEBPACK_IMPORTED_MODULE_2__.X),
 /* harmony export */   "eL": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.eL),
+/* harmony export */   "eO": () => (/* reexport safe */ _common__WEBPACK_IMPORTED_MODULE_0__.eO),
 /* harmony export */   "f0": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.f0),
 /* harmony export */   "hQ": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_3__.hQ),
 /* harmony export */   "mK": () => (/* reexport safe */ _login__WEBPACK_IMPORTED_MODULE_1__.mK),
@@ -8303,16 +8532,16 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tan
 
 const pheedKeys = {
   all: ["pheed"],
-  suggestedPheeds: req => [req],
+  suggestedPheeds: ["suggestedPheeds"],
   pheeds: () => [...pheedKeys.all, "pheed"],
   pheed: req => [...pheedKeys.pheeds(), req],
   pheedDetails: () => [...pheedKeys.all, "pheedDetail"],
   pheedDetail: id => [...pheedKeys.pheedDetails(), id]
 };
-const useGetSuggestedPheeds = (req, enabled) => {
+const useGetSuggestedPheeds = enabled => {
   return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
-    queryKey: pheedKeys.suggestedPheeds(req),
-    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getPheeds */ .xW)(req),
+    queryKey: pheedKeys.suggestedPheeds,
+    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getSuggestedPheed */ .Oi)(),
     enabled
   });
 };

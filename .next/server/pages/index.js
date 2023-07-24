@@ -53,7 +53,7 @@ async function getServerSideProps(ctx) {
   } = ctx;
   const ax = axios__WEBPACK_IMPORTED_MODULE_1__["default"].create({
     baseURL: "http://3.39.122.234/api/v1",
-    timeout: 3000
+    timeout: 5000
   });
   const queryClient = new _tanstack_react_query__WEBPACK_IMPORTED_MODULE_2__.QueryClient();
 
@@ -75,17 +75,18 @@ async function getServerSideProps(ctx) {
       });
       return data;
     }
-  }); // TODO: 인증 없이 호출 하도록 수정되면 로직 추가
-  // await queryClient.prefetchQuery({
-  //   queryKey: commonKeys.tags,
-  //   queryFn: async () => {
-  //     const { data } = await ax.get("/tags");
-  //     return data;
-  //   },
-  //   cacheTime: Infinity,
-  //   staleTime: Infinity,
-  // });
-
+  });
+  await queryClient.prefetchQuery({
+    queryKey: _service_index__WEBPACK_IMPORTED_MODULE_4__/* .commonKeys.tags */ .eO.tags,
+    queryFn: async () => {
+      const {
+        data
+      } = await ax.get("/tags");
+      return data;
+    },
+    cacheTime: Infinity,
+    staleTime: Infinity
+  });
   return {
     props: {
       dehydratedState: JSON.parse(JSON.stringify((0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_2__.dehydrate)(queryClient)))
@@ -357,6 +358,13 @@ module.exports = require("react");
 
 /***/ }),
 
+/***/ 51:
+/***/ ((module) => {
+
+module.exports = require("react-cropper");
+
+/***/ }),
+
 /***/ 6405:
 /***/ ((module) => {
 
@@ -375,6 +383,13 @@ module.exports = require("react-responsive");
 /***/ ((module) => {
 
 module.exports = require("react-responsive-masonry");
+
+/***/ }),
+
+/***/ 3278:
+/***/ ((module) => {
+
+module.exports = require("react-spinners/ClipLoader");
 
 /***/ }),
 
@@ -434,7 +449,7 @@ module.exports = import("uuid");;
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [505,676,61,640], () => (__webpack_exec__(5006)));
+var __webpack_exports__ = __webpack_require__.X(0, [505,676,534,640], () => (__webpack_exec__(5006)));
 module.exports = __webpack_exports__;
 
 })();
