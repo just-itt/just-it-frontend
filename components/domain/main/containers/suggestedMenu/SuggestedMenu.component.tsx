@@ -11,8 +11,7 @@ const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
 
   const { data: customTags } = useGetCustomTags(!!Cookies.get("auth"));
-  const { data: pheeds } = useGetSuggestedPheeds(
-    { query: { tag_options: [] } },
+  const { data: suggestedPheeds } = useGetSuggestedPheeds(
     !!customTags?.tag_options || !!Cookies.get("auth"),
   );
 
@@ -32,7 +31,7 @@ const SuggestedMenu = () => {
         </S.FilterSettingBtn>
       </S.HeadingWrapper>
       <S.PheedWrapper>
-        {pheeds?.map(pheed => (
+        {suggestedPheeds?.items?.map(pheed => (
           <Pheed
             key={pheed.id}
             src={pheed.image.image}

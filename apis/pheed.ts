@@ -8,6 +8,7 @@ import type {
   GetPheedDetailServerModel,
   GetPheedsQueryModel,
   GetPheedsServerModel,
+  GetSuggestedPheedsServerModel,
   PatchPheedQueryModel,
   PatchPheedReplyQueryModel,
   PostPheedQueryModel,
@@ -71,6 +72,12 @@ export const patchPheedReply = async (req: PatchPheedReplyQueryModel) => {
     `/posts/${req.body.post_id}/replies/${req.body.reply_id}`,
     { content: req.body.content },
   );
+
+  return data;
+};
+
+export const getSuggestedPheed = async () => {
+  const { data } = await ax.get<GetSuggestedPheedsServerModel>("/posts/custom");
 
   return data;
 };

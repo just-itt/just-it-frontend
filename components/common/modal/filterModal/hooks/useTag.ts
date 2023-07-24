@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
 import {
   useGetCustomTags,
   useGetCreatePheedTags,
   usePostCustomTag,
+  pheedKeys,
 } from "@service/index";
 import { useModal } from "@hooks/index";
 
 const useTag = () => {
+  const queryClient = useQueryClient();
   const { data: tags } = useGetCreatePheedTags();
   const { data: customTags } = useGetCustomTags();
   const { mutate: postCustomTagMutate } = usePostCustomTag();
@@ -36,6 +39,7 @@ const useTag = () => {
       {
         onSuccess: () => {
           toast.success("커스텀 필터가 저장되었습니다.");
+          queryClient.invalidateQueries(pheedKeys.suggestedPheeds);
           handleCloseModal();
         },
       },

@@ -109,8 +109,15 @@ export interface PatchPheedReplyQueryModel {
   };
 }
 
-export interface GetSuggestedPheedsQueryModel {
-  query: {
-    tag_options?: string | string[];
-  };
+export interface GetSuggestedPheedsServerModel {
+  count: number;
+  items: {
+    id: number;
+    title: string;
+    content: string;
+    created_at: string;
+    author_id: number;
+    image: { image: string; ratio: string };
+    tag_options: { id: number; title: string; tag_title: string }[];
+  }[];
 }
