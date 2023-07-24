@@ -5,14 +5,8 @@ import { useEditPheedForm } from "./hooks";
 import * as S from "./EditPheedContainer.styled";
 
 const EditPheedContainer = () => {
-  const {
-    register,
-    watch,
-    errors,
-    handleSubmit,
-    handleChangeRatio,
-    handleDeleteImgFile,
-  } = useEditPheedForm();
+  const { register, watch, errors, handleSubmit, deleteImgFile } =
+    useEditPheedForm();
 
   return (
     <>
@@ -25,11 +19,11 @@ const EditPheedContainer = () => {
         <ImgUpload
           css={S.imgUpload}
           type="edit"
+          alt={watch("title")}
           isError={!!errors.file}
-          defaultImage={watch("defaultImage")}
+          defaultImg={watch("defaultImg")}
           register={register}
-          handleChangeRatio={handleChangeRatio}
-          handleDeleteImgFile={handleDeleteImgFile}
+          deleteImgFile={deleteImgFile}
         />
         <PheedFilter register={register} watch={watch} errors={errors} />
       </S.Wrapper>

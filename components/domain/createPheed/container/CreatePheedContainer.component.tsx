@@ -6,13 +6,14 @@ import * as S from "./CreatePheedContainer.styled";
 
 const CreatePheedContainer = () => {
   const {
+    cropperRef,
     register,
     watch,
     errors,
     handleSubmit,
-    handleCropImage,
+    deleteImgFile,
+    handleImgCrop,
     handleChangeRatio,
-    handleDeleteImgFile,
   } = useCreatePheedForm();
 
   return (
@@ -28,10 +29,11 @@ const CreatePheedContainer = () => {
           type="create"
           isError={!!errors.file}
           register={register}
-          watch={watch}
-          handleCropImage={handleCropImage}
+          dropdownSelectValue={watch("ratio")}
+          cropperRef={cropperRef}
+          deleteImgFile={deleteImgFile}
+          handleImgCrop={handleImgCrop}
           handleChangeRatio={handleChangeRatio}
-          handleDeleteImgFile={handleDeleteImgFile}
         />
         <PheedFilter register={register} watch={watch} errors={errors} />
       </S.Wrapper>

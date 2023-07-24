@@ -22,7 +22,7 @@ const useEditPheedForm = () => {
   } = useForm<PheedForm>({
     defaultValues: {
       file: null,
-      defaultImage: "",
+      defaultImg: "",
       ratio: "1:1",
       title: "",
       content: "",
@@ -36,13 +36,7 @@ const useEditPheedForm = () => {
   const { data: pheedData } = useGetPheedDetail({ id: pheedId as string });
   const { mutate: patchPheedMutate } = useEditPheed();
 
-  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
-    setValue("ratio", ratio);
-  };
-
-  const handleDeleteImgFile = () => {
-    setValue("file", null);
-  };
+  const deleteImgFile = () => setValue("file", null);
 
   const editPheed = (data: PheedForm) => {
     const formData = new FormData();
@@ -73,7 +67,7 @@ const useEditPheedForm = () => {
 
     reset({
       file: null,
-      defaultImage: pheedData.image.image,
+      defaultImg: pheedData.image.image,
       ratio: pheedData.image.ratio,
       title: pheedData.title,
       content: pheedData.content,
@@ -91,8 +85,7 @@ const useEditPheedForm = () => {
     watch,
     errors,
     handleSubmit: handleSubmit(editPheed),
-    handleChangeRatio,
-    handleDeleteImgFile,
+    deleteImgFile,
   };
 };
 

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import type { UseFormRegister, UseFormWatch } from "react-hook-form";
+import type { UseFormRegister } from "react-hook-form";
 
 import { DropdownBtn, ErrorWrapper } from "@components/index";
 import { TrashIcon, PencilIcon, UploadIcon, RatioIcon } from "@icons/index";
@@ -11,30 +12,33 @@ import * as S from "./ImgUpload.styled";
 interface ImgUploadProps {
   className?: string;
   type: "create" | "edit";
+  alt?: string;
   isError: boolean;
-  defaultImage?: string;
+  defaultImg?: string;
   register: UseFormRegister<PheedForm>;
-  watch: UseFormWatch<PheedForm>;
-  handleCropImage: (cropImageFile: Blob) => void;
-  handleChangeRatio: (ratio: "1:1" | "3:4" | "4:3") => () => void;
-  handleDeleteImgFile: () => void;
+  dropdownSelectValue?: "1:1" | "3:4" | "4:3";
+  cropperRef?: React.RefObject<ReactCropperElement>;
+  deleteImgFile: () => void;
+  handleImgCrop?: () => void;
+  handleChangeRatio?: (ratio: "1:1" | "3:4" | "4:3") => () => void;
 }
 
 const ImgUpload = ({
   className,
   type,
+  alt,
   isError,
-  defaultImage,
+  defaultImg,
   register,
-  watch,
-  handleCropImage,
+  dropdownSelectValue,
+  cropperRef,
+  handleImgCrop,
   handleChangeRatio,
-  handleDeleteImgFile,
+  deleteImgFile,
 }: ImgUploadProps) => {
-  const cropperRef = useRef<ReactCropperElement>(null);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
-  const handleChangeImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const makePreviewImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -44,92 +48,81 @@ const ImgUpload = ({
     reader.onloadend = () => setPreviewImg(reader.result as string);
   };
 
-  const handleClickDeleteImgFile = () => {
-    handleDeleteImgFile();
+  const handleClickDeleteImageFile = () => {
+    deleteImgFile();
     setPreviewImg(null);
   };
 
-  const handleImageCrop = () => {
-    const cropper = cropperRef.current?.cropper.getCroppedCanvas();
-
-    cropper?.toBlob(blob => {
-      if (!blob) return;
-
-      const file = new File([blob], "croppedImage.png", { type: "image/png" });
-      handleCropImage(file);
-    });
-  };
-
   useEffect(() => {
-    if (!defaultImage) return;
+    if (!defaultImg) return;
 
-    setPreviewImg(defaultImage);
-  }, [defaultImage]);
-
-  useEffect(() => {
-    const ratio =
-      watch("ratio") === "1:1"
-        ? 1 / 1
-        : watch("ratio") === "3:4"
-        ? 3 / 4
-        : 4 / 3;
-
-    cropperRef.current?.cropper.setAspectRatio(ratio);
-  }, [watch("ratio")]);
+    setPreviewImg(defaultImg);
+  }, [defaultImg]);
 
   return previewImg ? (
     <S.PreviewImgWrapper className={className}>
-      <Cropper
-        ref={cropperRef}
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-        src={previewImg}
-        alt="업로드 이미지 미리보기"
-        viewMode={1}
-        background={false}
-        responsive
-        autoCropArea={1}
-        aspectRatio={1 / 1}
-        movable={false}
-        guides={false}
-        cropBoxResizable={false}
-        crop={handleImageCrop}
-      />
-      {type === "create" && (
-        <S.PreviewBtnWrapper>
-          <S.EditBtnWrapper>
-            <label htmlFor="imgUpload">
-              <PencilIcon />
-            </label>
-            <button type="button" onClick={handleClickDeleteImgFile}>
-              <TrashIcon />
-            </button>
-          </S.EditBtnWrapper>
-          <DropdownBtn
-            css={S.dropdown}
-            btnRender={<RatioIcon />}
-            dropdownItems={[
-              {
-                label: "정방형",
-                value: "1:1",
-                handler: handleChangeRatio("1:1"),
-              },
-              {
-                label: "가로형 (3:4)",
-                value: "3:4",
-                handler: handleChangeRatio("3:4"),
-              },
-              {
-                label: "세로형 (4:3)",
-                value: "4:3",
-                handler: handleChangeRatio("4:3"),
-              },
-            ]}
-            selectValue={watch("ratio")}
+      {type === "create" ? (
+        <>
+          <Cropper
+            ref={cropperRef}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            src={previewImg}
+            alt={alt ?? "이미지 미리보기"}
+            viewMode={1}
+            background={false}
+            responsive
+            autoCropArea={1}
+            aspectRatio={1 / 1}
+            movable={false}
+            guides={false}
+            cropBoxResizable={false}
+            crop={handleImgCrop}
           />
-        </S.PreviewBtnWrapper>
+          <S.PreviewBtnWrapper>
+            <S.EditBtnWrapper>
+              <label htmlFor="imgUpload">
+                <PencilIcon />
+              </label>
+              <button type="button" onClick={handleClickDeleteImageFile}>
+                <TrashIcon />
+              </button>
+            </S.EditBtnWrapper>
+            <DropdownBtn
+              css={S.dropdown}
+              btnRender={<RatioIcon />}
+              dropdownItems={[
+                {
+                  label: "정방형",
+                  value: "1:1",
+                  handler: handleChangeRatio && handleChangeRatio("1:1"),
+                },
+                {
+                  label: "가로형 (3:4)",
+                  value: "3:4",
+                  handler: handleChangeRatio && handleChangeRatio("3:4"),
+                },
+                {
+                  label: "세로형 (4:3)",
+                  value: "4:3",
+                  handler: handleChangeRatio && handleChangeRatio("4:3"),
+                },
+              ]}
+              selectValue={dropdownSelectValue}
+            />
+          </S.PreviewBtnWrapper>
+        </>
+      ) : (
+        defaultImg && (
+          <Image
+            src={defaultImg}
+            alt={alt ?? "이미지 미리보기"}
+            fill
+            style={{ objectFit: "contain" }}
+          />
+        )
       )}
     </S.PreviewImgWrapper>
   ) : (
@@ -141,7 +134,7 @@ const ImgUpload = ({
           accept=".jpg, .jpeg, .png"
           {...register("file", {
             required: true,
-            onChange: handleChangeImg,
+            onChange: makePreviewImg,
           })}
         />
         <UploadIcon />

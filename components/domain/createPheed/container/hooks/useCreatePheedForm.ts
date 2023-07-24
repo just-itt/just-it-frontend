@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import type { ReactCropperElement } from "react-cropper";
 
 import { usePostPheed } from "@service/index";
 import type { PheedForm } from "types";
@@ -18,7 +20,7 @@ const useCreatePheedForm = () => {
     mode: "all",
     defaultValues: {
       file: null,
-      uploadImageFile: null,
+      uploadImgFile: null,
       ratio: "1:1",
       title: "",
       content: "",
@@ -31,13 +33,31 @@ const useCreatePheedForm = () => {
 
   const { mutate: postPheedMutate } = usePostPheed();
 
-  const handleCropImage = (cropImageFile: Blob) =>
-    setValue("uploadImageFile", cropImageFile);
+  const cropperRef = useRef<ReactCropperElement>(null);
 
-  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () =>
+  const handleImgCrop = () => {
+    const cropper = cropperRef.current?.cropper.getCroppedCanvas();
+
+    cropper?.toBlob(blob => {
+      if (!blob) return;
+
+      const file = new File([blob], "croppedImg.png", { type: "image/png" });
+      setValue("uploadImgFile", file);
+    });
+  };
+
+  const handleChangeRatio = (ratio: "1:1" | "3:4" | "4:3") => () => {
+    const aspectRatios = {
+      "1:1": 1 / 1,
+      "3:4": 3 / 4,
+      "4:3": 4 / 3,
+    };
+    cropperRef.current?.cropper.setAspectRatio(aspectRatios[ratio]);
+
     setValue("ratio", ratio);
+  };
 
-  const handleDeleteImgFile = () => setValue("file", null);
+  const deleteImgFile = () => setValue("file", null);
 
   const createPheed = (data: PheedForm) => {
     const formData = new FormData();
@@ -47,11 +67,11 @@ const useCreatePheedForm = () => {
       !data.when ||
       !data.who ||
       !data.file ||
-      !data.uploadImageFile
+      !data.uploadImgFile
     )
       return;
 
-    formData.append("image", data.uploadImageFile);
+    formData.append("image", data.uploadImgFile);
     formData.append(
       "payload",
       JSON.stringify({
@@ -79,13 +99,14 @@ const useCreatePheedForm = () => {
   };
 
   return {
+    cropperRef,
     register,
     watch,
     errors,
     handleSubmit: handleSubmit(createPheed),
-    handleCropImage,
+    deleteImgFile,
+    handleImgCrop,
     handleChangeRatio,
-    handleDeleteImgFile,
   };
 };
 
