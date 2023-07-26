@@ -19,16 +19,17 @@ import * as S from "./Header.styled";
 const Header = () => {
   const { push, query } = useRouter();
 
-  const { isMobile, isTablet, isDesktop } = useViewport();
-
   const { data: profile } = useGetMyProfile();
 
-  const setNavState = useSetRecoilState(navAtom);
-  const [isFocusInput, setIsFocusInput] = useState(false);
+  const { isMobile, isTablet, isDesktop } = useViewport();
+
   const { register, watch, setValue, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { pheedSearch: query.pheedSearch || "" },
   });
+
+  const setNavState = useSetRecoilState(navAtom);
+  const [isFocusInput, setIsFocusInput] = useState(false);
 
   const handleClickMenu = () => {
     setNavState(true);
@@ -46,8 +47,8 @@ const Header = () => {
       {isMobile &&
         (isFocusInput ? (
           <S.SearchWrapper
-            onSubmit={handleSubmit(data =>
-              push({ query: { ...query, pheedSearch: data.pheedSearch } }),
+            onSubmit={handleSubmit(({ pheedSearch }) =>
+              push({ query: { pheedSearch } }),
             )}
           >
             <SearchShortIcon />
@@ -102,10 +103,8 @@ const Header = () => {
           <S.FlexWrapper>
             {isFocusInput ? (
               <S.SearchWrapper
-                onSubmit={handleSubmit(data =>
-                  push({
-                    query: { ...query, pheedSearch: data.pheedSearch },
-                  }),
+                onSubmit={handleSubmit(({ pheedSearch }) =>
+                  push({ query: { pheedSearch } }),
                 )}
               >
                 <SearchShortIcon />
@@ -150,8 +149,8 @@ const Header = () => {
             </Link>
           </S.LogoWrapper>
           <S.SearchWrapper
-            onSubmit={handleSubmit(data =>
-              push({ query: { ...query, pheedSearch: data.pheedSearch } }),
+            onSubmit={handleSubmit(({ pheedSearch }) =>
+              push({ query: { pheedSearch } }),
             )}
           >
             <SearchShortIcon />
