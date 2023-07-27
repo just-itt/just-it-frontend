@@ -1,19 +1,27 @@
 import React from "react";
 import Cookies from "js-cookie";
 
-import { FilterModal, Heading, LoginLinkModal, Pheed } from "@components/index";
+import {
+  FilterModal,
+  Heading,
+  LoginLinkModal,
+  Pheed,
+  Spinner,
+} from "@components/index";
 import { useGetCustomTags, useGetSuggestedPheeds } from "@service/index";
 import { useModal } from "@hooks/index";
-import { FilterIcon } from "@icons/index";
+import { ClearIcon, FilterIcon } from "@icons/index";
 import * as S from "./SuggestedMenu.styled";
 
 const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
 
   const { data: customTags } = useGetCustomTags(!!Cookies.get("auth"));
-  const { data: suggestedPheeds } = useGetSuggestedPheeds(
-    !!customTags?.tag_options || !!Cookies.get("auth"),
-  );
+  const {
+    data: suggestedPheeds,
+    refetch,
+    isFetching,
+  } = useGetSuggestedPheeds(!!customTags?.tag_options || !!Cookies.get("auth"));
 
   const handleFilterModal = () => {
     handleOpenModal(
@@ -40,6 +48,22 @@ const SuggestedMenu = () => {
           />
         ))}
       </S.PheedWrapper>
+      <S.ReloadBtnWrapper>
+        <S.ReloadBtn
+          type="button"
+          isLoading={isFetching}
+          disabled={isFetching}
+          onClick={() => refetch()}
+        >
+          {isFetching ? (
+            <Spinner color="000000" />
+          ) : (
+            <>
+              <ClearIcon /> 새로 불러오기
+            </>
+          )}
+        </S.ReloadBtn>
+      </S.ReloadBtnWrapper>
     </S.SuggestedMenu>
   );
 };
