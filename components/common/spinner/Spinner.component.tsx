@@ -1,8 +1,13 @@
 import React from "react";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const Spinner = () => {
-  return <ClipLoader color="#ffffff" />;
+interface SpinnerProps {
+  size?: string;
+  color?: string;
+}
+
+const Spinner = ({ size, color }: SpinnerProps) => {
+  return <ClipLoader size={size ?? "20px"} color={color ?? "#ffffff"} />;
 };
 
 export default Spinner;
