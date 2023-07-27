@@ -28,7 +28,11 @@ const BookmarkContainer = ({ bookmarks }: BookMarkContainerProps) => {
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          <Heading css={S.heading} heading="저장한 게시글" />
+          <Heading
+            css={S.heading}
+            heading="저장한 게시글"
+            count={bookmarks.count}
+          />
           <Filter />
           {bookmarks ? (
             <ResponsiveMasonry
