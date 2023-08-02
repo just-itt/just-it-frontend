@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Just it](http://justit.kr/)
 
-## Getting Started
+❓ Problem : 혼자, 연인과, 친구들과, 직장동료들과 무엇을 먹어야 할지 막막할 때! 😮
 
-First, run the development server:
+❗️ Idea : 나와 같은 상황일 때 다른 사람들이 무엇을 먹는지 알 수 있는 웹사이트가 있으면 좋지 않을까? 🤔
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+💯 Solution : 언제, 누구와, 무엇을 먹었는지 여러가지 조건을 기반으로 분류해서 보여주자!! 😁
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<br/>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 팀 소개
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- 프론트엔드 : [최수혁](https://github.com/choisuhyeok1255)
+- 백엔드 : [이지수](https://github.com/2jisu)
+- 디자이너 : 정승훈
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<br/>
 
-## Learn More
+## 기술 스택
 
-To learn more about Next.js, take a look at the following resources:
+TypeScript, Next.js, React Query(Tanstack Query), Recoil, Emotion
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br/>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 기획 & 설계
 
-## Deploy on Vercel
+기능 명세서
+디자인
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<br/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 기능
+
+- 로그인
+  - 이메일 로그인
+  - 카카오 로그인 (추가 예정)
+- 탐색하기
+  - 오늘의 추천 메뉴
+  - 실시간 피드
+  - 북마크
+- 새 글 올리기
+- 내 게시글
+- 저장한 게시글
+- 설정
+  - 프로필 사진, 닉네임, 비밀번호 변경
+  - 계정 삭제
