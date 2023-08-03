@@ -47,6 +47,7 @@ export const Heading = styled.h2`
     display: none;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
+      ${theme.font.bold_20};
       display: block;
     }
   `}

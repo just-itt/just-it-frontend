@@ -10,21 +10,20 @@ export const FormWrapper = styled.div<InputWrapperProps>`
   ${({ theme, hasValue, hasError }) => css`
     input {
       margin-bottom: ${hasError && "4px"};
-      border-color: ${hasError && "red"};
+      border-color: ${hasError && theme.color.red_200};
       padding: ${hasValue ? "30px 12px 12px 12px" : "12px"};
     }
 
     label {
       ${hasValue ? theme.font.regular_12 : theme.font.medium_15};
       top: ${hasValue ? "5px" : "12px"};
-
       color: ${theme.color.grey_500};
       transition-duration: 0.2s;
     }
 
     &:focus-within {
       input {
-        border-color: ${theme.color.blue_200};
+        border-color: ${theme.color.blue_300};
         padding: 30px 12px 12px 12px;
       }
 
@@ -49,6 +48,12 @@ export const Input = styled.input`
     height: 48px;
     border: 1px solid ${theme.color.grey_300};
     border-radius: 5px;
+
+    @media (hover: hover) {
+      :hover {
+        border-color: ${theme.color.blue_200};
+      }
+    }
   `}
 `;
 

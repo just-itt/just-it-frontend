@@ -26,6 +26,18 @@ export const labelContent = (theme: Theme) => css`
   }
 `;
 
+export const input = (theme: Theme) => css`
+  & > input {
+    ${theme.font.regular_14};
+  }
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    & > input {
+      ${theme.font.regular_15};
+    }
+  }
+`;
+
 export const division = css`
   margin-bottom: 40px;
 `;

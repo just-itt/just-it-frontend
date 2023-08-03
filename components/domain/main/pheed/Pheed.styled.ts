@@ -26,7 +26,7 @@ export const ImgWrapper = styled.div`
 
 export const Title = styled.h3`
   ${({ theme }) => css`
-    ${theme.font.semiBold_16};
+    ${theme.font.semiBold_15};
     margin-bottom: 4px;
     padding-left: 4px;
     color: ${theme.color.black};

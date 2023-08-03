@@ -29,7 +29,7 @@ export const PasswordHint = styled.span`
 
 export const ResetPassword = styled(Link)`
   ${({ theme }) => css`
-    ${theme.font.regular_14};
+    ${theme.font.regular_15};
     display: block;
     margin-bottom: 20px;
     color: ${theme.color.grey_500};

@@ -4,11 +4,10 @@ import styled from "@emotion/styled";
 
 export const Layout = styled.section`
   ${({ theme }) => css`
-    ${theme.flexMixin.flex_column_justifyC};
+    ${theme.flexMixin.flex_column};
     width: 390px;
-    height: 100vh;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 150px 20px 0 20px;
   `}
 `;
 
@@ -21,9 +20,9 @@ export const LogoWrapper = styled(Link)`
 
 export const KakaoLoginBtn = styled.button`
   ${({ theme }) => css`
+    ${theme.flexMixin.flex_justifyC_alignC};
+    ${theme.font.regular_15};
     display: flex;
-    justify-content: center;
-    align-items: center;
     column-gap: 8px;
     width: 100%;
     height: 52px;

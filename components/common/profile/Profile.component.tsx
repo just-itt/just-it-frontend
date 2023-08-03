@@ -12,7 +12,7 @@ interface ProfileProps {
 
 const Profile = ({ className, src, alt }: ProfileProps) => {
   return (
-    <S.Wrapper className={className}>
+    <S.Wrapper className={className} hasProfile={!!src}>
       {src ? (
         <Image src={src} alt={alt} fill style={{ objectFit: "fill" }} />
       ) : (

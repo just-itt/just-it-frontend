@@ -17,17 +17,47 @@ export const ContentWrapper = styled.div`
   `}
 `;
 
-export const margin = (theme: Theme) => css`
+export const input = (theme: Theme) => css`
+  ::placeholder {
+    ${theme.font.regular_14};
+    color: ${theme.color.grey_500};
+  }
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    ::placeholder {
+      ${theme.font.regular_15};
+    }
+  }
+`;
+
+export const labelcontent = (theme: Theme) => css`
   margin-bottom: 32px;
+
+  & > label {
+    ${theme.font.semiBold_14};
+  }
 
   @media (min-width: ${theme.breakPoint.minTablet}) {
     max-width: 520px;
+
+    & > label {
+      ${theme.font.semiBold_15};
+    }
   }
 `;
 
 export const textArea = (theme: Theme) => css`
+  ::placeholder {
+    ${theme.font.regular_14};
+    color: ${theme.color.grey_500};
+  }
+
   @media (min-width: ${theme.breakPoint.minTablet}) {
     height: 300px;
+
+    ::placeholder {
+      ${theme.font.regular_15};
+    }
   }
 `;
 

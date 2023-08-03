@@ -14,12 +14,14 @@ const ChangePassword = () => {
       <S.Form onSubmit={handleSubmit}>
         <LabelContent css={S.labelContent} label="현재 비밀번호">
           <LabelContent.PasswordInput
+            css={S.input}
             placeholder="현재 비밀번호"
             register={register("password", { required: true })}
           />
         </LabelContent>
         <LabelContent css={S.labelContent} label="새 비밀번호">
           <LabelContent.PasswordInput
+            css={S.input}
             placeholder="새 비밀번호"
             register={register("newPassword", {
               required: true,
@@ -29,6 +31,7 @@ const ChangePassword = () => {
         </LabelContent>
         <LabelContent css={S.labelContent} label="새 비밀번호 확인">
           <LabelContent.PasswordInput
+            css={S.input}
             placeholder="새 비밀번호 확인"
             register={register("newPasswordConfirm", {
               required: true,

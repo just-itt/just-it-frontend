@@ -30,7 +30,7 @@ const Pheed = ({ src, title, id }: PheedProps) => {
           style={{ width: "100%", height: "auto" }}
         />
       </S.ImgWrapper>
-      {/* <S.Title>{title}</S.Title> */}
+      <S.Title>{title}</S.Title>
     </S.DetailBtn>
   );
 };

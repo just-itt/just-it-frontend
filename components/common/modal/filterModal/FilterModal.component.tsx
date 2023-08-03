@@ -45,7 +45,7 @@ const FilterModal = () => {
           <S.Input placeholder="예) 오늘의 맞춤 필터" />
         </LabelContent> */}
         {FILTER_TITLES.map((filterTitle, i) => (
-          <LabelContent label={filterTitle} key={i}>
+          <LabelContent css={S.label} label={filterTitle} key={i}>
             <S.FilterWrapper>
               {tags?.[i].options.map(({ id, title }) => (
                 <S.FilterItem

@@ -82,6 +82,7 @@ export const EditBtnWrapper = styled.div`
       height: 40px;
 
       :hover {
+        // TODO: hover 수정
         cursor: pointer;
       }
     }

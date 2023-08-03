@@ -81,7 +81,7 @@ export const createPheedBtn = (theme: Theme) => css`
 `;
 
 export const loginBtn = (theme: Theme) => css`
-  ${theme.font.medium_15};
+  ${theme.font.semiBold_15};
   padding: 6px 18px;
   border-radius: 100px;
   color: ${theme.color.white};
@@ -138,6 +138,10 @@ export const Search = styled.input`
     height: 24px;
     background-color: inherit;
 
+    ::placeholder {
+      ${theme.font.regular_15};
+    }
+
     @media (min-width: ${theme.breakPoint.minTablet}) {
       width: 184px;
     }
@@ -149,11 +153,16 @@ export const Search = styled.input`
 `;
 
 export const createPheed = (theme: Theme) => css`
-  ${theme.font.medium_15};
+  ${theme.font.semiBold_15};
   ${theme.flexMixin.flex_justifyC_alignC};
   width: 112px;
   height: 40px;
   border-radius: 100px;
   background-color: ${theme.color.blue_300};
   color: ${theme.color.white};
+`;
+
+export const profile = () => css`
+  width: 48px;
+  height: 48px;
 `;

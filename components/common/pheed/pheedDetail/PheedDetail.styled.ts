@@ -93,7 +93,11 @@ export const ProfileWrapper = styled.div`
 
 export const Nickname = styled.span`
   ${({ theme }) => css`
-    ${theme.font.semiBold_16};
+    ${theme.font.semiBold_14};
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      ${theme.font.semiBold_15};
+    }
   `}
 `;
 

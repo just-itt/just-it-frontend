@@ -121,7 +121,7 @@ export const NavItem = styled.li`
 
 export const NavMenu = styled.button<{ isclick: string }>`
   ${({ theme, isclick }) => css`
-    ${theme.font.semiBold_16};
+    ${theme.font.medium_15};
     ${theme.flexMixin.flex_alignC};
     width: 100%;
     height: 48px;
@@ -142,8 +142,8 @@ export const NavMenu = styled.button<{ isclick: string }>`
     }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      ${theme.font.medium_15};
-      column-gap: 12px;
+      ${isclick === "true" ? theme.font.semiBold_15 : theme.font.medium_15};
+      column-gap: 8px;
       width: 224px;
       height: 52px;
       border-radius: 5px;
@@ -163,4 +163,9 @@ export const NavMenu = styled.button<{ isclick: string }>`
       }
     }
   `}
+`;
+
+export const IconWrapper = styled.div`
+  width: 24px;
+  height: 24px;
 `;

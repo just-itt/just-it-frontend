@@ -78,7 +78,9 @@ const Nav = () => {
           isclick={(pathname === "/").toString()}
           onClick={handleCheckLogin("/")}
         >
-          <TagIcon />
+          <S.IconWrapper>
+            <TagIcon />
+          </S.IconWrapper>
           탐색하기
         </S.NavMenu>
       </S.NavItem>
@@ -88,7 +90,10 @@ const Nav = () => {
           isclick={(pathname === "/myPheed").toString()}
           onClick={handleCheckLogin("/myPheed")}
         >
-          <EditMonoIcon />내 게시글
+          <S.IconWrapper>
+            <EditMonoIcon />
+          </S.IconWrapper>
+          내 게시글
         </S.NavMenu>
       </S.NavItem>
       <S.NavItem>
@@ -97,7 +102,9 @@ const Nav = () => {
           isclick={(pathname === "/bookmark").toString()}
           onClick={handleCheckLogin("/bookmark")}
         >
-          <BookmarkMonoIcon />
+          <S.IconWrapper>
+            <BookmarkMonoIcon />
+          </S.IconWrapper>
           저장한 게시글
         </S.NavMenu>
       </S.NavItem>
@@ -107,7 +114,9 @@ const Nav = () => {
           isclick={(pathname === "/setting").toString()}
           onClick={handleCheckLogin("/setting")}
         >
-          <SettingMonoIcon />
+          <S.IconWrapper>
+            <SettingMonoIcon />
+          </S.IconWrapper>
           설정
         </S.NavMenu>
       </S.NavItem>

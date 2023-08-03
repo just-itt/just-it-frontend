@@ -24,19 +24,20 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
 
   return (
     <S.ContentWrapper>
-      <LabelContent css={S.margin} label="음식 이름 (필수)">
+      <LabelContent css={S.labelcontent} label="음식 이름 (필수)">
         <ErrorWrapper
           isError={!!errors?.title}
           errorMessage="음식 이름을 입력해주세요."
         >
           <LabelContent.Input
+            css={S.input}
             placeholder="음식 이름 입력..."
             isError={!!errors?.title}
             register={register("title", { required: true })}
           />
         </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="간단한 설명 (필수)">
+      <LabelContent css={S.labelcontent} label="간단한 설명 (필수)">
         <ErrorWrapper
           isError={!!errors?.content}
           errorMessage="간단한 설명을 입력해주세요."
@@ -49,7 +50,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           />
         </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="무엇을 먹었나요? (필수)">
+      <LabelContent css={S.labelcontent} label="무엇을 먹었나요? (필수)">
         <ErrorWrapper
           isError={!!errors?.what}
           errorMessage="태그를 선택해 주세요."
@@ -73,7 +74,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           </S.FilterWrapper>
         </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="언제 먹었나요? (필수)">
+      <LabelContent css={S.labelcontent} label="언제 먹었나요? (필수)">
         <ErrorWrapper
           isError={!!errors?.when}
           errorMessage="태그를 선택해 주세요."
@@ -95,7 +96,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           </S.FilterWrapper>
         </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="누구랑 먹었나요? (필수)">
+      <LabelContent css={S.labelcontent} label="누구랑 먹었나요? (필수)">
         <ErrorWrapper
           isError={!!errors?.who}
           errorMessage="태그를 선택해 주세요."
@@ -115,7 +116,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           </S.FilterWrapper>
         </ErrorWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="기분은 어땠나요?">
+      <LabelContent css={S.labelcontent} label="기분은 어땠나요?">
         <S.FilterWrapper>
           {data[3].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
@@ -132,7 +133,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           ))}
         </S.FilterWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="날씨는 어땠나요?">
+      <LabelContent css={S.labelcontent} label="날씨는 어땠나요?">
         <S.FilterWrapper>
           {data[4].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>
@@ -149,7 +150,7 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
           ))}
         </S.FilterWrapper>
       </LabelContent>
-      <LabelContent css={S.margin} label="분위기는 어땠나요?">
+      <LabelContent css={S.labelcontent} label="분위기는 어땠나요?">
         <S.FilterWrapper>
           {data[5].options.map(({ id, title }) => (
             <S.FilterItem key={title} isSelect={watch("etc").includes(`${id}`)}>

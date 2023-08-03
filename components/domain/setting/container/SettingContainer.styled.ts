@@ -6,10 +6,12 @@ export const Setting = styled.div`
     width: 100%;
     height: calc(100vh - 72px);
     margin: 0 auto;
-    padding: 20px;
+    padding: 28px 20px 20px 20px;
     overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
+      padding: 40px;
+
       & > div {
         width: 386px;
       }

@@ -46,6 +46,7 @@ export const FilterItemWrapper = styled.div`
 
 export const FilterItem = styled.button<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
+    ${theme.font.medium_15};
     width: fit-content;
     height: 40px;
     border: 1px solid

@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Modal = styled.div`
@@ -17,11 +17,10 @@ export const Modal = styled.div`
 
 export const HeadingWrapper = styled.div`
   ${({ theme }) => css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    ${theme.flexMixin.flex_justifyC_alignC};
     width: 100%;
     height: 60px;
+    padding: 18px 20px;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
       height: 72px;
@@ -29,8 +28,9 @@ export const HeadingWrapper = styled.div`
     }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      height: 72px;
       justify-content: space-between;
+      height: 72px;
+      padding: 20px 32px;
     }
   `}
 `;
@@ -52,12 +52,16 @@ export const Heading = styled.h2`
 export const CloseBtn = styled.button`
   ${({ theme }) => css`
     position: absolute;
-    left: 32px;
+    left: 18px;
 
     svg {
       width: 20px;
       height: 20px;
       fill: ${theme.color.grey_900};
+    }
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      left: 40px;
     }
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
@@ -74,7 +78,7 @@ export const Body = styled.div`
     row-gap: 32px;
     height: calc((var(--vh) * 100) - 60px - 82px);
     border-top: 1px solid ${theme.color.grey_200};
-    padding: 32px;
+    padding: 28px 20px;
     overflow-y: auto;
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
@@ -85,7 +89,7 @@ export const Body = styled.div`
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       height: 444px;
-      padding: 40px;
+      padding: 32px;
       border-bottom: 1px solid ${theme.color.grey_200};
     }
   `}
@@ -101,6 +105,18 @@ export const Input = styled.input`
   `}
 `;
 
+export const label = (theme: Theme) => css`
+  & > label {
+    ${theme.font.semiBold_14};
+  }
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    & > label {
+      ${theme.font.semiBold_16};
+    }
+  }
+`;
+
 export const FilterWrapper = styled.div`
   display: flex;
   flex-flow: wrap;
@@ -110,6 +126,7 @@ export const FilterWrapper = styled.div`
 
 export const FilterItem = styled.button<{ isSelect: boolean }>`
   ${({ theme, isSelect }) => css`
+    ${theme.font.medium_14};
     height: 40px;
     border: 1px solid
       ${isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`};
@@ -123,6 +140,10 @@ export const FilterItem = styled.button<{ isSelect: boolean }>`
         background-color: ${!isSelect && theme.color.grey_200};
       }
     }
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      ${theme.font.medium_15};
+    }
   `}
 `;
 
@@ -133,7 +154,7 @@ export const BtnWrapper = styled.div`
     width: 100%;
     height: 82px;
 
-    @media (min-width: ${theme.breakPoint.minDesktop}) {
+    @media (min-width: ${theme.breakPoint.minTablet}) {
       height: 88px;
     }
 

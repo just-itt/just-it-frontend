@@ -18,6 +18,7 @@ interface InputProps {
 }
 
 interface PasswordInputProps {
+  className?: string;
   placeholder: string;
   register: any;
 }
@@ -57,6 +58,7 @@ LabelContent.Input = ({
 };
 
 LabelContent.PasswordInput = ({
+  className,
   placeholder,
   register,
 }: PasswordInputProps) => {
@@ -67,7 +69,7 @@ LabelContent.PasswordInput = ({
   };
 
   return (
-    <S.InputWrapper>
+    <S.InputWrapper className={className}>
       <S.Input
         type={isPasswordBtnClick ? "text" : "password"}
         placeholder={placeholder}

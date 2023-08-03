@@ -1,8 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Wrapper = styled.div`
-  ${({ theme }) => css`
+export const Wrapper = styled.div<{ hasProfile: boolean }>`
+  ${({ theme, hasProfile }) => css`
     position: relative;
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
     height: 50px;
     border-radius: 100px;
     overflow: hidden;
-    border: 1px solid ${theme.color.grey_300};
+    border: ${!hasProfile && `1px solid ${theme.color.grey_300}`};
 
     svg {
       width: 20px;

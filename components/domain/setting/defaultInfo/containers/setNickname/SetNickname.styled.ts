@@ -17,7 +17,12 @@ export const labelContent = css`
 `;
 
 export const nicknameInput = (theme: Theme) => css`
+  ${theme.font.regular_14};
   width: 100%;
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
+    ${theme.font.regular_15};
+  }
 
   @media (min-width: ${theme.breakPoint.minDesktop}) {
     width: 386px;
@@ -29,9 +34,14 @@ export const emailLabelContent = css`
 `;
 
 export const emailInput = (theme: Theme) => css`
+  ${theme.font.regular_14};
   width: 100%;
 
   @media (min-width: ${theme.breakPoint.minDesktop}) {
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      ${theme.font.regular_15};
+    }
+
     width: 386px;
   }
 `;
