@@ -3,6 +3,7 @@ import { ax } from "apis";
 import type {
   DeletePheedQueryModel,
   DeletePheedReplyQueryModel,
+  GetMyPheedsQueryModel,
   GetMyPheedsServerModel,
   GetPheedDetailQueryModel,
   GetPheedDetailServerModel,
@@ -16,7 +17,22 @@ import type {
 } from "types";
 
 export const getPheeds = async (req: GetPheedsQueryModel) => {
+  // TODO: filter tagOptions 타입 number로 수정했는데 string으로 넘어가서 백엔드 확인 필요
+  // const filter = (tagOptions: string | string[]) => {
+  //   if (typeof tagOptions !== "string") {
+  //     return tagOptions.map(option => +option);
+  //   }
+
+  //   return +tagOptions;
+  // };
+
   const { data } = await ax.get<GetPheedsServerModel>("/posts", {
+    // params: {
+    //   ...req.query,
+    //   ...(req.query.tag_options && {
+    //     tag_options: filter(req.query.tag_options),
+    //   }),
+    // },
     params: req.query,
   });
 
@@ -47,8 +63,10 @@ export const getPheedDetail = async (req: GetPheedDetailQueryModel) => {
   return data;
 };
 
-export const getMyPheeds = async () => {
-  const { data } = await ax.get<GetMyPheedsServerModel>("/posts/me");
+export const getMyPheeds = async (req: GetMyPheedsQueryModel) => {
+  const { data } = await ax.get<GetMyPheedsServerModel>("/posts/me", {
+    params: req.query,
+  });
 
   return data;
 };

@@ -30,7 +30,6 @@ const HomeContainer = () => {
 
   const { isMobile } = useViewport();
 
-  const isSearch = filter || pheedSearch;
   const columnsCountBreakPoints = {
     555: 2,
     900: 3,
@@ -44,26 +43,24 @@ const HomeContainer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!pheeds) return null;
-
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          {isSearch && pheeds.length === 0 ? (
+          {pheedSearch && pheeds?.length === 0 ? (
             <NoResult />
-          ) : isSearch && pheeds.length !== 0 ? (
+          ) : pheedSearch && pheeds?.length !== 0 ? (
             <>
               <Heading
                 css={S.heading}
                 heading="검색결과"
-                count={pheeds.length}
+                count={pheeds?.length}
               />
               <ResponsiveMasonry
                 columnsCountBreakPoints={columnsCountBreakPoints}
               >
                 <Masonry gutter="16px">
-                  {pheeds.map(pheed => (
+                  {pheeds?.map(pheed => (
                     <Pheed
                       key={pheed.id}
                       src={pheed.image.image}
@@ -83,7 +80,7 @@ const HomeContainer = () => {
                 columnsCountBreakPoints={columnsCountBreakPoints}
               >
                 <Masonry gutter="16px">
-                  {pheeds.map(pheed => (
+                  {pheeds?.map(pheed => (
                     <Pheed
                       key={pheed.id}
                       src={pheed.image.image}

@@ -43,7 +43,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
   const filter = {
-    ...(query?.search_word && { search_word: query?.search_word as string }),
+    ...(query?.pheedSearch && { search_word: query?.pheedSearch as string }),
     ...(query?.filter && {
       tag_options: query.filter,
     }),
