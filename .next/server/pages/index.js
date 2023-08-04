@@ -37,11 +37,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-const index = () => {
-  return _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .HomeContainer */ .l3, {});
+
+
+const Home = ({
+  detailTitle,
+  imgUrl,
+  content
+}) => {
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Seo */ .pQ, {
+      title: detailTitle,
+      description: content ?? "매일 똑같은 고민, 오늘 점심 뭐먹지? just it이 고민을 해결해줄게요! 나와 같은 상황일 때 다른 사람은 무엇을 먹을까요? 궁금하지 않나요? just it은 다양한 음식 메뉴를 추천하여 특별한 식사 시간을 만들어드립니다.",
+      imgUrl: imgUrl
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .HomeContainer */ .l3, {})]
+  });
 };
 
-index.getLayout = function getLayout(page) {
+Home.getLayout = function getLayout(page) {
   return _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .MainLayout */ .Zn, {
     children: page
   });
@@ -52,13 +64,13 @@ async function getServerSideProps(ctx) {
     query
   } = ctx;
   const ax = axios__WEBPACK_IMPORTED_MODULE_1__["default"].create({
-    baseURL: "http://3.39.122.234/api/v1",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 5000
   });
   const queryClient = new _tanstack_react_query__WEBPACK_IMPORTED_MODULE_2__.QueryClient();
 
-  const filter = _objectSpread(_objectSpread({}, query?.search_word && {
-    search_word: query?.search_word
+  const filter = _objectSpread(_objectSpread({}, query?.pheedSearch && {
+    search_word: query?.pheedSearch
   }), query?.filter && {
     tag_options: query.filter
   });
@@ -87,13 +99,33 @@ async function getServerSideProps(ctx) {
     cacheTime: Infinity,
     staleTime: Infinity
   });
+  let detailTitle = "";
+  let imgUrl = "";
+  let content = "";
+  await queryClient.prefetchQuery({
+    queryKey: _service_index__WEBPACK_IMPORTED_MODULE_4__/* .pheedKeys.pheedDetail */ .Fd.pheedDetail({
+      id: query.id
+    }),
+    queryFn: async () => {
+      const {
+        data
+      } = await ax.get(`/posts/${query.id}`);
+      detailTitle = data.title;
+      content = data.content;
+      imgUrl = data.image.image;
+      return data;
+    }
+  });
   return {
     props: {
+      detailTitle,
+      imgUrl,
+      content,
       dehydratedState: JSON.parse(JSON.stringify((0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_2__.dehydrate)(queryClient)))
     }
   };
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Home);
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } });
 
@@ -341,6 +373,13 @@ module.exports = require("next/dist/shared/lib/utils.js");
 /***/ ((module) => {
 
 module.exports = require("next/dist/shared/lib/utils/warn-once.js");
+
+/***/ }),
+
+/***/ 968:
+/***/ ((module) => {
+
+module.exports = require("next/head");
 
 /***/ }),
 

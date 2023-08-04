@@ -393,7 +393,7 @@ function removeTrailingSlash(route) {
 
 /***/ }),
 
-/***/ 360:
+/***/ 919:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -402,7 +402,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ next_middleware_loaderabsolutePagePath_private_next_root_dir_2Fmiddleware_ts_page_2Fmiddleware_rootDir_2FUsers_2Fchoisuhyeok_2FDesktop_2Fcode_2Flunch_matchers_W3sicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10_2FJCJ9LHsicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvc2V0dGluZyguanNvbik_2FW1xcLyNcXD9dPyQifV0_3D_)
+  "default": () => (/* binding */ next_middleware_loaderabsolutePagePath_private_next_root_dir_2Fmiddleware_ts_page_2Fmiddleware_rootDir_2FUsers_2F2jisu_2FDesktop_2Fstudy_2Fjust_it_frontend_matchers_W3sicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10_2FJCJ9LHsicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvc2V0dGluZyguanNvbik_2FW1xcLyNcXD9dPyQifV0_3D_)
 });
 
 ;// CONCATENATED MODULE: ./node_modules/next/dist/esm/server/web/error.js
@@ -1717,7 +1717,7 @@ function enhanceGlobals() {
 }
 
 //# sourceMappingURL=adapter.js.map
-;// CONCATENATED MODULE: ./node_modules/next/dist/build/webpack/loaders/next-middleware-loader.js?absolutePagePath=private-next-root-dir%2Fmiddleware.ts&page=%2Fmiddleware&rootDir=%2FUsers%2Fchoisuhyeok%2FDesktop%2Fcode%2Flunch&matchers=W3sicmVnZXhwIjoiXig%2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10%2FJCJ9LHsicmVnZXhwIjoiXig%2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw%2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk%2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw%2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk%2FXFwvc2V0dGluZyguanNvbik%2FW1xcLyNcXD9dPyQifV0%3D!
+;// CONCATENATED MODULE: ./node_modules/next/dist/build/webpack/loaders/next-middleware-loader.js?absolutePagePath=private-next-root-dir%2Fmiddleware.ts&page=%2Fmiddleware&rootDir=%2FUsers%2F2jisu%2FDesktop%2Fstudy%2Fjust-it-frontend&matchers=W3sicmVnZXhwIjoiXig%2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10%2FJCJ9LHsicmVnZXhwIjoiXig%2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw%2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk%2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw%2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk%2FXFwvc2V0dGluZyguanNvbik%2FW1xcLyNcXD9dPyQifV0%3D!
 
         
 
@@ -1730,7 +1730,7 @@ function enhanceGlobals() {
           throw new Error('The Middleware "pages/middleware" must export a `middleware` or a `default` function');
         }
 
-        /* harmony default export */ function next_middleware_loaderabsolutePagePath_private_next_root_dir_2Fmiddleware_ts_page_2Fmiddleware_rootDir_2FUsers_2Fchoisuhyeok_2FDesktop_2Fcode_2Flunch_matchers_W3sicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10_2FJCJ9LHsicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvc2V0dGluZyguanNvbik_2FW1xcLyNcXD9dPyQifV0_3D_(opts) {
+        /* harmony default export */ function next_middleware_loaderabsolutePagePath_private_next_root_dir_2Fmiddleware_ts_page_2Fmiddleware_rootDir_2FUsers_2F2jisu_2FDesktop_2Fstudy_2Fjust_it_frontend_matchers_W3sicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL2xvZ2luKC5qc29uKT9bXFwvI1xcP10_2FJCJ9LHsicmVnZXhwIjoiXig_2FOlxcLyhfbmV4dFxcL2RhdGFcXC9bXi9dezEsfSkpP1xcL215UGhlZWQoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvYm9va21hcmsoLmpzb24pP1tcXC8jXFw_2FXT8kIn0seyJyZWdleHAiOiJeKD86XFwvKF9uZXh0XFwvZGF0YVxcL1teL117MSx9KSk_2FXFwvc2V0dGluZyguanNvbik_2FW1xcLyNcXD9dPyQifV0_3D_(opts) {
           return adapter({
               ...opts,
               page: "/middleware",
@@ -2661,7 +2661,7 @@ exports.URLPattern = serverExports.URLPattern
 },
 /******/ __webpack_require__ => { // webpackRuntimeModules
 /******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-/******/ var __webpack_exports__ = (__webpack_exec__(360));
+/******/ var __webpack_exports__ = (__webpack_exec__(919));
 /******/ (_ENTRIES = typeof _ENTRIES === "undefined" ? {} : _ENTRIES).middleware_middleware = __webpack_exports__;
 /******/ }
 ]);

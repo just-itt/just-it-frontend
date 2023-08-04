@@ -1,11 +1,11 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/editPheed": "pages/editPheed.html",
   "/createPheed": "pages/createPheed.html",
+  "/editPheed": "pages/editPheed.html",
   "/findPassword": "pages/findPassword.html",
-  "/setting": "pages/setting.html",
   "/login": "pages/login.html",
+  "/setting": "pages/setting.html",
   "/_error": "pages/_error.js",
   "/bookmark": "pages/bookmark.js",
   "/myPheed": "pages/myPheed.js",

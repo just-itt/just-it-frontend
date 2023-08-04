@@ -47,7 +47,7 @@ async function getServerSideProps(ctx) {
   } = ctx;
   const token = req.cookies.auth;
   const ax = axios__WEBPACK_IMPORTED_MODULE_1__["default"].create({
-    baseURL: "http://3.39.122.234/api/v1",
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 5000
   });
 
@@ -315,6 +315,13 @@ module.exports = require("next/dist/shared/lib/utils.js");
 /***/ ((module) => {
 
 module.exports = require("next/dist/shared/lib/utils/warn-once.js");
+
+/***/ }),
+
+/***/ 968:
+/***/ ((module) => {
+
+module.exports = require("next/head");
 
 /***/ }),
 

@@ -17,7 +17,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([axio
 
 
 const ax = axios__WEBPACK_IMPORTED_MODULE_0__["default"].create({
-  baseURL: "http://3.39.122.234/api/v1",
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 5000
 });
 ax.interceptors.request.use(config => {
@@ -226,9 +226,22 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([apis
 apis__WEBPACK_IMPORTED_MODULE_0__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
 
 const getPheeds = async req => {
+  // TODO: filter tagOptions 타입 number로 수정했는데 string으로 넘어가서 백엔드 확인 필요
+  // const filter = (tagOptions: string | string[]) => {
+  //   if (typeof tagOptions !== "string") {
+  //     return tagOptions.map(option => +option);
+  //   }
+  //   return +tagOptions;
+  // };
   const {
     data
   } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.get("/posts", {
+    // params: {
+    //   ...req.query,
+    //   ...(req.query.tag_options && {
+    //     tag_options: filter(req.query.tag_options),
+    //   }),
+    // },
     params: req.query
   });
   return data.items;
@@ -251,10 +264,12 @@ const getPheedDetail = async req => {
   } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.get(`/posts/${req.id}`);
   return data;
 };
-const getMyPheeds = async () => {
+const getMyPheeds = async req => {
   const {
     data
-  } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.get("/posts/me");
+  } = await apis__WEBPACK_IMPORTED_MODULE_0__.ax.get("/posts/me", {
+    params: req.query
+  });
   return data;
 };
 const postPheedReply = async req => {
@@ -1175,18 +1190,13 @@ const Header = () => {
     query
   } = (0,next_router__WEBPACK_IMPORTED_MODULE_2__.useRouter)();
   const {
+    data: profile
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_6__/* .useGetMyProfile */ .eL)();
+  const {
     isMobile,
     isTablet,
     isDesktop
   } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_8__/* .useViewport */ .Sj)();
-  const {
-    data: profile
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_6__/* .useGetMyProfile */ .eL)();
-  const setNavState = (0,recoil__WEBPACK_IMPORTED_MODULE_4__.useSetRecoilState)(_recoil_index__WEBPACK_IMPORTED_MODULE_7__/* .navAtom */ .M);
-  const {
-    0: isFocusInput,
-    1: setIsFocusInput
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const {
     register,
     watch,
@@ -1198,6 +1208,11 @@ const Header = () => {
       pheedSearch: query.pheedSearch || ""
     }
   });
+  const setNavState = (0,recoil__WEBPACK_IMPORTED_MODULE_4__.useSetRecoilState)(_recoil_index__WEBPACK_IMPORTED_MODULE_7__/* .navAtom */ .M);
+  const {
+    0: isFocusInput,
+    1: setIsFocusInput
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
 
   const handleClickMenu = () => {
     setNavState(true);
@@ -1211,10 +1226,12 @@ const Header = () => {
   }, [query]);
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Header */ .h4, {
     children: [isMobile && (isFocusInput ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-      onSubmit: handleSubmit(data => push({
-        query: _objectSpread(_objectSpread({}, query), {}, {
-          pheedSearch: data.pheedSearch
-        })
+      onSubmit: handleSubmit(({
+        pheedSearch
+      }) => push({
+        query: {
+          pheedSearch
+        }
       })),
       children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .SearchShortIcon */ .YA, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Search */ .ol, _objectSpread({
         placeholder: "\uAC80\uC0C9...",
@@ -1263,10 +1280,12 @@ const Header = () => {
         })]
       }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .FlexWrapper */ .A0, {
         children: [isFocusInput ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-          onSubmit: handleSubmit(data => push({
-            query: _objectSpread(_objectSpread({}, query), {}, {
-              pheedSearch: data.pheedSearch
-            })
+          onSubmit: handleSubmit(({
+            pheedSearch
+          }) => push({
+            query: {
+              pheedSearch
+            }
           })),
           children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .SearchShortIcon */ .YA, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Search */ .ol, _objectSpread({
             placeholder: "\uAC80\uC0C9...",
@@ -1303,10 +1322,12 @@ const Header = () => {
           children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .LogoShortIcon */ .xv, {})
         })]
       }), (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsxs)(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .SearchWrapper */ ._8, {
-        onSubmit: handleSubmit(data => push({
-          query: _objectSpread(_objectSpread({}, query), {}, {
-            pheedSearch: data.pheedSearch
-          })
+        onSubmit: handleSubmit(({
+          pheedSearch
+        }) => push({
+          query: {
+            pheedSearch
+          }
         })),
         children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_9__/* .SearchShortIcon */ .YA, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .Search */ .ol, _objectSpread({
           placeholder: "\uAC80\uC0C9...",
@@ -1326,6 +1347,7 @@ const Header = () => {
           }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx((next_link__WEBPACK_IMPORTED_MODULE_1___default()), {
             href: "/setting",
             children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_11__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_5__/* .Profile */ .NZ, {
+              css: _Header_styled__WEBPACK_IMPORTED_MODULE_10__/* .profile */ .N5,
               src: profile.profile_image,
               alt: `${profile.nickname}님의 프로필 사진`
             })
@@ -1353,6 +1375,7 @@ __webpack_async_result__();
 /* harmony export */   "A0": () => (/* binding */ FlexWrapper),
 /* harmony export */   "F_": () => (/* binding */ createPheedBtn),
 /* harmony export */   "K7": () => (/* binding */ LogoWrapper),
+/* harmony export */   "N5": () => (/* binding */ profile),
 /* harmony export */   "PV": () => (/* binding */ loginBtn),
 /* harmony export */   "Yq": () => (/* binding */ SearchBtn),
 /* harmony export */   "_8": () => (/* binding */ SearchWrapper),
@@ -1397,7 +1420,7 @@ const SearchBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:center;align-items:center;width:28px;height:28px;svg{width:28px;height:28px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const createPheedBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:28px;height:28px;svg{width:28px;height:28px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0);
-const loginBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";padding:6px 18px;border-radius:100px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";@media (min-width: ", theme.breakPoint.minDesktop, "){padding:8px 20px;}" + ( true ? "" : 0),  true ? "" : 0);
+const loginBtn = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_15, ";padding:6px 18px;border-radius:100px;color:", theme.color.white, ";background-color:", theme.color.blue_300, ";@media (min-width: ", theme.breakPoint.minDesktop, "){padding:8px 20px;}" + ( true ? "" : 0),  true ? "" : 0);
 const SearchWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("form",  true ? {
   target: "e1y09ypm1"
 } : 0)(({
@@ -1407,8 +1430,15 @@ const Search = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___de
   target: "e1y09ypm0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:302px;height:24px;background-color:inherit;@media (min-width: ", theme.breakPoint.minTablet, "){width:184px;}@media (min-width: ", theme.breakPoint.minDesktop, "){width:324px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const createPheed = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";", theme.flexMixin.flex_justifyC_alignC, ";width:112px;height:40px;border-radius:100px;background-color:", theme.color.blue_300, ";color:", theme.color.white, ";" + ( true ? "" : 0),  true ? "" : 0);
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:302px;height:24px;background-color:inherit;::placeholder{", theme.font.regular_15, ";}@media (min-width: ", theme.breakPoint.minTablet, "){width:184px;}@media (min-width: ", theme.breakPoint.minDesktop, "){width:324px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const createPheed = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_15, ";", theme.flexMixin.flex_justifyC_alignC, ";width:112px;height:40px;border-radius:100px;background-color:", theme.color.blue_300, ";color:", theme.color.white, ";" + ( true ? "" : 0),  true ? "" : 0);
+
+var _ref =  true ? {
+  name: "18jhpep",
+  styles: "width:48px;height:48px"
+} : 0;
+
+const profile = () => _ref;
 
 /***/ }),
 
@@ -1472,7 +1502,7 @@ const Heading_component_Heading = ({
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$_": () => (/* reexport safe */ _footer_Footer_component__WEBPACK_IMPORTED_MODULE_8__.Z),
-/* harmony export */   "$j": () => (/* reexport safe */ _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_17__.Z),
+/* harmony export */   "$j": () => (/* reexport safe */ _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_18__.Z),
 /* harmony export */   "Dd": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.Dd),
 /* harmony export */   "FU": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.FU),
 /* harmony export */   "HW": () => (/* reexport safe */ _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__.Z),
@@ -1488,6 +1518,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "iq": () => (/* reexport safe */ _labelContent_LabelContent_component__WEBPACK_IMPORTED_MODULE_12__.Z),
 /* harmony export */   "mv": () => (/* reexport safe */ _input__WEBPACK_IMPORTED_MODULE_2__.mv),
 /* harmony export */   "od": () => (/* reexport safe */ _buttons__WEBPACK_IMPORTED_MODULE_0__.o),
+/* harmony export */   "pQ": () => (/* reexport safe */ _seo_Seo_component__WEBPACK_IMPORTED_MODULE_17__.Z),
 /* harmony export */   "r": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.r),
 /* harmony export */   "rd": () => (/* reexport safe */ _pheed__WEBPACK_IMPORTED_MODULE_4__.rd),
 /* harmony export */   "sm": () => (/* reexport safe */ _modal__WEBPACK_IMPORTED_MODULE_3__.sm),
@@ -1513,9 +1544,11 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _noResult_NoResult_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(8517);
 /* harmony import */ var _potal_Potal_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(9720);
 /* harmony import */ var _profile_Profile_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(3740);
-/* harmony import */ var _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(4265);
+/* harmony import */ var _seo_Seo_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(2344);
+/* harmony import */ var _spinner_Spinner_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(4265);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_input__WEBPACK_IMPORTED_MODULE_2__, _modal__WEBPACK_IMPORTED_MODULE_3__, _pheed__WEBPACK_IMPORTED_MODULE_4__, _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__, _header_Header_component__WEBPACK_IMPORTED_MODULE_10__, _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__]);
 ([_input__WEBPACK_IMPORTED_MODULE_2__, _modal__WEBPACK_IMPORTED_MODULE_3__, _pheed__WEBPACK_IMPORTED_MODULE_4__, _comments_Comments_component__WEBPACK_IMPORTED_MODULE_5__, _header_Header_component__WEBPACK_IMPORTED_MODULE_10__, _nav_Nav_component__WEBPACK_IMPORTED_MODULE_13__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+
 
 
 
@@ -1813,7 +1846,7 @@ const FormWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0
   theme,
   hasValue,
   hasError
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("input{margin-bottom:", hasError && "4px", ";border-color:", hasError && "red", ";padding:", hasValue ? "30px 12px 12px 12px" : "12px", ";}label{", hasValue ? theme.font.regular_12 : theme.font.medium_15, ";top:", hasValue ? "5px" : "12px", ";color:", theme.color.grey_500, ";transition-duration:0.2s;}&:focus-within{input{border-color:", theme.color.blue_200, ";padding:30px 12px 12px 12px;}label{", theme.font.regular_12, ";top:5px;color:", theme.color.grey_700, ";transition-duration:0.2s;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("input{margin-bottom:", hasError && "4px", ";border-color:", hasError && theme.color.red_200, ";padding:", hasValue ? "30px 12px 12px 12px" : "12px", ";}label{", hasValue ? theme.font.regular_12 : theme.font.medium_15, ";top:", hasValue ? "5px" : "12px", ";color:", theme.color.grey_500, ";transition-duration:0.2s;}&:focus-within{input{border-color:", theme.color.blue_300, ";padding:30px 12px 12px 12px;}label{", theme.font.regular_12, ";top:5px;color:", theme.color.grey_700, ";transition-duration:0.2s;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const InputWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "e2ihcyq4"
 } : 0)( true ? {
@@ -1824,7 +1857,7 @@ const Input = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___def
   target: "e2ihcyq3"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";width:100%;height:48px;border:1px solid ", theme.color.grey_300, ";border-radius:5px;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";width:100%;height:48px;border:1px solid ", theme.color.grey_300, ";border-radius:5px;@media (hover: hover){:hover{border-color:", theme.color.blue_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Placeholder = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("label",  true ? {
   target: "e2ihcyq2"
 } : 0)(({
@@ -1960,6 +1993,7 @@ LabelContent.Input = ({
 };
 
 LabelContent.PasswordInput = ({
+  className,
   placeholder,
   register
 }) => {
@@ -1973,6 +2007,7 @@ LabelContent.PasswordInput = ({
   };
 
   return (0,jsx_runtime_.jsxs)(InputWrapper, {
+    className: className,
     children: [jsx_runtime_.jsx(Input, _objectSpread({
       type: isPasswordBtnClick ? "text" : "password",
       placeholder: placeholder
@@ -2254,6 +2289,7 @@ const FilterModal = () => {
       })]
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .Body */ .uT, {
       children: FILTER_TITLES.map((filterTitle, i) => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
+        css: _FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .label */ .PS,
         label: filterTitle,
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_FilterModal_styled__WEBPACK_IMPORTED_MODULE_5__/* .FilterWrapper */ .kI, {
           children: tags?.[i].options.map(({
@@ -2289,6 +2325,7 @@ __webpack_async_result__();
 /* harmony export */   "Bo": () => (/* binding */ BtnWrapper),
 /* harmony export */   "Ji": () => (/* binding */ ConfirmBtn),
 /* harmony export */   "L2": () => (/* binding */ FilterItem),
+/* harmony export */   "PS": () => (/* binding */ label),
 /* harmony export */   "X6": () => (/* binding */ Heading),
 /* harmony export */   "dg": () => (/* binding */ CloseBtn),
 /* harmony export */   "kI": () => (/* binding */ FilterWrapper),
@@ -2315,7 +2352,7 @@ const HeadingWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODUL
   target: "e154jfno8"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:center;align-items:center;width:100%;height:60px;@media (min-width: ", theme.breakPoint.minTablet, "){height:72px;padding:24px 40px;}@media (min-width: ", theme.breakPoint.minDesktop, "){height:72px;justify-content:space-between;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.flexMixin.flex_justifyC_alignC, ";width:100%;height:60px;padding:18px 20px;@media (min-width: ", theme.breakPoint.minTablet, "){height:72px;padding:24px 40px;}@media (min-width: ", theme.breakPoint.minDesktop, "){justify-content:space-between;height:72px;padding:20px 32px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Heading = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("h2",  true ? {
   target: "e154jfno7"
 } : 0)(({
@@ -2325,17 +2362,18 @@ const CloseBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___
   target: "e154jfno6"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:absolute;left:32px;svg{width:20px;height:20px;fill:", theme.color.grey_900, ";}@media (min-width: ", theme.breakPoint.minDesktop, "){position:relative;left:0;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:absolute;left:18px;svg{width:20px;height:20px;fill:", theme.color.grey_900, ";}@media (min-width: ", theme.breakPoint.minTablet, "){left:40px;}@media (min-width: ", theme.breakPoint.minDesktop, "){position:relative;left:0;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Body = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "e154jfno5"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;flex-flow:column;row-gap:32px;height:calc((var(--vh) * 100) - 60px - 82px);border-top:1px solid ", theme.color.grey_200, ";padding:32px;overflow-y:auto;@media (min-width: ", theme.breakPoint.minTablet, "){height:calc((var(--vh) * 100) - 72px - 88px);margin-bottom:0;padding:40px;}@media (min-width: ", theme.breakPoint.minDesktop, "){height:444px;padding:40px;border-bottom:1px solid ", theme.color.grey_200, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;flex-flow:column;row-gap:32px;height:calc((var(--vh) * 100) - 60px - 82px);border-top:1px solid ", theme.color.grey_200, ";padding:28px 20px;overflow-y:auto;@media (min-width: ", theme.breakPoint.minTablet, "){height:calc((var(--vh) * 100) - 72px - 88px);margin-bottom:0;padding:40px;}@media (min-width: ", theme.breakPoint.minDesktop, "){height:444px;padding:32px;border-bottom:1px solid ", theme.color.grey_200, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Input = /*#__PURE__*/(/* unused pure expression or super */ null && (_styled("input",  true ? {
   target: "e154jfno4"
 } : 0)(({
   theme
 }) => /*#__PURE__*/css(theme.font.regular_15, ";height:44px;border:1px solid ", theme.color.grey_300, ";border-radius:5px;padding:10px 12px;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0))));
+const label = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("&>label{", theme.font.semiBold_14, ";}@media (min-width: ", theme.breakPoint.minTablet, "){&>label{", theme.font.semiBold_16, ";}}" + ( true ? "" : 0),  true ? "" : 0);
 const FilterWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "e154jfno3"
 } : 0)( true ? {
@@ -2347,12 +2385,12 @@ const FilterItem = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0_
 } : 0)(({
   theme,
   isSelect
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_14, ";height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.medium_15, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const BtnWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "e154jfno1"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:flex-end;width:100%;height:82px;@media (min-width: ", theme.breakPoint.minDesktop, "){height:88px;}@media (min-width: ", theme.breakPoint.minDesktop, "){align-items:center;height:80px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;justify-content:flex-end;width:100%;height:82px;@media (min-width: ", theme.breakPoint.minTablet, "){height:88px;}@media (min-width: ", theme.breakPoint.minDesktop, "){align-items:center;height:80px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const ConfirmBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
   target: "e154jfno0"
 } : 0)(({
@@ -2679,28 +2717,36 @@ const Nav = () => {
         type: "button",
         isclick: (pathname === "/").toString(),
         onClick: handleCheckLogin("/"),
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .TagIcon */ .lO, {}), "\uD0D0\uC0C9\uD558\uAE30"]
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .IconWrapper */ .a1, {
+          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .TagIcon */ .lO, {})
+        }), "\uD0D0\uC0C9\uD558\uAE30"]
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavItem */ .LY, {
       children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavMenu */ .Ml, {
         type: "button",
         isclick: (pathname === "/myPheed").toString(),
         onClick: handleCheckLogin("/myPheed"),
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .EditMonoIcon */ .nH, {}), "\uB0B4 \uAC8C\uC2DC\uAE00"]
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .IconWrapper */ .a1, {
+          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .EditMonoIcon */ .nH, {})
+        }), "\uB0B4 \uAC8C\uC2DC\uAE00"]
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavItem */ .LY, {
       children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavMenu */ .Ml, {
         type: "button",
         isclick: (pathname === "/bookmark").toString(),
         onClick: handleCheckLogin("/bookmark"),
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookmarkMonoIcon */ ["in"], {}), "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00"]
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .IconWrapper */ .a1, {
+          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .BookmarkMonoIcon */ ["in"], {})
+        }), "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00"]
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavItem */ .LY, {
       children: (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .NavMenu */ .Ml, {
         type: "button",
         isclick: (pathname === "/setting").toString(),
         onClick: handleCheckLogin("/setting"),
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .SettingMonoIcon */ .Yv, {}), "\uC124\uC815"]
+        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_Nav_styled__WEBPACK_IMPORTED_MODULE_9__/* .IconWrapper */ .a1, {
+          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_8__/* .SettingMonoIcon */ .Yv, {})
+        }), "\uC124\uC815"]
       })
     })]
   });
@@ -2721,6 +2767,7 @@ __webpack_async_result__();
 /* harmony export */   "LY": () => (/* binding */ NavItem),
 /* harmony export */   "Ml": () => (/* binding */ NavMenu),
 /* harmony export */   "N5": () => (/* binding */ profile),
+/* harmony export */   "a1": () => (/* binding */ IconWrapper),
 /* harmony export */   "dg": () => (/* binding */ CloseBtn),
 /* harmony export */   "im": () => (/* binding */ Wrapper)
 /* harmony export */ });
@@ -2730,39 +2777,48 @@ __webpack_async_result__();
 /* harmony import */ var _emotion_react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_emotion_react__WEBPACK_IMPORTED_MODULE_1__);
 
 
+function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+
 const Nav = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("ul",  true ? {
-  target: "e1g1urpc5"
+  target: "e1g1urpc6"
 } : 0)(({
   theme,
   isOpen
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("position:fixed;top:0;left:-100%;width:100%;height:100vh;background-color:", theme.color.white, ";transform:translateX(", isOpen ? "100%" : "0%", ");z-index:", theme.zIndex.nav, ";transition:transform 0.3s ease-out;@media (min-width: ", theme.breakPoint.minDesktop, "){position:fixed;top:", theme.constantCss.navHeight, ";right:0;bottom:0;left:0;display:unset;width:248px;height:calc(100vh - ", theme.constantCss.navHeight, ");border-right:1px solid ", theme.color.grey_200, ";padding:12px 0;transform:translateX(0%);transition:unset;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Wrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "e1g1urpc4"
+  target: "e1g1urpc5"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.flexMixin.flex_justifySb_alignC, ";height:60px;margin-bottom:12px;border-bottom:1px solid ", theme.color.grey_200, ";padding:0 20px;&>svg{width:64px;height:52px;}@media (min-width: ", theme.breakPoint.minTablet, "){height:", theme.constantCss.navHeight, ";margin-bottom:28px;}@media (min-width: ", theme.breakPoint.minDesktop, "){display:none;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const CloseBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
-  target: "e1g1urpc3"
+  target: "e1g1urpc4"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("svg{width:20px;height:20px;fill:", theme.color.grey_900, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const ProfileWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "e1g1urpc2"
+  target: "e1g1urpc3"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_16, ";", theme.flexMixin.flex_alignC, ";padding:12px 0 12px 20px;border-bottom:1px solid ", theme.color.grey_300, ";&>a{", theme.flexMixin.flex_alignC, ";color:", theme.color.grey_900, ";&>svg{width:20px;height:20px;margin-left:4px;fill:", theme.color.grey_900, ";transform:rotate(-90deg);}}@media (min-width: ", theme.breakPoint.minDesktop, "){display:none;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const profile = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:48px;height:48px;margin-right:16px;border:1px solid ", theme.color.grey_300, ";a{color:", theme.color.grey_900, ";}svg{width:20px;height:20px;}" + ( true ? "" : 0),  true ? "" : 0);
 const NavItem = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("li",  true ? {
-  target: "e1g1urpc1"
+  target: "e1g1urpc2"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("@media (min-width: ", theme.breakPoint.minDesktop, "){padding:0 12px;svg{width:24px;height:24px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const NavMenu = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
-  target: "e1g1urpc0"
+  target: "e1g1urpc1"
 } : 0)(({
   theme,
   isclick
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_16, ";", theme.flexMixin.flex_alignC, ";width:100%;height:48px;padding:0 20px;color:", isclick === "true" ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isclick === "true" ? `${theme.color.blue_navBg}` : "inherit", ";svg{display:none;}@media (min-width: ", theme.breakPoint.minTablet, "){height:50px;}@media (min-width: ", theme.breakPoint.minDesktop, "){", theme.font.medium_15, ";column-gap:12px;width:224px;height:52px;border-radius:5px;padding-left:12px;svg{display:block;fill:", isclick === "true" ? `${theme.color.blue_300}` : `${theme.color.grey_500}`, ";}@media (hover: hover){:hover{background-color:", theme.color.grey_100, ";}}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";", theme.flexMixin.flex_alignC, ";width:100%;height:48px;padding:0 20px;color:", isclick === "true" ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isclick === "true" ? `${theme.color.blue_navBg}` : "inherit", ";svg{display:none;}@media (min-width: ", theme.breakPoint.minTablet, "){height:50px;}@media (min-width: ", theme.breakPoint.minDesktop, "){", isclick === "true" ? theme.font.semiBold_15 : theme.font.medium_15, ";column-gap:8px;width:224px;height:52px;border-radius:5px;padding-left:12px;svg{display:block;fill:", isclick === "true" ? `${theme.color.blue_300}` : `${theme.color.grey_500}`, ";}@media (hover: hover){:hover{background-color:", theme.color.grey_100, ";}}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const IconWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "e1g1urpc0"
+} : 0)( true ? {
+  name: "rrel8y",
+  styles: "width:24px;height:24px"
+} : 0);
 
 /***/ }),
 
@@ -3349,7 +3405,7 @@ const Nickname = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___
   target: "eg64tz59"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_16, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.semiBold_14, ";@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.semiBold_15, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const ImgWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "eg64tz58"
 } : 0)(({
@@ -3737,7 +3793,7 @@ const Heading = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___d
   target: "e18dpg9b1"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:none;@media (min-width: ", theme.breakPoint.minTablet, "){display:block;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:none;@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.bold_20, ";display:block;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const CreateBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
   target: "e18dpg9b0"
 } : 0)(({
@@ -3788,12 +3844,13 @@ const PheedFilter = ({
   if (!data) return null;
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .ContentWrapper */ .vs, {
     children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uC74C\uC2DD \uC774\uB984 (\uD544\uC218)",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ErrorWrapper */ .Vx, {
         isError: !!errors?.title,
         errorMessage: "\uC74C\uC2DD \uC774\uB984\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent.Input */ .iq.Input, {
+          css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .input */ .qH,
           placeholder: "\uC74C\uC2DD \uC774\uB984 \uC785\uB825...",
           isError: !!errors?.title,
           register: register("title", {
@@ -3802,7 +3859,7 @@ const PheedFilter = ({
         })
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uAC04\uB2E8\uD55C \uC124\uBA85 (\uD544\uC218)",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ErrorWrapper */ .Vx, {
         isError: !!errors?.content,
@@ -3817,7 +3874,7 @@ const PheedFilter = ({
         })
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uBB34\uC5C7\uC744 \uBA39\uC5C8\uB098\uC694? (\uD544\uC218)",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ErrorWrapper */ .Vx, {
         isError: !!errors?.what,
@@ -3844,7 +3901,7 @@ const PheedFilter = ({
         })
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uC5B8\uC81C \uBA39\uC5C8\uB098\uC694? (\uD544\uC218)",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ErrorWrapper */ .Vx, {
         isError: !!errors?.when,
@@ -3869,7 +3926,7 @@ const PheedFilter = ({
         })
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uB204\uAD6C\uB791 \uBA39\uC5C8\uB098\uC694? (\uD544\uC218)",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .ErrorWrapper */ .Vx, {
         isError: !!errors?.who,
@@ -3894,7 +3951,7 @@ const PheedFilter = ({
         })
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uAE30\uBD84\uC740 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
         children: data[3].options.map(({
@@ -3913,7 +3970,7 @@ const PheedFilter = ({
         }, title))
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uB0A0\uC528\uB294 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
         children: data[4].options.map(({
@@ -3932,7 +3989,7 @@ const PheedFilter = ({
         }, title))
       })
     }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent */ .iq, {
-      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .margin */ .e6,
+      css: _PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .labelcontent */ .w7,
       label: "\uBD84\uC704\uAE30\uB294 \uC5B4\uB560\uB098\uC694?",
       children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx(_PheedFilter_styled__WEBPACK_IMPORTED_MODULE_4__/* .FilterWrapper */ .kI, {
         children: data[5].options.map(({
@@ -3965,10 +4022,11 @@ __webpack_async_result__();
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "L2": () => (/* binding */ FilterItem),
-/* harmony export */   "e6": () => (/* binding */ margin),
 /* harmony export */   "eL": () => (/* binding */ textArea),
 /* harmony export */   "kI": () => (/* binding */ FilterWrapper),
-/* harmony export */   "vs": () => (/* binding */ ContentWrapper)
+/* harmony export */   "qH": () => (/* binding */ input),
+/* harmony export */   "vs": () => (/* binding */ ContentWrapper),
+/* harmony export */   "w7": () => (/* binding */ labelcontent)
 /* harmony export */ });
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
@@ -3984,8 +4042,9 @@ const ContentWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODUL
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;margin-bottom:120px;@media (min-width: ", theme.breakPoint.minDesktop, "){height:calc(var(--vh) * 100 + 100px);overflow-y:scroll;::-webkit-scrollbar{display:none;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
-const margin = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:32px;@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;}" + ( true ? "" : 0),  true ? "" : 0);
-const textArea = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("@media (min-width: ", theme.breakPoint.minTablet, "){height:300px;}" + ( true ? "" : 0),  true ? "" : 0);
+const input = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("::placeholder{", theme.font.regular_14, ";color:", theme.color.grey_500, ";}@media (min-width: ", theme.breakPoint.minTablet, "){::placeholder{", theme.font.regular_15, ";}}" + ( true ? "" : 0),  true ? "" : 0);
+const labelcontent = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("margin-bottom:32px;&>label{", theme.font.semiBold_14, ";}@media (min-width: ", theme.breakPoint.minTablet, "){max-width:520px;&>label{", theme.font.semiBold_15, ";}}" + ( true ? "" : 0),  true ? "" : 0);
+const textArea = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("::placeholder{", theme.font.regular_14, ";color:", theme.color.grey_500, ";}@media (min-width: ", theme.breakPoint.minTablet, "){height:300px;::placeholder{", theme.font.regular_15, ";}}" + ( true ? "" : 0),  true ? "" : 0);
 const FilterWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
   target: "e1l3eh4i1"
 } : 0)( true ? {
@@ -4049,8 +4108,9 @@ var react_ = __webpack_require__(2805);
 const Wrapper = /*#__PURE__*/base_default()("div",  true ? {
   target: "enzffm50"
 } : 0)(({
-  theme
-}) => /*#__PURE__*/(0,react_.css)("position:relative;display:flex;justify-content:center;align-items:center;width:50px;height:50px;border-radius:100px;overflow:hidden;border:1px solid ", theme.color.grey_300, ";svg{width:20px;height:20px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+  theme,
+  hasProfile
+}) => /*#__PURE__*/(0,react_.css)("position:relative;display:flex;justify-content:center;align-items:center;width:50px;height:50px;border-radius:100px;overflow:hidden;border:", !hasProfile && `1px solid ${theme.color.grey_300}`, ";svg{width:20px;height:20px;fill:", theme.color.grey_500, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 // EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(5193);
 ;// CONCATENATED MODULE: ./components/common/profile/Profile.component.tsx
@@ -4067,6 +4127,7 @@ const Profile = ({
 }) => {
   return jsx_runtime_.jsx(Wrapper, {
     className: className,
+    hasProfile: !!src,
     children: src ? jsx_runtime_.jsx((image_default()), {
       src: src,
       alt: alt,
@@ -4079,6 +4140,67 @@ const Profile = ({
 };
 
 /* harmony default export */ const Profile_component = (Profile);
+
+/***/ }),
+
+/***/ 2344:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6689);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(968);
+/* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+
+const Seo = ({
+  title,
+  description,
+  url,
+  imgUrl
+}) => {
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)((next_head__WEBPACK_IMPORTED_MODULE_1___default()), {
+    children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("title", {
+      children: title ? `${title} | just it` : "just it"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      name: "description",
+      content: "\uB9E4\uC77C \uB611\uAC19\uC740 \uACE0\uBBFC, \uC624\uB298 \uC810\uC2EC \uBB50\uBA39\uC9C0? just it\uC774 \uACE0\uBBFC\uC744 \uD574\uACB0\uD574\uC904\uAC8C\uC694! \uB098\uC640 \uAC19\uC740 \uC0C1\uD669\uC77C \uB54C \uB2E4\uB978 \uC0AC\uB78C\uC740 \uBB34\uC5C7\uC744 \uBA39\uC744\uAE4C\uC694? \uAD81\uAE08\uD558\uC9C0 \uC54A\uB098\uC694? just it\uC740 \uB2E4\uC591\uD55C \uC74C\uC2DD \uBA54\uB274\uB97C \uCD94\uCC9C\uD558\uC5EC \uD2B9\uBCC4\uD55C \uC2DD\uC0AC \uC2DC\uAC04\uC744 \uB9CC\uB4E4\uC5B4\uB4DC\uB9BD\uB2C8\uB2E4."
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:type",
+      content: "website"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:title",
+      content: title ? `${title} | just it` : "just it"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:description",
+      content: description
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:url",
+      content: url || "https://justit.kr"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:image",
+      content: imgUrl || "https://justit.kr"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:article:author",
+      content: "just it"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:locale",
+      content: "ko_KR"
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx("meta", {
+      property: "og:site_name",
+      content: "just it"
+    })]
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Seo);
 
 /***/ }),
 
@@ -4098,9 +4220,13 @@ const Profile = ({
 
 
 
-const Spinner = () => {
+const Spinner = ({
+  size,
+  color
+}) => {
   return _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx((react_spinners_ClipLoader__WEBPACK_IMPORTED_MODULE_1___default()), {
-    color: "#ffffff"
+    size: size ?? "20px",
+    color: color ?? "#ffffff"
   });
 };
 
@@ -4159,7 +4285,8 @@ const BookmarkContainer = ({
       children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_BookmarkContainer_styled__WEBPACK_IMPORTED_MODULE_5__/* .PaddingWrapper */ .Z3, {
         children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
           css: _BookmarkContainer_styled__WEBPACK_IMPORTED_MODULE_5__/* .heading */ .nP,
-          heading: "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00"
+          heading: "\uC800\uC7A5\uD55C \uAC8C\uC2DC\uAE00",
+          count: bookmarks.count
         }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), bookmarks ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
           columnsCountBreakPoints: {
             555: 2,
@@ -5032,7 +5159,6 @@ const HomeContainer = () => {
   const {
     isMobile
   } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_6__/* .useViewport */ .Sj)();
-  const isSearch = filter || pheedSearch;
   const columnsCountBreakPoints = {
     555: 2,
     900: 3,
@@ -5043,22 +5169,21 @@ const HomeContainer = () => {
     window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
     return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
   }, []);
-  if (!pheeds) return null;
   return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .Main */ .or, {
     isClickPheed: !!id,
     children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PheedWrapper */ .Om, {
       isClickPheed: !!id,
       children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PaddingWrapper */ .Z3, {
-        children: isSearch && pheeds.length === 0 ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .NoResult */ .xM, {}) : isSearch && pheeds.length !== 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+        children: pheedSearch && pheeds?.length === 0 ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .NoResult */ .xM, {}) : pheedSearch && pheeds?.length !== 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
           children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
             css: _HomeContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .heading */ .nP,
             heading: "\uAC80\uC0C9\uACB0\uACFC",
-            count: pheeds.length
+            count: pheeds?.length
           }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
             columnsCountBreakPoints: columnsCountBreakPoints,
             children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
               gutter: "16px",
-              children: pheeds.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+              children: pheeds?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
                 src: pheed.image.image,
                 id: pheed.id,
                 title: pheed.title
@@ -5073,7 +5198,7 @@ const HomeContainer = () => {
             columnsCountBreakPoints: columnsCountBreakPoints,
             children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
               gutter: "16px",
-              children: pheeds.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+              children: pheeds?.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
                 src: pheed.image.image,
                 id: pheed.id,
                 title: pheed.title
@@ -5354,7 +5479,7 @@ const Layout = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___de
   target: "e12s14as9"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_2__.css)(theme.flexMixin.flex_column_justifyC, ";width:390px;height:100vh;margin:0 auto;padding:0 20px;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_2__.css)(theme.flexMixin.flex_column, ";width:390px;margin:0 auto;padding:150px 20px 0 20px;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const LogoWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()((next_link__WEBPACK_IMPORTED_MODULE_1___default()),  true ? {
   target: "e12s14as8"
 } : 0)(({
@@ -5364,7 +5489,7 @@ const KakaoLoginBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE
   target: "e12s14as7"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_2__.css)("display:flex;justify-content:center;align-items:center;column-gap:8px;width:100%;height:52px;margin-bottom:40px;border-radius:5px;background-color:", theme.color.kakao, ";svg{width:24px;height:24px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_2__.css)(theme.flexMixin.flex_justifyC_alignC, ";", theme.font.regular_15, ";display:flex;column-gap:8px;width:100%;height:52px;margin-bottom:40px;border-radius:5px;background-color:", theme.color.kakao, ";svg{width:24px;height:24px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const Or = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("span",  true ? {
   target: "e12s14as6"
 } : 0)(({
@@ -5655,12 +5780,12 @@ const SignInQuestion = /*#__PURE__*/base_default()("span",  true ? {
   target: "eawh3t1"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_14, ";color:", theme.color.grey_600, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_15, ";color:", theme.color.grey_600, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const SignIn = /*#__PURE__*/base_default()("button",  true ? {
   target: "eawh3t0"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_14, ";color:", theme.color.blue_300, ";text-decoration:underline;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,react_.css)(theme.font.regular_15, ";color:", theme.color.blue_300, ";text-decoration:underline;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 // EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
 var jsx_runtime_ = __webpack_require__(5193);
 ;// CONCATENATED MODULE: ./components/domain/login/signInBtn/SignInBtn.component.tsx
@@ -5796,7 +5921,7 @@ const ResetPassword = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE
   target: "e1mlmca50"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.regular_14, ";display:block;margin-bottom:20px;color:", theme.color.grey_500, ";text-decoration:underline;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.regular_15, ";display:block;margin-bottom:20px;color:", theme.color.grey_500, ";text-decoration:underline;" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -5845,6 +5970,7 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([js_c
 
 
 
+
 const SuggestedMenu = () => {
   const {
     handleOpenModal
@@ -5853,7 +5979,9 @@ const SuggestedMenu = () => {
     data: customTags
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetCustomTags */ .tp)(!!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
   const {
-    data: suggestedPheeds
+    data: suggestedPheeds,
+    refetch,
+    isFetching
   } = (0,_service_index__WEBPACK_IMPORTED_MODULE_3__/* .useGetSuggestedPheeds */ .vY)(!!customTags?.tag_options || !!js_cookie__WEBPACK_IMPORTED_MODULE_1__["default"].get("auth"));
 
   const handleFilterModal = () => {
@@ -5877,6 +6005,18 @@ const SuggestedMenu = () => {
         title: pheed.title,
         id: pheed.id
       }, pheed.id))
+    }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_SuggestedMenu_styled__WEBPACK_IMPORTED_MODULE_6__/* .ReloadBtnWrapper */ .xy, {
+      children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_SuggestedMenu_styled__WEBPACK_IMPORTED_MODULE_6__/* .ReloadBtn */ .C9, {
+        type: "button",
+        isLoading: isFetching,
+        disabled: isFetching,
+        onClick: () => refetch(),
+        children: isFetching ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_2__/* .Spinner */ .$j, {
+          color: "000000"
+        }) : (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_icons_index__WEBPACK_IMPORTED_MODULE_5__/* .ClearIcon */ .Rk, {}), " \uC0C8\uB85C \uBD88\uB7EC\uC624\uAE30"]
+        })
+      })
     })]
   });
 };
@@ -5891,10 +6031,12 @@ __webpack_async_result__();
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "C9": () => (/* binding */ ReloadBtn),
 /* harmony export */   "Om": () => (/* binding */ PheedWrapper),
 /* harmony export */   "bE": () => (/* binding */ SuggestedMenu),
 /* harmony export */   "bo": () => (/* binding */ FilterSettingBtn),
-/* harmony export */   "tP": () => (/* binding */ HeadingWrapper)
+/* harmony export */   "tP": () => (/* binding */ HeadingWrapper),
+/* harmony export */   "xy": () => (/* binding */ ReloadBtnWrapper)
 /* harmony export */ });
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(777);
 /* harmony import */ var _emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0__);
@@ -5906,26 +6048,37 @@ function _EMOTION_STRINGIFIED_CSS_ERROR__() { return "You have tried to stringif
 
 
 const SuggestedMenu = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("section",  true ? {
-  target: "erh1f6v3"
+  target: "erh1f6v5"
 } : 0)( true ? {
   name: "1hq0ax0",
   styles: "margin-bottom:48px"
 } : 0);
 const HeadingWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "erh1f6v2"
+  target: "erh1f6v4"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;align-items:center;column-gap:8px;margin-bottom:12px;@media (min-width: ", theme.breakPoint.minTablet, "){margin-bottom:16px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const FilterSettingBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
-  target: "erh1f6v1"
+  target: "erh1f6v3"
 } : 0)(({
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.regular_15, ";display:flex;align-items:center;column-gap:4px;color:", theme.color.grey_700, ";&>svg{width:20px;height:20px;fill:", theme.color.grey_600, ";}&>span{display:none;}@media (min-width: ", theme.breakPoint.minTablet, "){&>span{display:unset;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const PheedWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
-  target: "erh1f6v0"
+  target: "erh1f6v2"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;column-gap:12px;overflow-x:auto;::-webkit-scrollbar{display:none;}&>button{flex:1;min-width:169px;min-height:169px;max-width:169px;max-height:169px;&>div{display:flex;align-items:center;width:100%;height:100%;margin-bottom:0;}}@media (min-width: ", theme.breakPoint.minTablet, "){height:208px;&>button{min-width:208px;min-height:208px;max-width:208px;max-height:208px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){height:252px;column-gap:16px;&>button{min-width:252px;min-height:252px;max-width:252px;max-height:252px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:flex;column-gap:12px;overflow-x:auto;::-webkit-scrollbar{display:none;}&>button{flex:1;min-width:169px;min-height:169px;max-width:169px;max-height:169px;&>div{display:flex;align-items:center;width:100%;height:100%;margin-bottom:0;}}@media (min-width: ", theme.breakPoint.minTablet, "){height:208px;margin-bottom:28px;&>button{min-width:208px;min-height:208px;max-width:208px;max-height:208px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){height:252px;column-gap:16px;&>button{min-width:252px;min-height:252px;max-width:252px;max-height:252px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const ReloadBtnWrapper = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("div",  true ? {
+  target: "erh1f6v1"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("display:none;@media (min-width: ", theme.breakPoint.minTablet, "){", theme.flexMixin.flex_justifyC, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+const ReloadBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
+  target: "erh1f6v0"
+} : 0)(({
+  theme,
+  isLoading
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("border:1px solid ", theme.color.grey_300, ";border-radius:5px;background-color:", theme.color.grey_100, ";svg>path{fill:", theme.color.grey_600, ";}@media (hover: Hover){:hover{background-color:", theme.color.grey_200, ";}}@media (min-width: ", theme.breakPoint.minTablet, "){", isLoading ? theme.flexMixin.flex_justifyC : theme.flexMixin.flex_justifySb_alignC, ";", theme.font.medium_15, ";width:150px;height:40px;padding:8px 20px;color:", theme.color.grey_700, ";svg{width:20px;height:20px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){padding:10px 20px;}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -6067,7 +6220,7 @@ const FilterItem = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0_
 } : 0)(({
   theme,
   isSelect
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:fit-content;height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.medium_15, ";width:fit-content;height:40px;border:1px solid ", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_300}`, ";border-radius:100px;padding:8px 20px;color:", isSelect ? `${theme.color.blue_300}` : `${theme.color.grey_700}`, ";background-color:", isSelect && `${theme.color.blue_100}`, ";@media (hover: hover){:hover{background-color:", !isSelect && theme.color.grey_200, ";}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const OpenBtn = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___default()("button",  true ? {
   target: "eoqtwp00"
 } : 0)(({
@@ -6138,11 +6291,11 @@ const ImgWrapper = /*#__PURE__*/base_default()("div",  true ? {
   name: "srgb8m",
   styles: "position:relative;margin-bottom:8px;border-radius:20px;overflow:hidden;@media (hover: hover){:hover{&>img{transform:scale(1.05);}}}&>img{transition:transform 0.2s ease-in-out;}"
 } : 0);
-const Title = /*#__PURE__*/(/* unused pure expression or super */ null && (_styled("h3",  true ? {
+const Title = /*#__PURE__*/base_default()("h3",  true ? {
   target: "e1tduonc6"
 } : 0)(({
   theme
-}) => /*#__PURE__*/css(theme.font.semiBold_16, ";margin-bottom:4px;padding-left:4px;color:", theme.color.black, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0))));
+}) => /*#__PURE__*/(0,react_.css)(theme.font.semiBold_15, ";margin-bottom:4px;padding-left:4px;color:", theme.color.black, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const ContentWrapper = /*#__PURE__*/base_default()("div",  true ? {
   target: "e1tduonc5"
 } : 0)( true ? {
@@ -6191,6 +6344,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 const Pheed = ({
   src,
   title,
@@ -6211,10 +6365,10 @@ const Pheed = ({
     });
   };
 
-  return jsx_runtime_.jsx(DetailBtn, {
+  return (0,jsx_runtime_.jsxs)(DetailBtn, {
     type: "button",
     onClick: handleClickPheed,
-    children: jsx_runtime_.jsx(ImgWrapper, {
+    children: [jsx_runtime_.jsx(ImgWrapper, {
       children: jsx_runtime_.jsx((image_default()), {
         src: src,
         alt: `${title} 음식 사진`,
@@ -6227,7 +6381,9 @@ const Pheed = ({
           height: "auto"
         }
       })
-    })
+    }), jsx_runtime_.jsx(Title, {
+      children: title
+    })]
   });
 };
 
@@ -6251,12 +6407,21 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7640);
 /* harmony import */ var _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5489);
 /* harmony import */ var _service_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2677);
-/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(1376);
-/* harmony import */ var _MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5121);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5193);
-/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _hooks_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8110);
+/* harmony import */ var utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(1376);
+/* harmony import */ var _MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(5121);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(5193);
+/* harmony import */ var _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_components_index__WEBPACK_IMPORTED_MODULE_3__, _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__, _service_index__WEBPACK_IMPORTED_MODULE_5__]);
 ([_components_index__WEBPACK_IMPORTED_MODULE_3__, _components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__, _service_index__WEBPACK_IMPORTED_MODULE_5__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -6271,43 +6436,73 @@ var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_com
 const MyPheedContainer = () => {
   const {
     query: {
-      id
+      id,
+      filter,
+      pheedSearch
     }
   } = (0,next_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
   const {
     data
-  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_5__/* .useGetMyPheeds */ .X8)();
+  } = (0,_service_index__WEBPACK_IMPORTED_MODULE_5__/* .useGetMyPheeds */ .X8)({
+    query: _objectSpread(_objectSpread({}, pheedSearch && {
+      search_word: pheedSearch
+    }), filter && {
+      tag_options: filter
+    })
+  });
+  const {
+    isMobile
+  } = (0,_hooks_index__WEBPACK_IMPORTED_MODULE_6__/* .useViewport */ .Sj)();
+  const columnsCountBreakPoints = {
+    555: 2,
+    900: 3,
+    1200: 4
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    (0,utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI)();
-    window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
-    return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_8__/* .handleResize */ .wI);
+    (0,utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI)();
+    window.addEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
+    return () => window.removeEventListener("resize", utils__WEBPACK_IMPORTED_MODULE_9__/* .handleResize */ .wI);
   }, []);
-  if (!data) return null;
-  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .Main */ .or, {
+  return (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .Main */ .or, {
     isClickPheed: !!id,
-    children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .PheedWrapper */ .Om, {
+    children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PheedWrapper */ .Om, {
       isClickPheed: !!id,
-      children: [(0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .PaddingWrapper */ .Z3, {
-        children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
-          css: _MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_6__/* .heading */ .nP,
-          heading: "\uB0B4 \uAC8C\uC2DC\uAE00"
-        }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
-          columnsCountBreakPoints: {
-            555: 2,
-            900: 3,
-            1200: 4
-          },
-          children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
-            gutter: "16px",
-            children: data.items.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
-              src: pheed.image.image,
-              title: pheed.title,
-              id: pheed.id
-            }, pheed.image.image))
-          })
-        })]
-      }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Footer */ .$_, {})]
-    }), id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx(_components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {})]
+      children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .PaddingWrapper */ .Z3, {
+        children: pheedSearch && data?.items.length === 0 ? _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .NoResult */ .xM, {}) : pheedSearch && data?.items.length !== 0 ? (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
+            css: _MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .heading */ .nP,
+            heading: "\uAC80\uC0C9\uACB0\uACFC",
+            count: data?.items.length
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
+            columnsCountBreakPoints: columnsCountBreakPoints,
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
+              gutter: "16px",
+              children: data?.items.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+                src: pheed.image.image,
+                id: pheed.id,
+                title: pheed.title
+              }, pheed.id))
+            })
+          })]
+        }) : (0,_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+          children: [_emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Heading */ .X6, {
+            css: _MyPheedContainer_styled__WEBPACK_IMPORTED_MODULE_7__/* .heading */ .nP,
+            heading: "\uB0B4 \uAC8C\uC2DC\uAE00",
+            count: data?.items.length
+          }), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Filter */ .wn, {}), _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2__.ResponsiveMasonry, {
+            columnsCountBreakPoints: columnsCountBreakPoints,
+            children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx((react_responsive_masonry__WEBPACK_IMPORTED_MODULE_2___default()), {
+              gutter: "16px",
+              children: data?.items.map(pheed => _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Pheed */ .wA, {
+                src: pheed.image.image,
+                id: pheed.id,
+                title: pheed.title
+              }, pheed.id))
+            })
+          })]
+        })
+      }), (!isMobile || data?.items?.length !== 0) && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_3__/* .Footer */ .$_, {})]
+    }), id && _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx(_components_common_pheed_pheedDetail_PheedDetail_component__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z, {})]
   });
 };
 
@@ -6663,6 +6858,7 @@ const ChangePassword = () => {
         css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .labelContent */ .Wn,
         label: "\uD604\uC7AC \uBE44\uBC00\uBC88\uD638",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent.PasswordInput */ .iq.PasswordInput, {
+          css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .input */ .qH,
           placeholder: "\uD604\uC7AC \uBE44\uBC00\uBC88\uD638",
           register: register("password", {
             required: true
@@ -6672,6 +6868,7 @@ const ChangePassword = () => {
         css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .labelContent */ .Wn,
         label: "\uC0C8 \uBE44\uBC00\uBC88\uD638",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent.PasswordInput */ .iq.PasswordInput, {
+          css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .input */ .qH,
           placeholder: "\uC0C8 \uBE44\uBC00\uBC88\uD638",
           register: register("newPassword", {
             required: true,
@@ -6682,6 +6879,7 @@ const ChangePassword = () => {
         css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .labelContent */ .Wn,
         label: "\uC0C8 \uBE44\uBC00\uBC88\uD638 \uD655\uC778",
         children: _emotion_react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx(_components_index__WEBPACK_IMPORTED_MODULE_1__/* .LabelContent.PasswordInput */ .iq.PasswordInput, {
+          css: _ChangePassword_styled__WEBPACK_IMPORTED_MODULE_3__/* .input */ .qH,
           placeholder: "\uC0C8 \uBE44\uBC00\uBC88\uD638 \uD655\uC778",
           register: register("newPasswordConfirm", {
             required: true,
@@ -6715,6 +6913,7 @@ __webpack_async_result__();
 /* harmony export */   "a9": () => (/* binding */ saveBtn),
 /* harmony export */   "l0": () => (/* binding */ Form),
 /* harmony export */   "nP": () => (/* binding */ heading),
+/* harmony export */   "qH": () => (/* binding */ input),
 /* harmony export */   "z_": () => (/* binding */ PasswordHint)
 /* harmony export */ });
 /* unused harmony export division */
@@ -6737,6 +6936,7 @@ const Form = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___defa
   theme
 }) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;margin-bottom:40px;border-bottom:1px solid ", theme.color.grey_300, ";&>div>label{", theme.font.medium_14, ";}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 const labelContent = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;margin-bottom:20px;@media (min-width: ", theme.breakPoint.minDesktop, "){width:386px;}" + ( true ? "" : 0),  true ? "" : 0);
+const input = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("&>input{", theme.font.regular_14, ";}@media (min-width: ", theme.breakPoint.minTablet, "){&>input{", theme.font.regular_15, ";}}" + ( true ? "" : 0),  true ? "" : 0);
 const division =  true ? {
   name: "qkomnt",
   styles: "margin-bottom:40px"
@@ -6881,7 +7081,7 @@ const Setting = /*#__PURE__*/_emotion_styled_base__WEBPACK_IMPORTED_MODULE_0___d
   target: "e16o4gq80"
 } : 0)(({
   theme
-}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;height:calc(100vh - 72px);margin:0 auto;padding:20px;overflow-y:auto;@media (min-width: ", theme.breakPoint.minTablet, "){&>div{width:386px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;justify-content:center;&>div{width:788px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+}) => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;height:calc(100vh - 72px);margin:0 auto;padding:28px 20px 20px 20px;overflow-y:auto;@media (min-width: ", theme.breakPoint.minTablet, "){padding:40px;&>div{width:386px;}}@media (min-width: ", theme.breakPoint.minDesktop, "){display:flex;justify-content:center;&>div{width:788px;}}" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
 
 /***/ }),
 
@@ -7141,12 +7341,12 @@ const labelContent =  true ? {
   name: "1azpx8r",
   styles: "margin-bottom:20px"
 } : 0;
-const nicknameInput = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;@media (min-width: ", theme.breakPoint.minDesktop, "){width:386px;}" + ( true ? "" : 0),  true ? "" : 0);
+const nicknameInput = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.regular_14, ";width:100%;@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.regular_15, ";}@media (min-width: ", theme.breakPoint.minDesktop, "){width:386px;}" + ( true ? "" : 0),  true ? "" : 0);
 const emailLabelContent =  true ? {
   name: "qkomnt",
   styles: "margin-bottom:40px"
 } : 0;
-const emailInput = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)("width:100%;@media (min-width: ", theme.breakPoint.minDesktop, "){width:386px;}" + ( true ? "" : 0),  true ? "" : 0);
+const emailInput = theme => /*#__PURE__*/(0,_emotion_react__WEBPACK_IMPORTED_MODULE_1__.css)(theme.font.regular_14, ";width:100%;@media (min-width: ", theme.breakPoint.minDesktop, "){@media (min-width: ", theme.breakPoint.minTablet, "){", theme.font.regular_15, ";}width:386px;}" + ( true ? "" : 0),  true ? "" : 0);
 
 /***/ }),
 
@@ -7324,14 +7524,15 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "JL": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.JL),
 /* harmony export */   "JT": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.JT),
 /* harmony export */   "JU": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.JU),
-/* harmony export */   "Mi": () => (/* reexport safe */ _layout_index__WEBPACK_IMPORTED_MODULE_2__.M),
+/* harmony export */   "Mi": () => (/* reexport safe */ _layout_index__WEBPACK_IMPORTED_MODULE_2__.Mi),
 /* harmony export */   "NJ": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.NJ),
 /* harmony export */   "NZ": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.NZ),
 /* harmony export */   "VN": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.VN),
 /* harmony export */   "Vx": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.Vx),
 /* harmony export */   "X6": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.X6),
-/* harmony export */   "Zn": () => (/* reexport safe */ _layout_index__WEBPACK_IMPORTED_MODULE_2__.Z),
+/* harmony export */   "Zn": () => (/* reexport safe */ _layout_index__WEBPACK_IMPORTED_MODULE_2__.Zn),
 /* harmony export */   "bE": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.bE),
+/* harmony export */   "g1": () => (/* reexport safe */ _layout_index__WEBPACK_IMPORTED_MODULE_2__.g1),
 /* harmony export */   "gu": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.gu),
 /* harmony export */   "h4": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.h4),
 /* harmony export */   "h_": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.h_),
@@ -7339,6 +7540,7 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */   "l3": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.l3),
 /* harmony export */   "mv": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.mv),
 /* harmony export */   "od": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.od),
+/* harmony export */   "pQ": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.pQ),
 /* harmony export */   "pR": () => (/* reexport safe */ _domain_index__WEBPACK_IMPORTED_MODULE_1__.pR),
 /* harmony export */   "r": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.r),
 /* harmony export */   "rd": () => (/* reexport safe */ _common_index__WEBPACK_IMPORTED_MODULE_0__.rd),
@@ -7363,18 +7565,64 @@ __webpack_async_result__();
 
 /***/ }),
 
+/***/ 9234:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ AuthLayout_component)
+});
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__(6689);
+// EXTERNAL MODULE: external "@emotion/styled/base"
+var base_ = __webpack_require__(777);
+var base_default = /*#__PURE__*/__webpack_require__.n(base_);
+// EXTERNAL MODULE: external "@emotion/react"
+var react_ = __webpack_require__(2805);
+;// CONCATENATED MODULE: ./components/layout/authLayout/AuthLayout.styled.ts
+
+
+const AuthLayout = /*#__PURE__*/base_default()("div",  true ? {
+  target: "ep8wlyb0"
+} : 0)(({
+  theme
+}) => /*#__PURE__*/(0,react_.css)("height:100vh;background-color:", theme.color.grey_100, ";" + ( true ? "" : 0),  true ? "" : 0), ";" + ( true ? "" : 0));
+// EXTERNAL MODULE: external "@emotion/react/jsx-runtime"
+var jsx_runtime_ = __webpack_require__(5193);
+;// CONCATENATED MODULE: ./components/layout/authLayout/AuthLayout.component.tsx
+
+
+
+
+const AuthLayout_component_AuthLayout = ({
+  children
+}) => {
+  return jsx_runtime_.jsx(AuthLayout, {
+    children: children
+  });
+};
+
+/* harmony default export */ const AuthLayout_component = (AuthLayout_component_AuthLayout);
+
+/***/ }),
+
 /***/ 2423:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "M": () => (/* reexport safe */ _pheedLayout_PheedLayout_component__WEBPACK_IMPORTED_MODULE_0__.Z),
-/* harmony export */   "Z": () => (/* reexport safe */ _mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_1__.Z)
+/* harmony export */   "Mi": () => (/* reexport safe */ _pheedLayout_PheedLayout_component__WEBPACK_IMPORTED_MODULE_1__.Z),
+/* harmony export */   "Zn": () => (/* reexport safe */ _mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_2__.Z),
+/* harmony export */   "g1": () => (/* reexport safe */ _authLayout_AuthLayout_component__WEBPACK_IMPORTED_MODULE_0__.Z)
 /* harmony export */ });
-/* harmony import */ var _pheedLayout_PheedLayout_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6391);
-/* harmony import */ var _mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(177);
-var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_1__]);
-_mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_1__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+/* harmony import */ var _authLayout_AuthLayout_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9234);
+/* harmony import */ var _pheedLayout_PheedLayout_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6391);
+/* harmony import */ var _mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(177);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_2__]);
+_mainLayout_MainLayout_component__WEBPACK_IMPORTED_MODULE_2__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
 
 
 __webpack_async_result__();
@@ -7653,6 +7901,7 @@ __webpack_require__.d(__webpack_exports__, {
   "pl": () => (/* reexport */ bookmark),
   "in": () => (/* reexport */ bookmarkMono),
   "nQ": () => (/* reexport */ check),
+  "Rk": () => (/* reexport */ clear),
   "Tw": () => (/* reexport */ icons_close),
   "nH": () => (/* reexport */ editMono),
   "k1": () => (/* reexport */ filter),
@@ -7676,7 +7925,7 @@ __webpack_require__.d(__webpack_exports__, {
   "bM": () => (/* reexport */ visible)
 });
 
-// UNUSED EXPORTS: ClearIcon, DeleteIcon, SearchLongIcon
+// UNUSED EXPORTS: DeleteIcon, SearchLongIcon
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(6689);
@@ -7785,16 +8034,15 @@ function bookmarkMono_extends() { bookmarkMono_extends = Object.assign ? Object.
 
 var SvgBookmarkMono = function SvgBookmarkMono(props) {
   return /*#__PURE__*/external_react_.createElement("svg", bookmarkMono_extends({
-    width: "current",
-    height: "current",
-    viewBox: "0 0 24 24",
+    width: 24,
+    height: 24,
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
   }, props), bookmarkMono_path || (bookmarkMono_path = /*#__PURE__*/external_react_.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
-    d: "m21 22.5-9-6-9 6V4.17A2.66 2.66 0 0 1 5.67 1.5h12.66A2.66 2.66 0 0 1 21 4.17V22.5Z",
-    fill: "current"
+    d: "M5 5.004C5 4.418 5.412 4 5.988 4h12.024c.576 0 .988.418.988 1.004v14.477c0 .419-.412.67-.741.419l-5.765-3.348a1.035 1.035 0 0 0-.988 0L5.74 19.9c-.33.167-.741-.084-.741-.419V5.004Z",
+    fill: "#9FAAB4"
   })));
 };
 /* harmony default export */ const bookmarkMono = (SvgBookmarkMono);
@@ -7820,20 +8068,20 @@ var clear_path;
 function clear_extends() { clear_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return clear_extends.apply(this, arguments); }
 
 var SvgClear = function SvgClear(props) {
-  return /*#__PURE__*/React.createElement("svg", clear_extends({
+  return /*#__PURE__*/external_react_.createElement("svg", clear_extends({
     width: "current",
     height: "current",
     viewBox: "0 0 20 20",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, props), clear_path || (clear_path = /*#__PURE__*/React.createElement("path", {
+  }, props), clear_path || (clear_path = /*#__PURE__*/external_react_.createElement("path", {
     fillRule: "evenodd",
     clipRule: "evenodd",
     d: "M9.89 4.868c-1.364 0-2.672.54-3.637 1.502A5.14 5.14 0 0 0 4.742 10H6.39a.38.38 0 0 1 .27.65l-2.48 2.486a.41.41 0 0 1-.58 0l-2.488-2.487a.38.38 0 0 1 .27-.649h1.649c0-1.817.723-3.559 2.009-4.843A6.862 6.862 0 0 1 9.89 3.15c.87 0 1.733.17 2.54.5a.86.86 0 0 1 .28 1.358.87.87 0 0 1-.91.19 5.084 5.084 0 0 0-1.91-.33Zm3.439 4.483 2.49-2.486a.41.41 0 0 1 .58 0l2.488 2.486a.38.38 0 0 1-.27.65h-1.649c0 1.816-.723 3.558-2.009 4.843a6.862 6.862 0 0 1-4.849 2.006c-.87 0-1.733-.17-2.54-.5a.85.85 0 0 1-.28-1.357.87.87 0 0 1 .91-.19 5.145 5.145 0 0 0 6.668-2.827 5.128 5.128 0 0 0 .38-1.976H13.6a.38.38 0 0 1-.27-.649Z",
     fill: "#1E242B"
   })));
 };
-/* harmony default export */ const clear = ((/* unused pure expression or super */ null && (SvgClear)));
+/* harmony default export */ const clear = (SvgClear);
 ;// CONCATENATED MODULE: ./public/icons/close.svg
 var close_path;
 function close_extends() { close_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return close_extends.apply(this, arguments); }
@@ -8489,16 +8737,22 @@ __webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __we
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "X": () => (/* binding */ useGetMyPheeds)
 /* harmony export */ });
+/* unused harmony export myPheedKeys */
 /* harmony import */ var _tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9752);
 /* harmony import */ var apis__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8500);
 var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__, apis__WEBPACK_IMPORTED_MODULE_1__]);
 ([_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__, apis__WEBPACK_IMPORTED_MODULE_1__] = __webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__);
 
 
-const useGetMyPheeds = () => {
+const myPheedKeys = {
+  all: ["myPheed"],
+  myPheeds: () => [...myPheedKeys.all, "myPheed"],
+  myPheed: req => [...myPheedKeys.myPheeds(), req]
+};
+const useGetMyPheeds = req => {
   return (0,_tanstack_react_query__WEBPACK_IMPORTED_MODULE_0__.useQuery)({
-    queryKey: ["myPheed"],
-    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getMyPheeds */ .VT)()
+    queryKey: myPheedKeys.myPheed(req),
+    queryFn: () => (0,apis__WEBPACK_IMPORTED_MODULE_1__/* .getMyPheeds */ .VT)(req)
   });
 };
 __webpack_async_result__();
