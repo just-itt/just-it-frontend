@@ -8,7 +8,7 @@ import {
   Pheed,
   Spinner,
 } from "@components/index";
-import { useGetCustomTags, useGetSuggestedPheeds } from "@service/index";
+import { useGetSuggestedPheeds } from "@service/index";
 import { useModal } from "@hooks/index";
 import { ClearIcon, FilterIcon } from "@icons/index";
 import * as S from "./SuggestedMenu.styled";
@@ -16,12 +16,11 @@ import * as S from "./SuggestedMenu.styled";
 const SuggestedMenu = () => {
   const { handleOpenModal } = useModal();
 
-  const { data: customTags } = useGetCustomTags(!!Cookies.get("auth"));
   const {
     data: suggestedPheeds,
     refetch,
     isFetching,
-  } = useGetSuggestedPheeds(!!customTags?.tag_options || !!Cookies.get("auth"));
+  } = useGetSuggestedPheeds();
 
   const handleFilterModal = () => {
     handleOpenModal(

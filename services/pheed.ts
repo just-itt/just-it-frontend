@@ -36,11 +36,10 @@ export const pheedKeys = {
     [...pheedKeys.pheedDetails(), id] as const,
 };
 
-export const useGetSuggestedPheeds = (enabled?: boolean) => {
+export const useGetSuggestedPheeds = () => {
   return useQuery({
     queryKey: pheedKeys.suggestedPheeds,
     queryFn: () => getSuggestedPheed(),
-    enabled,
   });
 };
 
