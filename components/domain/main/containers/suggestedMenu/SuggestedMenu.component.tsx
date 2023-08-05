@@ -45,6 +45,7 @@ const SuggestedMenu = () => {
             src={pheed.image.image}
             title={pheed.title}
             id={pheed.id}
+            isShowTitle={false}
           />
         ))}
       </S.PheedWrapper>
@@ -55,7 +56,7 @@ const SuggestedMenu = () => {
           disabled={isFetching}
           onClick={() => refetch()}
         >
-          {isFetching ? (
+          {suggestedPheeds && isFetching ? (
             <Spinner color="000000" />
           ) : (
             <>

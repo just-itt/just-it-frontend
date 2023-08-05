@@ -8,9 +8,10 @@ interface PheedProps {
   src: string;
   title: string;
   id: number;
+  isShowTitle?: boolean;
 }
 
-const Pheed = ({ src, title, id }: PheedProps) => {
+const Pheed = ({ src, title, id, isShowTitle = true }: PheedProps) => {
   const { push, query } = useRouter();
 
   const handleClickPheed = () => {
@@ -30,7 +31,7 @@ const Pheed = ({ src, title, id }: PheedProps) => {
           style={{ width: "100%", height: "auto" }}
         />
       </S.ImgWrapper>
-      <S.Title>{title}</S.Title>
+      {isShowTitle && <S.Title>{title}</S.Title>}
     </S.DetailBtn>
   );
 };
