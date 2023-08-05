@@ -1,5 +1,6 @@
 import { ax } from "apis";
 
+import { makePheedFilterQuery } from "utils";
 import type {
   DeletePheedQueryModel,
   DeletePheedReplyQueryModel,
@@ -17,24 +18,9 @@ import type {
 } from "types";
 
 export const getPheeds = async (req: GetPheedsQueryModel) => {
-  // TODO: filter tagOptions 타입 number로 수정했는데 string으로 넘어가서 백엔드 확인 필요
-  // const filter = (tagOptions: string | string[]) => {
-  //   if (typeof tagOptions !== "string") {
-  //     return tagOptions.map(option => +option);
-  //   }
-
-  //   return +tagOptions;
-  // };
-
-  const { data } = await ax.get<GetPheedsServerModel>("/posts", {
-    // params: {
-    //   ...req.query,
-    //   ...(req.query.tag_options && {
-    //     tag_options: filter(req.query.tag_options),
-    //   }),
-    // },
-    params: req.query,
-  });
+  const { data } = await ax.get<GetPheedsServerModel>(
+    `/posts${makePheedFilterQuery(req.query)}`,
+  );
 
   return data.items;
 };

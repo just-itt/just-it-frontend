@@ -5,6 +5,7 @@ import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, HomeContainer, Seo } from "@components/index";
 import { commonKeys, pheedKeys } from "@service/index";
+import { makePheedFilterQuery } from "utils";
 
 interface HomeProps {
   detailTitle?: string;
@@ -52,7 +53,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   await queryClient.prefetchQuery({
     queryKey: pheedKeys.pheed({ query: filter }),
     queryFn: async () => {
-      const { data } = await ax.get("/posts", { params: filter });
+      const { data } = await ax.get(`/posts${makePheedFilterQuery(filter)}`);
       return data;
     },
   });
