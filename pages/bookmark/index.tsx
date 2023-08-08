@@ -1,16 +1,13 @@
 import React, { ReactElement } from "react";
 import axios from "axios";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, BookmarkContainer } from "@components/index";
-import type { GetBookmarksServerModel } from "types";
+import { bookmarkKeys } from "@service/bookmark";
 
-interface BookmarkProps {
-  bookmarks: GetBookmarksServerModel;
-}
-
-const index = ({ bookmarks }: BookmarkProps) => {
-  return <BookmarkContainer bookmarks={bookmarks} />;
+const index = () => {
+  return <BookmarkContainer />;
 };
 
 index.getLayout = function getLayout(page: ReactElement) {
@@ -21,6 +18,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { req } = ctx;
   const token = req.cookies.auth;
 
+  const queryClient = new QueryClient();
+
   const ax = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
     timeout: 5000,
@@ -28,11 +27,18 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   if (token) {
     ax.defaults.headers.Authorization = `Bearer ${token}`;
-    const { data: bookmarks } = await ax.get("/posts/bookmarks");
+
+    await queryClient.prefetchQuery({
+      queryKey: bookmarkKeys.bookmarks,
+      queryFn: async () => {
+        const { data } = await ax.get("/posts/bookmarks");
+        return data;
+      },
+    });
 
     return {
       props: {
-        bookmarks,
+        dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       },
     };
   }

@@ -4,18 +4,16 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
+import { useGetBookmarks } from "@service/index";
 import { handleResize } from "utils";
-import type { GetBookmarksServerModel } from "types";
 import * as S from "./BookmarkContainer.styled";
 
-interface BookMarkContainerProps {
-  bookmarks: GetBookmarksServerModel;
-}
-
-const BookmarkContainer = ({ bookmarks }: BookMarkContainerProps) => {
+const BookmarkContainer = () => {
   const {
     query: { id },
   } = useRouter();
+
+  const { data: bookmarks } = useGetBookmarks();
 
   useEffect(() => {
     handleResize();
@@ -31,7 +29,7 @@ const BookmarkContainer = ({ bookmarks }: BookMarkContainerProps) => {
           <Heading
             css={S.heading}
             heading="저장한 게시글"
-            count={bookmarks.count}
+            count={bookmarks?.count}
           />
           <Filter />
           {bookmarks ? (
