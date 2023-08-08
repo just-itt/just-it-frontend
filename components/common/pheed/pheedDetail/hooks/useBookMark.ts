@@ -1,7 +1,12 @@
 import { useRouter } from "next/router";
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import { useDeleteBookmark, usePostBookmark } from "@service/index";
+import {
+  bookmarkKeys,
+  useDeleteBookmark,
+  usePostBookmark,
+} from "@service/index";
 import type { GetPheedDetailServerModel } from "types";
 
 const useBookmark = (
@@ -11,6 +16,8 @@ const useBookmark = (
   const {
     query: { id },
   } = useRouter();
+
+  const queryClient = useQueryClient();
 
   const { mutate: postBookmarkMutate } = usePostBookmark();
   const { mutate: deleteBookmarkMutate } = useDeleteBookmark();
@@ -24,6 +31,7 @@ const useBookmark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
+            queryClient.invalidateQueries(bookmarkKeys.bookmarks);
             toast.success("북마크가 해제되었습니다.");
           },
         },
@@ -34,6 +42,7 @@ const useBookmark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
+            queryClient.invalidateQueries(bookmarkKeys.bookmarks);
             toast.success("북마크에 추가되었습니다.");
           },
         },
