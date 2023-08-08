@@ -4,6 +4,7 @@ import { Hydrate, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Global, ThemeProvider } from "@emotion/react";
 import { Toaster } from "react-hot-toast";
+import NextNProgress from "nextjs-progressbar";
 
 import { queryClient } from "services";
 import { BaseModal } from "@components/index";
@@ -28,6 +29,7 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <NextNProgress />
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
