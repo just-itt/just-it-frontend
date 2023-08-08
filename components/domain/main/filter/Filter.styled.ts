@@ -33,10 +33,6 @@ export const FilterWrapper = styled.div<{ isFilterOpen: boolean }>`
     width: calc(100% - 40px);
     overflow-x: ${isFilterOpen ? "visible" : "scroll"};
     white-space: nowrap;
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
   `}
 `;
 

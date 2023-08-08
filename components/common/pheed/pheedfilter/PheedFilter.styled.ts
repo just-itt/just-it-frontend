@@ -7,13 +7,26 @@ export const ContentWrapper = styled.div`
     margin-bottom: 120px;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
-      height: calc(var(--vh) * 100 + 100px);
       overflow-y: scroll;
-
-      ::-webkit-scrollbar {
-        display: none;
-      }
     }
+  `}
+`;
+
+export const Section = styled.section`
+  ${({ theme }) => css`
+    margin-bottom: 40px;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      margin-bottom: 60px;
+    }
+  `}
+`;
+
+export const Title = styled.h2`
+  ${({ theme }) => css`
+    ${theme.font.semiBold_16};
+    margin-bottom: 24px;
+    color: ${theme.color.grey_900};
   `}
 `;
 
@@ -31,7 +44,7 @@ export const input = (theme: Theme) => css`
 `;
 
 export const labelcontent = (theme: Theme) => css`
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   & > label {
     ${theme.font.semiBold_14};
@@ -94,4 +107,8 @@ export const FilterItem = styled.div<{ isSelect: boolean }>`
       display: none;
     }
   `}
+`;
+
+export const division = css`
+  margin-bottom: 24px;
 `;

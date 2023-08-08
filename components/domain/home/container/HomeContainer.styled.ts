@@ -8,10 +8,6 @@ export const Main = styled.div<{ isClickPheed: boolean }>`
     height: calc(var(--vh) * 100 - 72px);
     overflow-y: auto;
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       display: flex;
       overflow-y: ${isClickPheed && "visible"};

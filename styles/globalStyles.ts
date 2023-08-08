@@ -124,6 +124,12 @@ export const globalStyle = css`
     border-spacing: 0;
   }
 
+  * {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
   *,
   *::before,
   *::after {

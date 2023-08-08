@@ -32,10 +32,6 @@ export const ScrollWrapper = styled.div`
     height: calc(var(--vh) * 100 - 64px - 69px);
     overflow-y: auto;
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       height: calc(var(--vh) * 100 - 125px - 105px - 27px);
       overflow-y: auto;

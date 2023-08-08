@@ -50,10 +50,6 @@ export const PheedWrapper = styled.div`
     column-gap: 12px;
     overflow-x: auto;
 
-    ::-webkit-scrollbar {
-      display: none;
-    }
-
     & > button {
       flex: 1;
       min-width: 169px;
