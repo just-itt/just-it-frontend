@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <NextNProgress />
+      <NextNProgress options={{ showSpinner: false }} />
       <Global styles={globalStyle} />
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
