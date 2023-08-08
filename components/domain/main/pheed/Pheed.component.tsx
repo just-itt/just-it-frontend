@@ -27,7 +27,7 @@ const Pheed = ({ src, title, id, isShowTitle = true }: PheedProps) => {
           width={0}
           height={0}
           placeholder="blur"
-          blurDataURL={src}
+          blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
           style={{ width: "100%", height: "auto" }}
         />
       </S.ImgWrapper>
