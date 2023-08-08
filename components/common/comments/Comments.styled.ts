@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const PositionWrapper = styled.div`
@@ -23,16 +23,16 @@ export const CommentWrapper = styled.div`
   display: grid;
   grid-template-columns: 44px 1fr 60px;
   column-gap: 16px;
+`;
 
-  svg {
+export const profile = (theme: Theme) => css`
+  width: 40px;
+  height: 40px;
+
+  @media (min-width: ${theme.breakPoint.minTablet}) {
     width: 44px;
     height: 44px;
   }
-`;
-
-export const profile = css`
-  width: 44px;
-  height: 44px;
 `;
 
 export const ContentWrapper = styled.div`

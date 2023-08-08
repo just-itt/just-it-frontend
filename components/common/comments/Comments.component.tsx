@@ -62,15 +62,11 @@ const Comments = ({
               i,
             ) => (
               <S.CommentWrapper key={i}>
-                {profile_image ? (
-                  <Profile
-                    css={S.profile}
-                    src={profile_image}
-                    alt={`${nickname}님의 프로필 사진`}
-                  />
-                ) : (
-                  <S.Profile />
-                )}
+                <Profile
+                  css={S.profile}
+                  src={profile_image ?? null}
+                  alt={`${nickname}님의 프로필 사진`}
+                />
                 <S.ContentWrapper>
                   <S.Nickname>{nickname}</S.Nickname>
                   <S.Comment>{content}</S.Comment>
