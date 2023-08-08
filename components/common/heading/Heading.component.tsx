@@ -12,7 +12,7 @@ const Heading = ({ className, heading, count }: HeadingProps) => {
   return (
     <S.Heading className={className}>
       {heading}
-      {count && <S.Count>{count}</S.Count>}
+      {!!count && <S.Count>{count}</S.Count>}
     </S.Heading>
   );
 };
