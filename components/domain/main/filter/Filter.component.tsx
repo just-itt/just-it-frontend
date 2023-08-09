@@ -26,6 +26,7 @@ const Filter = () => {
     if (isSelect(key)) {
       if (typeof filterQuery === "string") {
         const deleteQuery = { ...query };
+
         delete deleteQuery.filter;
 
         push({ query: deleteQuery });
@@ -38,7 +39,11 @@ const Filter = () => {
         });
       }
     } else {
-      push({ query: { ...query, filter: [...filterQuery, `${key}`] } });
+      if (typeof filterQuery === "string") {
+        push({ query: { ...query, filter: [filterQuery, `${key}`] } });
+      } else {
+        push({ query: { ...query, filter: [...filterQuery, `${key}`] } });
+      }
     }
   };
 

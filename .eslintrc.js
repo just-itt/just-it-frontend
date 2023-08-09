@@ -53,5 +53,6 @@ module.exports = {
     "jsx-a11y/label-has-associated-control": "off", // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md
     "no-shadow": "off", // https://typescript-eslint.io/rules/no-shadow/
     "@typescript-eslint/no-shadow": "off", // https://typescript-eslint.io/rules/no-shadow/
+    "no-lonely-if": "off", // https://eslint.org/docs/latest/rules/no-lonely-if
   },
 };
