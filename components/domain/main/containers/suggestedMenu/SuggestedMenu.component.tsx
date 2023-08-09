@@ -38,9 +38,9 @@ const SuggestedMenu = () => {
         </S.FilterSettingBtn>
       </S.HeadingWrapper>
       <S.PheedWrapper>
-        {suggestedPheeds?.items?.map(pheed => (
+        {suggestedPheeds?.items?.map((pheed, i) => (
           <Pheed
-            key={pheed.id}
+            key={i}
             src={pheed.image.image}
             title={pheed.title}
             id={pheed.id}

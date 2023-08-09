@@ -56,40 +56,44 @@ const HomeContainer = () => {
                 heading="검색결과"
                 count={pheeds?.length}
               />
-              <ResponsiveMasonry
-                columnsCountBreakPoints={columnsCountBreakPoints}
-              >
-                <Masonry gutter="16px">
-                  {pheeds?.map(pheed => (
-                    <Pheed
-                      key={pheed.id}
-                      src={pheed.image.image}
-                      id={pheed.id}
-                      title={pheed.title}
-                    />
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
+              {pheeds && (
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={columnsCountBreakPoints}
+                >
+                  <Masonry gutter="16px">
+                    {pheeds.map((pheed, i) => (
+                      <Pheed
+                        key={i}
+                        src={pheed.image.image}
+                        id={pheed.id}
+                        title={pheed.title}
+                      />
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              )}
             </>
           ) : (
             <>
               <SuggestedMenu />
               <Heading css={S.heading} heading="실시간 피드" />
               <Filter />
-              <ResponsiveMasonry
-                columnsCountBreakPoints={columnsCountBreakPoints}
-              >
-                <Masonry gutter="16px">
-                  {pheeds?.map(pheed => (
-                    <Pheed
-                      key={pheed.id}
-                      src={pheed.image.image}
-                      id={pheed.id}
-                      title={pheed.title}
-                    />
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
+              {pheeds && (
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={columnsCountBreakPoints}
+                >
+                  <Masonry gutter="16px">
+                    {pheeds.map((pheed, i) => (
+                      <Pheed
+                        key={i}
+                        src={pheed.image.image}
+                        id={pheed.id}
+                        title={pheed.title}
+                      />
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              )}
             </>
           )}
         </S.PaddingWrapper>

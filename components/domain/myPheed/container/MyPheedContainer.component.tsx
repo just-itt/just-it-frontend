@@ -49,20 +49,22 @@ const MyPheedContainer = () => {
                 heading="검색결과"
                 count={data?.items.length}
               />
-              <ResponsiveMasonry
-                columnsCountBreakPoints={columnsCountBreakPoints}
-              >
-                <Masonry gutter="16px">
-                  {data?.items.map(pheed => (
-                    <Pheed
-                      key={pheed.id}
-                      src={pheed.image.image}
-                      id={pheed.id}
-                      title={pheed.title}
-                    />
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
+              {data && (
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={columnsCountBreakPoints}
+                >
+                  <Masonry gutter="16px">
+                    {data.items.map(pheed => (
+                      <Pheed
+                        key={pheed.id}
+                        src={pheed.image.image}
+                        id={pheed.id}
+                        title={pheed.title}
+                      />
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              )}
             </>
           ) : (
             <>
@@ -72,20 +74,22 @@ const MyPheedContainer = () => {
                 count={data?.items.length}
               />
               <Filter />
-              <ResponsiveMasonry
-                columnsCountBreakPoints={columnsCountBreakPoints}
-              >
-                <Masonry gutter="16px">
-                  {data?.items.map(pheed => (
-                    <Pheed
-                      key={pheed.id}
-                      src={pheed.image.image}
-                      id={pheed.id}
-                      title={pheed.title}
-                    />
-                  ))}
-                </Masonry>
-              </ResponsiveMasonry>
+              {data && (
+                <ResponsiveMasonry
+                  columnsCountBreakPoints={columnsCountBreakPoints}
+                >
+                  <Masonry gutter="16px">
+                    {data?.items.map(pheed => (
+                      <Pheed
+                        key={pheed.id}
+                        src={pheed.image.image}
+                        id={pheed.id}
+                        title={pheed.title}
+                      />
+                    ))}
+                  </Masonry>
+                </ResponsiveMasonry>
+              )}
             </>
           )}
         </S.PaddingWrapper>
