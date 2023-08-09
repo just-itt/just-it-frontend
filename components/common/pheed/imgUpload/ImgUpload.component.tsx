@@ -4,7 +4,8 @@ import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import type { UseFormRegister } from "react-hook-form";
 
-import { DropdownBtn, ErrorWrapper } from "@components/index";
+import { DropdownBtn, ErrorWrapper, RatioModal } from "@components/index";
+import { useModal, useViewport } from "@hooks/index";
 import { TrashIcon, PencilIcon, UploadIcon, RatioIcon } from "@icons/index";
 import type { PheedForm } from "types";
 import * as S from "./ImgUpload.styled";
@@ -36,6 +37,9 @@ const ImgUpload = ({
   handleChangeRatio,
   deleteImgFile,
 }: ImgUploadProps) => {
+  const { isMobile } = useViewport();
+  const { modalRef, handleOpenModal, handleCloseModal } = useModal();
+
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
   const makePreviewImg = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,28 +94,44 @@ const ImgUpload = ({
                 <TrashIcon />
               </button>
             </S.EditBtnWrapper>
-            <DropdownBtn
-              css={S.dropdown}
-              btnRender={<RatioIcon />}
-              dropdownItems={[
-                {
-                  label: "정방형",
-                  value: "1:1",
-                  handler: handleChangeRatio && handleChangeRatio("1:1"),
-                },
-                {
-                  label: "가로형 (3:4)",
-                  value: "3:4",
-                  handler: handleChangeRatio && handleChangeRatio("3:4"),
-                },
-                {
-                  label: "세로형 (4:3)",
-                  value: "4:3",
-                  handler: handleChangeRatio && handleChangeRatio("4:3"),
-                },
-              ]}
-              selectValue={dropdownSelectValue}
-            />
+            {isMobile ? (
+              <S.MobileRatioBtn
+                type="button"
+                onClick={handleOpenModal(
+                  <RatioModal
+                    ref={modalRef}
+                    ratio={dropdownSelectValue}
+                    handleChangeRatio={handleChangeRatio}
+                    handleCloseModal={handleCloseModal}
+                  />,
+                )}
+              >
+                <RatioIcon />
+              </S.MobileRatioBtn>
+            ) : (
+              <DropdownBtn
+                css={S.dropdown}
+                btnRender={<RatioIcon />}
+                dropdownItems={[
+                  {
+                    label: "정방형",
+                    value: "1:1",
+                    handler: handleChangeRatio && handleChangeRatio("1:1"),
+                  },
+                  {
+                    label: "가로형 (3:4)",
+                    value: "3:4",
+                    handler: handleChangeRatio && handleChangeRatio("3:4"),
+                  },
+                  {
+                    label: "세로형 (4:3)",
+                    value: "4:3",
+                    handler: handleChangeRatio && handleChangeRatio("4:3"),
+                  },
+                ]}
+                selectValue={dropdownSelectValue}
+              />
+            )}
           </S.PreviewBtnWrapper>
         </>
       ) : (

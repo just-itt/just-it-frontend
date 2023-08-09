@@ -110,26 +110,18 @@ export const AddBtn = styled.label`
 `;
 
 export const dropdown = (theme: Theme) => css`
-  width: 36px;
-  height: 36px;
-  background-color: transparent;
-
-  & > svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  & > svg > path {
-    fill: ${theme.color.white};
-  }
-
   @media (min-width: ${theme.breakPoint.minTablet}) {
     width: 40px;
     height: 40px;
+    background-color: transparent;
 
     & > svg {
       width: 24px;
       height: 24px;
+
+      & > path {
+        fill: ${theme.color.white};
+      }
     }
 
     & > ul {
@@ -138,4 +130,21 @@ export const dropdown = (theme: Theme) => css`
       width: 158px;
     }
   }
+`;
+
+export const MobileRatioBtn = styled.button`
+  ${({ theme }) => css`
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+
+    & > svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    & > svg > path {
+      fill: ${theme.color.white};
+    }
+  `}
 `;
