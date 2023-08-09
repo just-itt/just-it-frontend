@@ -63,6 +63,10 @@ const ImgUpload = ({
     setPreviewImg(defaultImg);
   }, [defaultImg]);
 
+  useEffect(() => {
+    if (!isMobile) handleCloseModal();
+  }, [isMobile]);
+
   return previewImg ? (
     <S.PreviewImgWrapper className={className}>
       {type === "create" ? (
