@@ -151,6 +151,9 @@ export const NavMenu = styled.button<{ isclick: string }>`
 
       svg {
         display: block;
+      }
+
+      svg > path {
         fill: ${isclick === "true"
           ? `${theme.color.blue_300}`
           : `${theme.color.grey_500}`};
