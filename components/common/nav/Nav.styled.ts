@@ -166,6 +166,12 @@ export const NavMenu = styled.button<{ isclick: string }>`
 `;
 
 export const IconWrapper = styled.div`
-  width: 24px;
-  height: 24px;
+  ${({ theme }) => css`
+    width: 24px;
+    height: 24px;
+
+    svg > path {
+      fill: ${theme.color.grey_500};
+    }
+  `}
 `;

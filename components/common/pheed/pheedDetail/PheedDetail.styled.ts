@@ -61,14 +61,14 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const BtnWrapper = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    column-gap: 24px;
+  display: flex;
+  column-gap: 24px;
+`;
 
-    svg {
-      width: 24px;
-      height: 24px;
-      fill: ${theme.color.blue_300};
+export const BookmarkBtn = styled.button<{ isBookmark: boolean }>`
+  ${({ theme, isBookmark }) => css`
+    svg > path {
+      fill: ${isBookmark && theme.color.blue_300};
     }
   `}
 `;

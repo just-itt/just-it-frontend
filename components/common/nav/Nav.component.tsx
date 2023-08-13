@@ -9,7 +9,7 @@ import { useGetMyProfile } from "@service/index";
 import { useModal } from "@hooks/index";
 import {
   ArrowShortIcon,
-  BookmarkMonoIcon,
+  BookmarkFullIcon,
   CloseIcon,
   EditMonoIcon,
   LogoShortIcon,
@@ -103,7 +103,7 @@ const Nav = () => {
           onClick={handleCheckLogin("/bookmark")}
         >
           <S.IconWrapper>
-            <BookmarkMonoIcon />
+            <BookmarkFullIcon />
           </S.IconWrapper>
           저장한 게시글
         </S.NavMenu>

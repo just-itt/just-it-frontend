@@ -20,8 +20,8 @@ import {
 import { useModal } from "@hooks/index";
 import { handleResize } from "utils";
 import {
-  BookmarkIcon,
-  BookmarkMonoIcon,
+  BookmarkEmptyIcon,
+  BookmarkFullIcon,
   CloseIcon,
   MoreIcon,
 } from "@icons/index";
@@ -79,9 +79,13 @@ const PheedDetail = () => {
           <CloseIcon />
         </button>
         <S.BtnWrapper>
-          <button type="button" onClick={handleBookmark}>
-            {data.is_bookmark ? <BookmarkMonoIcon /> : <BookmarkIcon />}
-          </button>
+          <S.BookmarkBtn
+            type="button"
+            isBookmark={data.is_bookmark}
+            onClick={handleBookmark}
+          >
+            {data.is_bookmark ? <BookmarkFullIcon /> : <BookmarkEmptyIcon />}
+          </S.BookmarkBtn>
           {profile?.id === data.author.id && (
             <DropdownBtn
               btnRender={<MoreIcon />}
