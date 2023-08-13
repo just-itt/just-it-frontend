@@ -13,6 +13,8 @@ import {
   Profile,
 } from "@components/index";
 import {
+  myPheedKeys,
+  pheedKeys,
   useDeletePheed,
   useGetMyProfile,
   useGetPheedDetail,
@@ -115,7 +117,10 @@ const PheedDetail = () => {
                           {
                             onSuccess: () => {
                               toast.success("피드 삭제 성공");
-                              queryClient.invalidateQueries(["myPheed"]);
+                              queryClient.invalidateQueries(
+                                myPheedKeys.myPheeds(),
+                              );
+                              queryClient.invalidateQueries(pheedKeys.pheeds());
                               handleCloseDetailModal();
                               handleCloseModal();
                             },
