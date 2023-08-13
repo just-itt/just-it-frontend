@@ -2,7 +2,13 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const publicPath = ["/", "/login"];
-const privatePath = ["/myPheed", "/bookmark", "/setting"];
+const privatePath = [
+  "/myPheed",
+  "/bookmark",
+  "/setting",
+  "/createPheed",
+  "/editPheed",
+];
 
 export function middleware(req: NextRequest) {
   const hasCookie = !!req.cookies.get("auth");
@@ -22,5 +28,12 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/login", "/myPheed", "/bookmark", "/setting"],
+  matcher: [
+    "/login",
+    "/myPheed",
+    "/bookmark",
+    "/setting",
+    "/createPheed",
+    "/editPheed",
+  ],
 };
