@@ -23,7 +23,10 @@ const Seo = ({ title, description, url, imgUrl }: SeoProps) => {
       />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url || "https://justit.kr"} />
-      <meta property="og:image" content={imgUrl || "https://justit.kr"} />
+      <meta
+        property="og:image"
+        content={imgUrl || "public/icons/searchLong.svg"}
+      />
       <meta property="og:article:author" content="just it" />
       <meta property="og:locale" content="ko_KR" />
       <meta property="og:site_name" content="just it" />

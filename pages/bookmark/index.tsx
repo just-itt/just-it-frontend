@@ -3,14 +3,28 @@ import axios from "axios";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
-import { MainLayout, BookmarkContainer } from "@components/index";
+import { MainLayout, BookmarkContainer, Seo } from "@components/index";
 import { bookmarkKeys } from "@service/bookmark";
 
-const index = () => {
-  return <BookmarkContainer />;
+interface BookmarkProps {
+  nickname?: string;
+  profileImgUrl?: string;
+}
+
+const Bookmark = ({ nickname, profileImgUrl }: BookmarkProps) => {
+  return (
+    <>
+      <Seo
+        title={`${nickname}의 저장한 게시글`}
+        description={`${nickname}가 북마크로 등록한 게시글을 확인 할 수 있는 페이지 입니다.`}
+        imgUrl={profileImgUrl}
+      />
+      <BookmarkContainer />
+    </>
+  );
 };
 
-index.getLayout = function getLayout(page: ReactElement) {
+Bookmark.getLayout = function getLayout(page: ReactElement) {
   return <MainLayout>{page}</MainLayout>;
 };
 
@@ -25,8 +39,16 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     timeout: 5000,
   });
 
+  let nickname = "";
+  let profileImgUrl = "";
+
   if (token) {
     ax.defaults.headers.Authorization = `Bearer ${token}`;
+
+    const { data: profile } = await ax.get("/members/me");
+
+    nickname = profile.nickname;
+    profileImgUrl = profile.profile_image;
 
     await queryClient.prefetchQuery({
       queryKey: bookmarkKeys.bookmarks,
@@ -38,6 +60,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return {
       props: {
+        nickname,
+        profileImgUrl,
         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       },
     };
@@ -46,4 +70,4 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   return { props: {} };
 }
 
-export default index;
+export default Bookmark;

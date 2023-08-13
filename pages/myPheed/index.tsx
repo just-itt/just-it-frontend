@@ -3,10 +3,24 @@ import axios from "axios";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
-import { MainLayout, MyPheedContainer } from "@components/index";
+import { MainLayout, MyPheedContainer, Seo } from "@components/index";
 
-const MyPheed = () => {
-  return <MyPheedContainer />;
+interface MyPheedProps {
+  nickname?: string;
+  profileImgUrl?: string;
+}
+
+const MyPheed = ({ nickname, profileImgUrl }: MyPheedProps) => {
+  return (
+    <>
+      <Seo
+        title={`${nickname}의 게시글`}
+        description={`${nickname}가 등록한 게시글을 확인 할 수 있는 페이지 입니다.`}
+        imgUrl={profileImgUrl}
+      />
+      <MyPheedContainer />
+    </>
+  );
 };
 
 MyPheed.getLayout = function getLayout(page: ReactElement) {
@@ -22,10 +36,18 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     timeout: 5000,
   });
 
+  let nickname = "";
+  let profileImgUrl = "";
+
   const queryClient = new QueryClient();
 
   if (token) {
     ax.defaults.headers.Authorization = `Bearer ${token}`;
+
+    const { data: profile } = await ax.get("/members/me");
+
+    nickname = profile.nickname;
+    profileImgUrl = profile.profile_image;
 
     const filter = {
       ...(query?.tag_options && {
@@ -42,6 +64,8 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
     return {
       props: {
+        nickname,
+        profileImgUrl,
         dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
       },
     };
