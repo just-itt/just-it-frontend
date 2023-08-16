@@ -13,6 +13,7 @@ interface InputProps {
   className?: string;
   disabled?: boolean;
   placeholder: string;
+  maxLength?: number;
   isError: boolean;
   register: any;
 }
@@ -44,6 +45,7 @@ LabelContent.Input = ({
   disabled,
   placeholder,
   isError,
+  maxLength,
   register,
 }: InputProps) => {
   return (
@@ -52,6 +54,7 @@ LabelContent.Input = ({
       disabled={disabled}
       placeholder={placeholder}
       isError={isError}
+      maxLength={maxLength}
       {...register}
     />
   );

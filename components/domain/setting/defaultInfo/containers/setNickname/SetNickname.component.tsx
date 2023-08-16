@@ -17,6 +17,7 @@ const SetNickname = ({ nicknameRegister, emailRegister }: SetNicknameProps) => {
           css={S.nicknameInput}
           isError={false}
           placeholder=""
+          maxLength={10}
           register={nicknameRegister}
         />
       </LabelContent>
