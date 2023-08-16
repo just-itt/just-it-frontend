@@ -32,7 +32,7 @@ export const makePheedFilterQuery = ({
   let query = "?";
 
   if (search_word) {
-    query += search_word;
+    query += `search_word=${search_word}`;
   }
 
   if (tag_options) {

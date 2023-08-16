@@ -25,7 +25,7 @@ const Header = () => {
 
   const { register, watch, setValue, handleSubmit } = useForm({
     mode: "all",
-    defaultValues: { pheedSearch: query.pheedSearch || "" },
+    defaultValues: { searchWord: query.searchWord || "" },
   });
 
   const setNavState = useSetRecoilState(navAtom);
@@ -39,7 +39,7 @@ const Header = () => {
   const handleFocusInput = () => setIsFocusInput(!isFocusInput);
 
   useEffect(() => {
-    setValue("pheedSearch", query.pheedSearch || "");
+    setValue("searchWord", query.searchWord || "");
   }, [query]);
 
   return (
@@ -47,8 +47,8 @@ const Header = () => {
       {isMobile &&
         (isFocusInput ? (
           <S.SearchWrapper
-            onSubmit={handleSubmit(({ pheedSearch }) =>
-              push({ query: { pheedSearch } }),
+            onSubmit={handleSubmit(({ searchWord }) =>
+              push({ query: { searchWord } }),
             )}
           >
             <SearchShortIcon />
@@ -57,8 +57,8 @@ const Header = () => {
               maxLength={30}
               autoComplete="off"
               autoFocus
-              value={watch("pheedSearch")}
-              {...register("pheedSearch", {
+              value={watch("searchWord")}
+              {...register("searchWord", {
                 required: true,
                 onBlur: () => handleFocusInput(),
               })}
@@ -103,8 +103,8 @@ const Header = () => {
           <S.FlexWrapper>
             {isFocusInput ? (
               <S.SearchWrapper
-                onSubmit={handleSubmit(({ pheedSearch }) =>
-                  push({ query: { pheedSearch } }),
+                onSubmit={handleSubmit(({ searchWord }) =>
+                  push({ query: { searchWord } }),
                 )}
               >
                 <SearchShortIcon />
@@ -113,8 +113,8 @@ const Header = () => {
                   maxLength={30}
                   autoComplete="off"
                   autoFocus
-                  value={watch("pheedSearch")}
-                  {...register("pheedSearch", {
+                  value={watch("searchWord")}
+                  {...register("searchWord", {
                     required: true,
                     onBlur: () => handleFocusInput(),
                   })}
@@ -149,8 +149,8 @@ const Header = () => {
             </Link>
           </S.LogoWrapper>
           <S.SearchWrapper
-            onSubmit={handleSubmit(({ pheedSearch }) =>
-              push({ query: { pheedSearch } }),
+            onSubmit={handleSubmit(({ searchWord }) =>
+              push({ query: { searchWord } }),
             )}
           >
             <SearchShortIcon />
@@ -158,8 +158,8 @@ const Header = () => {
               placeholder="검색..."
               maxLength={30}
               autoComplete="off"
-              value={watch("pheedSearch")}
-              {...register("pheedSearch", {
+              value={watch("searchWord")}
+              {...register("searchWord", {
                 required: true,
                 onBlur: () => handleFocusInput(),
               })}

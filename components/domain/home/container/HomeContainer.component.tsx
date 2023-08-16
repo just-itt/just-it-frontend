@@ -18,12 +18,12 @@ import * as S from "./HomeContainer.styled";
 
 const HomeContainer = () => {
   const {
-    query: { id, filter, pheedSearch },
+    query: { id, filter, searchWord },
   } = useRouter();
 
   const { data: pheeds } = useGetPheeds({
     query: {
-      ...(pheedSearch && { search_word: pheedSearch as string }),
+      ...(searchWord && { search_word: searchWord as string }),
       ...(filter && { tag_options: filter }),
     },
   });
@@ -47,9 +47,9 @@ const HomeContainer = () => {
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          {pheedSearch && pheeds?.length === 0 ? (
+          {searchWord && pheeds?.length === 0 ? (
             <NoResult />
-          ) : pheedSearch && pheeds?.length !== 0 ? (
+          ) : searchWord && pheeds?.length !== 0 ? (
             <>
               <Heading
                 css={S.heading}
