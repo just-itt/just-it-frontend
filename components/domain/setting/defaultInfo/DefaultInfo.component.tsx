@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
@@ -21,6 +22,7 @@ const DefaultInfo = () => {
     email: string;
   }>();
 
+  const queryClient = useQueryClient();
   const { mutate: usePostProfileImageMutate } = usePostProfileImage();
   const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();
@@ -46,7 +48,11 @@ const DefaultInfo = () => {
         const formData = new FormData();
         formData.append("file", profileImage);
 
-        temp.push(usePostProfileImageMutate(formData));
+        temp.push(
+          usePostProfileImageMutate(formData, {
+            onSuccess: () => queryClient.invalidateQueries(["myProfile"]),
+          }),
+        );
       }
 
       if (watch("profile") === "") {
@@ -54,8 +60,7 @@ const DefaultInfo = () => {
       }
 
       await Promise.all(temp);
-
-      toast.success("기본 정보가 변경되었습니다");
+      await toast.success("기본 정보가 변경되었습니다");
     } catch (e) {
       console.log(e);
     }
