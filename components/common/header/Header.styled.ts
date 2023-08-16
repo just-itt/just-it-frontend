@@ -134,7 +134,7 @@ export const SearchWrapper = styled.form`
 
 export const Search = styled.input`
   ${({ theme }) => css`
-    width: 302px;
+    width: 100%;
     height: 24px;
     background-color: inherit;
 
