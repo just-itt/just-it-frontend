@@ -22,7 +22,7 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
   const [isClickAuthBtn, setIsClickAuthBtn] = useState(false);
   const [isCheckAuthCode, setIsCheckAuthCode] = useState(false);
 
-  const { mutate: useEmailAuthMutate } = useEmailAuth();
+  const { mutate: useEmailAuthMutate, isLoading } = useEmailAuth();
   const { mutate: useEmailAuthCodeMutate } = useEmailAuthCode();
 
   const handleAuthCode = () => {
@@ -45,8 +45,13 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
     useEmailAuthCodeMutate(
       { query: { email: watch("email"), auth_code: watch("authCode") } },
       {
-        onSuccess: () => {
-          setIsCheckAuthCode(true);
+        onSuccess: () => setIsCheckAuthCode(true),
+        onError: (err: any) => {
+          if (err.response.data.detail === "Authentication code is not valid") {
+            toast.error("잘못된 인증코드 입니다!");
+          } else {
+            toast.error("조금 있다 다시 시도해 주세요!");
+          }
         },
       },
     );
@@ -68,6 +73,7 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
             : ""
         }
         btnMsg="인증코드 받기"
+        btnDisabled={isLoading}
         register={register("email", {
           required: true,
           pattern: EMAIL_VALIDATE,
