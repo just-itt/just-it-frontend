@@ -58,9 +58,11 @@ const AuthCodeInput = ({
           인증이 완료되었습니다.
         </S.AuthCodeSeccess>
       )}
-      {type === "text" && !isCheckAuthCode && (
-        <S.RetryBtn type="button">인증코드 재전송</S.RetryBtn>
-      )}
+      {/* {type === "text" && !isCheckAuthCode && (
+        <S.RetryBtn type="button" onClick={handleAuthCode}>
+          인증코드 재전송
+        </S.RetryBtn>
+      )} */}
     </S.AuthCodeInputWrapper>
   );
 };
