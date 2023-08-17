@@ -120,7 +120,11 @@ const PheedDetail = () => {
                               queryClient.invalidateQueries(
                                 myPheedKeys.myPheeds(),
                               );
+                              queryClient.invalidateQueries(
+                                pheedKeys.suggestedPheeds,
+                              );
                               queryClient.invalidateQueries(pheedKeys.pheeds());
+
                               handleCloseDetailModal();
                               handleCloseModal();
                             },
