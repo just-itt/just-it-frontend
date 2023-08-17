@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import imageCompression from "browser-image-compression";
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import type { UseFormRegister } from "react-hook-form";
@@ -42,14 +43,51 @@ const ImgUpload = ({
 
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
-  const makePreviewImg = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const makePreviewImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    const options = {
+      maxSizeMB: 0.5,
+      maxWidthOrHeight: 800,
+      useWebWorker: true,
+    };
 
-    reader.onloadend = () => setPreviewImg(reader.result as string);
+    const extension = file.type.split("/").at(-1);
+    if (extension === "heic" || extension === "HEIC") {
+      const heic2any = (await import("heic2any")).default;
+
+      const result = await heic2any({ blob: file, toType: "image/jpeg" });
+      const jpegFile = new File(
+        [result as Blob],
+        `${file.name.split(".")[0]}.jpeg`,
+        {
+          type: "image/jpeg",
+          lastModified: new Date().getTime(),
+        },
+      );
+
+      const compressedFile = await imageCompression(jpegFile, options);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(compressedFile);
+
+      reader.onloadend = () => {
+        setPreviewImg(reader.result as string);
+      };
+
+      return;
+    }
+
+    const compressedFile = await imageCompression(file, options);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(compressedFile);
+
+    reader.onloadend = () => {
+      setPreviewImg(reader.result as string);
+    };
   };
 
   const handleClickDeleteImageFile = () => {
@@ -91,9 +129,6 @@ const ImgUpload = ({
           />
           <S.PreviewBtnWrapper>
             <S.EditBtnWrapper>
-              <label htmlFor="imgUpload">
-                <PencilIcon />
-              </label>
               <button type="button" onClick={handleClickDeleteImageFile}>
                 <TrashIcon />
               </button>
@@ -155,7 +190,7 @@ const ImgUpload = ({
         <S.UploadInput
           id="imgUpload"
           type="file"
-          accept=".jpg, .jpeg, .png"
+          accept=".jpg, .jpeg, .png, .heic"
           {...register("file", {
             required: true,
             onChange: makePreviewImg,
