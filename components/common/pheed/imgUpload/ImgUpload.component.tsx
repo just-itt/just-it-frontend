@@ -7,7 +7,7 @@ import type { UseFormRegister } from "react-hook-form";
 
 import { DropdownBtn, ErrorWrapper, RatioModal } from "@components/index";
 import { useModal, useViewport } from "@hooks/index";
-import { TrashIcon, PencilIcon, UploadIcon, RatioIcon } from "@icons/index";
+import { TrashIcon, UploadIcon, RatioIcon } from "@icons/index";
 import type { PheedForm } from "types";
 import * as S from "./ImgUpload.styled";
 
@@ -129,6 +129,9 @@ const ImgUpload = ({
           />
           <S.PreviewBtnWrapper>
             <S.EditBtnWrapper>
+              {/* <label htmlFor="imgUpload">
+                <PencilIcon />
+              </label> */}
               <button type="button" onClick={handleClickDeleteImageFile}>
                 <TrashIcon />
               </button>
