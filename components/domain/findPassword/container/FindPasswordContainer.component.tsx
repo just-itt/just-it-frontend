@@ -32,7 +32,7 @@ const FindPasswordContainer = () => {
     passwordConfirm: string;
   }>();
 
-  const { mutate: postFindPasswordEmailSendMutate } =
+  const { mutate: postFindPasswordEmailSendMutate, isLoading } =
     usePostFindPasswordEmailSend({ body: { email: watch("email") } });
   const { mutate: postFindPasswordEmailCheckMutate } =
     usePostFindPasswordEmailCheck({
@@ -45,7 +45,16 @@ const FindPasswordContainer = () => {
   const handleAuthCode = () => {
     postFindPasswordEmailSendMutate(undefined, {
       onSuccess: () => setIsClickAuthBtn(true),
-      onError: () => toast.error("error 발생"),
+      onError: (err: any) => {
+        if (
+          err.response.data.detail ===
+          "Not Found: No Member matches the given query."
+        ) {
+          toast.error("회원가입하지 않은 이메일 입니다.");
+        } else {
+          toast.error("error 발생");
+        }
+      },
     });
   };
 
@@ -84,7 +93,7 @@ const FindPasswordContainer = () => {
         hasValue={!!watch("email")}
         hasError={!!errors.email}
         inputDisabled={isClickAuthBtn}
-        btnDisabled={isClickAuthBtn}
+        btnDisabled={isClickAuthBtn || isLoading}
         handleAuthCode={handleAuthCode}
       />
       {isClickAuthBtn && (

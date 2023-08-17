@@ -56,5 +56,9 @@ export const Textarea = styled.textarea<{ isError: boolean }>`
     border-radius: 5px;
     padding: 10px 12px;
     resize: none;
+
+    :focus {
+      border: 1px solid ${theme.color.blue_300};
+    }
   `}
 `;
