@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
       display: flex;
       column-gap: 40px;
       width: 100%;
+      height: 100%;
     }
   `}
 `;
