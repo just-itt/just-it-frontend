@@ -84,5 +84,8 @@ export const patchPheedReply = async (req: PatchPheedReplyQueryModel) => {
 export const getSuggestedPheed = async () => {
   const { data } = await ax.get<GetSuggestedPheedsServerModel>("/posts/custom");
 
-  return data;
+  return {
+    ...data,
+    items: data.items.sort(() => Math.random() - 0.5),
+  };
 };

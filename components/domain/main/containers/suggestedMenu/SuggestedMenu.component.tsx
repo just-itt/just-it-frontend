@@ -28,14 +28,23 @@ const SuggestedMenu = () => {
     )();
   };
 
+  const handleRefetch = () => refetch();
+
   return (
     <S.SuggestedMenu>
       <S.HeadingWrapper>
         <Heading heading="오늘의 추천 메뉴" />
         <S.FilterSettingBtn type="button" onClick={handleFilterModal}>
           <FilterIcon />
-          <span>필터 설정</span>
+          <S.FilterSetting>필터 설정</S.FilterSetting>
         </S.FilterSettingBtn>
+        <S.MobileFilterResetBtn
+          type="button"
+          disabled={isFetching}
+          onClick={handleRefetch}
+        >
+          <ClearIcon />
+        </S.MobileFilterResetBtn>
       </S.HeadingWrapper>
       <S.PheedWrapper>
         {suggestedPheeds?.items?.map((pheed, i) => (
@@ -53,7 +62,7 @@ const SuggestedMenu = () => {
           type="button"
           isLoading={isFetching}
           disabled={isFetching}
-          onClick={() => refetch()}
+          onClick={handleRefetch}
         >
           {suggestedPheeds && isFetching ? (
             <Spinner color="000000" />

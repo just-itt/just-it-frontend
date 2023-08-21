@@ -31,15 +31,34 @@ export const FilterSettingBtn = styled.button`
       height: 20px;
       fill: ${theme.color.grey_600};
     }
+  `}
+`;
 
-    & > span {
-      display: none;
+export const FilterSetting = styled.span`
+  ${({ theme }) => css`
+    display: none;
+
+    @media (min-width: ${theme.breakPoint.minTablet}) {
+      display: unset;
+    }
+  `}
+`;
+
+export const MobileFilterResetBtn = styled.button`
+  ${({ theme }) => css`
+    ${theme.flexMixin.flex_justifyC_alignC};
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    svg > path {
+      fill: ${theme.color.grey_600};
     }
 
     @media (min-width: ${theme.breakPoint.minTablet}) {
-      & > span {
-        display: unset;
-      }
+      display: none;
     }
   `}
 `;
