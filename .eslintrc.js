@@ -54,5 +54,7 @@ module.exports = {
     "no-shadow": "off", // https://typescript-eslint.io/rules/no-shadow/
     "@typescript-eslint/no-shadow": "off", // https://typescript-eslint.io/rules/no-shadow/
     "no-lonely-if": "off", // https://eslint.org/docs/latest/rules/no-lonely-if
+    "no-else-return": "off", // https://eslint.org/docs/latest/rules/no-else-return
+    "@typescript-eslint/no-unused-expressions": "off", // https://typescript-eslint.io/rules/no-unused-expressions/
   },
 };
