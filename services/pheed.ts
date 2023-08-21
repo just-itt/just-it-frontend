@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   deletePheed,
@@ -43,11 +43,12 @@ export const useGetSuggestedPheeds = () => {
   });
 };
 
-export const useGetPheeds = (req: GetPheedsQueryModel, enabled?: boolean) => {
-  return useQuery({
+export const useGetPheeds = (req: GetPheedsQueryModel) => {
+  return useInfiniteQuery({
     queryKey: pheedKeys.pheed(req),
-    queryFn: () => getPheeds(req),
-    enabled,
+    queryFn: ({ pageParam }) => getPheeds({ ...req, pageParam }),
+    getNextPageParam: (lastPage, allPages) =>
+      lastPage.length === 10 ? allPages.length * 10 : undefined,
   });
 };
 

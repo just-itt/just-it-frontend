@@ -67,6 +67,7 @@ export interface GetPheedsQueryModel {
     search_word?: string;
     tag_options?: string | string[];
   };
+  pageParam?: number;
 }
 
 export interface GetPheedsServerModel {

@@ -34,7 +34,7 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
       <RecoilRoot>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <Hydrate state={pageProps.dehydrateState}>
+          <Hydrate state={pageProps.dehydratedState}>
             {getLayout(<Component {...pageProps} />)}
             <BaseModal />
             <Toaster

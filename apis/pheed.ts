@@ -20,6 +20,7 @@ import type {
 export const getPheeds = async (req: GetPheedsQueryModel) => {
   const { data } = await ax.get<GetPheedsServerModel>(
     `/posts${makePheedFilterQuery(req.query)}`,
+    { params: { limit: 10, offset: req.pageParam } },
   );
 
   return data.items;

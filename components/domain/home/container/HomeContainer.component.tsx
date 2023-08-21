@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
@@ -21,7 +21,13 @@ const HomeContainer = () => {
     query: { id, filter, searchWord },
   } = useRouter();
 
-  const { data: pheeds } = useGetPheeds({
+  const lastRef = useRef();
+
+  const {
+    data: pheeds,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetPheeds({
     query: {
       ...(searchWord && { search_word: searchWord as string }),
       ...(filter && { tag_options: filter }),
@@ -43,32 +49,61 @@ const HomeContainer = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (lastRef.current === undefined || !pheeds) return;
+
+    const io = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting || !hasNextPage) return;
+
+          fetchNextPage();
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+      },
+    );
+
+    io.observe(lastRef.current as any);
+  }, [pheeds?.pages.length]);
+
   return (
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          {searchWord && pheeds?.length === 0 ? (
+          {searchWord && pheeds?.pages.length === 0 ? (
             <NoResult />
-          ) : searchWord && pheeds?.length !== 0 ? (
+          ) : searchWord && pheeds?.pages.length !== 0 ? (
             <>
               <Heading
                 css={S.heading}
                 heading="검색결과"
-                count={pheeds?.length}
+                count={pheeds?.pages.length}
               />
               {pheeds && (
                 <ResponsiveMasonry
                   columnsCountBreakPoints={columnsCountBreakPoints}
                 >
                   <Masonry gutter="16px">
-                    {pheeds.map((pheed, i) => (
-                      <Pheed
-                        key={i}
-                        src={pheed.image.image}
-                        id={pheed.id}
-                        title={pheed.title}
-                      />
-                    ))}
+                    {pheeds.pages.map((page, i) =>
+                      page.map((pheed, j) => (
+                        <Pheed
+                          ref={
+                            pheeds.pages.length * 10 + j === (i + 1) * 10 + j
+                              ? lastRef
+                              : null
+                          }
+                          key={i * 10 + j}
+                          src={pheed.image.image}
+                          id={pheed.id}
+                          title={pheed.title}
+                        />
+                      )),
+                    )}
                   </Masonry>
                 </ResponsiveMasonry>
               )}
@@ -83,21 +118,28 @@ const HomeContainer = () => {
                   columnsCountBreakPoints={columnsCountBreakPoints}
                 >
                   <Masonry gutter="16px">
-                    {pheeds.map((pheed, i) => (
-                      <Pheed
-                        key={i}
-                        src={pheed.image.image}
-                        id={pheed.id}
-                        title={pheed.title}
-                      />
-                    ))}
+                    {pheeds.pages.map((page, i) =>
+                      page.map((pheed, j) => (
+                        <Pheed
+                          ref={
+                            pheeds.pages.length * 10 + j === (i + 1) * 10 + j
+                              ? lastRef
+                              : null
+                          }
+                          key={i * 10 + j}
+                          src={pheed.image.image}
+                          id={pheed.id}
+                          title={pheed.title}
+                        />
+                      )),
+                    )}
                   </Masonry>
                 </ResponsiveMasonry>
               )}
             </>
           )}
         </S.PaddingWrapper>
-        {(!isMobile || pheeds?.length !== 0) && <Footer />}
+        {(!isMobile || pheeds?.pages.length !== 0) && <Footer />}
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>

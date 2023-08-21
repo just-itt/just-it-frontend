@@ -44,17 +44,19 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 
   const filter = {
-    ...(query?.searchWord && { search_word: query?.searchWord as string }),
+    ...(query?.searchWord && { search_word: query.searchWord as string }),
     ...(query?.filter && {
       tag_options: query.filter,
     }),
   };
 
-  await queryClient.prefetchQuery({
+  await queryClient.prefetchInfiniteQuery({
     queryKey: pheedKeys.pheed({ query: filter }),
     queryFn: async () => {
-      const { data } = await ax.get(`/posts${makePheedFilterQuery(filter)}`);
-      return data;
+      const { data } = await ax.get(`/posts${makePheedFilterQuery(filter)}`, {
+        params: { limit: 10 },
+      });
+      return data.items;
     },
   });
 

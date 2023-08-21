@@ -21,7 +21,7 @@ declare module "next" {
 }
 
 declare module "next/app" {
-  type AppLayoutProps = AppProps<{ dehydrateState: DehydratedState }> & {
+  type AppLayoutProps = AppProps<{ dehydratedState: DehydratedState }> & {
     Component: NextLayoutComponentType;
   };
 }
