@@ -1,7 +1,13 @@
 import React from "react";
 
-import { PheedHeader, PheedFilter, ImgUpload } from "@components/index";
-import { useCreatePheedForm } from "./hooks";
+import {
+  PheedHeader,
+  PheedFilter,
+  ImgUpload,
+  Dim,
+  Spinner,
+} from "@components/index";
+import { useCreatePheedForm, useImageLoading } from "./hooks";
 import * as S from "./CreatePheedContainer.styled";
 
 const CreatePheedContainer = () => {
@@ -16,9 +22,15 @@ const CreatePheedContainer = () => {
     handleImgCrop,
     handleChangeRatio,
   } = useCreatePheedForm();
+  const { isLoading, isImageLoading } = useImageLoading();
 
   return (
     <>
+      {isLoading && (
+        <Dim>
+          <Spinner size="50px" />
+        </Dim>
+      )}
       <PheedHeader
         type="create"
         isError={!!Object.keys(errors).length}
@@ -34,6 +46,7 @@ const CreatePheedContainer = () => {
           dropdownSelectValue={watch("ratio")}
           cropperRef={cropperRef}
           deleteImgFile={deleteImgFile}
+          isImageLoading={isImageLoading}
           handleImgCrop={handleImgCrop}
           handleChangeRatio={handleChangeRatio}
         />

@@ -21,6 +21,7 @@ interface ImgUploadProps {
   dropdownSelectValue?: "1:1" | "3:4" | "4:3";
   cropperRef?: React.RefObject<ReactCropperElement>;
   deleteImgFile: () => void;
+  isImageLoading?: (isLoading: boolean) => void;
   handleImgCrop?: () => void;
   handleChangeRatio?: (ratio: "1:1" | "3:4" | "4:3") => () => void;
 }
@@ -34,9 +35,10 @@ const ImgUpload = ({
   register,
   dropdownSelectValue,
   cropperRef,
+  deleteImgFile,
+  isImageLoading,
   handleImgCrop,
   handleChangeRatio,
-  deleteImgFile,
 }: ImgUploadProps) => {
   const { isMobile } = useViewport();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
@@ -44,6 +46,8 @@ const ImgUpload = ({
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
   const makePreviewImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    isImageLoading && isImageLoading(true);
+
     const file = event.target.files?.[0];
 
     if (!file) return;
@@ -72,9 +76,9 @@ const ImgUpload = ({
 
       const reader = new FileReader();
       reader.readAsDataURL(compressedFile);
-
       reader.onloadend = () => {
         setPreviewImg(reader.result as string);
+        isImageLoading && isImageLoading(false);
       };
 
       return;
@@ -84,9 +88,9 @@ const ImgUpload = ({
 
     const reader = new FileReader();
     reader.readAsDataURL(compressedFile);
-
     reader.onloadend = () => {
       setPreviewImg(reader.result as string);
+      isImageLoading && isImageLoading(false);
     };
   };
 
