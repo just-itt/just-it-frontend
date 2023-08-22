@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 export const ImgUpload = styled.label<{ isError: boolean }>`
   ${({ theme, isError }) => css`
     ${theme.flexMixin.flex_justifyC_alignC};
+    position: relative;
     flex-flow: column;
     width: 100%;
     height: 268px;
@@ -147,4 +148,12 @@ export const MobileRatioBtn = styled.button`
       fill: ${theme.color.white};
     }
   `}
+`;
+
+export const SpinnerWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
 `;

@@ -5,7 +5,12 @@ import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import type { UseFormRegister } from "react-hook-form";
 
-import { DropdownBtn, ErrorWrapper, RatioModal } from "@components/index";
+import {
+  DropdownBtn,
+  ErrorWrapper,
+  RatioModal,
+  Spinner,
+} from "@components/index";
 import { useModal, useViewport } from "@hooks/index";
 import { TrashIcon, UploadIcon, RatioIcon } from "@icons/index";
 import type { PheedForm } from "types";
@@ -21,7 +26,6 @@ interface ImgUploadProps {
   dropdownSelectValue?: "1:1" | "3:4" | "4:3";
   cropperRef?: React.RefObject<ReactCropperElement>;
   deleteImgFile: () => void;
-  isImageLoading?: (isLoading: boolean) => void;
   handleImgCrop?: () => void;
   handleChangeRatio?: (ratio: "1:1" | "3:4" | "4:3") => () => void;
 }
@@ -36,13 +40,13 @@ const ImgUpload = ({
   dropdownSelectValue,
   cropperRef,
   deleteImgFile,
-  isImageLoading,
   handleImgCrop,
   handleChangeRatio,
 }: ImgUploadProps) => {
   const { isMobile } = useViewport();
   const { modalRef, handleOpenModal, handleCloseModal } = useModal();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
   const makePreviewImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +97,8 @@ const ImgUpload = ({
       isImageLoading && isImageLoading(false);
     };
   };
+
+  const isImageLoading = (isLoading: boolean) => setIsLoading(isLoading);
 
   const handleClickDeleteImageFile = () => {
     deleteImgFile();
@@ -194,20 +200,29 @@ const ImgUpload = ({
   ) : (
     <ErrorWrapper isError={isError} errorMessage="사진을 업로드해 주세요.">
       <S.ImgUpload className={className} htmlFor="imgUpload" isError={isError}>
-        <S.UploadInput
-          id="imgUpload"
-          type="file"
-          accept=".jpg, .jpeg, .png, .heic"
-          {...register("file", {
-            required: true,
-            onChange: makePreviewImg,
-          })}
-        />
-        <UploadIcon />
-        <span>사진 업로드</span>
-        <span>
-          음식 사진 외 다른 사진 업로드 시 관리자에 의해 삭제 될 수 있습니다.
-        </span>
+        {isLoading ? (
+          <S.SpinnerWrapper>
+            <Spinner size="50px" color="grey" />
+          </S.SpinnerWrapper>
+        ) : (
+          <>
+            <S.UploadInput
+              id="imgUpload"
+              type="file"
+              accept=".jpg, .jpeg, .png, .heic"
+              {...register("file", {
+                required: true,
+                onChange: makePreviewImg,
+              })}
+            />
+            <UploadIcon />
+            <span>사진 업로드</span>
+            <span>
+              음식 사진 외 다른 사진 업로드 시 관리자에 의해 삭제 될 수
+              있습니다.
+            </span>
+          </>
+        )}
       </S.ImgUpload>
     </ErrorWrapper>
   );
