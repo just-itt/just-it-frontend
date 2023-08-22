@@ -17,7 +17,7 @@ import {
 import * as S from "./Header.styled";
 
 const Header = () => {
-  const { push, query } = useRouter();
+  const { push, query, pathname } = useRouter();
 
   const { data: profile } = useGetMyProfile();
 
@@ -38,6 +38,10 @@ const Header = () => {
 
   const handleFocusInput = () => setIsFocusInput(!isFocusInput);
 
+  const handleSerachPheed = handleSubmit(({ searchWord }) => {
+    push({ pathname: "/", query: { searchWord } });
+  });
+
   useEffect(() => {
     setValue("searchWord", query.searchWord || "");
   }, [query]);
@@ -46,11 +50,7 @@ const Header = () => {
     <S.Header>
       {isMobile &&
         (isFocusInput ? (
-          <S.SearchWrapper
-            onSubmit={handleSubmit(({ searchWord }) =>
-              push({ query: { searchWord } }),
-            )}
-          >
+          <S.SearchWrapper onSubmit={handleSerachPheed}>
             <SearchShortIcon />
             <S.Search
               placeholder="검색..."
@@ -103,9 +103,12 @@ const Header = () => {
           <S.FlexWrapper>
             {isFocusInput ? (
               <S.SearchWrapper
-                onSubmit={handleSubmit(({ searchWord }) =>
-                  push({ query: { searchWord } }),
-                )}
+                onSubmit={handleSubmit(({ searchWord }) => {
+                  if (pathname !== "/") {
+                    push("/");
+                  }
+                  push({ query: { searchWord } });
+                })}
               >
                 <SearchShortIcon />
                 <S.Search
@@ -148,11 +151,7 @@ const Header = () => {
               <LogoShortIcon />
             </Link>
           </S.LogoWrapper>
-          <S.SearchWrapper
-            onSubmit={handleSubmit(({ searchWord }) =>
-              push({ query: { searchWord } }),
-            )}
-          >
+          <S.SearchWrapper onSubmit={handleSerachPheed}>
             <SearchShortIcon />
             <S.Search
               placeholder="검색..."
