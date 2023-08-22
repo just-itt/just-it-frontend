@@ -49,8 +49,10 @@ const ImgUpload = ({
   const [isLoading, setIsLoading] = useState(false);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
 
+  const isImageLoading = (isLoading: boolean) => setIsLoading(isLoading);
+
   const makePreviewImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    isImageLoading && isImageLoading(true);
+    isImageLoading(true);
 
     const file = event.target.files?.[0];
 
@@ -82,7 +84,7 @@ const ImgUpload = ({
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
         setPreviewImg(reader.result as string);
-        isImageLoading && isImageLoading(false);
+        isImageLoading(false);
       };
 
       return;
@@ -94,11 +96,9 @@ const ImgUpload = ({
     reader.readAsDataURL(compressedFile);
     reader.onloadend = () => {
       setPreviewImg(reader.result as string);
-      isImageLoading && isImageLoading(false);
+      isImageLoading(false);
     };
   };
-
-  const isImageLoading = (isLoading: boolean) => setIsLoading(isLoading);
 
   const handleClickDeleteImageFile = () => {
     deleteImgFile();
