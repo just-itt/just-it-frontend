@@ -29,11 +29,9 @@ const SignIn = ({ watch, errors, register }: SignInProps) => {
     useEmailAuthMutate(
       { query: { email: watch("email") } },
       {
-        onSuccess: () => {
-          setIsClickAuthBtn(true);
-        },
+        onSuccess: () => setIsClickAuthBtn(true),
         onError: (err: any) => {
-          if (err.response.data.message === "Email already authorized") {
+          if (err.response.data.detail === "Email already authorized") {
             toast.error("이미 가입한 이메일입니다!");
           }
         },
