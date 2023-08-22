@@ -1,45 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import type { UseFormRegisterReturn, UseFormWatch } from "react-hook-form";
 
-import { makeImagePreview } from "utils/index";
+import { Spinner } from "@components/common";
 import { PencilIcon, PersonIcon, PictureIcon, TrashIcon } from "@icons/index";
+import type { DefaultInfoForm } from "types";
 import * as S from "./SetProfile.styled";
 
 interface SetProfileProps {
+  previewUrl: string;
+  isProfileLoading: boolean;
   src: string | null;
   alt: string;
-  watch: UseFormWatch<{
-    profile: string | FileList | null;
-    nickname: string;
-    email: string;
-  }>;
+  watch: UseFormWatch<DefaultInfoForm>;
   register: UseFormRegisterReturn<"profile">;
   handleDeleteProfile: () => void;
 }
 
 const SetProfile = ({
+  previewUrl,
+  isProfileLoading,
   src,
   alt,
   watch,
   register,
   handleDeleteProfile,
 }: SetProfileProps) => {
-  const [previewUrl, setPreviewUrl] = useState("");
-
-  const isNewProfile = watch("profile") instanceof FileList;
-
-  useEffect(() => {
-    if (isNewProfile) {
-      const file = watch("profile")?.[0] as File;
-      makeImagePreview(file).then(res => setPreviewUrl(res));
-    }
-  }, [watch("profile")]);
+  const isNewProfile = watch("profile") instanceof Blob;
 
   return (
     <S.Wrapper>
       <S.IconWrapper>
-        {isNewProfile ? (
+        {isProfileLoading ? (
+          <Spinner size="20px" color="gray" />
+        ) : isNewProfile ? (
           <Image
             src={previewUrl}
             alt="변경 할 프로필 사진"
@@ -57,7 +51,7 @@ const SetProfile = ({
       </S.IconWrapper>
       <S.ProfileInput
         type="file"
-        accept=".jpeg, .jpg, .png"
+        accept=".jpg, .jpeg, .png, .heic"
         id="profile"
         {...register}
       />

@@ -1,3 +1,9 @@
+export interface DefaultInfoForm {
+  profile: string | Blob | null;
+  nickname: string;
+  email: string;
+}
+
 export interface PatchNicknameQueryModel {
   body: { nickname: string };
 }
