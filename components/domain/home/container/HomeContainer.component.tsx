@@ -50,7 +50,7 @@ const HomeContainer = () => {
   }, []);
 
   useEffect(() => {
-    if (lastRef.current === undefined || !pheeds) return;
+    if (!lastRef.current || !pheeds) return;
 
     const io = new IntersectionObserver(
       (entries, observer) => {
@@ -82,7 +82,7 @@ const HomeContainer = () => {
               <Heading
                 css={S.heading}
                 heading="검색결과"
-                count={pheeds?.pages.length}
+                count={pheeds?.pages[0].length}
               />
               {pheeds && (
                 <ResponsiveMasonry
