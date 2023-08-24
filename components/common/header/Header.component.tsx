@@ -23,13 +23,12 @@ const Header = () => {
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
+  const setNavState = useSetRecoilState(navAtom);
+  const [isFocusInput, setIsFocusInput] = useState(false);
   const { register, watch, setValue, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { searchWord: query.searchWord || "" },
   });
-
-  const setNavState = useSetRecoilState(navAtom);
-  const [isFocusInput, setIsFocusInput] = useState(false);
 
   const handleClickMenu = () => {
     setNavState(true);
