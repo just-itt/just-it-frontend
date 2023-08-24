@@ -94,7 +94,7 @@ const DefaultInfo = () => {
 
     if (typeof watch("profile") === "object") {
       const profileImage = data.profile as File;
-      console.log("profileImage", profileImage);
+
       const formData = new FormData();
       formData.append("file", profileImage);
 
