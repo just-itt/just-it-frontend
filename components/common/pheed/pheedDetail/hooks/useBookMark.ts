@@ -31,7 +31,7 @@ const useBookmark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
-            queryClient.invalidateQueries(bookmarkKeys.bookmarks);
+            queryClient.invalidateQueries(bookmarkKeys.bookmarks());
             toast.success("북마크가 해제되었습니다.");
           },
         },
@@ -42,7 +42,7 @@ const useBookmark = (
         {
           onSuccess: () => {
             refetchPheedDetail();
-            queryClient.invalidateQueries(bookmarkKeys.bookmarks);
+            queryClient.invalidateQueries(bookmarkKeys.bookmarks());
             toast.success("북마크에 추가되었습니다.");
           },
         },
