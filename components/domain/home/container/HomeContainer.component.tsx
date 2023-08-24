@@ -14,6 +14,7 @@ import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.compon
 import { useGetPheeds } from "@service/index";
 import { useViewport } from "@hooks/index";
 import { handleResize } from "utils";
+import { COLUMNS_COUNT_BREAK_POINTS } from "assets";
 import * as S from "./HomeContainer.styled";
 
 const HomeContainer = () => {
@@ -35,12 +36,6 @@ const HomeContainer = () => {
   });
 
   const { isMobile } = useViewport();
-
-  const columnsCountBreakPoints = {
-    555: 2,
-    900: 3,
-    1200: 4,
-  };
 
   useEffect(() => {
     handleResize();
@@ -86,7 +81,7 @@ const HomeContainer = () => {
               />
               {pheeds && (
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={columnsCountBreakPoints}
+                  columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
                 >
                   <Masonry gutter="16px">
                     {pheeds.pages.map((page, i) =>
@@ -115,7 +110,7 @@ const HomeContainer = () => {
               <Filter />
               {pheeds && (
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={columnsCountBreakPoints}
+                  columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
                 >
                   <Masonry gutter="16px">
                     {pheeds.pages.map((page, i) =>

@@ -6,6 +6,7 @@ import { Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetBookmarks } from "@service/index";
 import { handleResize } from "utils";
+import { COLUMNS_COUNT_BREAK_POINTS } from "assets";
 import * as S from "./BookmarkContainer.styled";
 
 const BookmarkContainer = () => {
@@ -34,11 +35,7 @@ const BookmarkContainer = () => {
           <Filter />
           {bookmarks ? (
             <ResponsiveMasonry
-              columnsCountBreakPoints={{
-                555: 2,
-                900: 3,
-                1200: 4,
-              }}
+              columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
             >
               <Masonry gutter="16px">
                 {bookmarks.count &&
