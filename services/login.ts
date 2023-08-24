@@ -21,6 +21,11 @@ import type {
   PostFindPasswordEmailSendQueryModel,
 } from "types";
 
+export const loginKeys = {
+  all: ["login"] as const,
+  myProfile: ["myProfile"] as const,
+};
+
 export const useEmailAuth = () => {
   return useMutation({
     mutationFn: (req: EmailAuthQueryModel) => emailAuth(req),
@@ -47,11 +52,9 @@ export const useLogin = () => {
 
 export const useGetMyProfile = () => {
   return useQuery({
-    queryKey: ["myProfile"],
+    queryKey: loginKeys.myProfile,
     queryFn: () => getMyProfile(),
     enabled: !!Cookies.get("auth"),
-    staleTime: Infinity,
-    cacheTime: Infinity,
   });
 };
 

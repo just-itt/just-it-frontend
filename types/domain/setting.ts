@@ -1,5 +1,5 @@
 export interface DefaultInfoForm {
-  profile: string | Blob | null;
+  profile: string | File | null;
   nickname: string;
   email: string;
 }

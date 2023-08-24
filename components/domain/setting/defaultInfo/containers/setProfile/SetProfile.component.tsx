@@ -33,7 +33,7 @@ const SetProfile = ({
       <S.IconWrapper>
         {isProfileLoading ? (
           <Spinner size="20px" color="gray" />
-        ) : isNewProfile ? (
+        ) : previewUrl ? (
           <Image
             src={previewUrl}
             alt="변경 할 프로필 사진"
@@ -41,7 +41,7 @@ const SetProfile = ({
             width={1}
             height={1}
           />
-        ) : typeof watch("profile") === "string" && watch("profile") === "" ? (
+        ) : watch("profile") === "" ? (
           <PersonIcon css={S.personIcon} />
         ) : src ? (
           <Image src={src} alt={alt} layout="responsive" width={1} height={1} />

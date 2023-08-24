@@ -6,6 +6,7 @@ import imageCompression from "browser-image-compression";
 
 import { Heading, Button } from "@components/index";
 import {
+  loginKeys,
   useDeleteProfileImage,
   useGetMyProfile,
   usePatchNickname,
@@ -29,10 +30,10 @@ const DefaultInfo = () => {
   const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();
 
-  const makePreviewImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const makePreviewImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfileLoading(true);
 
-    const file = event.target.files?.[0];
+    const file = e.target.files?.[0];
     if (!file) return;
 
     const options = {
@@ -78,43 +79,40 @@ const DefaultInfo = () => {
     };
   };
 
-  const handleClickDeleteProfile = () => setValue("profile", "");
+  const handleClickDeleteProfile = () => {
+    setValue("profile", "");
+    setPreviewUrl("");
+  };
 
-  const updateProfile = async (data: DefaultInfoForm) => {
-    try {
-      const temp = [];
+  const updateProfile = (data: DefaultInfoForm) => {
+    if (data.nickname !== profile?.nickname && data.nickname) {
+      usePatchNicknameMutate(
+        { body: { nickname: data.nickname } },
+        { onSuccess: () => toast.success("닉네임이 변경되었습니다 :)") },
+      );
+    }
 
-      if (data.nickname !== profile?.nickname && data.nickname) {
-        temp.push(
-          usePatchNicknameMutate({ body: { nickname: data.nickname } }),
-        );
-      }
+    if (typeof watch("profile") === "object") {
+      const profileImage = data.profile as File;
+      console.log("profileImage", profileImage);
+      const formData = new FormData();
+      formData.append("file", profileImage);
 
-      if (typeof watch("profile") === "object") {
-        const profileImage = data.profile as File;
-
-        const formData = new FormData();
-        formData.append("file", profileImage);
-
-        temp.push(
-          usePostProfileImageMutate(formData, {
-            onSuccess: () => queryClient.invalidateQueries(["myProfile"]),
-          }),
-        );
-      }
-
-      if (watch("profile") === "") {
-        temp.push(
-          useDeleteProfileImageMutate(undefined, {
-            onSuccess: () => queryClient.invalidateQueries(["myProfile"]),
-          }),
-        );
-      }
-
-      await Promise.all(temp);
-      await toast.success("기본 정보가 변경되었습니다");
-    } catch (e) {
-      console.log(e);
+      usePostProfileImageMutate(formData, {
+        onSuccess: () => {
+          queryClient.invalidateQueries(loginKeys.myProfile);
+          toast.success("프로필 이미지가 수정되었습니다 :)");
+        },
+        onError: () => toast.success("프로필 이미지 수정을 실패했습니다 :)"),
+      });
+    } else if (watch("profile") === "") {
+      useDeleteProfileImageMutate(undefined, {
+        onSuccess: () => {
+          queryClient.invalidateQueries(loginKeys.myProfile);
+          toast.success("프로필 이미지가 삭제 되었습니다 :)");
+        },
+        onError: () => toast.success("프로필 이미지 삭제를 실패했습니다 :)"),
+      });
     }
   };
 
