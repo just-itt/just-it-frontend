@@ -1,13 +1,17 @@
 import { ax } from "apis";
 
+import { makePheedFilterQuery } from "utils";
 import type {
   DeleteBookmarkQueryModel,
+  GetBookmarkQueryModel,
   GetBookmarksServerModel,
   PostBookmarkQueryModel,
 } from "types";
 
-export const getBookmarks = async () => {
-  const { data } = await ax.get<GetBookmarksServerModel>("/posts/bookmarks");
+export const getBookmarks = async (req: GetBookmarkQueryModel) => {
+  const { data } = await ax.get<GetBookmarksServerModel>(
+    `/posts/bookmarks${makePheedFilterQuery(req.query)}`,
+  );
 
   return data;
 };

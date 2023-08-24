@@ -4,6 +4,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, MyPheedContainer, Seo } from "@components/index";
+import { makePheedFilterQuery } from "utils";
 
 interface MyPheedProps {
   nickname?: string;
@@ -49,15 +50,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     nickname = profile.nickname;
     profileImgUrl = profile.profile_image;
 
-    const filter = {
-      ...(query?.tag_options && {
-        tag_options: (query?.tag_options as string[]).map(item => +item),
-      }),
-    };
+    const filter = { ...(query?.filter && { tag_options: query.filter }) };
+
     await queryClient.prefetchQuery({
       queryKey: ["myPheed"],
       queryFn: async () => {
-        const { data } = await ax.get("/posts/me", { params: filter });
+        const { data } = await ax.get(
+          `/posts/me${makePheedFilterQuery(filter)}`,
+        );
         return data;
       },
     });

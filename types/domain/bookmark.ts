@@ -23,3 +23,9 @@ export interface GetBookmarksServerModel {
     updated_at: string;
   }[];
 }
+
+export interface GetBookmarkQueryModel {
+  query: {
+    tag_options?: string | string[];
+  };
+}

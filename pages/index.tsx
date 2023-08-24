@@ -45,9 +45,7 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 
   const filter = {
     ...(query?.searchWord && { search_word: query.searchWord as string }),
-    ...(query?.filter && {
-      tag_options: query.filter,
-    }),
+    ...(query?.filter && { tag_options: query.filter }),
   };
 
   await queryClient.prefetchInfiniteQuery({

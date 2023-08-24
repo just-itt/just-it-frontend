@@ -5,6 +5,7 @@ import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, BookmarkContainer, Seo } from "@components/index";
 import { bookmarkKeys } from "@service/bookmark";
+import { makePheedFilterQuery } from "utils";
 
 interface BookmarkProps {
   nickname?: string;
@@ -29,7 +30,7 @@ Bookmark.getLayout = function getLayout(page: ReactElement) {
 };
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  const { req } = ctx;
+  const { req, query } = ctx;
   const token = req.cookies.auth;
 
   const queryClient = new QueryClient();
@@ -50,10 +51,14 @@ export async function getServerSideProps(ctx: GetServerSidePropsContext) {
     nickname = profile.nickname;
     profileImgUrl = profile.profile_image;
 
+    const filter = { ...(query?.filter && { tag_options: query.filter }) };
+
     await queryClient.prefetchQuery({
-      queryKey: bookmarkKeys.bookmarks,
+      queryKey: bookmarkKeys.bookmark({ query: filter }),
       queryFn: async () => {
-        const { data } = await ax.get("/posts/bookmarks");
+        const { data } = await ax.get(
+          `/posts/bookmarks${makePheedFilterQuery(filter)}`,
+        );
         return data;
       },
     });

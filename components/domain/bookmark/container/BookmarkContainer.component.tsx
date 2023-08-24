@@ -11,10 +11,12 @@ import * as S from "./BookmarkContainer.styled";
 
 const BookmarkContainer = () => {
   const {
-    query: { id },
+    query: { id, filter },
   } = useRouter();
 
-  const { data: bookmarks } = useGetBookmarks();
+  const { data: bookmarks } = useGetBookmarks({
+    query: { ...(filter && { tag_options: filter }) },
+  });
 
   useEffect(() => {
     handleResize();

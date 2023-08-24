@@ -7,6 +7,7 @@ import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.compon
 import { useGetMyPheeds } from "@service/index";
 import { useViewport } from "@hooks/index";
 import { handleResize } from "utils";
+import { COLUMNS_COUNT_BREAK_POINTS } from "assets";
 import * as S from "./MyPheedContainer.styled";
 
 const MyPheedContainer = () => {
@@ -14,20 +15,11 @@ const MyPheedContainer = () => {
     query: { id, filter, pheedSearch },
   } = useRouter();
 
-  const { data } = useGetMyPheeds({
-    query: {
-      ...(pheedSearch && { search_word: pheedSearch as string }),
-      ...(filter && { tag_options: filter }),
-    },
+  const { data: myPheeds } = useGetMyPheeds({
+    query: { ...(filter && { tag_options: filter }) },
   });
 
   const { isMobile } = useViewport();
-
-  const columnsCountBreakPoints = {
-    555: 2,
-    900: 3,
-    1200: 4,
-  };
 
   useEffect(() => {
     handleResize();
@@ -40,21 +32,21 @@ const MyPheedContainer = () => {
     <S.Main isClickPheed={!!id}>
       <S.PheedWrapper isClickPheed={!!id}>
         <S.PaddingWrapper>
-          {pheedSearch && data?.items.length === 0 ? (
+          {pheedSearch && myPheeds?.items.length === 0 ? (
             <NoResult />
-          ) : pheedSearch && data?.items.length !== 0 ? (
+          ) : pheedSearch && myPheeds?.items.length !== 0 ? (
             <>
               <Heading
                 css={S.heading}
                 heading="검색결과"
-                count={data?.items.length}
+                count={myPheeds?.items.length}
               />
-              {data && (
+              {myPheeds && (
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={columnsCountBreakPoints}
+                  columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
                 >
                   <Masonry gutter="16px">
-                    {data.items.map(pheed => (
+                    {myPheeds.items.map(pheed => (
                       <Pheed
                         key={pheed.id}
                         src={pheed.image.image}
@@ -71,15 +63,15 @@ const MyPheedContainer = () => {
               <Heading
                 css={S.heading}
                 heading="내 게시글"
-                count={data?.items.length}
+                count={myPheeds?.items.length}
               />
               <Filter />
-              {data && (
+              {myPheeds && (
                 <ResponsiveMasonry
-                  columnsCountBreakPoints={columnsCountBreakPoints}
+                  columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
                 >
                   <Masonry gutter="16px">
-                    {data?.items.map(pheed => (
+                    {myPheeds?.items.map(pheed => (
                       <Pheed
                         key={pheed.id}
                         src={pheed.image.image}
@@ -93,7 +85,7 @@ const MyPheedContainer = () => {
             </>
           )}
         </S.PaddingWrapper>
-        {(!isMobile || data?.items?.length !== 0) && <Footer />}
+        {(!isMobile || myPheeds?.items?.length !== 0) && <Footer />}
       </S.PheedWrapper>
       {id && <PheedDetail />}
     </S.Main>

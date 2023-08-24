@@ -51,9 +51,9 @@ export const getPheedDetail = async (req: GetPheedDetailQueryModel) => {
 };
 
 export const getMyPheeds = async (req: GetMyPheedsQueryModel) => {
-  const { data } = await ax.get<GetMyPheedsServerModel>("/posts/me", {
-    params: req.query,
-  });
+  const { data } = await ax.get<GetMyPheedsServerModel>(
+    `/posts/me${makePheedFilterQuery(req.query)}`,
+  );
 
   return data;
 };
