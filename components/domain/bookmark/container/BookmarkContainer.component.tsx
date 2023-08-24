@@ -35,7 +35,7 @@ const BookmarkContainer = () => {
             count={bookmarks?.count}
           />
           <Filter />
-          {bookmarks ? (
+          {bookmarks && (
             <ResponsiveMasonry
               columnsCountBreakPoints={COLUMNS_COUNT_BREAK_POINTS}
             >
@@ -51,7 +51,7 @@ const BookmarkContainer = () => {
                   ))}
               </Masonry>
             </ResponsiveMasonry>
-          ) : null}
+          )}
         </S.PaddingWrapper>
         <Footer />
       </S.PheedWrapper>
