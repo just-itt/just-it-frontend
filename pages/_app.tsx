@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import NextNProgress from "nextjs-progressbar";
 
 import { queryClient } from "services";
-import { BaseModal } from "@components/index";
+import { BaseModal, Mail } from "@components/index";
 import { globalStyle } from "styles/globalStyles";
 import { theme } from "styles/theme";
 import "../public/fonts/style.css";
@@ -51,6 +51,7 @@ const MyApp = ({ Component, pageProps }: AppLayoutProps) => {
                 },
               }}
             />
+            <Mail />
             <div id="modal" />
           </Hydrate>
         </QueryClientProvider>

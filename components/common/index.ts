@@ -11,6 +11,7 @@ export { default as HashTag } from "./hashTag/HashTag.component";
 export { default as Header } from "./header/Header.component";
 export { default as Heading } from "./heading/Heading.component";
 export { default as LabelContent } from "./labelContent/LabelContent.component";
+export { default as Mail } from "./mail/Mail.component";
 export { default as Nav } from "./nav/Nav.component";
 export { default as NoResult } from "./noResult/NoResult.component";
 export { default as Portal } from "./potal/Potal.component";
