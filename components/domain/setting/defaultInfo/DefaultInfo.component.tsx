@@ -17,8 +17,6 @@ import { SetNickname, SetProfile } from "./containers";
 import * as S from "./DefaultInfo.styled";
 
 const DefaultInfo = () => {
-  const { data: profile } = useGetMyProfile();
-
   const [previewUrl, setPreviewUrl] = useState("");
   const [isProfileLoading, setProfileLoading] = useState(false);
 
@@ -26,6 +24,7 @@ const DefaultInfo = () => {
     useForm<DefaultInfoForm>();
 
   const queryClient = useQueryClient();
+  const { data: profile } = useGetMyProfile();
   const { mutate: usePostProfileImageMutate } = usePostProfileImage();
   const { mutate: useDeleteProfileImageMutate } = useDeleteProfileImage();
   const { mutate: usePatchNicknameMutate } = usePatchNickname();

@@ -19,12 +19,13 @@ import * as S from "./Header.styled";
 const Header = () => {
   const { push, query, pathname } = useRouter();
 
-  const { data: profile } = useGetMyProfile();
+  const { data: profile, isFetching } = useGetMyProfile();
 
   const { isMobile, isTablet, isDesktop } = useViewport();
 
   const setNavState = useSetRecoilState(navAtom);
   const [isFocusInput, setIsFocusInput] = useState(false);
+  const [profileUpdateCount, setProfileUpdateCount] = useState(0);
   const { register, watch, setValue, handleSubmit } = useForm({
     mode: "all",
     defaultValues: { searchWord: query.searchWord || "" },
@@ -44,6 +45,10 @@ const Header = () => {
   useEffect(() => {
     setValue("searchWord", query.searchWord || "");
   }, [query]);
+
+  useEffect(() => {
+    setProfileUpdateCount(profileUpdateCount + 1);
+  }, [isFetching]);
 
   return (
     <S.Header>
@@ -127,7 +132,6 @@ const Header = () => {
                 <SearchShortIcon />
               </S.SearchBtn>
             )}
-
             {profile ? (
               <Link css={S.createPheedBtn} href="/createPheed">
                 <AddIcon />
@@ -172,7 +176,7 @@ const Header = () => {
                 <Link href="/setting">
                   <Profile
                     css={S.profile}
-                    src={profile.profile_image}
+                    src={`${profile.profile_image}?v=${profileUpdateCount}`}
                     alt={`${profile.nickname}님의 프로필 사진`}
                   />
                 </Link>
