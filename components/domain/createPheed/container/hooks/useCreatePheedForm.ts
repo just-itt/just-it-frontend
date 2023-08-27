@@ -40,9 +40,12 @@ const useCreatePheedForm = () => {
     const cropper = cropperRef.current?.cropper.getCroppedCanvas();
 
     cropper?.toBlob(blob => {
-      if (!blob) return;
+      const imageFile = watch("file");
+      if (!blob || imageFile === null) return;
 
-      const file = new File([blob], "croppedImg.png", { type: "image/png" });
+      const file = new File([blob], imageFile[0].name, {
+        type: "image/png",
+      });
       setValue("uploadImgFile", file);
     });
   };
