@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import type { ReactCropperElement } from "react-cropper";
 
 import { usePostPheed } from "@service/index";
+import { makeFileName } from "utils";
 import type { PheedForm } from "types";
 
 const useCreatePheedForm = () => {
@@ -43,7 +44,7 @@ const useCreatePheedForm = () => {
       const imageFile = watch("file");
       if (!blob || imageFile === null) return;
 
-      const file = new File([blob], imageFile[0].name, {
+      const file = new File([blob], makeFileName("jpeg"), {
         type: "image/png",
       });
       setValue("uploadImgFile", file);

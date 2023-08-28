@@ -12,6 +12,7 @@ import {
   usePatchNickname,
   usePostProfileImage,
 } from "@service/index";
+import { makeFileName } from "utils";
 import type { DefaultInfoForm } from "types";
 import { SetNickname, SetProfile } from "./containers";
 import * as S from "./DefaultInfo.styled";
@@ -46,14 +47,10 @@ const DefaultInfo = () => {
       const heic2any = (await import("heic2any")).default;
 
       const result = await heic2any({ blob: file, toType: "image/jpeg" });
-      const jpegFile = new File(
-        [result as Blob],
-        `${file.name.split(".")[0]}.jpeg`,
-        {
-          type: "image/jpeg",
-          lastModified: new Date().getTime(),
-        },
-      );
+      const jpegFile = new File([result as Blob], makeFileName("jpeg"), {
+        type: "image/jpeg",
+        lastModified: new Date().getTime(),
+      });
 
       const compressedFile = await imageCompression(jpegFile, options);
 

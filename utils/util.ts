@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import type { GetPheedsQueryModel } from "types";
 
 export const shuffleArray = <T>(array: T[]): T[] => {
@@ -51,3 +53,6 @@ export const makePheedFilterQuery = ({
 
   return query;
 };
+
+export const makeFileName = (extension: string) =>
+  `${uuidv4().split("-").join("").slice(0, 5)}.${extension}`;
