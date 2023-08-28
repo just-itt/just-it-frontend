@@ -19,7 +19,7 @@ import {
   useGetMyProfile,
   useGetPheedDetail,
 } from "@service/index";
-import { useModal } from "@hooks/index";
+import { useImageError, useModal } from "@hooks/index";
 import { handleResize } from "utils";
 import {
   BookmarkEmptyIcon,
@@ -27,6 +27,7 @@ import {
   CloseIcon,
   MoreIcon,
 } from "@icons/index";
+
 import { useBookMark, usePheedReply } from "./hooks";
 import * as S from "./PheedDetail.styled";
 
@@ -39,6 +40,8 @@ const PheedDetail = () => {
   const { data: profile } = useGetMyProfile();
   const { mutate: deletePheed } = useDeletePheed();
 
+  const { errorImage, isImageError, handleErrorImg, IMAGE_ERROR_MESSAGE } =
+    useImageError();
   const { handleOpenModal, handleCloseModal } = useModal();
   const {
     replyType,
@@ -150,8 +153,8 @@ const PheedDetail = () => {
         </S.ProfileWrapper>
         <S.ImgWrapper>
           <Image
-            src={data.image.image}
-            alt={`${data.title} 사진`}
+            src={isImageError ? errorImage : data.image.image}
+            alt={isImageError ? IMAGE_ERROR_MESSAGE : `${data.title} 사진`}
             width={0}
             height={0}
             sizes="100vw"
@@ -160,6 +163,7 @@ const PheedDetail = () => {
               height: "auto",
               marginBottom: "20px",
             }}
+            onError={handleErrorImg}
           />
           <S.ImgCircle />
         </S.ImgWrapper>
