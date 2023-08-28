@@ -66,18 +66,33 @@ const useEditPheedForm = () => {
   useEffect(() => {
     if (!pheedData) return;
 
+    const tagOption = { what: "", when: "", who: "", etc: [] as string[] };
+
+    pheedData.tag_options.forEach(({ id, tag_title }) => {
+      if (tag_title === "무엇을 먹었나요?") {
+        tagOption.what = `${id}`;
+      }
+      if (tag_title === "언제 먹었나요?") {
+        tagOption.when = `${id}`;
+      }
+
+      if (tag_title === "누구랑 먹었나요?") {
+        tagOption.who = `${id}`;
+      }
+
+      tagOption.etc.push(`${id}`);
+    });
+
     reset({
       file: null,
       defaultImg: pheedData.image.image,
       ratio: pheedData.image.ratio,
       title: pheedData.title,
       content: pheedData.content,
-      what: `${pheedData.tag_options[0].id}`,
-      when: `${pheedData.tag_options[1].id}`,
-      who: `${pheedData.tag_options[2].id}`,
-      etc: pheedData.tag_options
-        .filter((_, i) => i > 2)
-        .map(item => `${item.id}`),
+      what: tagOption.what,
+      when: tagOption.when,
+      who: tagOption.who,
+      etc: tagOption.etc,
     });
   }, [pheedData]);
 
