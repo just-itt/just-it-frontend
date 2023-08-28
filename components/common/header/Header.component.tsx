@@ -176,7 +176,11 @@ const Header = () => {
                 <Link href="/setting">
                   <Profile
                     css={S.profile}
-                    src={`${profile.profile_image}?v=${profileUpdateCount}`}
+                    src={
+                      profile.profile_image
+                        ? `${profile.profile_image}?v=${profileUpdateCount}`
+                        : ""
+                    }
                     alt={`${profile.nickname}님의 프로필 사진`}
                   />
                 </Link>
