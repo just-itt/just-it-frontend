@@ -6,6 +6,7 @@ export const Mail = styled.div`
     position: absolute;
     right: 15px;
     bottom: 15px;
+    width: fit-content;
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
       left: 15px;
