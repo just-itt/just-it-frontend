@@ -53,7 +53,7 @@ const FilterModal = () => {
                   isSelect={selectTags.includes(`${id}`)}
                   onClick={handleClickTag(id)}
                 >
-                  {`${EMOJI[title]} ${title}`}
+                  {`${EMOJI[title] ?? `🆕`} ${title}`}
                 </S.FilterItem>
               ))}
             </S.FilterWrapper>
