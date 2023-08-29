@@ -2,26 +2,26 @@
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 400;
-  src: url("./Pretendard-Regular.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  src: url("./Pretendard-Medium.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Medium.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 600;
-  src: url("./Pretendard-SemiBold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-SemiBold.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  src: url("./Pretendard-Bold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Bold.woff2") format("woff2");
 }
