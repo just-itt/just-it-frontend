@@ -20,7 +20,7 @@ const Home = ({ detailTitle, imgUrl, content }: HomeProps) => {
         title={detailTitle}
         description={
           content ??
-          "매일 똑같은 고민, 오늘 점심 뭐먹지? just it이 고민을 해결해줄게요! 나와 같은 상황일 때 다른 사람은 무엇을 먹을까요? 궁금하지 않나요? just it은 다양한 음식 메뉴를 추천하여 특별한 식사 시간을 만들어드립니다."
+          "매일 똑같은 고민, 오늘 점심 뭐먹지? Just it이 고민을 해결해줄게요! 나와 같은 상황일 때 다른 사람은 무엇을 먹을까요? 궁금하지 않나요? Just it은 다양한 음식 메뉴를 추천하여 특별한 식사 시간을 만들어드립니다."
         }
         imgUrl={imgUrl}
       />
