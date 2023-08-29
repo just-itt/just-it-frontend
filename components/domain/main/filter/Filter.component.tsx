@@ -58,7 +58,7 @@ const Filter = () => {
               isSelect={isSelect(tag.id)}
               onClick={handleClickFilter(tag.id)}
             >
-              {tag.title} {EMOJI[tag.title]}
+              {tag.title} {EMOJI[tag.title] ?? "🆕"}
             </S.FilterItem>
           </S.FilterItemWrapper>
         ))}

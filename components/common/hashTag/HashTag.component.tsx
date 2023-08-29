@@ -17,7 +17,7 @@ const HashTag = ({ className, hashTags }: HashTagProps) => {
     <S.Wrapper className={className}>
       {hashTags.map(({ title }) => (
         <S.HashTag key={title}>
-          {EMOJI[title]} {title}
+          {EMOJI[title] ?? "🆕"} {title}
         </S.HashTag>
       ))}
     </S.Wrapper>

@@ -67,9 +67,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                     key={title}
                     isSelect={watch("what") === `${id}`}
                   >
-                    <label
-                      htmlFor={`what${id}`}
-                    >{`${EMOJI[title]} ${title}`}</label>
+                    <label htmlFor={`what${id}`}>{`${
+                      EMOJI[title] ?? "🆕"
+                    } ${title}`}</label>
                     <input
                       id={`what${id}`}
                       type="radio"
@@ -91,9 +91,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
             <S.FilterWrapper>
               {data[1].options.map(({ id, title }) => (
                 <S.FilterItem key={title} isSelect={watch("when") === `${id}`}>
-                  <label
-                    htmlFor={`when${id}`}
-                  >{`${EMOJI[title]} ${title}`}</label>
+                  <label htmlFor={`when${id}`}>{`${
+                    EMOJI[title] ?? "🆕"
+                  } ${title}`}</label>
                   <input
                     id={`when${id}`}
                     type="radio"
@@ -114,9 +114,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
             <S.FilterWrapper>
               {data[2].options.map(({ id, title }) => (
                 <S.FilterItem key={title} isSelect={watch("who") === `${id}`}>
-                  <label
-                    htmlFor={`who${id}`}
-                  >{`${EMOJI[title]} ${title}`}</label>
+                  <label htmlFor={`who${id}`}>{`${
+                    EMOJI[title] ?? "🆕"
+                  } ${title}`}</label>
                   <input
                     id={`who${id}`}
                     type="radio"
@@ -136,9 +136,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                 key={title}
                 isSelect={watch("etc").includes(`${id}`)}
               >
-                <label
-                  htmlFor={`checkbox${id}`}
-                >{`${EMOJI[title]} ${title}`}</label>
+                <label htmlFor={`checkbox${id}`}>{`${
+                  EMOJI[title] ?? "🆕"
+                } ${title}`}</label>
                 <input
                   id={`checkbox${id}`}
                   type="checkbox"
@@ -157,9 +157,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                 key={title}
                 isSelect={watch("etc").includes(`${id}`)}
               >
-                <label
-                  htmlFor={`checkbox${id}`}
-                >{`${EMOJI[title]} ${title}`}</label>
+                <label htmlFor={`checkbox${id}`}>{`${
+                  EMOJI[title] ?? "🆕"
+                } ${title}`}</label>
                 <input
                   id={`checkbox${id}`}
                   type="checkbox"
@@ -178,9 +178,9 @@ const PheedFilter = ({ register, watch, errors }: PheedFilterProps) => {
                 key={title}
                 isSelect={watch("etc").includes(`${id}`)}
               >
-                <label
-                  htmlFor={`checkbox${id}`}
-                >{`${EMOJI[title]} ${title}`}</label>
+                <label htmlFor={`checkbox${id}`}>{`${
+                  EMOJI[title] ?? "🆕"
+                } ${title}`}</label>
                 <input
                   id={`checkbox${id}`}
                   type="checkbox"
