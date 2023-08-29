@@ -24,7 +24,6 @@ const FindPasswordContainer = () => {
     register,
     watch,
     formState: { errors },
-    handleSubmit,
   } = useForm<{
     email: string;
     authCode: string;
@@ -68,7 +67,7 @@ const FindPasswordContainer = () => {
   const handleResetPassword = () => {
     patchResetPasswordMutate(undefined, {
       onSuccess: () => {
-        toast.success("성공");
+        toast.success("비밀번호가 변경되었습니다.");
         push("/login");
       },
       onError: () => toast.error("error 발생"),
@@ -76,7 +75,7 @@ const FindPasswordContainer = () => {
   };
 
   return (
-    <S.Layout onSubmit={handleSubmit(() => console.log("hi"))}>
+    <S.Layout>
       <S.LogoWrapper href="/">
         <LogoLongIcon />
       </S.LogoWrapper>
@@ -93,7 +92,7 @@ const FindPasswordContainer = () => {
         hasValue={!!watch("email")}
         hasError={!!errors.email}
         inputDisabled={isClickAuthBtn}
-        btnDisabled={isClickAuthBtn || isLoading}
+        btnDisabled={isClickAuthBtn || isLoading || !watch("email")}
         handleAuthCode={handleAuthCode}
       />
       {isClickAuthBtn && (
@@ -106,7 +105,7 @@ const FindPasswordContainer = () => {
           hasError={!!errors.authCode}
           isCheckAuthCode={isCheckAuthCode}
           inputDisabled={isCheckAuthCode}
-          btnDisabled={isCheckAuthCode}
+          btnDisabled={isCheckAuthCode || !watch("authCode")}
           register={register("authCode", {
             required: true,
           })}
@@ -164,7 +163,9 @@ const FindPasswordContainer = () => {
         type="button"
         label={isCheckAuthCode ? "완료" : "비밀번호 변경"}
         mode="primary"
-        disabled={!!errors.email}
+        disabled={
+          !!errors.email || !watch("password") || !watch("passwordConfirm")
+        }
         handler={handleResetPassword}
       />
     </S.Layout>
