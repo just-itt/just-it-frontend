@@ -28,6 +28,7 @@ export const KakaoLoginBtn = styled.button`
     height: 52px;
     margin-bottom: 40px;
     border-radius: 5px;
+    color: ${theme.color.black};
     background-color: ${theme.color.kakao};
 
     svg {
