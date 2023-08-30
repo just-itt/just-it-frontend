@@ -168,12 +168,12 @@ const ImgUpload = ({
                     handler: handleChangeRatio && handleChangeRatio("1:1"),
                   },
                   {
-                    label: "가로형 (3:4)",
+                    label: "세로형 (3:4)",
                     value: "3:4",
                     handler: handleChangeRatio && handleChangeRatio("3:4"),
                   },
                   {
-                    label: "세로형 (4:3)",
+                    label: "가로형 (4:3)",
                     value: "4:3",
                     handler: handleChangeRatio && handleChangeRatio("4:3"),
                   },

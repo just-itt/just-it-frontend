@@ -41,7 +41,7 @@ const RatioModal = forwardRef<HTMLDialogElement, RatioModalProps>(
               isSelect={ratio === "3:4"}
               onClick={handleClickRatio("3:4")}
             >
-              가로형 (3:4)
+              세로형 (3:4)
             </S.RatioBtn>
             {ratio === "3:4" && <CheckIcon />}
           </S.Ratio>
@@ -51,7 +51,7 @@ const RatioModal = forwardRef<HTMLDialogElement, RatioModalProps>(
               isSelect={ratio === "4:3"}
               onClick={handleClickRatio("4:3")}
             >
-              세로형 (4:3)
+              가로형 (4:3)
             </S.RatioBtn>
             {ratio === "4:3" && <CheckIcon />}
           </S.Ratio>
