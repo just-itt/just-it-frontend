@@ -34,11 +34,16 @@ const SuggestedMenu = () => {
     <S.SuggestedMenu>
       <S.HeadingWrapper>
         <Heading heading="오늘의 추천 메뉴" />
-        <S.FilterSettingBtn type="button" onClick={handleFilterModal}>
+        <S.FilterSettingBtn
+          aria-label="필터 설정 버튼"
+          type="button"
+          onClick={handleFilterModal}
+        >
           <FilterIcon />
           <S.FilterSetting>필터 설정</S.FilterSetting>
         </S.FilterSettingBtn>
         <S.MobileFilterResetBtn
+          aria-label="오늘의 추천 메뉴 새로고침 버튼"
           type="button"
           disabled={isFetching}
           onClick={handleRefetch}

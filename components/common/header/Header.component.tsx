@@ -71,19 +71,31 @@ const Header = () => {
         ) : (
           <>
             <S.LogoWrapper>
-              <S.MenuBtn type="button" onClick={handleClickMenu}>
+              <S.MenuBtn
+                type="button"
+                aria-label="메뉴 버튼"
+                onClick={handleClickMenu}
+              >
                 <MenuIcon />
               </S.MenuBtn>
-              <Link href="/">
+              <Link href="/" aria-label="메인페이지로 이동 버튼">
                 <LogoShortIcon />
               </Link>
             </S.LogoWrapper>
             <S.FlexWrapper>
-              <S.SearchBtn type="button" onClick={handleFocusInput}>
+              <S.SearchBtn
+                type="button"
+                aria-label="피드 검색 버튼"
+                onClick={handleFocusInput}
+              >
                 <SearchShortIcon />
               </S.SearchBtn>
               {profile ? (
-                <Link css={S.createPheedBtn} href="/createPheed">
+                <Link
+                  css={S.createPheedBtn}
+                  href="/createPheed"
+                  aria-label="피드 생성 페이지로 이동"
+                >
                   <AddIcon />
                 </Link>
               ) : (
@@ -97,10 +109,14 @@ const Header = () => {
       {isTablet && (
         <>
           <S.LogoWrapper>
-            <S.MenuBtn type="button" onClick={handleClickMenu}>
+            <S.MenuBtn
+              type="button"
+              aria-label="메뉴 버튼"
+              onClick={handleClickMenu}
+            >
               <MenuIcon />
             </S.MenuBtn>
-            <Link href="/">
+            <Link href="/" aria-label="메인페이지로 이동 버튼">
               <LogoShortIcon />
             </Link>
           </S.LogoWrapper>
@@ -128,12 +144,20 @@ const Header = () => {
                 />
               </S.SearchWrapper>
             ) : (
-              <S.SearchBtn type="button" onClick={handleFocusInput}>
+              <S.SearchBtn
+                type="button"
+                aria-label="피드 검색 버튼"
+                onClick={handleFocusInput}
+              >
                 <SearchShortIcon />
               </S.SearchBtn>
             )}
             {profile ? (
-              <Link css={S.createPheedBtn} href="/createPheed">
+              <Link
+                css={S.createPheedBtn}
+                href="/createPheed"
+                aria-label="피드 생성 페이지로 이동"
+              >
                 <AddIcon />
               </Link>
             ) : (
@@ -147,10 +171,14 @@ const Header = () => {
       {isDesktop && (
         <>
           <S.LogoWrapper>
-            <S.MenuBtn type="button" onClick={handleClickMenu}>
+            <S.MenuBtn
+              type="button"
+              aria-label="메뉴 버튼"
+              onClick={handleClickMenu}
+            >
               <MenuIcon />
             </S.MenuBtn>
-            <Link href="/">
+            <Link href="/" aria-label="메인페이지로 이동 버튼">
               <LogoShortIcon />
             </Link>
           </S.LogoWrapper>

@@ -50,7 +50,11 @@ const Nav = () => {
     <S.Nav isOpen={navState}>
       <S.Wrapper>
         <LogoShortIcon />
-        <S.CloseBtn type="button" onClick={handleCloseNav}>
+        <S.CloseBtn
+          aria-label="Nav메뉴 닫기"
+          type="button"
+          onClick={handleCloseNav}
+        >
           <CloseIcon />
         </S.CloseBtn>
       </S.Wrapper>

@@ -60,7 +60,14 @@ const Mail = () => {
           </form>
         </S.Content>
       )}
-      <S.IconBtn type="button" isClick={isClick} onClick={handleClick}>
+      <S.IconBtn
+        aria-label={
+          isClick ? "1대1 문의하기 모달 닫기" : "1대1 문의하기 모달 열기"
+        }
+        type="button"
+        isClick={isClick}
+        onClick={handleClick}
+      >
         {isClick ? <CloseIcon /> : <KakaoIcon />}
       </S.IconBtn>
     </S.Mail>

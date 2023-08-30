@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 const Document = () => {
   return (
-    <Html>
+    <Html lang="ko">
       <Head>
         <meta
           name="viewport"

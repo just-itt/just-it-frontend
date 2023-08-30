@@ -64,6 +64,7 @@ const Filter = () => {
         ))}
       </S.FilterWrapper>
       <S.OpenBtn
+        aria-label={isFilterOpen ? "필터 접기" : "필터 더보기"}
         type="button"
         isFilterOpen={isFilterOpen}
         onClick={handleOpenFilter}

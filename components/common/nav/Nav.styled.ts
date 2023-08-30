@@ -30,7 +30,7 @@ export const Nav = styled.ul<{ isOpen: boolean }>`
   `}
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.li`
   ${({ theme }) => css`
     ${theme.flexMixin.flex_justifySb_alignC};
     height: 60px;
@@ -64,7 +64,7 @@ export const CloseBtn = styled.button`
   `}
 `;
 
-export const ProfileWrapper = styled.div`
+export const ProfileWrapper = styled.li`
   ${({ theme }) => css`
     ${theme.font.semiBold_16};
     ${theme.flexMixin.flex_alignC};
@@ -168,7 +168,7 @@ export const NavMenu = styled.button<{ isclick: string }>`
   `}
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.li`
   ${({ theme }) => css`
     width: 24px;
     height: 24px;
