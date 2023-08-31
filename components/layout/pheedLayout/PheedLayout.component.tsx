@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { handleResize } from "@utils/index";
+import { useResize } from "@hooks/index";
 import * as S from "./PheedLayout.styled";
 
 interface PheedLayoutProps {
@@ -8,12 +8,7 @@ interface PheedLayoutProps {
 }
 
 const PheedLayout = ({ children }: PheedLayoutProps) => {
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useResize();
 
   return <S.PheedLayout>{children}</S.PheedLayout>;
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useQueryClient } from "@tanstack/react-query";
@@ -19,15 +19,13 @@ import {
   useGetMyProfile,
   useGetPheedDetail,
 } from "@service/index";
-import { useImageError, useModal } from "@hooks/index";
-import { handleResize } from "utils";
+import { useImageError, useModal, useResize } from "@hooks/index";
 import {
   BookmarkEmptyIcon,
   BookmarkFullIcon,
   CloseIcon,
   MoreIcon,
 } from "@icons/index";
-
 import { useBookMark, usePheedReply } from "./hooks";
 import * as S from "./PheedDetail.styled";
 
@@ -39,10 +37,6 @@ const PheedDetail = () => {
   const { data, refetch } = useGetPheedDetail({ id: query.id as string });
   const { data: profile } = useGetMyProfile();
   const { mutate: deletePheed } = useDeletePheed();
-
-  const { errorImage, isImageError, handleErrorImg, IMAGE_ERROR_MESSAGE } =
-    useImageError();
-  const { handleOpenModal, handleCloseModal } = useModal();
   const {
     replyType,
     changeReplyType,
@@ -53,6 +47,11 @@ const PheedDetail = () => {
     handleDeletePheedReply,
   } = usePheedReply(refetch);
   const { handleClickBookmark } = useBookMark(data!, refetch);
+
+  const { errorImage, isImageError, handleErrorImg, IMAGE_ERROR_MESSAGE } =
+    useImageError();
+  const { handleOpenModal, handleCloseModal } = useModal();
+  useResize();
 
   const handleCloseDetailModal = () => {
     const { id, ...updateQuery } = query;
@@ -67,13 +66,6 @@ const PheedDetail = () => {
       handleClickBookmark();
     }
   };
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   if (!data) return null;
 

@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetMyPheeds } from "@service/index";
-import { handleResize } from "@utils/index";
+import { useResize } from "@hooks/index";
 import { COLUMNS_COUNT_BREAK_POINTS } from "@assets/index";
 import * as S from "./MyPheedContainer.styled";
 
@@ -18,12 +18,7 @@ const MyPheedContainer = () => {
     query: { ...(filter && { tag_options: filter }) },
   });
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useResize();
 
   return (
     <S.Main isClickPheed={!!id}>

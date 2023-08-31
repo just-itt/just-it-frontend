@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 export const Modal = styled.div`
   ${({ theme }) => css`
     width: 100vw;
-    height: calc(var(--vh) * 100);
+    height: 100vh;
     background-color: ${theme.color.white};
 
     @media (min-width: ${theme.breakPoint.minDesktop}) {
