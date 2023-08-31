@@ -21,7 +21,8 @@
       "@hooks/*": ["hooks/*"],
       "@service/*": ["services/*"],
       "@recoil/*": ["atom/*"],
-      "@utils/*": ["util/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"],
       "@styles/*": ["styles/*"],
       "@icons/*": ["public/icons/*"]
     },

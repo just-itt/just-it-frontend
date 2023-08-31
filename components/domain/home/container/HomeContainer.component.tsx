@@ -12,9 +12,8 @@ import {
 } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetPheeds } from "@service/index";
-import { useViewport } from "@hooks/index";
-import { handleResize } from "utils";
-import { COLUMNS_COUNT_BREAK_POINTS } from "assets";
+import { useResize, useViewport } from "@hooks/index";
+import { COLUMNS_COUNT_BREAK_POINTS } from "@assets/index";
 import * as S from "./HomeContainer.styled";
 
 const HomeContainer = () => {
@@ -36,13 +35,7 @@ const HomeContainer = () => {
   });
 
   const { isMobile } = useViewport();
-
-  useEffect(() => {
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useResize();
 
   useEffect(() => {
     if (!lastRef.current || !pheeds) return;

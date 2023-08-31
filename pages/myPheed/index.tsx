@@ -4,7 +4,7 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, MyPheedContainer, Seo } from "@components/index";
-import { makePheedFilterQuery } from "utils";
+import { makePheedFilterQuery } from "@utils/index";
 
 interface MyPheedProps {
   nickname?: string;

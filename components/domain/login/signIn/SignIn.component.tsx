@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 
 import { AuthCodeInput, FormInput } from "@components/index";
 import { useEmailAuth, useEmailAuthCode } from "@service/index";
-import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "utils/validate";
+import { EMAIL_VALIDATE, PASSWORD_VALIDATE } from "@utils/index";
 import type { LoginForm } from "types";
 import * as S from "./SignIn.styled";
 

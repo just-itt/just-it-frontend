@@ -4,8 +4,8 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, BookmarkContainer, Seo } from "@components/index";
-import { bookmarkKeys } from "@service/bookmark";
-import { makePheedFilterQuery } from "utils";
+import { bookmarkKeys } from "@service/index";
+import { makePheedFilterQuery } from "@utils/index";
 
 interface BookmarkProps {
   nickname?: string;

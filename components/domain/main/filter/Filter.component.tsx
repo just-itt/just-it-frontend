@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import { useGetTags } from "@service/common";
 import { ArrowLongIcon } from "@icons/index";
-import { EMOJI } from "assets/filter";
+import { EMOJI } from "@assets/index";
 import * as S from "./Filter.styled";
 
 const Filter = () => {

@@ -5,8 +5,8 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { Heading, Filter, Pheed, Footer } from "@components/index";
 import PheedDetail from "@components/common/pheed/pheedDetail/PheedDetail.component";
 import { useGetMyPheeds } from "@service/index";
-import { handleResize } from "utils";
-import { COLUMNS_COUNT_BREAK_POINTS } from "assets";
+import { handleResize } from "@utils/index";
+import { COLUMNS_COUNT_BREAK_POINTS } from "@assets/index";
 import * as S from "./MyPheedContainer.styled";
 
 const MyPheedContainer = () => {

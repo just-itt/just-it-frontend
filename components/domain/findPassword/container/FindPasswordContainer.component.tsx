@@ -10,7 +10,7 @@ import {
   usePostFindPasswordEmailSend,
 } from "@service/index";
 import { LogoLongIcon } from "@icons/index";
-import { PASSWORD_VALIDATE } from "utils/validate";
+import { PASSWORD_VALIDATE } from "@utils/index";
 
 import * as S from "./FindPasswordContainer.styled";
 

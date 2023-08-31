@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { handleResize } from "utils";
+import { handleResize } from "@utils/index";
 import * as S from "./PheedLayout.styled";
 
 interface PheedLayoutProps {

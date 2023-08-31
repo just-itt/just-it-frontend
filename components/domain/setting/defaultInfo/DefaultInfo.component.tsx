@@ -12,7 +12,7 @@ import {
   usePatchNickname,
   usePostProfileImage,
 } from "@service/index";
-import { makeFileName } from "utils";
+import { makeFileName } from "@utils/index";
 import type { DefaultInfoForm } from "types";
 import { SetNickname, SetProfile } from "./containers";
 import * as S from "./DefaultInfo.styled";

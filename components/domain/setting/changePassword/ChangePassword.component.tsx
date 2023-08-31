@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Heading, Button, LabelContent } from "@components/index";
-import { PASSWORD_VALIDATE } from "utils/validate";
+import { PASSWORD_VALIDATE } from "@utils/index";
 import { useChangePassword } from "./hooks";
 import * as S from "./ChangePassword.styled";
 

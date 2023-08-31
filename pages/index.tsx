@@ -5,7 +5,7 @@ import type { GetServerSidePropsContext } from "next";
 
 import { MainLayout, HomeContainer, Seo } from "@components/index";
 import { commonKeys, pheedKeys } from "@service/index";
-import { makePheedFilterQuery } from "utils";
+import { makePheedFilterQuery } from "@utils/index";
 
 interface HomeProps {
   detailTitle?: string;

@@ -6,7 +6,7 @@ import type {
 } from "react-hook-form";
 
 import { FormInput } from "@components/index";
-import { EMAIL_VALIDATE } from "utils/validate";
+import { EMAIL_VALIDATE } from "@utils/index";
 import type { LoginForm } from "types";
 import * as S from "./SignUp.styled";
 
