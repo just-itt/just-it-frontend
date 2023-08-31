@@ -57,6 +57,11 @@ export const MobileFilterResetBtn = styled.button`
       fill: ${theme.color.grey_600};
     }
 
+    &:disabled {
+      transition: transform 0.5s ease-in-out;
+      transform: rotate(360deg);
+    }
+
     @media (min-width: ${theme.breakPoint.minTablet}) {
       display: none;
     }
