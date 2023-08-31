@@ -78,7 +78,11 @@ LabelContent.PasswordInput = ({
         placeholder={placeholder}
         {...register}
       />
-      <button type="button" onClick={handleClickPasswordBtn}>
+      <button
+        aria-label={isPasswordBtnClick ? "비밀번호 숨기기" : "비밀번호 보기"}
+        type="button"
+        onClick={handleClickPasswordBtn}
+      >
         {isPasswordBtnClick ? <VisibleIcon /> : <UnvisibleIcon />}
       </button>
     </S.InputWrapper>

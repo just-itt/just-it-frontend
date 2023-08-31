@@ -42,11 +42,18 @@ const SetProfile = ({
             height={1}
           />
         ) : watch("profile") === "" ? (
-          <PersonIcon css={S.personIcon} />
+          <PersonIcon css={S.personIcon} aria-label="기본 프로필 이미지" />
         ) : src ? (
-          <Image src={src} alt={alt} layout="responsive" width={1} height={1} />
+          <Image
+            aria-label="내 프로필 이미지"
+            src={src}
+            alt={alt}
+            layout="responsive"
+            width={1}
+            height={1}
+          />
         ) : (
-          <PersonIcon css={S.personIcon} />
+          <PersonIcon css={S.personIcon} aria-label="기본 프로필 이미지" />
         )}
       </S.IconWrapper>
       <S.ProfileInput
@@ -57,11 +64,15 @@ const SetProfile = ({
       />
       <S.LabelWrapper>
         <S.Label htmlFor="profile">
-          {src || isNewProfile ? <PencilIcon /> : <PictureIcon />}
+          {src || isNewProfile ? (
+            <PencilIcon aria-label="프로필 이미지 수정 버튼" />
+          ) : (
+            <PictureIcon aria-label="프로필 이미지 추가 버튼" />
+          )}
         </S.Label>
         {(src || isNewProfile) && (
-          <S.DeleteBtn onClick={handleDeleteProfile}>
-            <TrashIcon type="button" />
+          <S.DeleteBtn type="button" onClick={handleDeleteProfile}>
+            <TrashIcon aria-label="프로필 이미지 삭제 버튼" />
           </S.DeleteBtn>
         )}
       </S.LabelWrapper>
