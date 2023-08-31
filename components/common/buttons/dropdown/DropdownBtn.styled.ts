@@ -25,6 +25,7 @@ export const DropdownItem = styled.li`
     min-width: 118px;
     height: 40px;
     padding: 0 20px;
+    color: ${theme.color.black};
 
     & > button {
       width: 100%;
