@@ -30,6 +30,9 @@ export const Title = styled.h3`
     margin-bottom: 4px;
     padding-left: 4px;
     color: ${theme.color.black};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   `}
 `;
 
