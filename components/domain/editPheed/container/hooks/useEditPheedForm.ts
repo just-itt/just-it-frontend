@@ -71,16 +71,13 @@ const useEditPheedForm = () => {
     pheedData.tag_options.forEach(({ id, tag_title }) => {
       if (tag_title === "무엇을 먹었나요?") {
         tagOption.what = `${id}`;
-      }
-      if (tag_title === "언제 먹었나요?") {
+      } else if (tag_title === "언제 먹었나요?") {
         tagOption.when = `${id}`;
-      }
-
-      if (tag_title === "누구랑 먹었나요?") {
+      } else if (tag_title === "누구랑 먹었나요?") {
         tagOption.who = `${id}`;
+      } else {
+        tagOption.etc.push(`${id}`);
       }
-
-      tagOption.etc.push(`${id}`);
     });
 
     reset({
