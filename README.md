@@ -16,6 +16,12 @@
 
 <br/>
 
+## 프로젝트 소개
+
+[Just it : 오늘 점심 뭐 먹지? 고민을 덜어줄게요](https://choisuhyeok.tistory.com/128)
+
+<br/>
+
 ## 기술 스택
 
 TypeScript, Next.js, React Query(Tanstack Query), Recoil, Emotion
