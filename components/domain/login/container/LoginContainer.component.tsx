@@ -25,7 +25,7 @@ const LoginContainer = () => {
       </S.LogoWrapper>
       <S.KakaoLoginBtn
         type="button"
-        onClick={() => toast.error("조금만 기다려 주세요 :)")}
+        onClick={() => toast.error("기능 준비중 입니다. :)")}
       >
         <KakaoIcon />
         카카오 로그인
