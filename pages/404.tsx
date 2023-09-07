@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { Seo } from "@components/index";
 import { errorImage } from "public/images";
-import * as S from "./404/404.styled";
+import * as S from "../components/domain/404/404.styled";
 
 const NotFound = () => {
   return (
