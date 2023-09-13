@@ -63,19 +63,27 @@ TypeScript, Next.js, React Query(Tanstack Query), Recoil, Emotion
 - 피드 북마크
 - 댓글
 
+<br/>
+
 ### 새 글 올리기
 
 ![새 글 올리기_사진 업로드_비율선택](https://github.com/just-itt/just-it-frontend/assets/72919631/2e87e11b-0953-438f-be9b-8b796fd933f0)
 
 - 음식 이름, 간단한 설명, 태그 설정, 이미지 비율 설정
 
+<br/>
+
 ### 내 게시글
 
 ![내 게시글](https://github.com/just-itt/just-it-frontend/assets/72919631/85e68d7b-918a-4de0-a38e-8a87280a93d4)
 
+<br/>
+
 ### 저장한 게시글
 
 ![저장한 게시글](https://github.com/just-itt/just-it-frontend/assets/72919631/f08fc1b9-c4a6-4bc7-bff9-d5470ed5765f)
+
+<br/>
 
 ### 설정
 
@@ -84,3 +92,11 @@ TypeScript, Next.js, React Query(Tanstack Query), Recoil, Emotion
 - 프로필 사진, 닉네임, 비밀번호 변경
 - 로그아웃
 - 계정 삭제
+
+<br/>
+
+## 에러 해결
+
+[[TanStack Query] 재호출된 useQuery의 반환 값으로 리렌더링이 안 될 때](https://choisuhyeok.tistory.com/127)
+
+[[웹 접근성] Lighthouse로 배우는 간단한 웹 접근성](https://choisuhyeok.tistory.com/130)
